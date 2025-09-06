@@ -17,7 +17,7 @@ enum red_black_tree_node_color {
 };
 
 struct red_black_tree_node {
-     void *data;
+     DS_Data data;
      Node *parent;
      Node *left;
      Node *right;
@@ -26,13 +26,13 @@ struct red_black_tree_node {
 
 struct red_black_tree {
      Node *root;
-     size_t data_size;
-     size_t size;
+     DS_Size data_size;
+     DS_Size size;
      Compare compare;
      void *user_data;
 };
 
-static Node *_RedBlackTreeNode_Create(const void *data, size_t dSize);
+static Node *_RedBlackTreeNode_Create(const DS_Data data, DS_Size size);
 static void _RedBlackTreeNode_Destroy(Node *node);
 
 static void _RedBlackTree_RotateRight(RedBlackTree *rbTree, Node *node);
@@ -41,12 +41,12 @@ static void _RedBlackTree_RotateLeft(RedBlackTree *rbTree, Node *node);
 static void _RedBlackTree_RotateRightLeft(RedBlackTree *rbTree, Node *node);
 static void _RedBlackTree_Rebalance(RedBlackTree *rbTree, Node *node);
 
-RedBlackTree *RedBlackTree_Create(size_t dSize, Compare compare, void *uData)
+RedBlackTree *RedBlackTree_Create(DS_Size size, Compare compare, void *uData)
 {
      RedBlackTree *rbTree = (RedBlackTree *)malloc(sizeof (RedBlackTree));
      assert(red_black_tree);
      rbTree->root = NULL;
-     rbTree->data_size = dSize;
+     rbTree->data_size = size;
      rbTree->size = 0;
      rbTree->compare = compare;
      rbTree->user_data = uData;
@@ -56,31 +56,31 @@ RedBlackTree *RedBlackTree_Create(size_t dSize, Compare compare, void *uData)
 void RedBlackTree_Destroy(RedBlackTree *rbTree)
 {
      Node *node = rbTree->root;
-     CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (Node *), rbTree->size);
+     CircularBuffer *cBuffer = DS_CircularBuffer_Create(sizeof (Node *), rbTree->size);
      free(node->data);
-     CircularBuffer_PushBack(cBuffer, node);
-     while (!CircularBuffer_IsEmpty(cBuffer)) {
-          node = (Node *)CircularBuffer_GetFrontData(cBuffer);
-          CircularBuffer_PopFront(cBuffer);
+     DS_CircularBuffer_PushBack(cBuffer, node);
+     while (!DS_CircularBuffer_IsEmpty(cBuffer)) {
+          node = (Node *)DS_CircularBuffer_GetFrontData(cBuffer);
+          DS_CircularBuffer_PopFront(cBuffer);
           if (node->left) {
                _RedBlackTreeNode_Destroy(node);
-               // CircularBuffer_PushBack(cBuffer, node->left);
+               // DS_CircularBuffer_PushBack(cBuffer, node->left);
           }
           if (node->right) {
                _RedBlackTreeNode_Destroy(node);
-               // CircularBuffer_PushBack(cBuffer, node->right);
+               // DS_CircularBuffer_PushBack(cBuffer, node->right);
           }
      }
-     CircularBuffer_Destroy(cBuffer);
+     DS_CircularBuffer_Destroy(cBuffer);
      free(rbTree);
 }
 
-size_t RedBlackTree_GetSize(RedBlackTree *rbTree)
+DS_Size RedBlackTree_GetSize(RedBlackTree *rbTree)
 {
      return rbTree->size;
 }
 
-Node *RedBlackTree_Search(RedBlackTree *rbTree, const void *data)
+Node *RedBlackTree_Search(RedBlackTree *rbTree, const DS_Data data)
 {
      Node *node = rbTree->root;
      while (node) {
@@ -96,7 +96,7 @@ Node *RedBlackTree_Search(RedBlackTree *rbTree, const void *data)
      return NULL;
 }
 
-void RedBlackTree_Insert(RedBlackTree *rbTree, const void *data)
+void RedBlackTree_Insert(RedBlackTree *rbTree, const DS_Data data)
 {
      if (!rbTree->root) {
           rbTree->root = _RedBlackTreeNode_Create(data, rbTree->data_size);
@@ -137,13 +137,13 @@ void RedBlackTree_Insert(RedBlackTree *rbTree, const void *data)
 // {
 // }
 
-static Node *_RedBlackTreeNode_Create(const void *data, size_t dSize)
+static Node *_RedBlackTreeNode_Create(const DS_Data data, DS_Size size)
 {
      Node *node = (Node *)malloc(sizeof (Node));
      assert(node); 
-     node->data = malloc(dSize);
+     node->data = malloc(size);
      assert(node->data); 
-     memcpy(node->data, data, dSize);
+     memcpy(node->data, data, size);
      node->left = NULL;
      node->right = NULL; 
      return node;

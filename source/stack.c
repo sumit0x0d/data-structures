@@ -6,26 +6,26 @@
 
 struct stack {
      Array *array;
-     size_t size;
+     DS_Size size;
 };
 
-Stack *Stack_Create(size_t dSize, size_t capacity)
+Stack *DS_Stack_Create(DS_Size sData, DS_Size capacity)
 {
      Stack *stack = (Stack *)malloc(sizeof (Stack));
      assert(stack);
-     stack->array = Array_Create(dSize, capacity);
+     stack->array = DS_Array_Create(sData, capacity);
      assert(stack->array);
      stack->size = 0;
      return stack;
 }
 
-void Stack_Destroy(Stack *stack)
+void DS_Stack_Destroy(Stack *stack)
 {
-     Array_Destroy(stack->array);
+     DS_Array_Destroy(stack->array);
      free(stack);
 }
 
-bool Stack_IsEmpty(Stack *stack)
+bool DS_Stack_IsEmpty(Stack *stack)
 {
      if (stack->size) {
           return false;
@@ -33,26 +33,26 @@ bool Stack_IsEmpty(Stack *stack)
      return true;
 }
 
-bool Stack_IsFull(Stack *stack)
+bool DS_Stack_IsFull(Stack *stack)
 {
-     if (stack->size == Array_GetSize(stack->array)) {
+     if (stack->size == DS_Array_GetSize(stack->array)) {
           return true;
      }
      return false;
 }
 
-void *Stack_GetTop(Stack *stack)
+void *DS_Stack_GetTop(Stack *stack)
 {
-     return Array_GetData(stack->array, stack->size - 1);
+     return DS_Array_GetData(stack->array, stack->size - 1);
 }
 
-void Stack_Push(Stack *stack, const void *data)
+void DS_Stack_Push(Stack *stack, const DS_Data data)
 {
-     Array_SetData(stack->array, stack->size, data);
+     DS_Array_SetData(stack->array, stack->size, data);
      stack->size++;
 }
 
-void Stack_Pop(Stack *stack)
+void DS_Stack_Pop(Stack *stack)
 {
      stack->size--;
 }

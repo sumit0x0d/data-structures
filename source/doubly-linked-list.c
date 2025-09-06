@@ -4,166 +4,144 @@
 
 #include <doubly-linked-list.h>
 
-typedef DoublyLinkedListNode Node;
-typedef DoublyLinkedListTraverse Traverse;
+#include "doubly-linked-list-node.h"
 
-struct doubly_linked_list_node {
-     void *data;
-     Node *previous;
-     Node *next;
-};
+typedef DoublyLinkedListNode Node;
 
 struct doubly_linked_list {
      Node *head;
      Node *tail;
-     size_t data_size;
-     size_t size;
+     DS_Size data_size;
+     DS_Size size;
 };
 
-static Node *_DoublyLinkedListNode_Create(const void *data, size_t dSize);
-static void _DoublyLinkedListNode_Destroy(Node *node);
-
-DoublyLinkedList *DoublyLinkedList_Create(size_t dSize)
+DoublyLinkedList *DS_DoublyLinkedList_Create(DS_Size size)
 {
-     DoublyLinkedList *dlList = (DoublyLinkedList *)malloc(sizeof (DoublyLinkedList));
-     assert(doubly_linked_list);
-     dlList->head = NULL;
-     dlList->tail = NULL;
-     dlList->data_size = dSize;
-     dlList->size = 0;
-     return dlList;
+     DoublyLinkedList *list = (DoublyLinkedList *)malloc(sizeof (DoublyLinkedList));
+     if (!list) {
+          return NULL;
+     }
+     list->head = NULL;
+     list->tail = NULL;
+     list->data_size = size;
+     list->size = 0;
+     return list;
 }
 
-void DoublyLinkedList_Destroy(DoublyLinkedList *dlList)
+void DS_DoublyLinkedList_Destroy(DoublyLinkedList *list)
 {
-     Node *node = dlList->head;
+     Node *node = list->head;
      while (node) {
           Node *nnode = node->next;
-          _DoublyLinkedListNode_Destroy(node);
+          DS_DoublyLinkedListNode_Destroy(node);
           node = nnode;
      }
-     free(dlList);
+     free(list);
 }
 
-size_t DoublyLinkedList_GetSize(DoublyLinkedList *dlList)
+DS_Size DS_DoublyLinkedList_GetSize(DoublyLinkedList *list)
 {
-     return dlList->size;
+     return list->size;
 }
 
-size_t DoublyLinkedList_GetDataSize(DoublyLinkedList *dlList)
+DS_Size DS_DoublyLinkedList_GetDataSize(DoublyLinkedList *list)
 {
-     return dlList->data_size;
+     return list->data_size;
 }
 
-DoublyLinkedListNode *DoublyLinkedList_GetHead(DoublyLinkedList *dlList)
+DoublyLinkedListNode *DS_DoublyLinkedList_GetHead(DoublyLinkedList *list)
 {
-     return dlList->head;
+     return list->head;
 }
 
-DoublyLinkedListNode *DoublyLinkedList_GetTail(DoublyLinkedList *dlList)
+DoublyLinkedListNode *DS_DoublyLinkedList_GetTail(DoublyLinkedList *list)
 {
-     return dlList->tail;
+     return list->tail;
 }
 
-void *DoublyLinkedListNode_GetData(DoublyLinkedListNode *node)
+void *DoublyLinkedListNode_GetData(Node *node)
 {
      return node->data;
 }
 
-void DoublyLinkedList_set_data(DoublyLinkedList *dlList, DoublyLinkedListNode *node, const void *data)
+void DS_DoublyLinkedList_set_data(DoublyLinkedList *list, Node *node, const DS_Data data)
 {
-     memcpy(node->data, data, dlList->data_size);
+     memcpy(node->data, data, list->data_size);
 }
 
-void DoublyLinkedList_PushHead(DoublyLinkedList *dlList, const void *data)
+void DS_DoublyLinkedList_PushHead(DoublyLinkedList *list, const DS_Data data)
 {
-     Node *node = _DoublyLinkedListNode_Create(data, dlList->data_size);
+     Node *node = DS_DoublyLinkedListNode_Create(data, list->data_size);
      node->previous = NULL;
-     if (dlList->size) {
-          dlList->head->previous = node;
-          node->next = dlList->head;
+     if (list->size) {
+          list->head->previous = node;
+          node->next = list->head;
      } else {
-          dlList->tail = node;
+          list->tail = node;
           node->next = NULL;
      }
-     dlList->head = node;
-     dlList->size++;
+     list->head = node;
+     list->size++;
 }
 
-void DoublyLinkedList_PushTail(DoublyLinkedList *dlList, const void *data)
+void DS_DoublyLinkedList_PushTail(DoublyLinkedList *list, const DS_Data data)
 {
-     Node *node = _DoublyLinkedListNode_Create(data, dlList->data_size);
+     Node *node = DS_DoublyLinkedListNode_Create(data, list->data_size);
      node->next = NULL;
-     if (dlList->size) {
-          dlList->tail->next = node;
-          node->previous = dlList->tail;
+     if (list->size) {
+          list->tail->next = node;
+          node->previous = list->tail;
      } else {
-          dlList->head = node;
+          list->head = node;
           node->previous = NULL;
      }
-     dlList->tail = node;
-     dlList->size++;
+     list->tail = node;
+     list->size++;
 }
 
-void DoublyLinkedList_PopHead(DoublyLinkedList *dlList)
+void DS_DoublyLinkedList_PopHead(DoublyLinkedList *list)
 {
-     Node *node = dlList->head;
-     dlList->head = dlList->head->next;
-     if (!dlList->head) {
-          dlList->tail = NULL;
+     Node *node = list->head;
+     list->head = list->head->next;
+     if (!list->head) {
+          list->tail = NULL;
      }
-     _DoublyLinkedListNode_Destroy(node);
-     dlList->size--;
+     DS_DoublyLinkedListNode_Destroy(node);
+     list->size--;
 }
 
-void DoublyLinkedList_PopTail(DoublyLinkedList *dlList)
+void DS_DoublyLinkedList_PopTail(DoublyLinkedList *list)
 {
-     Node *node = dlList->tail;
-     dlList->tail = dlList->tail->previous;
-     if (dlList->tail) {
-          dlList->tail->next = NULL;
+     Node *node = list->tail;
+     list->tail = list->tail->previous;
+     if (list->tail) {
+          list->tail->next = NULL;
      }
-     _DoublyLinkedListNode_Destroy(node);
-     dlList->size--;
+     DS_DoublyLinkedListNode_Destroy(node);
+     list->size--;
 }
 
-void DoublyLinkedList_Remove(DoublyLinkedList *dlList, Node *node)
+void DS_DoublyLinkedList_Remove(DoublyLinkedList *list, Node *node)
 {
      if (node->previous && node->previous->next == (Node *)node) {
           node->previous->next = node->next;
      } else {
-          dlList->head = dlList->head->next;
+          list->head = list->head->next;
      }
      if (node->next && node->next->previous == node) {
           node->next->previous = node->previous;
      } else {
-          dlList->tail = dlList->tail->previous;
+          list->tail = list->tail->previous;
      }
-     _DoublyLinkedListNode_Destroy(node);
-     dlList->size--;
+     DS_DoublyLinkedListNode_Destroy(node);
+     list->size--;
 }
 
-void DoublyLinkedList_Traverse(DoublyLinkedList *dlList, Traverse traverse, void *uData)
+void DS_DoublyLinkedList_Traverse(DoublyLinkedList *list, DS_FunctionTraverse fTraverse, void *uData)
 {
-     Node *node = dlList->head;
+     Node *node = list->head;
      while (node) {
           traverse(node->data, uData);
           node = node->next;
      }
-}
-
-static Node *_DoublyLinkedListNode_Create(const void *data, size_t dSize)
-{
-     Node *node = (Node *)malloc(sizeof (Node));
-     assert(node);
-     node->data = malloc(dSize);
-     assert(node->data);
-     memcpy(node->data, data, dSize);
-     return node;
-}
-
-static void _DoublyLinkedListNode_Destroy(Node *node)
-{
-     free(node->data);
-     free(node);
 }

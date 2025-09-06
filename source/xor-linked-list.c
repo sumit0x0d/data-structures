@@ -7,27 +7,27 @@
 typedef XorLinkedListNode Node;
 
 struct xor_linked_list_node {
-     void *data;
-     size_t xor;
+     DS_Data data;
+     DS_Size xor;
 };
 
 struct xor_linked_list {
      Node *head;
      Node *tail;
-     size_t data_size;
-     size_t size;
+     DS_Size data_size;
+     DS_Size size;
 };
 
-static Node *_XorLinkedListNode_Create(const void *data, size_t dSize);
+static Node *_XorLinkedListNode_Create(const DS_Data data, DS_Size size);
 static void _XorLinkedListNode_Destroy(Node *node);
 
-XorLinkedList *XorLinkedList_Create(size_t dSize)
+XorLinkedList *XorLinkedList_Create(DS_Size size)
 {
      XorLinkedList *xlList = (XorLinkedList *)malloc(sizeof (XorLinkedList));
      assert(xor_linked_list);
      xlList->head = NULL;
      xlList->tail = NULL;
-     xlList->data_size = dSize;
+     xlList->data_size = size;
      xlList->size = 0;
      return xlList;
 }
@@ -38,10 +38,10 @@ void XorLinkedList_Destroy(XorLinkedList *xlList)
      free(xlList);
 }
 
-void XorLinkedList_PushHead(XorLinkedList *xlList, const void *data)
+void XorLinkedList_PushHead(XorLinkedList *xlList, const DS_Data data)
 {
      Node *node = _XorLinkedListNode_Create(data, xlList->data_size);
-     node->xor = 0 ^ (size_t)xlList->head;
+     node->xor = 0 ^ (DS_Size)xlList->head;
      xlList->head = node;
      if (!xlList->size) {
           xlList->tail = node;
@@ -49,10 +49,10 @@ void XorLinkedList_PushHead(XorLinkedList *xlList, const void *data)
      xlList->size++;
 }
 
-void XorLinkedList_PushTail(XorLinkedList *xlList, const void *data)
+void XorLinkedList_PushTail(XorLinkedList *xlList, const DS_Data data)
 {
      Node *node = _XorLinkedListNode_Create(data, xlList->data_size);
-     node->xor = (size_t)xlList->tail ^ 0;
+     node->xor = (DS_Size)xlList->tail ^ 0;
      xlList->tail = node;
      if (!xlList->size) {
           xlList->head = node;
@@ -60,13 +60,13 @@ void XorLinkedList_PushTail(XorLinkedList *xlList, const void *data)
      xlList->size++;
 }
 
-static Node *_XorLinkedListNode_Create(const void *data, size_t dSize)
+static Node *_XorLinkedListNode_Create(const DS_Data data, DS_Size size)
 {
      Node *node = (Node *)malloc(sizeof (Node));
      assert(node);  
-     node->data = malloc(dSize);
+     node->data = malloc(size);
      assert(node);
-     memcpy(node->data, data, dSize);
+     memcpy(node->data, data, size);
      return node;
 }
 

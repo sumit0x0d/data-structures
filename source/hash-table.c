@@ -4,37 +4,33 @@
 
 #include <hash-table.h>
 
-typedef HashTablePair Pair;
-typedef HashTableHash Hash;
-typedef HashTableCompare Compare;
+#include <hash-table-pair.h>
 
-struct hash_table_pair {
-     void *key;
-     void *value;
-     Pair *next;
-};
+typedef HashTablePair Pair;
 
 struct hash_table {
      Pair **pair;
-     size_t key_size;
-     size_t value_size;
-     size_t bucket_count;
-     Hash hash;
-     Compare compare;
+     DS_Size key_size;
+     DS_Size value_size;
+     DS_Size bucket_count;
+     DS_FunctionHash hash;
+     DS_FunctionCompare compare;
      void *user_data;
 };
 
-static Pair *_HashTablePair_Create(const void *key, size_t kSize, const void *value, size_t vSize);
-static void _HashTablePair_Destroy(Pair *pair);
-
-HashTable *HashTable_Create(size_t kSize, size_t vSize, size_t bCount, Hash hash, Compare compare, void *uData)
+HashTable *HashTable_Create(DS_Size sKey, DS_Size sValue, DS_Size bCount, DS_FunctionHash hash, DS_FunctionCompare compare, void *uData)
 {
      HashTable *hTable = (HashTable *)malloc(sizeof (HashTable));
-     assert(hTable);
+     if (!hTable) {
+          return NULL;
+     }
      hTable->pair = (Pair **)calloc(bCount, sizeof (struct Pair *));
-     assert(hash_table->pair);
-     hTable->key_size = kSize;
-     hTable->value_size = vSize;
+     if (!hTable->pair) {
+          free(hTable);
+          return NULL;
+     }
+     hTable->key_size = sKey;
+     hTable->value_size = sValue;
      hTable->bucket_count = bCount;
      hTable->hash = hash;
      hTable->compare = compare;
@@ -44,7 +40,7 @@ HashTable *HashTable_Create(size_t kSize, size_t vSize, size_t bCount, Hash hash
 
 void HashTable_Destroy(HashTable *hTable)
 {
-     for (size_t i = 0; i < hTable->bucket_count; i++) {
+     for (DS_Size i = 0; i < hTable->bucket_count; i++) {
           if (hTable->pair[i]) {
                _HashTablePair_Destroy(hTable->pair[i]);
           }
@@ -64,7 +60,7 @@ void *HashTablePair_GetValue(Pair *pair)
 
 void HashTable_Insert(HashTable *hTable, const void *key, const void *value)
 {
-     size_t index = hTable->hash(key, hTable->bucket_count, hTable->user_data);
+     DS_Size index = hTable->hash(key, hTable->bucket_count, hTable->user_data);
      if (!hTable->pair[index]) {
           hTable->pair[index] = _HashTablePair_Create(key, hTable->key_size, value, hTable->value_size);
           return;
@@ -85,7 +81,7 @@ void HashTable_Insert(HashTable *hTable, const void *key, const void *value)
 
 void HashTable_Remove(HashTable *hTable, const void *key)
 {
-     size_t index = hTable->hash(key, hTable->bucket_count, hTable->user_data);
+     DS_Size index = hTable->hash(key, hTable->bucket_count, hTable->user_data);
      if (hTable->pair[index]) {
           int compare = 0;
           Pair *pair = hTable->pair[index];
@@ -106,7 +102,7 @@ void HashTable_Remove(HashTable *hTable, const void *key)
 
 Pair *HashTable_Search(HashTable *hTable, const void *key)
 {
-     size_t index = hTable->hash(key, hTable->bucket_count, hTable->user_data);
+     DS_Size index = hTable->hash(key, hTable->bucket_count, hTable->user_data);
      if (hTable->pair[index]) {
           int compare = 0;
           Pair *pair = hTable->pair[index];
@@ -120,25 +116,4 @@ Pair *HashTable_Search(HashTable *hTable, const void *key)
           } while (compare && pair);
      }
      return NULL;
-}
-
-static Pair *_HashTablePair_Create(const void *key, size_t kSize, const void *value, size_t vSize)
-{
-     Pair *pair = (Pair *)malloc(sizeof (Pair));
-     assert(pair); 
-     pair->key = malloc(kSize);
-     assert(pair->key);
-     pair->value = malloc(vSize);
-     assert(pair->value);
-     memcpy(pair->key, key, kSize);
-     memcpy(pair->value, value, vSize);
-     pair->next = NULL;
-     return pair;
-}
-
-static void _HashTablePair_Destroy(Pair *pair)
-{
-     free(pair->key);
-     free(pair->value);
-     free(pair);
 }

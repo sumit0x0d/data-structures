@@ -1,82 +1,85 @@
-#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include <array.h>
 
-typedef ArrayTraverse Traverse;
-typedef ArrayCompare Compare;
-typedef ArrayHash Hash;
-
 struct array {
      void *base;
-     size_t data_size;
-     size_t size;
+     DS_Size data_size;
+     DS_Size size;
 };
 
-Array *Array_Create(size_t dSize, size_t capacity)
+Array *DS_Array_Create(DS_Size size, DS_Size capacity)
 {
      Array *array = (Array *)malloc(sizeof (Array));
-     assert(array);
-     array->base = malloc(dSize * capacity);
-     assert(array->base);
-     array->data_size = dSize;
+     if (!array) {
+          LOGGING_SYSTEM_LOG_ERROR("Memory allocation failed");
+          return NULL;
+     }
+     array->base = malloc(size * capacity);
+     if (array->base) {
+          free(array);
+          return NULL;
+     };
+     array->data_size = size;
      array->size = capacity;
      return array;
 }
 
-void Array_Destroy(Array *array)
+void DS_Array_Destroy(Array *array)
 {
      free(array->base);
      free(array);
 }
 
-size_t Array_GetSize(const Array *array)
+DS_Size DS_Array_GetSize(const Array *array)
 {
      return array->size;
 }
 
-size_t Array_GetDataSize(const Array *array)
+DS_Size DS_Array_GetDataSize(const Array *array)
 {
      return array->data_size;
 }
 
-void Array_SetSize(Array *array, size_t size)
+void DS_Array_SetSize(Array *array, DS_Size size)
 {
      void *base = realloc(array->base, array->data_size * size);
-     assert(base);
+     if (!base) {
+          return;
+     }
      array->base = base;
      array->size = size;
 }
 
-inline void *Array_GetData(const Array *array, size_t index)
+inline void *DS_Array_GetData(const Array *array, DS_Size index)
 {
      return (char *)array->base + (array->data_size * index);
 }
 
-void Array_SetData(Array *array, size_t index, const void *data)
+void DS_Array_SetData(Array *array, DS_Size index, const DS_Data data)
 {
-     memcpy(Array_GetData(array, index), data, array->data_size);
+     memcpy(DS_Array_GetData(array, index), data, array->data_size);
 }
 
-void Array_SwapData(Array *array, void *data1, void *data2, void *tData)
+void DS_Array_SwapData(Array *array, DS_Data data1, DS_Data data2, void *tData)
 {
      memcpy(tData, data1, array->data_size);
      memcpy(data1, data2, array->data_size);
      memcpy(data2, tData, array->data_size);
 }
 
-void Array_Traverse(Array *array, Traverse traverse, void *uData)
+void DS_Array_Traverse(Array *array, DS_FunctionTraverse traverse, void *uData)
 {
-     for (size_t i = 0; i < array->size; i++) {
-          traverse(Array_GetData(array, i), uData);
+     for (DS_Size i = 0; i < array->size; i++) {
+          traverse(DS_Array_GetData(array, i), uData);
      }
 }
 
-void *Array_SearchLinear(const Array *array, const void *data, Compare compare, void *uData)
+void *DS_Array_SearchLinear(const Array *array, const DS_Data data, DS_FunctionCompare compare, void *uData)
 {
-     for (size_t i = 0; i < array->size; i++) {
-          void *tData = Array_GetData(array, i);
+     for (DS_Size i = 0; i < array->size; i++) {
+          void *tData = DS_Array_GetData(array, i);
           if (compare(tData, data, uData) == 0) {
                return tData;
           }
@@ -84,10 +87,10 @@ void *Array_SearchLinear(const Array *array, const void *data, Compare compare, 
      return NULL;
 }
 
-void *Array_SearchBinary(const Array *array, const void *data, Compare compare, void *uData)
+void *DS_Array_SearchBinary(const Array *array, const DS_Data data, DS_FunctionCompare compare, void *uData)
 {
-     for (size_t i = 0; i < array->size; i++) {
-          void *tData = Array_GetData(array, i);
+     for (DS_Size i = 0; i < array->size; i++) {
+          void *tData = DS_Array_GetData(array, i);
           if (compare(tData, data, uData) == 0) {
                return tData;
           }
@@ -95,33 +98,37 @@ void *Array_SearchBinary(const Array *array, const void *data, Compare compare, 
      return NULL;
 }
 
-void Array_SortBubble(Array *array, Compare compare, void *uData)
+void DS_Array_SortBubble(Array *array, DS_FunctionCompare compare, void *uData)
 {
      void *tData = malloc(array->data_size);
-     assert(tData);
-     for (size_t i = array->size - 1; i > 0; i--) {
-          for (size_t j = 0; j < i; j++) {
-               void *data1 = Array_GetData(array, j);
-               void *data2 = Array_GetData(array, j + 1);
+     if (!tData) {
+          return;
+     };
+     for (DS_Size i = array->size - 1; i > 0; i--) {
+          for (DS_Size j = 0; j < i; j++) {
+               DS_Data data1 = DS_Array_GetData(array, j);
+               DS_Data data2 = DS_Array_GetData(array, j + 1);
                if (compare(data1, data2, uData) == 1) {
-                    Array_SwapData(array, data1, data2, tData);
+                    DS_Array_SwapData(array, data1, data2, tData);
                }
           }
      }
      free(tData);
 }
 
-void Array_SortInsertion(Array *array, Compare compare, void *uData)
+void DS_Array_SortInsertion(Array *array, DS_FunctionCompare compare, void *uData)
 {
      void *tData = malloc(array->data_size);
-     assert(tdata);
-     for (size_t i = 1; i < array->size; i++) {
-          size_t j = i;
+     if (tData) {
+          return;
+     };
+     for (DS_Size i = 1; i < array->size; i++) {
+          DS_Size j = i;
           do {
-               void *data1 = Array_GetData(array, j - 1);
-               void *data2 = Array_GetData(array, j);
+               DS_Data data1 = DS_Array_GetData(array, j - 1);
+               DS_Data data2 = DS_Array_GetData(array, j);
                if (compare(data1, data2, uData) == 1) {
-                    Array_SwapData(array, data1, data2, tData);
+                    DS_Array_SwapData(array, data1, data2, tData);
                }
                j--;
           } while(j > 0);
@@ -129,56 +136,62 @@ void Array_SortInsertion(Array *array, Compare compare, void *uData)
      free(tData);
 }
 
-void Array_SortSelection(Array *array, Compare compare, void *uData)
+void DS_Array_SortSelection(Array *array, DS_FunctionCompare compare, void *uData)
 {
      void *tData = malloc(array->data_size);
-     assert(tdata);
-     for (size_t i = 0; i < array->size - 1; i++) {
-          size_t minimum = i;
-          for (size_t j = minimum + 1; j < array->size; j++) {
-               void *data1 = Array_GetData(array, minimum);
-               void *data2 = Array_GetData(array, j);
+     if (tData) {
+          return;
+     };
+     for (DS_Size i = 0; i < array->size - 1; i++) {
+          DS_Size minimum = i;
+          for (DS_Size j = minimum + 1; j < array->size; j++) {
+               DS_Data data1 = DS_Array_GetData(array, minimum);
+               DS_Data data2 = DS_Array_GetData(array, j);
                if (compare(data1, data2, uData) == 1) {
-                    Array_SwapData(array, data1, data2, tData);
+                    DS_Array_SwapData(array, data1, data2, tData);
                }
           }
      }
      free(tData);
 }
 
-void Array_SortQuick(Array *array, Compare compare, void *uData)
+void DS_Array_SortQuick(Array *array, DS_FunctionCompare compare, void *uData)
 {
      void *tData = malloc(array->data_size);
-     assert(tdata);
-     for (size_t i = 0; i < array->size - 1; i++) {
-          for (size_t j = i + 1; j < array->size - i; j++) {
-               void *data1 = Array_GetData(array, i);
-               void *data2 = Array_GetData(array, j);
+     if (tData) {
+          return;
+     };
+     for (DS_Size i = 0; i < array->size - 1; i++) {
+          for (DS_Size j = i + 1; j < array->size - i; j++) {
+               DS_Data data1 = DS_Array_GetData(array, i);
+               DS_Data data2 = DS_Array_GetData(array, j);
                if (compare(data1, data2, uData) == 1) {
-                    Array_SwapData(array, data1, data2, tData);
+                    DS_Array_SwapData(array, data1, data2, tData);
                }
           }
      }
      free(tData);
 }
 
-void Array_SortMerge(Array *array, Compare compare, void *uData)
+void DS_Array_SortMerge(Array *array, DS_FunctionCompare compare, void *uData)
 {
-     void *tdata = malloc(array->data_size);
-     assert(tdata);
-     for (size_t i = 0; i < array->size - 1; i++) {
-          for (size_t j = i + 1; j < array->size - i; j++) {
-               void *data1 = Array_GetData(array, i);
-               void *data2 = Array_GetData(array, j);
+     void *tData = malloc(array->data_size);
+     if (tData) {
+          return;
+     };
+     for (DS_Size i = 0; i < array->size - 1; i++) {
+          for (DS_Size j = i + 1; j < array->size - i; j++) {
+               DS_Data data1 = DS_Array_GetData(array, i);
+               DS_Data data2 = DS_Array_GetData(array, j);
                if (compare(data1, data2, uData) == 1) {
-                    Array_SwapData(array, data1, data2, tdata);
+                    DS_Array_SwapData(array, data1, data2, tData);
                }
           }
      }
-     free(tdata);
+     free(tData);
 }
 
-void *Array_PatternSearchRabinKarp(const Array *array, const void *pattern, size_t pSize, Hash hash, void *uData)
+void *DS_Array_PatternSearchRabinKarp(const Array *array, const void *pattern, DS_Size pSize, DS_FunctionHash hash, void *uData)
 {
      (void)array;
      (void)pattern;

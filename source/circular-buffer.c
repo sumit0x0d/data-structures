@@ -7,29 +7,29 @@
 
 struct circular_buffer {
      Array *array;
-     size_t front;
-     size_t back;
-     size_t size;
+     DS_Size front;
+     DS_Size back;
+     DS_Size size;
 };
 
-CircularBuffer *CircularBuffer_Create(size_t dSize, size_t capacity)
+CircularBuffer *DS_CircularBuffer_Create(DS_Size size, DS_Size capacity)
 {
      CircularBuffer *cBuffer = (CircularBuffer *)malloc(sizeof (CircularBuffer));
      assert(cBuffer);
-     cBuffer->array = Array_Create(dSize, capacity);
+     cBuffer->array = DS_Array_Create(size, capacity);
      assert(cBuffer->array);
      cBuffer->front = 0;
      cBuffer->back = 0;
      return cBuffer;
 }
 
-void CircularBuffer_Destroy(CircularBuffer *cBuffer)
+void DS_CircularBuffer_Destroy(CircularBuffer *cBuffer)
 {
-     Array_Destroy(cBuffer->array);
+     DS_Array_Destroy(cBuffer->array);
      free(cBuffer);
 }
 
-bool CircularBuffer_IsEmpty(CircularBuffer *cBuffer)
+bool DS_CircularBuffer_IsEmpty(CircularBuffer *cBuffer)
 {
      if (cBuffer->size == 0) {
           return true;
@@ -37,38 +37,38 @@ bool CircularBuffer_IsEmpty(CircularBuffer *cBuffer)
      return false;
 }
 
-bool CircularBuffer_IsFull(CircularBuffer *cBuffer)
+bool DS_CircularBuffer_IsFull(CircularBuffer *cBuffer)
 {
-     if (cBuffer->size == Array_GetSize(cBuffer->array)) {
+     if (cBuffer->size == DS_Array_GetSize(cBuffer->array)) {
           return true;
      }
      return false;
 }
 
-void *CircularBuffer_GetFrontData(CircularBuffer *cBuffer)
+void *DS_CircularBuffer_GetFrontData(CircularBuffer *cBuffer)
 {
-     return Array_GetData(cBuffer->array, cBuffer->front);
+     return DS_Array_GetData(cBuffer->array, cBuffer->front);
 }
 
-void *CircularBuffer_GetBackData(CircularBuffer *cBuffer)
+void *DS_CircularBuffer_GetBackData(CircularBuffer *cBuffer)
 {
      if (cBuffer->back == 0) {
-          return Array_GetData(cBuffer->array, Array_GetSize(cBuffer->array) - 1);
+          return DS_Array_GetData(cBuffer->array, DS_Array_GetSize(cBuffer->array) - 1);
      } else {
-          return Array_GetData(cBuffer->array, cBuffer->back - 1);
+          return DS_Array_GetData(cBuffer->array, cBuffer->back - 1);
      }
      return NULL;
 }
 
-void CircularBuffer_PushBack(CircularBuffer *cBuffer, const void *data)
+void DS_CircularBuffer_PushBack(CircularBuffer *cBuffer, const DS_Data data)
 {
-     Array_SetData(cBuffer->array, cBuffer->back, data);
+     DS_Array_SetData(cBuffer->array, cBuffer->back, data);
      cBuffer->size++;
-     cBuffer->back = (cBuffer->back + 1) % Array_GetSize(cBuffer->array);
+     cBuffer->back = (cBuffer->back + 1) % DS_Array_GetSize(cBuffer->array);
 }
 
-void CircularBuffer_PopFront(CircularBuffer *cBuffer)
+void DS_CircularBuffer_PopFront(CircularBuffer *cBuffer)
 {
-     cBuffer->front = (cBuffer->front + 1) % Array_GetSize(cBuffer->array);
+     cBuffer->front = (cBuffer->front + 1) % DS_Array_GetSize(cBuffer->array);
      cBuffer->size--;
 }

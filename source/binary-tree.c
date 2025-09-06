@@ -6,7 +6,7 @@
 typedef BinaryTreeNode Node;
 
 struct binary_tree_node {
-     void *data;
+     DS_Data data;
      Node *parent;
      Node *left;
      Node *right;
@@ -14,19 +14,19 @@ struct binary_tree_node {
 
 struct binary_tree {
      Node *root;
-     size_t data_size;
-     size_t size;
+     DS_Size data_size;
+     DS_Size size;
 };
 
-static Node * _binary_tree_node_create(const void *data, size_t dsize);
+static Node * _binary_tree_node_create(const DS_Data data, DS_Size size);
 static void _binary_tree_node_destroy(Node *node);
 
-BinaryTree *binary_tree_create(size_t dsize)
+BinaryTree *binary_tree_create(DS_Size size)
 {
     BinaryTree *btree = (BinaryTree *)malloc(sizeof (BinaryTree));
     assert(btree);
     btree->root = NULL;
-    btree->data_size = dsize;
+    btree->data_size = size;
     btree->size = 0;
     return btree;
 }
@@ -36,12 +36,12 @@ void binary_tree_destroy(BinaryTree *btree)
     free(btree);
 }
 
-void binary_tree_insert_left(BinaryTree *btree, Node *pnode, const void *data)
+void binary_tree_insert_left(BinaryTree *btree, Node *pnode, const DS_Data data)
 {
 
 }
 
-void binary_tree_insert_right(BinaryTree *btree, Node *pnode, const void *data)
+void binary_tree_insert_right(BinaryTree *btree, Node *pnode, const DS_Data data)
 {
      if (!btree->root) {
           Node *node = _binary_tree_node_create(data, btree->data_size);

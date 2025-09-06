@@ -1,18 +1,22 @@
 #ifndef DATA_STRUCTURES_BLOOM_FILTER_H
 #define DATA_STRUCTURES_BLOOM_FILTER_H
 
-#include <stdbool.h>
-#include <stddef.h>
-
+#include <data-structures.h>
 #include <array.h>
 
 typedef struct bloom_filter BloomFilter;
-typedef size_t (*BloomFilterHash)(const void *data, size_t bCount);
+typedef DS_Size (*BloomFilterHash)(const DS_Data data, DS_Size cBucket);
 
-BloomFilter *BloomFilter_Create(size_t dSize, size_t bCount, BloomFilterHash bfHash);
+DS_PUBLIC_API
+BloomFilter *BloomFilter_Create(DS_Size sData, DS_Size cBucket, BloomFilterHash bfHash);
+
+DS_PUBLIC_API
 void BloomFilter_Destroy(BloomFilter *bFilter);
 
-bool BloomFilter_Search(BloomFilter *bFilter, const void *data);
-void Bloom_Filter_Insert(BloomFilter *bFilter, const void *data);
+DS_PUBLIC_API
+DS_Bool BloomFilter_Search(BloomFilter *bFilter, const DS_Data data);
+
+DS_PUBLIC_API
+void Bloom_Filter_Insert(BloomFilter *bFilter, const DS_Data data);
 
 #endif

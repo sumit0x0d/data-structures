@@ -1,23 +1,31 @@
 #ifndef DATA_STRUCTURES_HASH_TABLE_H
 #define DATA_STRUCTURES_HASH_TABLE_H
 
-#include <stdbool.h>
-#include <stddef.h>
+#include <data-structures.h>
 
 typedef struct hash_table HashTable;
 typedef struct hash_table_pair HashTablePair;
 
-typedef size_t (*HashTableHash)(const void *key, size_t bCount, void *uData);
-typedef int (*HashTableCompare)(const void *key1, const void *key2, void *uData);
+DS_PUBLIC_API
+HashTable *DS_HashTable_Create(DS_Size sKey, DS_Size sValue, DS_Size bCount, DS_FunctionHash fHash,
+                               DS_FunctionCompare fCompare, DS_Data dUser);
 
-HashTable *HashTable_Create(size_t kSize, size_t vSize, size_t bCount, HashTableHash htHash, HashTableCompare htCompare, void *uData);
-void HashTable_Destroy(HashTable *hTable);
+DS_PUBLIC_API
+void DS_HashTable_Destroy(HashTable *hTable);
 
-void *HashTablePair_GetKey(HashTablePair *htPair);
-void *HashTablePair_GetValue(HashTablePair *htPair);
+DS_PUBLIC_API
+DS_Data DS_HashTablePair_GetKey(HashTablePair *htPair);
 
-void HashTable_Insert(HashTable *hTable, const void *key, const void *value);
-void HashTable_Remove(HashTable *hTable, const void *key);
-HashTablePair *HashTable_Search(HashTable *hTable, const void *key);
+DS_PUBLIC_API
+DS_Data DS_HashTablePair_GetValue(HashTablePair *htPair);
+
+DS_PUBLIC_API
+void DS_HashTable_Insert(HashTable *hTable, const DS_Data key, const DS_Data value);
+
+DS_PUBLIC_API
+void DS_HashTable_Remove(HashTable *hTable, const DS_Data key);
+
+DS_PUBLIC_API
+HashTablePair *DS_HashTable_Search(HashTable *hTable, const DS_Data key);
 
 #endif

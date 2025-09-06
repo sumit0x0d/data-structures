@@ -1,21 +1,32 @@
 #ifndef DATA_STRUCTURES_DYNAMIC_ARRAY_H
 #define DATA_STRUCTURES_DYNAMIC_ARRAY_H
 
-#include <stddef.h>
+#include <data-structures.h>
 
 typedef struct dynamic_array DynamicArray;
-typedef void (*DynamicArrayTraverse)(void *data, void *uData);
 
-DynamicArray *DynamicArray_Create(size_t dSize, size_t capacity, double gFactor);
-void DynamicArray_Destroy(DynamicArray *dArray);
+DS_PUBLIC_API
+DynamicArray *DS_DynamicArray_Create(DS_Size sData, DS_Size daCapacity, DS_Float64 gFactor);
 
-size_t DynamicArray_GetSize(DynamicArray *dArray);
-void *DynamicArray_GetData(DynamicArray *dArray, size_t index);
-void *DynamicArray_GetBackData(DynamicArray *dArray);
+DS_PUBLIC_API
+void DS_DynamicArray_Destroy(DynamicArray *array);
 
-void DynamicArray_PushBack(DynamicArray *dArray, const void *data);
-void DynamicArray_PopBack(DynamicArray *dArray);
+DS_PUBLIC_API
+DS_Size DS_DynamicArray_GetSize(DynamicArray *array);
 
-void DynamicArray_Traverse(DynamicArray *dArray, DynamicArrayTraverse daTraverse, void *uData);
+DS_PUBLIC_API
+DS_Data DS_DynamicArray_GetData(DynamicArray *array, DS_Size index);
+
+DS_PUBLIC_API
+DS_Data DS_DynamicArray_GetBackData(DynamicArray *array);
+
+DS_PUBLIC_API
+void DS_DynamicArray_PushBack(DynamicArray *array, const DS_Data data);
+
+DS_PUBLIC_API
+void DS_DynamicArray_PopBack(DynamicArray *array);
+
+DS_PUBLIC_API
+void DS_DynamicArray_Traverse(DynamicArray *array, DS_FunctionTraverse fTraverse, DS_Data dTemporary);
 
 #endif

@@ -1,28 +1,45 @@
 #ifndef DATA_STRUCTURES_AVL_TREE_H
 #define DATA_STRUCTURES_AVL_TREE_H
 
-#include <stddef.h>
+#include <data-structures.h>
 
 typedef struct avl_tree_node AvlTreeNode;
 typedef struct avl_tree AvlTree;
-typedef int (*AvlTreeCompare)(const void *data1, const void *data2, void *uData);
-typedef void (*AvlTreeTraverse)(void *data, void *uData);
 
-AvlTree *AvlTree_Create(size_t dSize, AvlTreeCompare atCompare, void *uData);
-void AvlTree_Destroy(AvlTree *aTree);
+DS_PUBLIC_API
+AvlTree *DS_AvlTree_Create(DS_Size sData, DS_FunctionCompare fCompare, DS_Data dUser);
 
-size_t AvlTree_GetSize(AvlTree *aTree);
-size_t AvlTree_GetDataSize(AvlTree *aTree);
-void *AvlTreeNode_GetData(AvlTreeNode *node);
+DS_PUBLIC_API
+void DS_AvlTree_Destroy(AvlTree *tree);
 
-AvlTreeNode *AvlTree_Search(AvlTree *aTree, const void *data);
+DS_PUBLIC_API
+DS_Size DS_AvlTree_GetSize(AvlTree *tree);
 
-void AvlTree_Insert(AvlTree *aTree, const void *data);
-void AvlTree_Remove(AvlTree *aTree, const void *data);
+DS_PUBLIC_API
+DS_Size DS_AvlTree_GetDataSize(AvlTree *tree);
 
-void AvlTree_TraversePreorder(AvlTree *aTree, AvlTreeTraverse atTraverse, void *uData);
-void AvlTree_TraverseInorder(AvlTree *aTree, AvlTreeTraverse atTraverse, void *uData);
-void AvlTree_TraversePostorder(AvlTree *aTree, AvlTreeTraverse atTraverse, void *uData);
-void AvlTree_TraverseLevelorder(AvlTree *aTree, AvlTreeTraverse atTraverse, void *uData);
+DS_PUBLIC_API
+DS_Data AvlTreeNode_GetData(AvlTreeNode *node);
+
+DS_PUBLIC_API
+AvlTreeNode *DS_AvlTree_Search(AvlTree *tree, const DS_Data data);
+
+DS_PUBLIC_API
+void DS_AvlTree_Insert(AvlTree *tree, const DS_Data data);
+
+DS_PUBLIC_API
+void DS_AvlTree_Remove(AvlTree *tree, const DS_Data data);
+
+DS_PUBLIC_API
+void DS_AvlTree_TraversePreorder(AvlTree *tree, DS_FunctionTraverse fTraverse, DS_Data dUser);
+
+DS_PUBLIC_API
+void DS_AvlTree_TraverseInorder(AvlTree *tree, DS_FunctionTraverse fTraverse, DS_Data dUser);
+
+DS_PUBLIC_API
+void DS_AvlTree_TraversePostorder(AvlTree *tree, DS_FunctionTraverse fTraverse, DS_Data dUser);
+
+DS_PUBLIC_API
+void DS_AvlTree_TraverseLevelorder(AvlTree *tree, DS_FunctionTraverse fTraverse, DS_Data dUser);
 
 #endif

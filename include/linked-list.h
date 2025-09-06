@@ -4,30 +4,57 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+#include <data-structures.h>
+
 typedef struct linked_list LinkedList;
 typedef struct linked_list_node LinkedListNode;
-typedef void (*LinkedListTraverse)(void *data, void *uData);
 
-LinkedList *LinkedList_Create(size_t dSize);
-void LinkedList_Destroy(LinkedList *lList);
+DS_PUBLIC_API
+LinkedList *DS_LinkedList_Create(DS_Size size);
 
-size_t LinkedList_GetSize(LinkedList *lList);
-size_t LinkedList_GetDataSize(LinkedList *lList);
-LinkedListNode *LinkedList_GetHead(LinkedList *lList);
-LinkedListNode *LinkedList_GetTail(LinkedList *lList);
+DS_PUBLIC_API
+void DS_LinkedList_Destroy(LinkedList *list);
 
-void LinkedList_SetData(LinkedList *lList, LinkedListNode *node, const void *data);
+DS_PUBLIC_API
+DS_Size DS_LinkedList_GetSize(LinkedList *list);
+
+DS_PUBLIC_API
+DS_Size DS_LinkedList_GetDataSize(LinkedList *list);
+
+DS_PUBLIC_API
+LinkedListNode *DS_LinkedList_GetHead(LinkedList *list);
+
+DS_PUBLIC_API
+LinkedListNode *DS_LinkedList_GetTail(LinkedList *list);
+
+DS_PUBLIC_API
+void DS_LinkedList_SetData(LinkedList *list, LinkedListNode *node, const DS_Data data);
+
+DS_PUBLIC_API
 void *LinkedListNode_GetData(LinkedListNode *node);
 
-void LinkedList_PushHead(LinkedList *lList, const void *data);
-void LinkedList_PushTail(LinkedList *lList, const void *data);
-void LinkedList_PopHead(LinkedList *lList);
-void LinkedList_PopTail(LinkedList *lList);
+DS_PUBLIC_API
+void DS_LinkedList_PushHead(LinkedList *list, const DS_Data data);
 
-void LinkedList_Traverse(LinkedList *lList, LinkedListTraverse llTraverse, void *uData);
+DS_PUBLIC_API
+void DS_LinkedList_PushTail(LinkedList *list, const DS_Data data);
 
-LinkedListNode *LinkedList_Detect_Cycle(LinkedList *lList);
-LinkedListNode *LinkedList_GetMiddleNode(LinkedList *lList);
-LinkedList *LinkedList_MergeSorted(LinkedList *lList1, LinkedList *lList2);
+DS_PUBLIC_API
+void DS_LinkedList_PopHead(LinkedList *list);
+
+DS_PUBLIC_API
+void DS_LinkedList_PopTail(LinkedList *list);
+
+DS_PUBLIC_API
+void DS_LinkedList_Traverse(LinkedList *list, DS_FunctionTraverse fTraverse, void *uData);
+
+DS_PUBLIC_API
+LinkedListNode *DS_LinkedList_Detect_Cycle(LinkedList *list);
+
+DS_PUBLIC_API
+LinkedListNode *DS_LinkedList_GetMiddleNode(LinkedList *list);
+
+DS_PUBLIC_API
+LinkedList *DS_LinkedList_MergeSorted(LinkedList *list1, LinkedList *list2);
 
 #endif

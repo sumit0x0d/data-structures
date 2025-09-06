@@ -5,67 +5,72 @@
 #include <array.h>
 #include <dynamic-array.h>
 
-typedef DynamicArrayTraverse Traverse;
-
 struct dynamic_array {
      Array *array;
-     size_t size;
-     double growth_factor;
+     DS_Size size;
+     DS_Float64 growth_factor;
 };
 
-DynamicArray *DynamicArray_Create(size_t dSize, size_t capacity, double gFactor)
+DynamicArray *DS_DynamicArray_Create(DS_Size sData, DS_Size capacity, DS_Float64 gFactor)
 {
-     assert(gFactor > 1);
-     DynamicArray *dArray = (DynamicArray *)malloc(sizeof (DynamicArray));
-     assert(dArray);
-     dArray->array = Array_Create(dSize, capacity);
-     assert(dynamic_array->array);
-     dArray->growth_factor = gFactor;
-     return dArray;
-}
-
-void DynamicArray_Destroy(DynamicArray *dArray)
-{
-     Array_Destroy(dArray->array);
-     free(dArray);
-}
-
-size_t DynamicArray_GetSize(DynamicArray *dArray)
-{
-     return dArray->size;
-}
-
-void *DynamicArray_GetData(DynamicArray *dArray, size_t index)
-{
-	return Array_GetData(dArray->array, index);
-}
-
-void *DynamicArray_GetBackData(DynamicArray *dArray)
-{
-     return Array_GetData(dArray->array, dArray->size);
-}
-
-void DynamicArray_PushBack(DynamicArray *dArray, const void *data)
-{
-     size_t aSize = Array_GetSize(dArray->array);
-     if (dArray->size == aSize) {
-          Array_SetSize(dArray->array, aSize * dArray->growth_factor);
+     if (gFactor > 1) {
+          return NULL;
      }
-     Array_SetData(dArray->array, dArray->size, data);
-}
-
-void DynamicArray_PopBack(DynamicArray *dArray)
-{
-     size_t aSize = Array_GetSize(dArray->array);
-     if (dArray->size == aSize / dArray->growth_factor) {
-          Array_SetSize(dArray->array, aSize / dArray->growth_factor);
+     DynamicArray *array = (DynamicArray *)malloc(sizeof (DynamicArray));
+     if (!array) {
+          return NULL;
      }
-     dArray->size--;
+     array->array = DS_Array_Create(sData, capacity);
+     if (!array->array) {
+          free(array);
+          return NULL;
+     }
+     array->growth_factor = gFactor;
+     return array;
 }
 
-void DynamicArray_Traverse(DynamicArray *dArray, Traverse traverse, void *uData)
+void DS_DynamicArray_Destroy(DynamicArray *array)
 {
-     for (size_t i = 0; i < Array_GetSize(dArray->array); i++) {
-          traverse(DynamicArray_GetData(dArray, i), uData);
+     DS_Array_Destroy(array->array);
+     free(array);
+}
+
+DS_Size DS_DynamicArray_GetSize(DynamicArray *array)
+{
+     return array->size;
+}
+
+void *DS_DynamicArray_GetData(DynamicArray *array, DS_Size index)
+{
+	return DS_Array_GetData(array->array, index);
+}
+
+void *DS_DynamicArray_GetBackData(DynamicArray *array)
+{
+     return DS_Array_GetData(array->array, array->size);
+}
+
+void DS_DynamicArray_PushBack(DynamicArray *array, const DS_Data data)
+{
+     DS_Size aSize = Array_GetSize(array->array);
+     if (array->size == aSize) {
+          DS_Array_SetSize(array->array, aSize * array->growth_factor);
+     }
+     DS_Array_SetData(array->array, array->size, data);
+}
+
+void DS_DynamicArray_PopBack(DynamicArray *array)
+{
+     DS_Size aSize = Array_GetSize(array->array);
+     if (array->size == aSize / array->growth_factor) {
+          DS_Array_SetSize(array->array, aSize / array->growth_factor);
+     }
+     array->size--;
+}
+
+void DS_DynamicArray_Traverse(DynamicArray *array, DS_FunctionTraverse traverse, DS_Data dTemporary)
+{
+     for (DS_Size i = 0; i < Array_GetSize(array->array); i++) {
+          traverse(DS_DynamicArray_GetData(array, i), dTemporary);
      }
 }

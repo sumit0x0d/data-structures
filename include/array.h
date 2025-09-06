@@ -1,44 +1,65 @@
-#ifndef DATA_STRUCTURES_ARRAY_H
-#define DATA_STRUCTURES_ARRAY_H
+#ifndef DATA_STRUCTURES_Array_H
+#define DATA_STRUCTURES_Array_H
 
-#include <stdbool.h>
-#include <stddef.h>
+#include "data-structures.h"
 
 typedef struct array Array;
-typedef void (*ArrayTraverse)(void *data, void *uData);
-typedef int (*ArrayCompare)(const void *data1, const void *data2, void *uData);
-typedef size_t (*ArrayHash)(const void *data, size_t dSize, void *uData);
 
-/*
- * Hash function for integers within an array context.
- *
- * @param[0] dSize    : data_size
- * @param[1] capacity : Maximum capacity
- * @return            : Array
- */
-Array *Array_Create(size_t dSize, size_t capacity);
-void Array_Destroy(Array *array);
+DS_PUBLIC_API
+Array *DS_Array_Create(DS_Size sData, DS_Size capacity);
 
-size_t Array_GetSize(const Array *array);
-size_t Array_GetDataSize(const Array *array);
-void *Array_GetData(const Array *array, size_t index);
+DS_PUBLIC_API
+void DS_Array_Destroy(Array *array);
 
-void Array_SetSize(Array *array, size_t size);
-void Array_SetData(Array *array, size_t index, const void *data);
-void Array_SwapData(Array *array, void *data1, void *data2, void *tData);
+DS_PUBLIC_API
+DS_Size DS_Array_GetSize(const Array *array);
 
-void Array_Traverse(Array *array, ArrayTraverse aTraverse, void *uData);
-void *Array_SearchLinear(const Array *array, const void *data, ArrayCompare aCompare, void *uData);
-void *Array_SearchBinary(const Array *array, const void *data, ArrayCompare aCompare, void *uData);
+DS_PUBLIC_API
+DS_Size DS_Array_GetDataSize(const Array *array);
 
-void Array_SortBubble(Array *array, ArrayCompare aCompare, void *uData);
-void Array_SortInsertion(Array *array, ArrayCompare aCompare, void *uData);
-void Array_SortSelection(Array *array, ArrayCompare aCompare, void *uData);
-void Array_SortQuick(Array *array, ArrayCompare aCompare, void *uData);
-void Array_SortMerge(Array *array, ArrayCompare aCompare, void *uData);
+DS_PUBLIC_API
+DS_Data DS_Array_GetData(const Array *array, DS_Size index);
 
-void *Array_PatternSearchNaive(const Array *array, const void *pattern, size_t pSize);
-void *Array_PatternSearchRabinKarp(const Array *array, const void *pattern, size_t pSize, ArrayHash aHash, void *uData);
-void *Array_PatternSearchKnuthMorrisPratt(const Array *array, const void *pattern, size_t pSize);
+DS_PUBLIC_API
+void DS_Array_SetSize(Array *array, DS_Size sData);
+
+DS_PUBLIC_API
+void DS_Array_SetData(Array *array, DS_Size index, const DS_Data data);
+
+DS_PUBLIC_API
+void DS_Array_SwapData(Array *array, DS_Data data1, DS_Data data2, DS_Data dTemporary);
+
+DS_PUBLIC_API
+void DS_Array_Traverse(Array *array, DS_FunctionTraverse aTraverse, DS_Data dUser);
+
+DS_PUBLIC_API
+DS_Data DS_Array_SearchLinear(const Array *array, const DS_Data data, DS_FunctionCompare fCompare, DS_Data dUser);
+
+DS_PUBLIC_API
+DS_Data DS_Array_SearchBinary(const Array *array, const DS_Data data, DS_FunctionCompare fCompare, DS_Data dUser);
+
+DS_PUBLIC_API
+void DS_Array_SortBubble(Array *array, DS_FunctionCompare fCompare, DS_Data dUser);
+
+DS_PUBLIC_API
+void DS_Array_SortInsertion(Array *array, DS_FunctionCompare fCompare, DS_Data dUser);
+
+DS_PUBLIC_API
+void DS_Array_SortSelection(Array *array, DS_FunctionCompare fCompare, DS_Data dUser);
+
+DS_PUBLIC_API
+void DS_Array_SortQuick(Array *array, DS_FunctionCompare fCompare, DS_Data dUser);
+
+DS_PUBLIC_API
+void DS_Array_SortMerge(Array *array, DS_FunctionCompare fCompare, DS_Data dUser);
+
+DS_PUBLIC_API
+DS_Data DS_Array_PatternSearchNaive(const Array *array, const DS_Data pattern, DS_Size sPattern);
+
+DS_PUBLIC_API
+DS_Data DS_Array_PatternSearchRabinKarp(const Array *array, const DS_Data pattern, DS_Size sPattern, DS_FunctionHash fHash, DS_Data dUser);
+
+DS_PUBLIC_API
+DS_Data DS_Array_PatternSearchKnuthMorrisPratt(const Array *array, const DS_Data pattern, DS_Size sPattern);
 
 #endif

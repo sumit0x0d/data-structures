@@ -1,21 +1,30 @@
 #ifndef DATA_STRUCTURES_RED_BLACK_TREE_H
 #define DATA_STRUCTURES_RED_BLACK_TREE_H
 
-#include <stdbool.h>
-#include <stddef.h>
+#include <data-structures.h>
 
 typedef struct red_black_tree RedBlackTree;
 typedef struct red_black_tree_node RedBlackTreeNode;
-typedef int (*RedBlackTreeCompare)(const void *data1, const void *data2, void *uData);
 
-RedBlackTree *RedBlackTree_Create(size_t dSize, RedBlackTreeCompare rbtCompare, void *uData);
-void RedBlackTree_Destroy(RedBlackTree *rbTree);
+DS_PUBLIC_API
+RedBlackTree *DS_RedBlackTree_Create(DS_Size size, DS_FunctionCompare fCompare, DS_Data dUser);
 
-size_t RedBlackTree_GetSize(RedBlackTree *rbTree);
-void *RedBlackTreeNode_GetData(RedBlackTreeNode *rbtNode);
+DS_PUBLIC_API
+void DS_RedBlackTree_Destroy(RedBlackTree *tree);
 
-void RedBlackTree_Insert(RedBlackTree *rbTree, const void *data);
-RedBlackTreeNode *RedBlackTree_Search(RedBlackTree *rbTree, const void *data);
-void RedBlackTree_Remove(RedBlackTree *rbTree, const void *data);
+DS_PUBLIC_API
+DS_Size DS_RedBlackTree_GetSize(RedBlackTree *tree);
+
+DS_PUBLIC_API
+void *RedBlackTreeNode_GetData(RedBlackTreeNode *node);
+
+DS_PUBLIC_API
+void DS_RedBlackTree_Insert(RedBlackTree *tree, const DS_Data data);
+
+DS_PUBLIC_API
+RedBlackTreeNode *DS_RedBlackTree_Search(RedBlackTree *tree, const DS_Data data);
+
+DS_PUBLIC_API
+void DS_RedBlackTree_Remove(RedBlackTree *tree, const DS_Data data);
 
 #endif

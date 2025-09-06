@@ -13,7 +13,7 @@ struct trie_node {
 
 struct trie {
      Node *root;
-     size_t size;
+     DS_Size size;
 };
 
 static Node *_TrieNode_Create();
@@ -54,16 +54,16 @@ bool Trie_Insert(Trie *trie, char* string)
      }
      Node *node = trie->root; 
      while (*string != '\0') {
-          if (node->children[(size_t)*string] == NULL) {
-               node->children[(size_t)*string] = _TrieNode_Create();
+          if (node->children[(DS_Size)*string] == NULL) {
+               node->children[(DS_Size)*string] = _TrieNode_Create();
           }
-          node = node->children[(size_t)*string];
+          node = node->children[(DS_Size)*string];
           string++;
      }
-     // size_t length = strlen(string);
-     // for (size_t i = 0; i < length; i++) {
+     // DS_Size length = strlen(string);
+     // for (DS_Size i = 0; i < length; i++) {
      //      if (node->children[(int)string[i]] == 0)
-     //           node->children[(size_t)string[i]] = node_Create(string[i]);
+     //           node->children[(DS_Size)string[i]] = node_Create(string[i]);
      // }
      if (node->terminal) {
           return false;

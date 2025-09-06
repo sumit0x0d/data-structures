@@ -6,16 +6,28 @@
 
 typedef struct circular_buffer CircularBuffer;
 
-CircularBuffer *CircularBuffer_Create(size_t dSize, size_t capacity);
-void CircularBuffer_Destroy(CircularBuffer *cBuffer);
+DS_PUBLIC_API
+CircularBuffer *DS_CircularBuffer_Create(DS_Size size, DS_Size capacity);
 
-bool CircularBuffer_IsEmpty(CircularBuffer *cBuffer);
-bool CircularBuffer_IsFull(CircularBuffer *cBuffer);
+DS_PUBLIC_API
+void DS_CircularBuffer_Destroy(CircularBuffer *cBuffer);
 
-void *CircularBuffer_GetFrontData(CircularBuffer *cBuffer);
-void *CircularBuffer_GetBackData(CircularBuffer *cBuffer);
+DS_PUBLIC_API
+bool DS_CircularBuffer_IsEmpty(CircularBuffer *cBuffer);
 
-void CircularBuffer_PushBack(CircularBuffer *cBuffer, const void *data);
-void CircularBuffer_PopFront(CircularBuffer *cBuffer);
+DS_PUBLIC_API
+bool DS_CircularBuffer_IsFull(CircularBuffer *cBuffer);
+
+DS_PUBLIC_API
+void *DS_CircularBuffer_GetFrontData(CircularBuffer *cBuffer);
+
+DS_PUBLIC_API
+void *DS_CircularBuffer_GetBackData(CircularBuffer *cBuffer);
+
+DS_PUBLIC_API
+void DS_CircularBuffer_PushBack(CircularBuffer *cBuffer, const DS_Data data);
+
+DS_PUBLIC_API
+void DS_CircularBuffer_PopFront(CircularBuffer *cBuffer);
 
 #endif

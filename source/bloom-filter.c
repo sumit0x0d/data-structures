@@ -11,11 +11,11 @@ struct bloom_filter {
      Hash hash;
 };
 
-BloomFilter *BloomFilter_Create(size_t dSize, size_t bCount, Hash hash)
+BloomFilter *BloomFilter_Create(DS_Size size, DS_Size bCount, Hash hash)
 {
      BloomFilter *bFilter = (BloomFilter *)malloc(sizeof (BloomFilter));
      assert(bFilter);
-     bFilter->array = Array_Create(dSize, bCount);
+     bFilter->array = DS_Array_Create(size, bCount);
      assert(bFilter->array);
      bFilter->hash = hash;
      return bFilter;
@@ -23,16 +23,16 @@ BloomFilter *BloomFilter_Create(size_t dSize, size_t bCount, Hash hash)
 
 void BloomFilter_Destroy(BloomFilter *bFilter)
 {
-     Array_Destroy(bFilter->array);
+     DS_Array_Destroy(bFilter->array);
      free(bFilter);
 }
 
-bool BloomFilter_Search(BloomFilter *bFilter, const void *data)
+bool BloomFilter_Search(BloomFilter *bFilter, const DS_Data data)
 {
-     return Array_GetData(bFilter->array, bFilter->hash(data, Array_GetSize(bFilter->array)));
+     return DS_Array_GetData(bFilter->array, bFilter->hash(data, DS_Array_GetSize(bFilter->array)));
 }
 
-void BloomFilter_Insert(BloomFilter *bFilter, const void *data)
+void BloomFilter_Insert(BloomFilter *bFilter, const DS_Data data)
 {
-     Array_SetData(bFilter->array, bFilter->hash(data, Array_GetSize(bFilter->array)), data);
+     DS_Array_SetData(bFilter->array, bFilter->hash(data, DS_Array_GetSize(bFilter->array)), data);
 }
