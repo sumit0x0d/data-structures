@@ -1,8 +1,11 @@
+#include <stdlib.h>
+#include <string.h>
+
 #include <avl-tree-node.h>
 
 typedef AvlTreeNode Node;
 
-Node *DS_AvlTreeNode_Create(const DS_Data data, DS_Size sData)
+Node *AvlTreeNode_Create(const DS_Data data, DS_Size sData)
 {
     Node *node = (Node *)malloc(sizeof (Node));
     if (!node) {
@@ -20,44 +23,44 @@ Node *DS_AvlTreeNode_Create(const DS_Data data, DS_Size sData)
     return node;
 }
 
-void DS_AvlTreeNode_Destroy(Node *node)
+void AvlTreeNode_Destroy(Node *node)
 {
     free(node->data);
     free(node);
 }
 
-DS_Size DS_AvlTreeNode_GetHeight(Node *node, CircularBuffer *cBuffer)
+DS_Size AvlTreeNode_GetHeight(Node *node, CircularBuffer *cBuffer)
 {
     DS_Size height = 0;
-    DS_CircularBuffer_PushBack(cBuffer, node);
-    while (!DS_CircularBuffer_IsEmpty(cBuffer)) {
-        node = DS_CircularBuffer_GetFrontData(cBuffer);
-        DS_CircularBuffer_PopFront(cBuffer);
+    CircularBuffer_PushBack(cBuffer, node);
+    while (!CircularBuffer_IsEmpty(cBuffer)) {
+        node = CircularBuffer_GetFrontData(cBuffer);
+        CircularBuffer_PopFront(cBuffer);
         if (node->left) {
-            DS_CircularBuffer_PushBack(cBuffer, node->left);
+            CircularBuffer_PushBack(cBuffer, node->left);
         }
         if (node->right) {
-            DS_CircularBuffer_PushBack(cBuffer, node->right);
+            CircularBuffer_PushBack(cBuffer, node->right);
         }
         height++;
     }
     return height;
 }
 
-void DS_AvlTreeNode_UpdateBalanceFactor(Node *node, CircularBuffer *cBuffer)
+void AvlTreeNode_UpdateBalanceFactor(Node *node, CircularBuffer *cBuffer)
 {
     DS_Size hnLeft = 0;
     DS_Size hnRight = 0;
     if (node->left) {
-        hnLeft = DS_AvlTreeNode_GetHeight(node->left, cBuffer);
+        hnLeft = AvlTreeNode_GetHeight(node->left, cBuffer);
     }
     if (node->right) {
-        hnRight = DS_AvlTreeNode_GetHeight(node->right, cBuffer);
+        hnRight = AvlTreeNode_GetHeight(node->right, cBuffer);
     }
     node->balance_factor = (int)(hnLeft - hnRight);
 }
 
-Node *DS_AvlTreeNode_GetPredecessor(Node *node)
+Node *AvlTreeNode_GetPredecessor(Node *node)
 {
     Node *nLeft = node->left;
     Node *nPrevious = node;
@@ -77,7 +80,7 @@ Node *DS_AvlTreeNode_GetPredecessor(Node *node)
     return nPrevious;
 }
 
-Node *DS_AvlTreeNode_GetSuccessor(Node *node)
+Node *AvlTreeNode_GetSuccessor(Node *node)
 {
     Node *nRight = node->right;
     Node *nPrevious = node;

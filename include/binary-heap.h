@@ -1,8 +1,7 @@
 #ifndef DATA_STRUCTURES_BINARY_HEAP_H
 #define DATA_STRUCTURES_BINARY_HEAP_H
 
-#include <stdbool.h>
-#include <stddef.h>
+#include <data-structures.h>
 
 typedef struct binary_heap BinaryHeap;
 typedef struct binary_heap_node BinaryHeapNode;

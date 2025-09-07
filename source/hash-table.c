@@ -42,7 +42,7 @@ void HashTable_Destroy(HashTable *hTable)
 {
      for (DS_Size i = 0; i < hTable->bucket_count; i++) {
           if (hTable->pair[i]) {
-               _HashTablePair_Destroy(hTable->pair[i]);
+               HashTablePair_Destroy(hTable->pair[i]);
           }
      }
      free(hTable);
@@ -62,7 +62,7 @@ void HashTable_Insert(HashTable *hTable, const void *key, const void *value)
 {
      DS_Size index = hTable->hash(key, hTable->bucket_count, hTable->user_data);
      if (!hTable->pair[index]) {
-          hTable->pair[index] = _HashTablePair_Create(key, hTable->key_size, value, hTable->value_size);
+          hTable->pair[index] = HashTablePair_Create(key, hTable->key_size, value, hTable->value_size);
           return;
      }
      int compare = 0;
@@ -76,7 +76,7 @@ void HashTable_Insert(HashTable *hTable, const void *key, const void *value)
                return;
           } 
      } while (compare && pair->next);
-     pair->next = _HashTablePair_Create(key, hTable->key_size, value, hTable->value_size);
+     pair->next = HashTablePair_Create(key, hTable->key_size, value, hTable->value_size);
 }
 
 void HashTable_Remove(HashTable *hTable, const void *key)
@@ -93,7 +93,7 @@ void HashTable_Remove(HashTable *hTable, const void *key)
                     pair = pair->next;
                } else {
                     ppair->next = pair->next;
-                    _HashTablePair_Destroy(pair->next);
+                    HashTablePair_Destroy(pair->next);
                     pair = NULL;
                }
           } while (compare && pair->next);

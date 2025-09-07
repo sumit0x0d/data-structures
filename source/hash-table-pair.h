@@ -10,9 +10,9 @@ struct hash_table_pair {
 };
 
 DS_PRIVATE_API
-HashTablePair *DS_HashTablePair_Create(const DS_Data key, DS_Size sKey, const DS_Data value, DS_Size vSize);
+HashTablePair *HashTablePair_Create(const DS_Data key, DS_Size sKey, const DS_Data value, DS_Size sValue);
 
 DS_PRIVATE_API
-void DS_HashTablePair_Destroy(HashTablePair *pair);
+void HashTablePair_Destroy(HashTablePair *pair);
 
 #endif

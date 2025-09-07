@@ -11,7 +11,7 @@ struct dynamic_array {
      DS_Float64 growth_factor;
 };
 
-DynamicArray *DS_DynamicArray_Create(DS_Size sData, DS_Size capacity, DS_Float64 gFactor)
+DynamicArray *DynamicArray_Create(DS_Size sData, DS_Size capacity, DS_Float64 gFactor)
 {
      if (gFactor > 1) {
           return NULL;
@@ -20,7 +20,7 @@ DynamicArray *DS_DynamicArray_Create(DS_Size sData, DS_Size capacity, DS_Float64
      if (!array) {
           return NULL;
      }
-     array->array = DS_Array_Create(sData, capacity);
+     array->array = Array_Create(sData, capacity);
      if (!array->array) {
           free(array);
           return NULL;
@@ -29,48 +29,48 @@ DynamicArray *DS_DynamicArray_Create(DS_Size sData, DS_Size capacity, DS_Float64
      return array;
 }
 
-void DS_DynamicArray_Destroy(DynamicArray *array)
+void DynamicArray_Destroy(DynamicArray *array)
 {
-     DS_Array_Destroy(array->array);
+     Array_Destroy(array->array);
      free(array);
 }
 
-DS_Size DS_DynamicArray_GetSize(DynamicArray *array)
+DS_Size DynamicArray_GetSize(DynamicArray *array)
 {
      return array->size;
 }
 
-void *DS_DynamicArray_GetData(DynamicArray *array, DS_Size index)
+void *DynamicArray_GetData(DynamicArray *array, DS_Size index)
 {
-	return DS_Array_GetData(array->array, index);
+	return Array_GetData(array->array, index);
 }
 
-void *DS_DynamicArray_GetBackData(DynamicArray *array)
+void *DynamicArray_GetBackData(DynamicArray *array)
 {
-     return DS_Array_GetData(array->array, array->size);
+     return Array_GetData(array->array, array->size);
 }
 
-void DS_DynamicArray_PushBack(DynamicArray *array, const DS_Data data)
+void DynamicArray_PushBack(DynamicArray *array, const DS_Data data)
 {
      DS_Size aSize = Array_GetSize(array->array);
      if (array->size == aSize) {
-          DS_Array_SetSize(array->array, aSize * array->growth_factor);
+          Array_SetSize(array->array, aSize * array->growth_factor);
      }
-     DS_Array_SetData(array->array, array->size, data);
+     Array_SetData(array->array, array->size, data);
 }
 
-void DS_DynamicArray_PopBack(DynamicArray *array)
+void DynamicArray_PopBack(DynamicArray *array)
 {
      DS_Size aSize = Array_GetSize(array->array);
      if (array->size == aSize / array->growth_factor) {
-          DS_Array_SetSize(array->array, aSize / array->growth_factor);
+          Array_SetSize(array->array, aSize / array->growth_factor);
      }
      array->size--;
 }
 
-void DS_DynamicArray_Traverse(DynamicArray *array, DS_FunctionTraverse traverse, DS_Data dTemporary)
+void DynamicArray_Traverse(DynamicArray *array, DS_FunctionTraverse traverse, DS_Data dTemporary)
 {
      for (DS_Size i = 0; i < Array_GetSize(array->array); i++) {
-          traverse(DS_DynamicArray_GetData(array, i), dTemporary);
+          traverse(DynamicArray_GetData(array, i), dTemporary);
      }
 }

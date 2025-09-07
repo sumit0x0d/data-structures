@@ -7,9 +7,9 @@ typedef struct rope Rope;
 typedef struct rope_node RopeNode;
 
 DS_PUBLIC_API
-Rope *DS_Rope_Create(DS_Size sData);
+Rope *Rope_Create(DS_Size sData);
 
 DS_PUBLIC_API
-void DS_Rope_Destroy(Rope *rope);
+void Rope_Destroy(Rope *rope);
 
 #endif

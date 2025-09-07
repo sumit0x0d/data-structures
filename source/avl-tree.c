@@ -24,7 +24,7 @@ static void _RotateLeftRight(AvlTree *aTree, Node *node);
 static void _RotateLeft(AvlTree *aTree, Node *node);
 static void _RotateRightLeft(AvlTree *aTree, Node *node);
 
-AvlTree *DS_AvlTree_Create(DS_Size sData, DS_FunctionCompare fCompare, DS_Data dUser)
+AvlTree *AvlTree_Create(DS_Size sData, DS_FunctionCompare fCompare, DS_Data dUser)
 {
     AvlTree *aTree = (AvlTree *)malloc(sizeof (AvlTree));
     if (!aTree) {
@@ -38,29 +38,29 @@ AvlTree *DS_AvlTree_Create(DS_Size sData, DS_FunctionCompare fCompare, DS_Data d
     return aTree;
 }
 
-void DS_AvlTree_Destroy(AvlTree *aTree)
+void AvlTree_Destroy(AvlTree *aTree)
 {
-    CircularBuffer *cBuffer = DS_CircularBuffer_Create(sizeof (Node *), aTree->size);
+    CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (Node *), aTree->size);
     Node *node = aTree->root;
     free(node->data);
-    DS_CircularBuffer_PushBack(cBuffer, node);
-    while (!DS_CircularBuffer_IsEmpty(cBuffer)) {
-        node = (Node *)DS_CircularBuffer_GetFrontData(cBuffer);
-        DS_CircularBuffer_PopFront(cBuffer);
+    CircularBuffer_PushBack(cBuffer, node);
+    while (!CircularBuffer_IsEmpty(cBuffer)) {
+        node = (Node *)CircularBuffer_GetFrontData(cBuffer);
+        CircularBuffer_PopFront(cBuffer);
         if (node->left) {
             free(node->data);
-            DS_CircularBuffer_PushBack(cBuffer, node->left);
+            CircularBuffer_PushBack(cBuffer, node->left);
         }
         if (node->right) {
             free(node->data);
-            DS_CircularBuffer_PushBack(cBuffer, node->right);
+            CircularBuffer_PushBack(cBuffer, node->right);
         }
     }
-    DS_CircularBuffer_Destroy(cBuffer);
+    CircularBuffer_Destroy(cBuffer);
     free(aTree);
 }
 
-Node *DS_AvlTree_Search(AvlTree *aTree, const DS_Data data)
+Node *AvlTree_Search(AvlTree *aTree, const DS_Data data)
 {
     Node *node = aTree->root;
     while (node) {
@@ -78,22 +78,22 @@ Node *DS_AvlTree_Search(AvlTree *aTree, const DS_Data data)
     return NULL;
 }
 
-void DS_AvlTree_Insert(AvlTree *aTree, const DS_Data data)
+void AvlTree_Insert(AvlTree *aTree, const DS_Data data)
 {
     if (!aTree->root) {
-        aTree->root = DS_AvlTreeNode_Create(data, aTree->data_size);
+        aTree->root = AvlTreeNode_Create(data, aTree->data_size);
         aTree->root->parent = NULL;
         aTree->size++;
         return;
     }
-    CircularBuffer *cBuffer = DS_CircularBuffer_Create(sizeof (Node *), (aTree->size + 2) / 2);
+    CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (Node *), (aTree->size + 2) / 2);
     Node *node = aTree->root;
     Node *pnode = aTree->root->parent;
     int compare = 0;
     while (node) {
         compare = aTree->compare(node->data, data, aTree->user_data);
         if (compare == 0) {
-            DS_CircularBuffer_Destroy(cBuffer);
+            CircularBuffer_Destroy(cBuffer);
             return;
         }
         pnode = node;
@@ -103,7 +103,7 @@ void DS_AvlTree_Insert(AvlTree *aTree, const DS_Data data)
             node = node->right;
         }
     }
-    node = DS_AvlTreeNode_Create(data, aTree->data_size);
+    node = AvlTreeNode_Create(data, aTree->data_size);
     node->parent = pnode;
     if (compare < 0) {
         pnode->left = node;
@@ -111,13 +111,13 @@ void DS_AvlTree_Insert(AvlTree *aTree, const DS_Data data)
         pnode->right = node;
     }
     _Rebalance(aTree, pnode, cBuffer);
-    DS_CircularBuffer_Destroy(cBuffer);
+    CircularBuffer_Destroy(cBuffer);
     aTree->size++;
 }
 
-void DS_AvlTree_Remove(AvlTree *aTree, const DS_Data data)
+void AvlTree_Remove(AvlTree *aTree, const DS_Data data)
 {
-    CircularBuffer *cBuffer = DS_CircularBuffer_Create(sizeof (Node *), (aTree->size + 2) / 2);
+    CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (Node *), (aTree->size + 2) / 2);
     Node *node = aTree->root;
     Node *pnode = aTree->root->parent;
     while (node) {
@@ -141,7 +141,7 @@ void DS_AvlTree_Remove(AvlTree *aTree, const DS_Data data)
         } else {
             pnode->right = NULL;
         }
-        DS_AvlTreeNode_Destroy(node);
+        AvlTreeNode_Destroy(node);
         _Rebalance(aTree, pnode, cBuffer);
     }
     else if (!node->left) {
@@ -150,7 +150,7 @@ void DS_AvlTree_Remove(AvlTree *aTree, const DS_Data data)
         } else {
             pnode->left = node->right;
         }
-        DS_AvlTreeNode_Destroy(node);
+        AvlTreeNode_Destroy(node);
         _Rebalance(aTree, pnode, cBuffer);
     }
     else if (!node->right) {
@@ -160,21 +160,21 @@ void DS_AvlTree_Remove(AvlTree *aTree, const DS_Data data)
         else {
             pnode->right = node->left;
         }
-        DS_AvlTreeNode_Destroy(node);
+        AvlTreeNode_Destroy(node);
         _Rebalance(aTree, pnode, cBuffer);
     } else {
         if (aTree->root->balance_factor < 0) {
-            node = DS_AvlTreeNode_GetPredecessor(node);
+            node = AvlTreeNode_GetPredecessor(node);
         } else {
-            node = DS_AvlTreeNode_GetSuccessor(node);
+            node = AvlTreeNode_GetSuccessor(node);
         }
         _Rebalance(aTree, node, cBuffer);
     }
-    DS_CircularBuffer_Destroy(cBuffer);
+    CircularBuffer_Destroy(cBuffer);
     aTree->size--;
 }
 
-void DS_AvlTree_TraversePreorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, DS_Data dUser)
+void AvlTree_TraversePreorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, DS_Data dUser)
 {
     Node *node = aTree->root;
     Stack *stack = Stack_Create(sizeof (Node *), aTree->size);
@@ -192,7 +192,7 @@ void DS_AvlTree_TraversePreorder(AvlTree *aTree, DS_FunctionTraverse atTraverse,
     Stack_Destroy(stack);
 }
 
-void DS_AvlTree_TraverseInorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, DS_Data dUser)
+void AvlTree_TraverseInorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, DS_Data dUser)
 {
     Node *node = aTree->root;
     Stack *stack = Stack_Create(sizeof (Node *), aTree->size);
@@ -210,7 +210,7 @@ void DS_AvlTree_TraverseInorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, 
     Stack_Destroy(stack);
 }
 
-void DS_AvlTree_TraversePostorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, DS_Data dUser)
+void AvlTree_TraversePostorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, DS_Data dUser)
 {
     Node *node = aTree->root;
     Stack *stack = Stack_Create(sizeof (Node *), aTree->size);
@@ -228,25 +228,25 @@ void DS_AvlTree_TraversePostorder(AvlTree *aTree, DS_FunctionTraverse atTraverse
     Stack_Destroy(stack);
 }
 
-void DS_AvlTree_TraverseLevelorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, DS_Data dUser)
+void AvlTree_TraverseLevelorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, DS_Data dUser)
 {
     Node *node = aTree->root;
-    CircularBuffer *cBuffer = DS_CircularBuffer_Create(sizeof (Node *), aTree->size);
+    CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (Node *), aTree->size);
     atTraverse(node->data, dUser);
-    DS_CircularBuffer_PushBack(cBuffer, node);
-    while (!DS_CircularBuffer_IsEmpty(cBuffer)) {
-        node = DS_CircularBuffer_GetFrontData(cBuffer);
-        DS_CircularBuffer_PopFront(cBuffer);
+    CircularBuffer_PushBack(cBuffer, node);
+    while (!CircularBuffer_IsEmpty(cBuffer)) {
+        node = CircularBuffer_GetFrontData(cBuffer);
+        CircularBuffer_PopFront(cBuffer);
         if (node->left) {
             atTraverse(node->data, dUser);
-            DS_CircularBuffer_PushBack(cBuffer, node->left);
+            CircularBuffer_PushBack(cBuffer, node->left);
         }
         if (node->right) {
             atTraverse(node->data, dUser);
-            DS_CircularBuffer_PushBack(cBuffer, node->right);
+            CircularBuffer_PushBack(cBuffer, node->right);
         }
     }
-    DS_CircularBuffer_Destroy(cBuffer);
+    CircularBuffer_Destroy(cBuffer);
 }
 
 
@@ -348,25 +348,25 @@ static void _RotateRightLeft(AvlTree *aTree, Node *node)
 static void _Rebalance(AvlTree *aTree, Node *node, CircularBuffer *cBuffer)
 {
     while (node) {
-        DS_AvlTreeNode_UpdateBalanceFactor(node, cBuffer);
+        AvlTreeNode_UpdateBalanceFactor(node, cBuffer);
         if (node->balance_factor == -2) {
             if (node->left->balance_factor == -1) {
                 _RotateRight(aTree, node);
-                DS_AvlTreeNode_UpdateBalanceFactor(node, cBuffer);
-                DS_AvlTreeNode_UpdateBalanceFactor(node->right, cBuffer);
+                AvlTreeNode_UpdateBalanceFactor(node, cBuffer);
+                AvlTreeNode_UpdateBalanceFactor(node->right, cBuffer);
             } else if (node->left->balance_factor == 1) {
                 _RotateLeftRight(aTree, node);
-                DS_AvlTreeNode_UpdateBalanceFactor(node, cBuffer);
+                AvlTreeNode_UpdateBalanceFactor(node, cBuffer);
             }
         } else if (node->balance_factor == 2) {
             if (node->right->balance_factor == 1) {
                 _RotateLeft(aTree, node);
-                DS_AvlTreeNode_UpdateBalanceFactor(node, cBuffer);
-                DS_AvlTreeNode_UpdateBalanceFactor(node->left, cBuffer);
+                AvlTreeNode_UpdateBalanceFactor(node, cBuffer);
+                AvlTreeNode_UpdateBalanceFactor(node->left, cBuffer);
             }
             else if (node->right->balance_factor == -1) {
                 _RotateRightLeft(aTree, node);
-                DS_AvlTreeNode_UpdateBalanceFactor(node, cBuffer);
+                AvlTreeNode_UpdateBalanceFactor(node, cBuffer);
             }
         }
         node = node->parent;

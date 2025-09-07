@@ -9,9 +9,9 @@ struct linked_list_node {
 };
 
 DS_PRIVATE_API
-LinkedListNode *DS_LinkedListNode_Create(const DS_Data data, DS_Size sData);
+LinkedListNode *LinkedListNode_Create(const DS_Data data, DS_Size sData);
 
 DS_PRIVATE_API
-void DS_LinkedListNode_Destroy(LinkedListNode *node);
+void LinkedListNode_Destroy(LinkedListNode *node);
 
 #endif

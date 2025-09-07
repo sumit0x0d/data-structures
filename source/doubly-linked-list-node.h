@@ -10,9 +10,9 @@ struct doubly_linked_list_node {
 };
 
 DS_PRIVATE_API
-DoublyLinkedListNode *DS_DoublyLinkedListNode_Create(const DS_Data data, DS_Size sData);
+DoublyLinkedListNode *DoublyLinkedListNode_Create(const DS_Data data, DS_Size sData);
 
 DS_PRIVATE_API
-void DS_DoublyLinkedListNode_Destroy(DoublyLinkedListNode *node);
+void DoublyLinkedListNode_Destroy(DoublyLinkedListNode *node);
 
 #endif

@@ -4,7 +4,7 @@
 
 typedef DoublyLinkedListNode Node;
 
-Node *DS_DoublyLinkedListNode_Create(const DS_Data data, DS_Size sData)
+Node *DoublyLinkedListNode_Create(const DS_Data data, DS_Size sData)
 {
     Node *node = (Node *)malloc(sizeof (Node));
     if (!node) {
@@ -19,7 +19,7 @@ Node *DS_DoublyLinkedListNode_Create(const DS_Data data, DS_Size sData)
     return node;
 }
 
-void DS_DoublyLinkedListNode_Destroy(Node *node)
+void DoublyLinkedListNode_Destroy(Node *node)
 {
     free(node->data);
     free(node);

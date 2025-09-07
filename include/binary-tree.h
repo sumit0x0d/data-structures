@@ -7,33 +7,33 @@ typedef struct binary_tree BinaryTree;
 typedef struct binary_tree_node BinaryTreeNode;
 
 DS_PUBLIC_API
-BinaryTree *BinaryTree_create(DS_Size size);
+BinaryTree *BinaryTree_Create(DS_Size size);
 
 DS_PUBLIC_API
-void BinaryTree_destroy(BinaryTree *btree);
+void BinaryTree_Destroy(BinaryTree *tree);
 
 DS_PUBLIC_API
-void BinaryTree_insert_left(BinaryTree *btree, BinaryTreeNode *node, const DS_Data data);
+void BinaryTree_InsertLeft(BinaryTree *tree, BinaryTreeNode *node, const DS_Data data);
 
 DS_PUBLIC_API
-void BinaryTree_insert_right(BinaryTree *btree, BinaryTreeNode *node, const DS_Data data);
+void BinaryTree_InsertRight(BinaryTree *tree, BinaryTreeNode *node, const DS_Data data);
 
 DS_PUBLIC_API
-BinaryTreeNode *BinaryTree_search(BinaryTree *btree, const DS_Data data);
+BinaryTreeNode *BinaryTree_Search(BinaryTree *tree, const DS_Data data);
 
 DS_PUBLIC_API
-void BinaryTree_remove(BinaryTree *btree, const DS_Data data);
+void BinaryTree_Remove(BinaryTree *tree, const DS_Data data);
 
 DS_PUBLIC_API
-void BinaryTree_traverse_preorder(BinaryTree *btree, void (*traverse)(DS_Data data));
+void BinaryTree_TraversePreorder(BinaryTree *tree, void (*traverse)(DS_Data data));
 
 DS_PUBLIC_API
-void BinaryTree_traverse_inorder(BinaryTree *btree, void (*traverse)(DS_Data data));
+void BinaryTree_TraverseInorder(BinaryTree *tree, void (*traverse)(DS_Data data));
 
 DS_PUBLIC_API
-void BinaryTree_traverse_postorder(BinaryTree *btree, void (*traverse)(DS_Data data));
+void BinaryTree_TraversePostorder(BinaryTree *tree, void (*traverse)(DS_Data data));
 
 DS_PUBLIC_API
-void BinaryTree_traverse_levelorder(BinaryTree *btree, void (*traverse)(DS_Data data));
+void BinaryTree_TraverseLevelorder(BinaryTree *tree, void (*traverse)(DS_Data data));
 
 #endif

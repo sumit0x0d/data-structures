@@ -15,7 +15,7 @@ struct linked_list {
      DS_Size size;
 };
 
-LinkedList *DS_LinkedList_Create(DS_Size size)
+LinkedList *LinkedList_Create(DS_Size size)
 {
      LinkedList *list = (LinkedList *)malloc(sizeof (LinkedList));
      assert(list);
@@ -26,15 +26,15 @@ LinkedList *DS_LinkedList_Create(DS_Size size)
      return list;
 }
 
-void DS_LinkedList_Destroy(LinkedList *list)
+void LinkedList_Destroy(LinkedList *list)
 {
      free(list->head);
      free(list);
 }
 
-void DS_LinkedList_PushHead(LinkedList *list, const DS_Data data)
+void LinkedList_PushHead(LinkedList *list, const DS_Data data)
 {
-     Node *node = DS_LinkedListNode_Create(data, list->data_size);
+     Node *node = LinkedListNode_Create(data, list->data_size);
      if (list->size) {
           node->next = list->head;
      } else {
@@ -45,9 +45,9 @@ void DS_LinkedList_PushHead(LinkedList *list, const DS_Data data)
      list->size++;
 }
 
-void DS_LinkedList_PushTail(LinkedList *list, const DS_Data data)
+void LinkedList_PushTail(LinkedList *list, const DS_Data data)
 {
-     Node *node = DS_LinkedListNode_Create(data, list->data_size);
+     Node *node = LinkedListNode_Create(data, list->data_size);
      node->next = NULL;
      if (list->size) {
           list->tail->next = node;
@@ -58,18 +58,18 @@ void DS_LinkedList_PushTail(LinkedList *list, const DS_Data data)
      list->size++;
 }
 
-void DS_LinkedList_PopHead(LinkedList *list)
+void LinkedList_PopHead(LinkedList *list)
 {
      Node *node = list->head;
      list->head = list->head->next;
      if (!list->head) {
           list->tail = NULL;
      }
-     DS_LinkedListNode_Destroy(node);
+     LinkedListNode_Destroy(node);
      list->size--;
 }
 
-void DS_LinkedList_PopTail(LinkedList *list)
+void LinkedList_PopTail(LinkedList *list)
 {
      if (list->head == list->tail) {
           free(list->head);
@@ -87,7 +87,7 @@ void DS_LinkedList_PopTail(LinkedList *list)
      list->size--;
 }
 
-void DS_LinkedList_Traverse(LinkedList *list, DS_FunctionTraverse fTraverse, void *uData)
+void LinkedList_Traverse(LinkedList *list, DS_FunctionTraverse fTraverse, void *uData)
 {
      Node *node = list->head;
      while (node) {
@@ -101,12 +101,12 @@ void *LinkedListNode_GetData(LinkedListNode *node)
      return node->data;
 }
 
-void DS_LinkedList_SetData(LinkedList *list, LinkedListNode *node, const DS_Data data)
+void LinkedList_SetData(LinkedList *list, LinkedListNode *node, const DS_Data data)
 {
      memcpy(node->data, data, list->size);
 }
 
-LinkedListNode *DS_LinkedList_DetectCycle(LinkedList *list)
+LinkedListNode *LinkedList_DetectCycle(LinkedList *list)
 {
      Node* tortoise = list->head;
      Node* hare = list->head;
@@ -120,7 +120,7 @@ LinkedListNode *DS_LinkedList_DetectCycle(LinkedList *list)
      return NULL;
 }
 
-LinkedListNode *DS_LinkedList_GetMiddleNode(LinkedList *list)
+LinkedListNode *LinkedList_GetMiddleNode(LinkedList *list)
 {
      Node* tortoise = list->head;
      Node* hare = list->head;
@@ -131,9 +131,9 @@ LinkedListNode *DS_LinkedList_GetMiddleNode(LinkedList *list)
      return tortoise;
 }
 
-LinkedList *DS_LinkedList_MergeSorted(LinkedList *list1, LinkedList *list2)
+LinkedList *LinkedList_MergeSorted(LinkedList *list1, LinkedList *list2)
 {
-     LinkedList *list = DS_LinkedList_Create(list1->data_size);
+     LinkedList *list = LinkedList_Create(list1->data_size);
      if (list1->head->data <= list2->head->data) {
           list->head = list1->head;
           list1->head = list1->head->next;
@@ -158,7 +158,7 @@ LinkedList *DS_LinkedList_MergeSorted(LinkedList *list1, LinkedList *list2)
           node = node->next;
      }
      list->size = list1->size + list2->size;
-     DS_LinkedList_Destroy(list1);
-     DS_LinkedList_Destroy(list2);
+     LinkedList_Destroy(list1);
+     LinkedList_Destroy(list2);
      return list;
 }

@@ -23,41 +23,43 @@ static void _XorLinkedListNode_Destroy(Node *node);
 
 XorLinkedList *XorLinkedList_Create(DS_Size size)
 {
-     XorLinkedList *xlList = (XorLinkedList *)malloc(sizeof (XorLinkedList));
-     assert(xor_linked_list);
-     xlList->head = NULL;
-     xlList->tail = NULL;
-     xlList->data_size = size;
-     xlList->size = 0;
-     return xlList;
-}
-
-void XorLinkedList_Destroy(XorLinkedList *xlList)
-{
-     _XorLinkedListNode_Destroy(xlList->head);
-     free(xlList);
-}
-
-void XorLinkedList_PushHead(XorLinkedList *xlList, const DS_Data data)
-{
-     Node *node = _XorLinkedListNode_Create(data, xlList->data_size);
-     node->xor = 0 ^ (DS_Size)xlList->head;
-     xlList->head = node;
-     if (!xlList->size) {
-          xlList->tail = node;
+     XorLinkedList *list = (XorLinkedList *)malloc(sizeof (XorLinkedList));
+     if (!list) {
+          return NULL;
      }
-     xlList->size++;
+     list->head = NULL;
+     list->tail = NULL;
+     list->data_size = size;
+     list->size = 0;
+     return list;
 }
 
-void XorLinkedList_PushTail(XorLinkedList *xlList, const DS_Data data)
+void XorLinkedList_Destroy(XorLinkedList *list)
 {
-     Node *node = _XorLinkedListNode_Create(data, xlList->data_size);
-     node->xor = (DS_Size)xlList->tail ^ 0;
-     xlList->tail = node;
-     if (!xlList->size) {
-          xlList->head = node;
+     _XorLinkedListNode_Destroy(list->head);
+     free(list);
+}
+
+void XorLinkedList_PushHead(XorLinkedList *list, const DS_Data data)
+{
+     Node *node = _XorLinkedListNode_Create(data, list->data_size);
+     node->xor = 0 ^ (DS_Size)list->head;
+     list->head = node;
+     if (!list->size) {
+          list->tail = node;
      }
-     xlList->size++;
+     list->size++;
+}
+
+void XorLinkedList_PushTail(XorLinkedList *list, const DS_Data data)
+{
+     Node *node = _XorLinkedListNode_Create(data, list->data_size);
+     node->xor = (DS_Size)list->tail ^ 0;
+     list->tail = node;
+     if (!list->size) {
+          list->head = node;
+     }
+     list->size++;
 }
 
 static Node *_XorLinkedListNode_Create(const DS_Data data, DS_Size size)

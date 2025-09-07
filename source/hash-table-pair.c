@@ -4,7 +4,7 @@
 
 typedef HashTablePair Pair;
 
-Pair *DS_HashTablePair_Create(const void *key, DS_Size sKey, const void *value, DS_Size sValue)
+Pair *HashTablePair_Create(const void *key, DS_Size sKey, const void *value, DS_Size sValue)
 {
     Pair *pair = (Pair *)malloc(sizeof (Pair));
     if (!pair) {
@@ -27,7 +27,7 @@ Pair *DS_HashTablePair_Create(const void *key, DS_Size sKey, const void *value, 
     return pair;
 }
 
-void DS_HashTablePair_Destroy(Pair *pair)
+void HashTablePair_Destroy(Pair *pair)
 {
     free(pair->key);
     free(pair->value);

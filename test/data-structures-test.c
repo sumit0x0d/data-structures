@@ -16,26 +16,26 @@ static void _traverse_print(DS_Data data, void *uData);
 int main()
 {
      srand((int)time(NULL));
-     Array *array = DS_Array_Create(sizeof(int), CAPACITY);
+     Array *array = Array_Create(sizeof(int), CAPACITY);
      assert(array != NULL);
-     assert(DS_Array_GetSize(array) == 0);
-     assert(DS_Array_GetDataSize(array) == sizeof(int));
-     printf("DS_Array_create() passed\n");
+     assert(Array_GetSize(array) == 0);
+     assert(Array_GetDataSize(array) == sizeof(int));
+     printf("Array_create() passed\n");
      for (int i = 0; i < CAPACITY; i++) {
           int value = rand() % 100;
-          DS_Array_SetData(array, i, &value);
+          Array_SetData(array, i, &value);
      }    
-     printf("DS_Array_set_data() passed\n");
-     DS_Array_PatternSearchRabinKarp(array, NULL, 0, _hash_int, NULL);
-     DS_Array_Traverse(array, _traverse_print, NULL);
-     printf("\nDS_Array_traverse() passed\n");
-     // DS_Array_SortBubble(array, _compare_int, NULL);
-     DS_Array_SortInsertion(array, _compare_int, NULL);
-     DS_Array_SortSelection(array, _compare_int, NULL);
-     DS_Array_Traverse(array, _traverse_print, NULL);
-     printf("\nDS_Array_traverse() passed\n");
-     DS_Array_Destroy(array);
-     printf("DS_Array_destroy() passed\n");
+     printf("Array_set_data() passed\n");
+     Array_PatternSearchRabinKarp(array, NULL, 0, _hash_int, NULL);
+     Array_Traverse(array, _traverse_print, NULL);
+     printf("\nArray_traverse() passed\n");
+     // Array_SortBubble(array, _compare_int, NULL);
+     Array_SortInsertion(array, _compare_int, NULL);
+     Array_SortSelection(array, _compare_int, NULL);
+     Array_Traverse(array, _traverse_print, NULL);
+     printf("\nArray_traverse() passed\n");
+     Array_Destroy(array);
+     printf("Array_destroy() passed\n");
      printf("All array tests passed!\n");
      return 0;
 }
