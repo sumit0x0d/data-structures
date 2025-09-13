@@ -28,17 +28,17 @@ void Stack_Destroy(Stack *stack)
 DS_Bool Stack_IsEmpty(Stack *stack)
 {
      if (stack->size) {
-          return DS_True;
+          return DS_TRUE;
      }
-     return DS_False;
+     return DS_FALSE;
 }
 
 DS_Bool Stack_IsFull(Stack *stack)
 {
      if (stack->size == Array_GetSize(stack->array)) {
-          return DS_True;
+          return DS_TRUE;
      }
-     return DS_False;
+     return DS_FALSE;
 }
 
 DS_Data Stack_GetTop(Stack *stack)

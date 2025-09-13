@@ -6,18 +6,16 @@
 
 #include "linked-list-node.h"
 
-typedef LinkedListNode Node;
-
 struct linked_list {
-     Node *head;
-     Node *tail;
+     LinkedListNode head;
+     LinkedListNode tail;
      DS_Size data_size;
      DS_Size size;
 };
 
-LinkedList *LinkedList_Create(DS_Size size)
+LinkedList LinkedList_Create(DS_Size size)
 {
-     LinkedList *list = (LinkedList *)malloc(sizeof (LinkedList));
+     LinkedList list = (LinkedList )malloc(sizeof (LinkedList));
      assert(list);
      list->head = NULL;
      list->tail = NULL;
@@ -26,15 +24,15 @@ LinkedList *LinkedList_Create(DS_Size size)
      return list;
 }
 
-void LinkedList_Destroy(LinkedList *list)
+void LinkedList_Destroy(LinkedList list)
 {
      free(list->head);
      free(list);
 }
 
-void LinkedList_PushHead(LinkedList *list, const DS_Data data)
+void LinkedList_PushHead(LinkedList list, const DS_Data data)
 {
-     Node *node = LinkedListNode_Create(data, list->data_size);
+     LinkedListNode node = LinkedListNode_Create(data, list->data_size);
      if (list->size) {
           node->next = list->head;
      } else {
@@ -45,9 +43,9 @@ void LinkedList_PushHead(LinkedList *list, const DS_Data data)
      list->size++;
 }
 
-void LinkedList_PushTail(LinkedList *list, const DS_Data data)
+void LinkedList_PushTail(LinkedList list, const DS_Data data)
 {
-     Node *node = LinkedListNode_Create(data, list->data_size);
+     LinkedListNode node = LinkedListNode_Create(data, list->data_size);
      node->next = NULL;
      if (list->size) {
           list->tail->next = node;
@@ -58,9 +56,9 @@ void LinkedList_PushTail(LinkedList *list, const DS_Data data)
      list->size++;
 }
 
-void LinkedList_PopHead(LinkedList *list)
+void LinkedList_PopHead(LinkedList list)
 {
-     Node *node = list->head;
+     LinkedListNode node = list->head;
      list->head = list->head->next;
      if (!list->head) {
           list->tail = NULL;
@@ -69,7 +67,7 @@ void LinkedList_PopHead(LinkedList *list)
      list->size--;
 }
 
-void LinkedList_PopTail(LinkedList *list)
+void LinkedList_PopTail(LinkedList list)
 {
      if (list->head == list->tail) {
           free(list->head);
@@ -77,7 +75,7 @@ void LinkedList_PopTail(LinkedList *list)
           list->tail = NULL;
           return;
      }
-     Node *node = list->head;
+     LinkedListNode node = list->head;
      while (node->next != list->tail) {
           node = node->next;
      }
@@ -87,53 +85,53 @@ void LinkedList_PopTail(LinkedList *list)
      list->size--;
 }
 
-void LinkedList_Traverse(LinkedList *list, DS_FunctionTraverse fTraverse, void *uData)
+void LinkedList_Traverse(LinkedList list, DS_FunctionTraverse fTraverse, DS_Context context)
 {
-     Node *node = list->head;
+     LinkedListNode node = list->head;
      while (node) {
-          traverse(node->data, uData);
+          traverse(node->data, context);
           node = node->next;
      }
 }
 
-void *LinkedListNode_GetData(LinkedListNode *node)
+void *LinkedListNode_GetData(LinkedListNode node)
 {
      return node->data;
 }
 
-void LinkedList_SetData(LinkedList *list, LinkedListNode *node, const DS_Data data)
+void LinkedList_SetData(LinkedList list, LinkedListNode node, const DS_Data data)
 {
      memcpy(node->data, data, list->size);
 }
 
-LinkedListNode *LinkedList_DetectCycle(LinkedList *list)
+LinkedListNode LinkedList_DetectCycle(LinkedList list)
 {
-     Node* tortoise = list->head;
-     Node* hare = list->head;
-     while (hare && hare->next) {
-          if (tortoise == hare) {
-               return tortoise;
+     LinkedListNode nTortoise = list->head;
+     LinkedListNode nHare = list->head;
+     while (nHare && nHare->next) {
+          if (nTortoise == nHare) {
+               return nTortoise;
           }
-          tortoise = tortoise->next;
-          hare = hare->next->next;
+          nTortoise = nTortoise->next;
+          nHare = nHare->next->next;
      }
      return NULL;
 }
 
-LinkedListNode *LinkedList_GetMiddleNode(LinkedList *list)
+LinkedListNode LinkedList_GetMiddleNode(LinkedList list)
 {
-     Node* tortoise = list->head;
-     Node* hare = list->head;
-     while (hare && hare->next) {
-          tortoise = tortoise->next;
-          hare = hare->next->next;
+     LinkedListNode nTortoise = list->head;
+     LinkedListNode nHare = list->head;
+     while (nHare && nHare->next) {
+          nTortoise = nTortoise->next;
+          nHare = nHare->next->next;
      }
-     return tortoise;
+     return nTortoise;
 }
 
-LinkedList *LinkedList_MergeSorted(LinkedList *list1, LinkedList *list2)
+LinkedList LinkedList_MergeSorted(LinkedList list1, LinkedList list2)
 {
-     LinkedList *list = LinkedList_Create(list1->data_size);
+     LinkedList list = LinkedList_Create(list1->data_size);
      if (list1->head->data <= list2->head->data) {
           list->head = list1->head;
           list1->head = list1->head->next;
@@ -146,7 +144,7 @@ LinkedList *LinkedList_MergeSorted(LinkedList *list1, LinkedList *list2)
      } else {
           list->tail = list1->tail;
      }
-     Node *node = list->head;
+     LinkedListNode node = list->head;
      while (list1->head && list2->head) {
           if (list1->head->data <= list2->head->data) {
                node->next = list1->head;

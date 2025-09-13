@@ -17,12 +17,12 @@ struct binary_heap {
      DS_Size data_size;
      DS_Size size;
      BinaryHeapCompare compare;
-     void *uData;
+     DS_Context context;
 };
 
-BinaryHeap *BinaryHeap_Create(DS_Size size, BinaryHeapCompare bhCompare, void *uData);
+BinaryHeap *BinaryHeap_Create(DS_Size size, BinaryHeapCompare bhCompare, DS_Context context);
 void BinaryHeap_Destroy(BinaryHeap *bHeap);
 
-void BinaryHeap_Traverse(BinaryHeap *bHeap, BinaryHeapTraverse bhTraverse, void *uData);
+void BinaryHeap_Traverse(BinaryHeap *bHeap, BinaryHeapTraverse bhTraverse, DS_Context context);
 
 #endif

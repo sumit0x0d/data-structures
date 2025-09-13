@@ -5,9 +5,9 @@
 
 typedef AvlTreeNode Node;
 
-Node *AvlTreeNode_Create(const DS_Data data, DS_Size sData)
+Node AvlTreeNode_Create(const DS_Data data, DS_Size sData)
 {
-    Node *node = (Node *)malloc(sizeof (Node));
+    Node node = (Node)malloc(sizeof (struct avl_tree_node));
     if (!node) {
         return NULL;
     }
@@ -23,13 +23,13 @@ Node *AvlTreeNode_Create(const DS_Data data, DS_Size sData)
     return node;
 }
 
-void AvlTreeNode_Destroy(Node *node)
+void AvlTreeNode_Destroy(Node node)
 {
     free(node->data);
     free(node);
 }
 
-DS_Size AvlTreeNode_GetHeight(Node *node, CircularBuffer *cBuffer)
+DS_Size AvlTreeNode_GetHeight(Node node, CircularBuffer *cBuffer)
 {
     DS_Size height = 0;
     CircularBuffer_PushBack(cBuffer, node);
@@ -47,7 +47,7 @@ DS_Size AvlTreeNode_GetHeight(Node *node, CircularBuffer *cBuffer)
     return height;
 }
 
-void AvlTreeNode_UpdateBalanceFactor(Node *node, CircularBuffer *cBuffer)
+void AvlTreeNode_UpdateBalanceFactor(Node node, CircularBuffer *cBuffer)
 {
     DS_Size hnLeft = 0;
     DS_Size hnRight = 0;
@@ -60,10 +60,10 @@ void AvlTreeNode_UpdateBalanceFactor(Node *node, CircularBuffer *cBuffer)
     node->balance_factor = (int)(hnLeft - hnRight);
 }
 
-Node *AvlTreeNode_GetPredecessor(Node *node)
+Node AvlTreeNode_GetPredecessor(Node node)
 {
-    Node *nLeft = node->left;
-    Node *nPrevious = node;
+    Node nLeft = node->left;
+    Node nPrevious = node;
     free(node->data);
     node = nLeft;
     while (node->right) {
@@ -80,10 +80,10 @@ Node *AvlTreeNode_GetPredecessor(Node *node)
     return nPrevious;
 }
 
-Node *AvlTreeNode_GetSuccessor(Node *node)
+Node AvlTreeNode_GetSuccessor(Node node)
 {
-    Node *nRight = node->right;
-    Node *nPrevious = node;
+    Node nRight = node->right;
+    Node nPrevious = node;
     free(node->data);
     node = nRight;
     while (node->left) {

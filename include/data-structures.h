@@ -18,16 +18,23 @@ typedef float  DS_Float32;
 typedef double DS_Float64;
 
 typedef DS_UInt8 DS_Bool;
-#define DS_True  1
-#define DS_False 0
+#define DS_TRUE  1
+#define DS_FALSE 0
 
 typedef const DS_UInt8 * DS_String;
 
 typedef void *    DS_Data;
+typedef void *    DS_Context;
 typedef DS_UInt64 DS_Size;
 
-typedef void    (*DS_FunctionTraverse)(DS_Data data, DS_Data dUser);
-typedef int     (*DS_FunctionCompare)(const DS_Data data1, const DS_Data data2, DS_Data dUser);
-typedef DS_Size (*DS_FunctionHash)(const DS_Data data, DS_Size sData, DS_Data dUser);
+typedef enum {
+    DS_COMPARE_LESS    = -1,
+    DS_COMPARE_EQUAL   = 0,
+    DS_COMPARE_GREATER = 1
+} DS_Compare;
+
+typedef void       (*DS_FunctionTraverse)(DS_Data data, DS_Context context);
+typedef DS_Compare (*DS_FunctionCompare)(const DS_Data data1, const DS_Data data2, DS_Context context);
+typedef DS_Size    (*DS_FunctionHash)(const DS_Data data, DS_Size sData, DS_Context context);
 
 #endif

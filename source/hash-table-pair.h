@@ -6,13 +6,13 @@
 struct hash_table_pair {
     DS_Data key;
     DS_Data value;
-    HashTablePair *next;
+    HashTablePair next;
 };
 
 DS_PRIVATE_API
-HashTablePair *HashTablePair_Create(const DS_Data key, DS_Size sKey, const DS_Data value, DS_Size sValue);
+HashTablePair HashTablePair_Create(const DS_Data key, DS_Size sKey, const DS_Data value, DS_Size sValue);
 
 DS_PRIVATE_API
-void HashTablePair_Destroy(HashTablePair *pair);
+void HashTablePair_Destroy(HashTablePair pair);
 
 #endif

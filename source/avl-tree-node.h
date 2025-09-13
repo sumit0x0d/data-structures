@@ -6,28 +6,28 @@
 
 struct avl_tree_node {
     DS_Data data;
-    AvlTreeNode *parent;
-    AvlTreeNode *left;
-    AvlTreeNode *right;
+    AvlTreeNode parent;
+    AvlTreeNode left;
+    AvlTreeNode right;
     DS_UInt8 balance_factor;
 };
 
 DS_PRIVATE_API
-AvlTreeNode *AvlTreeNode_Create(const DS_Data data, DS_Size sData);
+AvlTreeNode AvlTreeNode_Create(const DS_Data data, DS_Size sData);
 
 DS_PRIVATE_API
-void AvlTreeNode_Destroy(AvlTreeNode *node);
+void AvlTreeNode_Destroy(AvlTreeNode node);
 
 DS_PRIVATE_API
-DS_Size AvlTreeNode_GetHeight(AvlTreeNode *node, CircularBuffer *cBuffer);
+DS_Size AvlTreeNode_GetHeight(AvlTreeNode node, CircularBuffer cBuffer);
 
 DS_PRIVATE_API
-void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode *node, CircularBuffer *cBuffer);
+void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode node, CircularBuffer cBuffer);
 
 DS_PRIVATE_API
-AvlTreeNode *AvlTreeNode_GetPredecessor(AvlTreeNode *node);
+AvlTreeNode AvlTreeNode_GetPredecessor(AvlTreeNode node);
 
 DS_PRIVATE_API
-AvlTreeNode *AvlTreeNode_GetSuccessor(AvlTreeNode *node);
+AvlTreeNode AvlTreeNode_GetSuccessor(AvlTreeNode node);
 
 #endif

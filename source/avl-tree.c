@@ -11,22 +11,22 @@
 typedef AvlTreeNode Node;
 
 struct avl_tree {
-    Node *root;
+    Node root;
     DS_Size data_size;
     DS_Size size;
     DS_FunctionCompare compare;
-    DS_Data user_data;
+    DS_Context context;
 };
 
-static void _Rebalance(AvlTree *aTree, Node *node, CircularBuffer *cBuffer);
-static void _RotateRight(AvlTree *aTree, Node *node);
-static void _RotateLeftRight(AvlTree *aTree, Node *node);
-static void _RotateLeft(AvlTree *aTree, Node *node);
-static void _RotateRightLeft(AvlTree *aTree, Node *node);
+static void _Rebalance(AvlTree aTree, Node node, CircularBuffer *cBuffer);
+static void _RotateRight(AvlTree aTree, Node node);
+static void _RotateLeftRight(AvlTree aTree, Node node);
+static void _RotateLeft(AvlTree aTree, Node node);
+static void _RotateRightLeft(AvlTree aTree, Node node);
 
-AvlTree *AvlTree_Create(DS_Size sData, DS_FunctionCompare fCompare, DS_Data dUser)
+AvlTree AvlTree_Create(DS_Size sData, DS_FunctionCompare fCompare, DS_Context context)
 {
-    AvlTree *aTree = (AvlTree *)malloc(sizeof (AvlTree));
+    AvlTree aTree = (AvlTree)malloc(sizeof (struct avl_tree));
     if (!aTree) {
         return NULL;
     }
@@ -34,18 +34,18 @@ AvlTree *AvlTree_Create(DS_Size sData, DS_FunctionCompare fCompare, DS_Data dUse
     aTree->data_size = sData;
     aTree->size = 0;
     aTree->compare = fCompare;
-    aTree->user_data = dUser;
+    aTree->context = context;
     return aTree;
 }
 
-void AvlTree_Destroy(AvlTree *aTree)
+void AvlTree_Destroy(AvlTree aTree)
 {
-    CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (Node *), aTree->size);
-    Node *node = aTree->root;
+    CircularBuffer cBuffer = CircularBuffer_Create(sizeof (Node), aTree->size);
+    Node node = aTree->root;
     free(node->data);
     CircularBuffer_PushBack(cBuffer, node);
     while (!CircularBuffer_IsEmpty(cBuffer)) {
-        node = (Node *)CircularBuffer_GetFrontData(cBuffer);
+        node = (Node)CircularBuffer_GetFrontData(cBuffer);
         CircularBuffer_PopFront(cBuffer);
         if (node->left) {
             free(node->data);
@@ -60,11 +60,11 @@ void AvlTree_Destroy(AvlTree *aTree)
     free(aTree);
 }
 
-Node *AvlTree_Search(AvlTree *aTree, const DS_Data data)
+Node AvlTree_Search(AvlTree aTree, const DS_Data data)
 {
-    Node *node = aTree->root;
+    Node node = aTree->root;
     while (node) {
-        switch (aTree->compare(node->data, data, aTree->user_data)) {
+        switch (aTree->compare(node->data, data, aTree->context)) {
         case -1:
             node = node->left;
             break;
@@ -78,7 +78,7 @@ Node *AvlTree_Search(AvlTree *aTree, const DS_Data data)
     return NULL;
 }
 
-void AvlTree_Insert(AvlTree *aTree, const DS_Data data)
+void AvlTree_Insert(AvlTree aTree, const DS_Data data)
 {
     if (!aTree->root) {
         aTree->root = AvlTreeNode_Create(data, aTree->data_size);
@@ -86,12 +86,12 @@ void AvlTree_Insert(AvlTree *aTree, const DS_Data data)
         aTree->size++;
         return;
     }
-    CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (Node *), (aTree->size + 2) / 2);
-    Node *node = aTree->root;
-    Node *pnode = aTree->root->parent;
+    CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (Node ), (aTree->size + 2) / 2);
+    Node node = aTree->root;
+    Node pnode = aTree->root->parent;
     int compare = 0;
     while (node) {
-        compare = aTree->compare(node->data, data, aTree->user_data);
+        compare = aTree->compare(node->data, data, aTree->context);
         if (compare == 0) {
             CircularBuffer_Destroy(cBuffer);
             return;
@@ -115,13 +115,13 @@ void AvlTree_Insert(AvlTree *aTree, const DS_Data data)
     aTree->size++;
 }
 
-void AvlTree_Remove(AvlTree *aTree, const DS_Data data)
+void AvlTree_Remove(AvlTree aTree, const DS_Data data)
 {
-    CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (Node *), (aTree->size + 2) / 2);
-    Node *node = aTree->root;
-    Node *pnode = aTree->root->parent;
+    CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (Node ), (aTree->size + 2) / 2);
+    Node node = aTree->root;
+    Node pnode = aTree->root->parent;
     while (node) {
-        int compare = aTree->compare(data, node->data, aTree->user_data);
+        int compare = aTree->compare(data, node->data, aTree->context);
         if (compare == 0) {
             break;
         }
@@ -174,17 +174,17 @@ void AvlTree_Remove(AvlTree *aTree, const DS_Data data)
     aTree->size--;
 }
 
-void AvlTree_TraversePreorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, DS_Data dUser)
+void AvlTree_TraversePreorder(AvlTree aTree, DS_FunctionTraverse atTraverse, DS_Context context)
 {
-    Node *node = aTree->root;
-    Stack *stack = Stack_Create(sizeof (Node *), aTree->size);
+    Node node = aTree->root;
+    Stack *stack = Stack_Create(sizeof (Node ), aTree->size);
     while (node || !Stack_IsEmpty(stack)) {
         if (node) {
             Stack_Push(stack, node);
-            atTraverse(node->data, dUser);
+            atTraverse(node->data, context);
             node = node->left;
         } else {
-            node = (Node *)Stack_GetTop(stack);
+            node = (Node )Stack_GetTop(stack);
             Stack_Pop(stack);
             node = node->right;
         }
@@ -192,35 +192,35 @@ void AvlTree_TraversePreorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, DS
     Stack_Destroy(stack);
 }
 
-void AvlTree_TraverseInorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, DS_Data dUser)
+void AvlTree_TraverseInorder(AvlTree aTree, DS_FunctionTraverse atTraverse, DS_Context context)
 {
-    Node *node = aTree->root;
-    Stack *stack = Stack_Create(sizeof (Node *), aTree->size);
+    Node node = aTree->root;
+    Stack *stack = Stack_Create(sizeof (Node ), aTree->size);
     while (node || !Stack_IsEmpty(stack)) {
         if (node) {
             Stack_Push(stack, node);
             node = node->left;
         } else {
-            node = (Node *)Stack_GetTop(stack);
+            node = (Node )Stack_GetTop(stack);
             Stack_Pop(stack);
-            atTraverse(node->data, dUser);
+            atTraverse(node->data, context);
             node = node->right;
         }
     }
     Stack_Destroy(stack);
 }
 
-void AvlTree_TraversePostorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, DS_Data dUser)
+void AvlTree_TraversePostorder(AvlTree aTree, DS_FunctionTraverse atTraverse, DS_Context context)
 {
-    Node *node = aTree->root;
-    Stack *stack = Stack_Create(sizeof (Node *), aTree->size);
+    Node node = aTree->root;
+    Stack *stack = Stack_Create(sizeof (Node ), aTree->size);
     while (node || !Stack_IsEmpty(stack)) {
         if (node) {
             Stack_Push(stack, node);
-            atTraverse(node->data, dUser);
+            atTraverse(node->data, context);
             node = node->left;
         } else {
-            node = (Node *)Stack_GetTop(stack);
+            node = (Node )Stack_GetTop(stack);
             Stack_Pop(stack);
             node = node->right;
         }
@@ -228,21 +228,21 @@ void AvlTree_TraversePostorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, D
     Stack_Destroy(stack);
 }
 
-void AvlTree_TraverseLevelorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, DS_Data dUser)
+void AvlTree_TraverseLevelorder(AvlTree aTree, DS_FunctionTraverse atTraverse, DS_Context context)
 {
-    Node *node = aTree->root;
-    CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (Node *), aTree->size);
-    atTraverse(node->data, dUser);
+    Node node = aTree->root;
+    CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (Node ), aTree->size);
+    atTraverse(node->data, context);
     CircularBuffer_PushBack(cBuffer, node);
     while (!CircularBuffer_IsEmpty(cBuffer)) {
         node = CircularBuffer_GetFrontData(cBuffer);
         CircularBuffer_PopFront(cBuffer);
         if (node->left) {
-            atTraverse(node->data, dUser);
+            atTraverse(node->data, context);
             CircularBuffer_PushBack(cBuffer, node->left);
         }
         if (node->right) {
-            atTraverse(node->data, dUser);
+            atTraverse(node->data, context);
             CircularBuffer_PushBack(cBuffer, node->right);
         }
     }
@@ -250,9 +250,9 @@ void AvlTree_TraverseLevelorder(AvlTree *aTree, DS_FunctionTraverse atTraverse, 
 }
 
 
-static void _RotateRight(AvlTree *tree, Node *node)
+static void _RotateRight(AvlTree tree, Node node)
 {
-    Node *nLeft = node->left;
+    Node nLeft = node->left;
     node->left = nLeft->right;
     if (node->left) {
         node->left->parent = node;
@@ -268,10 +268,10 @@ static void _RotateRight(AvlTree *tree, Node *node)
     nLeft->right = node;
 }
 
-static void _RotateLeftRight(AvlTree *aTree, Node *node)
+static void _RotateLeftRight(AvlTree aTree, Node node)
 {
-    Node *nLeft = node->left;
-    Node *nlRight = node->left->right;
+    Node nLeft = node->left;
+    Node nlRight = node->left->right;
     nLeft->right = nlRight->left;
     if (nLeft->right) {
         nLeft->right->parent = nLeft;
@@ -296,9 +296,9 @@ static void _RotateLeftRight(AvlTree *aTree, Node *node)
     nlRight->right = node;
 }
 
-static void _RotateLeft(AvlTree *aTree, Node *node)
+static void _RotateLeft(AvlTree aTree, Node node)
 {
-    Node *nRight = node->right;
+    Node nRight = node->right;
     node->right = nRight->left;
     if (node->right) {
         node->right->parent = node;
@@ -317,10 +317,10 @@ static void _RotateLeft(AvlTree *aTree, Node *node)
     nRight->left = node;
 }
 
-static void _RotateRightLeft(AvlTree *aTree, Node *node)
+static void _RotateRightLeft(AvlTree aTree, Node node)
 {
-    Node *nRight = node->right;
-    Node *nrLeft = node->right->left;
+    Node nRight = node->right;
+    Node nrLeft = node->right->left;
     nRight->left = nrLeft->right;
     if (nRight->left) {
         nRight->left->parent = nRight;
@@ -345,7 +345,7 @@ static void _RotateRightLeft(AvlTree *aTree, Node *node)
     nrLeft->left = node;
 }
 
-static void _Rebalance(AvlTree *aTree, Node *node, CircularBuffer *cBuffer)
+static void _Rebalance(AvlTree aTree, Node node, CircularBuffer *cBuffer)
 {
     while (node) {
         AvlTreeNode_UpdateBalanceFactor(node, cBuffer);

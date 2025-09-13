@@ -3,13 +3,13 @@
 
 #include <data-structures.h>
 
-typedef struct rope Rope;
-typedef struct rope_node RopeNode;
+typedef struct rope * Rope;
+typedef struct rope_node * RopeNode;
 
 DS_PUBLIC_API
-Rope *Rope_Create(DS_Size sData);
+Rope Rope_Create(DS_Size sData);
 
 DS_PUBLIC_API
-void Rope_Destroy(Rope *rope);
+void Rope_Destroy(Rope rope);
 
 #endif

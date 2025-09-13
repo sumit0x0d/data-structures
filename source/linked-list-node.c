@@ -2,9 +2,9 @@
 
 typedef LinkedListNode Node;
 
-Node *LinkedListNode_Create(const DS_Data data, DS_Size sData)
+LinkedListNode LinkedListNode_Create(const DS_Data data, DS_Size sData)
 {
-    Node *node = (Node *)malloc(sizeof (Node));
+    LinkedListNode node = (LinkedListNode)malloc(sizeof (struct linked_list_node));
     if (!node) {
         return NULL;
     }
@@ -17,7 +17,7 @@ Node *LinkedListNode_Create(const DS_Data data, DS_Size sData)
     return node;
 }
 
-void LinkedListNode_Destroy(Node *node)
+void LinkedListNode_Destroy(LinkedListNode node)
 {
     free(node->data);
     free(node);

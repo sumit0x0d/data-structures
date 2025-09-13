@@ -18,7 +18,7 @@ struct hash_table {
      void *user_data;
 };
 
-HashTable *HashTable_Create(DS_Size sKey, DS_Size sValue, DS_Size bCount, DS_FunctionHash hash, DS_FunctionCompare compare, void *uData)
+HashTable *HashTable_Create(DS_Size sKey, DS_Size sValue, DS_Size bCount, DS_FunctionHash hash, DS_FunctionCompare compare, DS_Context context)
 {
      HashTable *hTable = (HashTable *)malloc(sizeof (HashTable));
      if (!hTable) {

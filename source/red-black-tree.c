@@ -23,7 +23,7 @@ static void _RotateLeft(RedBlackTree *tree, Node *node);
 static void _RotateRightLeft(RedBlackTree *tree, Node *node);
 static void _Rebalance(RedBlackTree *tree, Node *node);
 
-RedBlackTree *RedBlackTree_Create(DS_Size size, DS_FunctionCompare fCompare, void *uData)
+RedBlackTree *RedBlackTree_Create(DS_Size size, DS_FunctionCompare fCompare, DS_Context context)
 {
      RedBlackTree *tree = (RedBlackTree *)malloc(sizeof (RedBlackTree));
      if (!tree) {

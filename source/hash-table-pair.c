@@ -4,9 +4,9 @@
 
 typedef HashTablePair Pair;
 
-Pair *HashTablePair_Create(const void *key, DS_Size sKey, const void *value, DS_Size sValue)
+Pair HashTablePair_Create(const void *key, DS_Size sKey, const void *value, DS_Size sValue)
 {
-    Pair *pair = (Pair *)malloc(sizeof (Pair));
+    Pair pair = (Pair )malloc(sizeof (struct hash_table_pair));
     if (!pair) {
         return NULL;
     } 
@@ -27,7 +27,7 @@ Pair *HashTablePair_Create(const void *key, DS_Size sKey, const void *value, DS_
     return pair;
 }
 
-void HashTablePair_Destroy(Pair *pair)
+void HashTablePair_Destroy(Pair pair)
 {
     free(pair->key);
     free(pair->value);

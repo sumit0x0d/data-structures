@@ -5,14 +5,14 @@
 
 struct doubly_linked_list_node {
     DS_Data data;
-    DoublyLinkedListNode *previous;
-    DoublyLinkedListNode *next;
+    DoublyLinkedListNode previous;
+    DoublyLinkedListNode next;
 };
 
 DS_PRIVATE_API
-DoublyLinkedListNode *DoublyLinkedListNode_Create(const DS_Data data, DS_Size sData);
+DoublyLinkedListNode DoublyLinkedListNode_Create(const DS_Data data, DS_Size sData);
 
 DS_PRIVATE_API
-void DoublyLinkedListNode_Destroy(DoublyLinkedListNode *node);
+void DoublyLinkedListNode_Destroy(DoublyLinkedListNode node);
 
 #endif

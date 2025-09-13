@@ -9,9 +9,9 @@
 #define CAPACITY 30000
 
 
-static int _compare_int(const DS_Data data1, const DS_Data data2, void *uData);
-static DS_Size _hash_int(const DS_Data data, DS_Size aSize, void *uData);
-static void _traverse_print(DS_Data data, void *uData);
+static int _compare_int(const DS_Data data1, const DS_Data data2, DS_Context context);
+static DS_Size _hash_int(const DS_Data data, DS_Size aSize, DS_Context context);
+static void _traverse_print(DS_Data data, DS_Context context);
 
 int main()
 {
@@ -40,7 +40,7 @@ int main()
      return 0;
 }
 
-static int _compare_int(const DS_Data data1, const DS_Data data2, void *uData)
+static int _compare_int(const DS_Data data1, const DS_Data data2, DS_Context context)
 {
      (void)uData;
      if (*(int *)data1 < *(int *)data2) {
@@ -52,13 +52,13 @@ static int _compare_int(const DS_Data data1, const DS_Data data2, void *uData)
      return 0;
 }
 
-static DS_Size _hash_int(const DS_Data data, DS_Size aSize, void *uData)
+static DS_Size _hash_int(const DS_Data data, DS_Size aSize, DS_Context context)
 {
      (void)uData;
      return (*(int *)data) % aSize;
 }
 
-static void _traverse_print(DS_Data data, void *uData)
+static void _traverse_print(DS_Data data, DS_Context context)
 {
      (void)uData;
      printf("%d ", *(int *)data);
