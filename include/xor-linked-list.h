@@ -13,7 +13,7 @@ DS_PUBLIC_API
 void XorLinkedList_Destroy(XorLinkedList list);
 
 DS_PUBLIC_API
-void *XorLinkedListNode_GetData(XorLinkedListNode *node);
+DS_Data XorLinkedListNode_GetData(XorLinkedListNode node);
 
 DS_PUBLIC_API
 void XorLinkedList_PushHead(XorLinkedList list, const DS_Data data);

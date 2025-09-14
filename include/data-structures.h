@@ -29,7 +29,7 @@ typedef void *    DS_Generic;
 typedef DS_UInt64 DS_Size;
 
 typedef DS_Size DS_Offset;
-#define DS_OFFSET(type, member) ((DS_Offset)&(((type *)0)->member))
+#define DS_OFFSET(type, member) ((DS_Offset)&(((type)0)->member))
 
 typedef enum {
     DS_COMPARE_LESS    = -1,

@@ -83,25 +83,25 @@ void Array_Traverse(Array array, DS_FunctionTraverse fTraverse, DS_Context conte
      }
 }
 
-DS_Data Array_SearchLinear(const Array array, const DS_Data data, DS_FunctionCompare compare, DS_Context context)
+DS_Data Array_SearchLinear(const Array array, const DS_Data data, DS_FunctionCompare compare, DS_Context cCompare)
 {
      for (DS_Size i = 0; i < array->size; i++) {
           DS_Data dCurrent = Array_GetData(array, i);
-          if (compare(dCurrent, data, context) == 0) {
+          if (compare(dCurrent, data, cCompare) == 0) {
                return dCurrent;
           }
      }
      return NULL;
 }
 
-DS_Data Array_SearchBinary(const Array array, const DS_Data data, DS_FunctionCompare fCompare, DS_Context context)
+DS_Data Array_SearchBinary(const Array array, const DS_Data data, DS_FunctionCompare fCompare, DS_Context cCompare)
 {
      DS_Size dLeft = 0;
      DS_Size dRight = array->size;
      while (dLeft < dRight) {
           DS_Size dMiddle = dLeft + (dRight - dLeft) / 2;
           DS_Data dCurrent = Array_GetData(array, dMiddle);
-          switch (fCompare(dCurrent, data, context)) {
+          switch (fCompare(dCurrent, data, cCompare)) {
           case DS_COMPARE_LESS:
                dLeft = dMiddle + 1;
                break;
@@ -128,14 +128,14 @@ void Array_SortBubble(Array array, DS_FunctionCompare fCompare, DS_Context conte
      }
 }
 
-void Array_SortInsertion(Array array, DS_FunctionCompare compare, DS_Context context)
+void Array_SortInsertion(Array array, DS_FunctionCompare compare, DS_Context cCompare)
 {
      for (DS_Size i = 1; i < array->size; i++) {
           DS_Size j = i;
           do {
                DS_Data data1 = Array_GetData(array, j - 1);
                DS_Data data2 = Array_GetData(array, j);
-               if (compare(data1, data2, context) == DS_COMPARE_GREATER) {
+               if (compare(data1, data2, cCompare) == DS_COMPARE_GREATER) {
                     Array_SwapData(array, data1, data2);
                }
                j--;
@@ -143,53 +143,53 @@ void Array_SortInsertion(Array array, DS_FunctionCompare compare, DS_Context con
      }
 }
 
-void Array_SortSelection(Array array, DS_FunctionCompare compare, DS_Context context)
+void Array_SortSelection(Array array, DS_FunctionCompare compare, DS_Context cCompare)
 {
      for (DS_Size i = 0; i < array->size - 1; i++) {
           DS_Size minimum = i;
           for (DS_Size j = minimum + 1; j < array->size; j++) {
                DS_Data data1 = Array_GetData(array, minimum);
                DS_Data data2 = Array_GetData(array, j);
-               if (compare(data1, data2, context) == DS_COMPARE_GREATER) {
+               if (compare(data1, data2, cCompare) == DS_COMPARE_GREATER) {
                     Array_SwapData(array, data1, data2);
                }
           }
      }
 }
 
-void Array_SortQuick(Array array, DS_FunctionCompare compare, DS_Context context)
+void Array_SortQuick(Array array, DS_FunctionCompare compare, DS_Context cCompare)
 {
      for (DS_Size i = 0; i < array->size - 1; i++) {
           for (DS_Size j = i + 1; j < array->size - i; j++) {
                DS_Data data1 = Array_GetData(array, i);
                DS_Data data2 = Array_GetData(array, j);
-               if (compare(data1, data2, context) == DS_COMPARE_GREATER) {
+               if (compare(data1, data2, cCompare) == DS_COMPARE_GREATER) {
                     Array_SwapData(array, data1, data2);
                }
           }
      }
 }
 
-void Array_SortMerge(Array array, DS_FunctionCompare compare, DS_Context context)
+void Array_SortMerge(Array array, DS_FunctionCompare compare, DS_Context cCompare)
 {
      for (DS_Size i = 0; i < array->size - 1; i++) {
           for (DS_Size j = i + 1; j < array->size - i; j++) {
                DS_Data data1 = Array_GetData(array, i);
                DS_Data data2 = Array_GetData(array, j);
-               if (compare(data1, data2, context) == DS_COMPARE_GREATER) {
+               if (compare(data1, data2, cCompare) == DS_COMPARE_GREATER) {
                     Array_SwapData(array, data1, data2);
                }
           }
      }
 }
 
-DS_Data Array_PatternSearchRabinKarp(const Array array, const DS_Data pattern, DS_Size pSize,
-                                     DS_FunctionHash hash, DS_Context context)
+DS_Data Array_PatternSearchRabinKarp(const Array array, const DS_Data pattern, DS_Size sPattern,
+                                     DS_FunctionHash fHash, DS_Context cHash)
 {
      (void)array;
      (void)pattern;
-     (void)pSize;
-     (void)hash;
-     (void)context;
+     (void)sPattern;
+     (void)fHash;
+     (void)cHash;
      return NULL;
 }

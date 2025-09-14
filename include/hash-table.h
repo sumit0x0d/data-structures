@@ -18,7 +18,7 @@ typedef struct hash_table_pair * HashTablePair;
  */
 DS_PUBLIC_API
 HashTable HashTable_Create(DS_Size sKey, DS_Size sValue, DS_Size nBucket, DS_FunctionHash fHash,
-                           DS_FunctionCompare fCompare, DS_Context context);
+                           DS_Context cHash, DS_FunctionCompare fCompare, DS_Context cCompare);
 
 DS_PUBLIC_API
 void HashTable_Destroy(HashTable hTable);

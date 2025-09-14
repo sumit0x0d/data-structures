@@ -8,6 +8,8 @@
 
 #include "avl-tree-node.h"
 
+#include "generic-binary-tree-traverse.h"
+
 typedef AvlTreeNode Node;
 
 struct avl_tree {
@@ -174,79 +176,64 @@ void AvlTree_Remove(AvlTree tree, const DS_Data data)
     tree->size--;
 }
 
-void AvlTree_TraversePreorder(AvlTree tree, DS_FunctionTraverse atTraverse, DS_Context context)
+void AvlTree_TraversePreorder(AvlTree tree, DS_FunctionTraverse fTraverse, DS_Context cTraverse)
 {
-    Node node = tree->root;
-    Stack *stack = Stack_Create(sizeof (struct avl_tree_node), tree->size);
-    while (node || !Stack_IsEmpty(stack)) {
-        if (node) {
-            Stack_Push(stack, node);
-            atTraverse(node->data, context);
-            node = node->left;
-        } else {
-            node = (struct avl_tree_node)Stack_GetTop(stack);
-            Stack_Pop(stack);
-            node = node->right;
-        }
-    }
-    Stack_Destroy(stack);
+    GenericBinaryTreeTraverseInfo gbttInfo = {
+        .tree_root = tree->root,
+        .node_size = tree->data_size,
+        .tree_size = tree->size,
+        .data_offest = DS_OFFSET(AvlTreeNode, data),
+        .left_offset = DS_OFFSET(AvlTreeNode, left),
+        .right_offset = DS_OFFSET(AvlTreeNode, right),
+        .traverse_function = fTraverse,
+        .traverse_context = cTraverse
+    };
+    GenericBinaryTree_TraverseLevelorder(&gbttInfo);
 }
 
-void AvlTree_TraverseInorder(AvlTree tree, DS_FunctionTraverse atTraverse, DS_Context context)
+void AvlTree_TraverseInorder(AvlTree tree, DS_FunctionTraverse fTraverse, DS_Context cTraverse)
 {
-    Node node = tree->root;
-    Stack *stack = Stack_Create(sizeof (struct avl_tree_node), tree->size);
-    while (node || !Stack_IsEmpty(stack)) {
-        if (node) {
-            Stack_Push(stack, node);
-            node = node->left;
-        } else {
-            node = (struct avl_tree_node)Stack_GetTop(stack);
-            Stack_Pop(stack);
-            atTraverse(node->data, context);
-            node = node->right;
-        }
-    }
-    Stack_Destroy(stack);
+    GenericBinaryTreeTraverseInfo gbttInfo = {
+        .tree_root = tree->root,
+        .node_size = tree->data_size,
+        .tree_size = tree->size,
+        .data_offest = DS_OFFSET(AvlTreeNode, data),
+        .left_offset = DS_OFFSET(AvlTreeNode, left),
+        .right_offset = DS_OFFSET(AvlTreeNode, right),
+        .traverse_function = fTraverse,
+        .traverse_context = cTraverse
+    };
+    GenericBinaryTree_TraverseLevelorder(&gbttInfo);
 }
 
-void AvlTree_TraversePostorder(AvlTree tree, DS_FunctionTraverse atTraverse, DS_Context context)
+void AvlTree_TraversePostorder(AvlTree tree, DS_FunctionTraverse fTraverse, DS_Context cTraverse)
 {
-    Node node = tree->root;
-    Stack *stack = Stack_Create(sizeof (struct avl_tree_node), tree->size);
-    while (node || !Stack_IsEmpty(stack)) {
-        if (node) {
-            Stack_Push(stack, node);
-            atTraverse(node->data, context);
-            node = node->left;
-        } else {
-            node = (struct avl_tree_node)Stack_GetTop(stack);
-            Stack_Pop(stack);
-            node = node->right;
-        }
-    }
-    Stack_Destroy(stack);
+    GenericBinaryTreeTraverseInfo gbttInfo = {
+        .tree_root = tree->root,
+        .node_size = tree->data_size,
+        .tree_size = tree->size,
+        .data_offest = DS_OFFSET(AvlTreeNode, data),
+        .left_offset = DS_OFFSET(AvlTreeNode, left),
+        .right_offset = DS_OFFSET(AvlTreeNode, right),
+        .traverse_function = fTraverse,
+        .traverse_context = cTraverse
+    };
+    GenericBinaryTree_TraverseLevelorder(&gbttInfo);
 }
 
-void AvlTree_TraverseLevelorder(AvlTree tree, DS_FunctionTraverse atTraverse, DS_Context context)
+void AvlTree_TraverseLevelorder(AvlTree tree, DS_FunctionTraverse fTraverse, DS_Context cTraverse)
 {
-    Node node = tree->root;
-    CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (struct avl_tree_node), tree->size);
-    atTraverse(node->data, context);
-    CircularBuffer_PushBack(cBuffer, node);
-    while (!CircularBuffer_IsEmpty(cBuffer)) {
-        node = CircularBuffer_GetFrontData(cBuffer);
-        CircularBuffer_PopFront(cBuffer);
-        if (node->left) {
-            atTraverse(node->data, context);
-            CircularBuffer_PushBack(cBuffer, node->left);
-        }
-        if (node->right) {
-            atTraverse(node->data, context);
-            CircularBuffer_PushBack(cBuffer, node->right);
-        }
-    }
-    CircularBuffer_Destroy(cBuffer);
+    GenericBinaryTreeTraverseInfo gbttInfo = {
+        .tree_root = tree->root,
+        .node_size = tree->data_size,
+        .tree_size = tree->size,
+        .data_offest = DS_OFFSET(AvlTreeNode, data),
+        .left_offset = DS_OFFSET(AvlTreeNode, left),
+        .right_offset = DS_OFFSET(AvlTreeNode, right),
+        .traverse_function = fTraverse,
+        .traverse_context = cTraverse
+    };
+    GenericBinaryTree_TraverseLevelorder(&gbttInfo);
 }
 
 

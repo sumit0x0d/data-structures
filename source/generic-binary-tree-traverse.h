@@ -5,11 +5,11 @@
 
 typedef struct {
     DS_Generic tree_root;
-    DS_Offset left_offset;
-    DS_Offset right_offset;
-    DS_Offset data_offest;
     DS_Size node_size;
     DS_Size tree_size;
+    DS_Offset data_offest;
+    DS_Offset left_offset;
+    DS_Offset right_offset;
     DS_FunctionTraverse traverse_function;
     DS_Context traverse_context;
 } GenericBinaryTreeTraverseInfo;
