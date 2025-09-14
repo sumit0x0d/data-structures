@@ -3,26 +3,16 @@
 
 #include <data-structures.h>
 
-typedef struct binary_heap BinaryHeap;
-typedef struct binary_heap_node BinaryHeapNode;
+typedef struct binary_heap * BinaryHeap;
+typedef struct binary_heap_node * BinaryHeapNode;
 
-struct binary_heap_node {
-     DS_Data data;
-     struct binary_heap_node *next;
-};
+DS_PUBLIC_API
+BinaryHeap BinaryHeap_Create(DS_Size sData, DS_FunctionCompare fCompare, DS_Context cCompare);
 
-struct binary_heap {
-     BinaryHeapNode *head;
-     BinaryHeapNode *tail;
-     DS_Size data_size;
-     DS_Size size;
-     BinaryHeapCompare compare;
-     DS_Context context;
-};
+DS_PUBLIC_API
+void BinaryHeap_Destroy(BinaryHeap heap);
 
-BinaryHeap *BinaryHeap_Create(DS_Size size, BinaryHeapCompare bhCompare, DS_Context context);
-void BinaryHeap_Destroy(BinaryHeap *bHeap);
-
-void BinaryHeap_Traverse(BinaryHeap *bHeap, BinaryHeapTraverse bhTraverse, DS_Context context);
+DS_PUBLIC_API
+void BinaryHeap_Traverse(BinaryHeap heap, DS_FunctionTraverse fTraverse, DS_Context cTraverse);
 
 #endif

@@ -13,13 +13,13 @@ struct singly_linked_list {
      DS_Size size;
 };
 
-SinglyLinkedList SinglyLinkedList_Create(DS_Size size)
+SinglyLinkedList SinglyLinkedList_Create(DS_Size sData)
 {
      SinglyLinkedList list = (SinglyLinkedList )malloc(sizeof (SinglyLinkedList));
      assert(list);
      list->head = NULL;
      list->tail = NULL;
-     list->data_size = size;
+     list->data_size = sData;
      list->size = 0;
      return list;
 }
@@ -101,7 +101,7 @@ void *SinglyLinkedListNode_GetData(SinglyLinkedListNode node)
 
 void SinglyLinkedList_SetData(SinglyLinkedList list, SinglyLinkedListNode node, const DS_Data data)
 {
-     memcpy(node->data, data, list->size);
+     memcpy(node->data, data, list->data_size);
 }
 
 SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList list)

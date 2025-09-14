@@ -28,6 +28,8 @@ typedef void *    DS_Context;
 typedef void *    DS_Generic;
 typedef DS_UInt64 DS_Size;
 
+typedef DS_Size DS_Hash;
+
 typedef DS_Size DS_Offset;
 #define DS_OFFSET(type, member) ((DS_Offset)&(((type)0)->member))
 
@@ -39,6 +41,6 @@ typedef enum {
 
 typedef void       (*DS_FunctionTraverse)(DS_Data data, DS_Context cTravese);
 typedef DS_Compare (*DS_FunctionCompare)(const DS_Data data1, const DS_Data data2, DS_Context cCompare);
-typedef DS_Size    (*DS_FunctionHash)(const DS_Data data, DS_Size sData, DS_Context chash);
+typedef DS_Hash    (*DS_FunctionHash)(const DS_Data data, DS_Size size, DS_Context cHash);
 
 #endif

@@ -27,6 +27,6 @@ DS_PUBLIC_API
 void DynamicArray_PopBack(DynamicArray array);
 
 DS_PUBLIC_API
-void DynamicArray_Traverse(DynamicArray array, DS_FunctionTraverse fTraverse, DS_Context context);
+void DynamicArray_Traverse(DynamicArray array, DS_FunctionTraverse fTraverse, DS_Context cTraverse);
 
 #endif

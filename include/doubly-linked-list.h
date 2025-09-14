@@ -46,6 +46,6 @@ DS_PUBLIC_API
 void DoublyLinkedList_Remove(DoublyLinkedList list, DoublyLinkedListNode node);
 
 DS_PUBLIC_API
-void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_FunctionTraverse fTraverse, DS_Context context);
+void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_FunctionTraverse fTraverse, DS_Context cTraverse);
 
 #endif

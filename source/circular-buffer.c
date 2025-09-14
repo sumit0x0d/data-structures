@@ -12,11 +12,11 @@ struct circular_buffer {
      DS_Size size;
 };
 
-CircularBuffer CircularBuffer_Create(DS_Size sData, DS_Size capacity)
+CircularBuffer CircularBuffer_Create(DS_Size sData, DS_Size size)
 {
      CircularBuffer cBuffer = (CircularBuffer)malloc(sizeof (struct circular_buffer));
      assert(cBuffer);
-     cBuffer->array = Array_Create(sData, capacity);
+     cBuffer->array = Array_Create(sData, size);
      assert(cBuffer->array);
      cBuffer->front = 0;
      cBuffer->back = 0;

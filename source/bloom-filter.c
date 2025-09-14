@@ -4,35 +4,42 @@
 #include <array.h>
 #include <bloom-filter.h>
 
-typedef BloomFilterHash Hash;
-
 struct bloom_filter {
-     Array *array;
-     Hash hash;
+     Array array;
+     DS_FunctionCompare hash_function;
+     DS_Context hash_context;
 };
 
-BloomFilter *BloomFilter_Create(DS_Size size, DS_Size bCount, Hash hash)
+BloomFilter BloomFilter_Create(DS_Size size, DS_Size bCount, DS_FunctionCompare fHash, DS_Context cHash)
 {
-     BloomFilter *bFilter = (BloomFilter *)malloc(sizeof (BloomFilter));
-     assert(bFilter);
+     BloomFilter bFilter = (BloomFilter *)malloc(sizeof (BloomFilter));
+     if (!bFilter) {
+          return NULL;
+     }
      bFilter->array = Array_Create(size, bCount);
-     assert(bFilter->array);
-     bFilter->hash = hash;
+     if (!bFilter->array) {
+          free(bFilter);
+          return NULL;
+     }
+     bFilter->hash_function = fHash;
+     bFilter->hash_context = cHash;
      return bFilter;
 }
 
-void BloomFilter_Destroy(BloomFilter *bFilter)
+void BloomFilter_Destroy(BloomFilter bFilter)
 {
      Array_Destroy(bFilter->array);
      free(bFilter);
 }
 
-DS_Bool BloomFilter_Search(BloomFilter *bFilter, const DS_Data data)
+DS_Bool BloomFilter_Search(BloomFilter bFilter, const DS_Data data)
 {
-     return Array_GetData(bFilter->array, bFilter->hash(data, Array_GetSize(bFilter->array)));
+     DS_Size index =  bFilter->hash_function(data, Array_GetSize(bFilter->array), bFilter->hash_context);
+     return Array_GetData(bFilter->array, index);
 }
 
-void BloomFilter_Insert(BloomFilter *bFilter, const DS_Data data)
+void BloomFilter_Insert(BloomFilter bFilter, const DS_Data data)
 {
-     Array_SetData(bFilter->array, bFilter->hash(data, Array_GetSize(bFilter->array)), data);
+     DS_Size index = bFilter->hash_function(data, Array_GetSize(bFilter->array), bFilter->hash_context);
+     Array_SetData(bFilter->array, index, data);
 }

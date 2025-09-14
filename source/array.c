@@ -10,13 +10,13 @@ struct array {
      DS_Data swap_buffer;
 };
 
-Array Array_Create(DS_Size sData, DS_Size capacity)
+Array Array_Create(DS_Size sData, DS_Size size)
 {
      Array array = (Array)malloc(sizeof (struct array));
      if (!array) {
           return NULL;
      }
-     array->base = malloc(sData * capacity);
+     array->base = malloc(sData * size);
      if (array->base) {
           free(array);
           return NULL;
@@ -28,7 +28,7 @@ Array Array_Create(DS_Size sData, DS_Size capacity)
           return NULL;
      }
      array->data_size = sData;
-     array->size = capacity;
+     array->size = size;
      return array;
 }
 

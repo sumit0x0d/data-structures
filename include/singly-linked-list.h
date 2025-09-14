@@ -10,7 +10,7 @@ typedef struct singly_linked_list * SinglyLinkedList;
 typedef struct singly_linked_list_node * SinglyLinkedListNode;
 
 DS_PUBLIC_API
-SinglyLinkedList SinglyLinkedList_Create(DS_Size size);
+SinglyLinkedList SinglyLinkedList_Create(DS_Size sData);
 
 DS_PUBLIC_API
 void SinglyLinkedList_Destroy(SinglyLinkedList list);
@@ -46,7 +46,7 @@ DS_PUBLIC_API
 void SinglyLinkedList_PopTail(SinglyLinkedList list);
 
 DS_PUBLIC_API
-void SinglyLinkedList_Traverse(SinglyLinkedList list, DS_FunctionTraverse fTraverse, DS_Context context);
+void SinglyLinkedList_Traverse(SinglyLinkedList list, DS_FunctionTraverse fTraverse, DS_Context cTraverse);
 
 DS_PUBLIC_API
 SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList list);

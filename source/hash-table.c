@@ -6,8 +6,6 @@
 
 #include <hash-table-pair.h>
 
-typedef HashTablePair Pair;
-
 struct hash_table {
      Pair *pair;
      DS_Size key_size;
@@ -26,7 +24,7 @@ HashTable HashTable_Create(DS_Size sKey, DS_Size sValue, DS_Size nBucket, DS_Fun
      if (!hTable) {
           return NULL;
      }
-     hTable->pair = (Pair *)calloc(nBucket, sizeof (struct hash_table_pair));
+     hTable->pair = (HashTablePair)calloc(nBucket, sizeof (struct hash_table_pair));
      if (!hTable->pair) {
           free(hTable);
           return NULL;
@@ -51,12 +49,12 @@ void HashTable_Destroy(HashTable hTable)
      free(hTable);
 }
 
-void *HashTablePair_GetKey(Pair pair)
+void *HashTablePair_GetKey(HashTablePair pair)
 {
      return pair->key;
 }
 
-void *HashTablePair_GetValue(Pair pair)
+void *HashTablePair_GetValue(HashTablePair pair)
 {
      return pair->value;
 }
@@ -69,7 +67,7 @@ void HashTable_Insert(HashTable hTable, const void *key, const void *value)
           return;
      }
      int compare = 0;
-     Pair pair = hTable->pair[index];
+     HashTablePair pair = hTable->pair[index];
      do {
           compare = hTable->compare_function(key, pair->key, hTable->compare_context);
           if (compare) {
@@ -87,8 +85,8 @@ void HashTable_Remove(HashTable hTable, const void *key)
      DS_Size index = hTable->hash_function(key, hTable->bucket_count, hTable->hash_context);
      if (hTable->pair[index]) {
           int compare = 0;
-          Pair pair = hTable->pair[index];
-          Pair ppair = pair;
+          HashTablePair pair = hTable->pair[index];
+          HashTablePair ppair = pair;
           do {
                compare = hTable->compare_function(key, pair->key, hTable->compare_context);
                if (compare) {
@@ -103,12 +101,12 @@ void HashTable_Remove(HashTable hTable, const void *key)
      };
 }
 
-Pair HashTable_Search(HashTable hTable, const void *key)
+HashTablePair HashTable_Search(HashTable hTable, const void *key)
 {
      DS_Size index = hTable->hash_function(key, hTable->bucket_count, hTable->hash_context);
      if (hTable->pair[index]) {
-          int compare = 0;
-          Pair pair = hTable->pair[index];
+          DS_Compare compare = 0;
+          HashTablePair pair = hTable->pair[index];
           do {
                compare = hTable->compare_function(key, pair->key, hTable->compare_context);
                if (compare) {
@@ -116,7 +114,7 @@ Pair HashTable_Search(HashTable hTable, const void *key)
                } else {
                     return pair;
                }
-          } while (compare && pair);
+          } while (compare != DS_COMPARE_EQUAL && pair);
      }
      return NULL;
 }

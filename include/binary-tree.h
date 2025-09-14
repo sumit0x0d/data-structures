@@ -22,15 +22,15 @@ DS_PUBLIC_API
 void BinaryTree_Remove(BinaryTree tree, BinaryTreeNode node);
 
 DS_PUBLIC_API
-void BinaryTree_TraversePreorder(BinaryTree tree, DS_FunctionTraverse fTraverse, DS_Context context);
+void BinaryTree_TraversePreorder(BinaryTree tree, DS_FunctionTraverse fTraverse, DS_Context cTraverse);
 
 DS_PUBLIC_API
-void BinaryTree_TraverseInorder(BinaryTree tree, DS_FunctionTraverse fTraverse, DS_Context context);
+void BinaryTree_TraverseInorder(BinaryTree tree, DS_FunctionTraverse fTraverse, DS_Context cTraverse);
 
 DS_PUBLIC_API
-void BinaryTree_TraversePostorder(BinaryTree tree, DS_FunctionTraverse fTraverse, DS_Context context);
+void BinaryTree_TraversePostorder(BinaryTree tree, DS_FunctionTraverse fTraverse, DS_Context cTraverse);
 
 DS_PUBLIC_API
-void BinaryTree_TraverseLevelorder(BinaryTree tree, DS_FunctionTraverse fTraverse, DS_Context context);
+void BinaryTree_TraverseLevelorder(BinaryTree tree, DS_FunctionTraverse fTraverse, DS_Context cTraverse);
 
 #endif

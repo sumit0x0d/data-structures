@@ -2,11 +2,9 @@
 
 #include "hash-table-pair.h"
 
-typedef HashTablePair Pair;
-
-Pair HashTablePair_Create(const void *key, DS_Size sKey, const void *value, DS_Size sValue)
+HashTablePair HashTablePair_Create(const DS_Data key, DS_Size sKey, const DS_Data value, DS_Size sValue)
 {
-    Pair pair = (Pair )malloc(sizeof (struct hash_table_pair));
+    HashTablePair pair = (HashTablePair)malloc(sizeof (struct hash_table_pair));
     if (!pair) {
         return NULL;
     } 
@@ -27,7 +25,7 @@ Pair HashTablePair_Create(const void *key, DS_Size sKey, const void *value, DS_S
     return pair;
 }
 
-void HashTablePair_Destroy(Pair pair)
+void HashTablePair_Destroy(HashTablePair pair)
 {
     free(pair->key);
     free(pair->value);

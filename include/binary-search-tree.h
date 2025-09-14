@@ -16,7 +16,7 @@ DS_PUBLIC_API
 void BinarySearchTree_Insert(BinarySearchTree tree, const DS_Data data);
 
 DS_PUBLIC_API
-BinarySearchTreeNode *BinarySearchTree_Search(BinarySearchTree tree, const DS_Data data);
+BinarySearchTreeNode BinarySearchTree_Search(BinarySearchTree tree, const DS_Data data);
 
 DS_PUBLIC_API
 void BinarySearchTree_Remove(BinarySearchTree tree, const DS_Data data);

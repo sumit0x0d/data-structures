@@ -18,6 +18,7 @@ struct binary_search_tree {
      DS_Size data_size;
      DS_Size size;
      DS_FunctionCompare compare_function;
+     
 };
 
 static BinarySearchTreeNode  BinarySearchTreeNode_Create(const DS_Data data, DS_Size size);

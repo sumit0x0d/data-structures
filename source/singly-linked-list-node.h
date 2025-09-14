@@ -1,5 +1,5 @@
-#ifndef LINKED_LIST_NODE_H
-#define LINKED_LIST_NODE_H
+#ifndef DATA_STRUCTURES_SINGLY_LINKED_LIST_NODE_H
+#define DATA_STRUCTURES_SINGLY_LINKED_LIST_NODE_H
 
 #include <singly-linked-list.h>
 

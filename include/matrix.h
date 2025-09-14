@@ -38,6 +38,6 @@ DS_PUBLIC_API
 Matrix Matrix_ColumnVectorization(Matrix matrix);
 
 DS_PUBLIC_API
-void Matrix_Traverse(Matrix matrix, DS_FunctionTraverse fTraverse, DS_Context context);
+void Matrix_Traverse(Matrix matrix, DS_FunctionTraverse fTraverse, DS_Context cTraverse);
 
 #endif

@@ -6,7 +6,7 @@
 typedef struct array * Array;
 
 DS_PUBLIC_API
-Array Array_Create(DS_Size sData, DS_Size capacity);
+Array Array_Create(DS_Size sData, DS_Size size);
 
 DS_PUBLIC_API
 void Array_Destroy(Array array);
