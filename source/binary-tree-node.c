@@ -1,10 +1,10 @@
 #include <stdlib.h>
 
-#include <red-black-tree-node.h>
+#include <binary-tree-node.h>
 
-static RedBlackTreeNode RedBlackTreeNode_Create(const DS_Data data, DS_Size sData)
+BinaryTreeNode BinaryTreeNode_Create(const DS_Data data, DS_Size sData)
 {
-    RedBlackTreeNode node = (RedBlackTreeNode)malloc(sizeof (RedBlackTreeNode));
+    BinaryTreeNode node = (BinaryTreeNode)malloc(sizeof (BinaryTreeNode));
     if (!node) {
         return NULL;
     } 
@@ -15,11 +15,11 @@ static RedBlackTreeNode RedBlackTreeNode_Create(const DS_Data data, DS_Size sDat
     }
     memcpy(node->data, data, sData);
     node->left = NULL;
-    node->right = NULL; 
+    node->right = NULL;
     return node;
 }
 
-static void RedBlackTreeNode_Destroy(RedBlackTreeNode node)
+void BinaryTreeNode_Destroy(BinaryTreeNode node)
 {
     free(node->data);
     free(node);

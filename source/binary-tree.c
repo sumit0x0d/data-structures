@@ -1,54 +1,49 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include <binary-tree.h>
-
-typedef BinaryTreeNode Node;
-
-struct binary_tree_node {
-     DS_Data data;
-     Node *parent;
-     Node *left;
-     Node *right;
-};
+#include <binary-tree-node.h>
 
 struct binary_tree {
-     Node *root;
+     BinaryTreeNode root;
      DS_Size data_size;
      DS_Size size;
 };
 
-static Node * _binary_tree_node_create(const DS_Data data, DS_Size size);
-static void _binary_tree_node_destroy(Node *node);
-
-BinaryTree binary_tree_create(DS_Size size)
+BinaryTree BinaryTree_Create(DS_Size sData)
 {
-    BinaryTree btree = (BinaryTree)malloc(sizeof (struct binary_tree));
-    assert(btree);
-    btree->root = NULL;
-    btree->data_size = size;
-    btree->size = 0;
-    return btree;
+    BinaryTree tree = (BinaryTree)malloc(sizeof (struct binary_tree));
+    assert(tree);
+    tree->root = NULL;
+    tree->data_size = sData;
+    tree->size = 0;
+    return tree;
 }
 
-void binary_tree_destroy(BinaryTree btree)
+void BinaryTree_Destroy(BinaryTree tree)
 {
-    free(btree);
+    free(tree);
 }
 
-void binary_tree_insert_left(BinaryTree btree, Node *pnode, const DS_Data data)
+void BinaryTree_InsertLeft(BinaryTree tree, BinaryTreeNode node, const DS_Data data)
 {
-
+     node->left = BinaryTreeNode_Create(data, tree->data_size);
+     tree->size++;
 }
 
-void binary_tree_insert_right(BinaryTree btree, Node pnode, const DS_Data data)
+void BinaryTree_InsertRight(BinaryTree tree, BinaryTreeNode node, const DS_Data data)
 {
-     if (!btree->root) {
-          Node *node = _binary_tree_node_create(data, btree->data_size);
-          node->parent = NULL;
-          btree->size++;
-          return;
+     node->right = BinaryTreeNode_Create(data, tree->data_size);
+     tree->size++;
+}
+
+void BinaryTree_Remove(BinaryTree tree, BinaryTreeNode node)
+{
+     BinaryTreeNode nCurrent = node;
+     if (node == node->parent->left) {
+          node->parent->left = node->left;
      }
-     
-}
+     if (node == node->parent->right) {
 
+     }
+     BinaryTreeNode_Destroy(node);
+}

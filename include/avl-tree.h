@@ -19,10 +19,10 @@ DS_PUBLIC_API
 DS_Size AvlTree_GetDataSize(AvlTree tree);
 
 DS_PUBLIC_API
-DS_Data AvlTreeNode_GetData(AvlTreeNode *node);
+DS_Data AvlTreeNode_GetData(AvlTreeNode node);
 
 DS_PUBLIC_API
-AvlTreeNode *AvlTree_Search(AvlTree tree, const DS_Data data);
+AvlTreeNode AvlTree_Search(AvlTree tree, const DS_Data data);
 
 DS_PUBLIC_API
 void AvlTree_Insert(AvlTree tree, const DS_Data data);
