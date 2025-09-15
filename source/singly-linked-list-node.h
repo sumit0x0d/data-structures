@@ -8,10 +8,10 @@ struct singly_linked_list_node {
     SinglyLinkedListNode next;
 };
 
-DS_PRIVATE_API
+
 SinglyLinkedListNode SinglyLinkedListNode_Create(const DS_Data data, DS_Size sData);
 
-DS_PRIVATE_API
+
 void SinglyLinkedListNode_Destroy(SinglyLinkedListNode node);
 
 #endif

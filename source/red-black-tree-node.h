@@ -16,10 +16,10 @@ struct red_black_tree_node {
     RedBlackTreeNodeColor color;
 };
 
-DS_PRIVATE_API
+
 RedBlackTreeNode RedBlackTreeNode_Create(const DS_Data data, DS_Size sData);
 
-DS_PRIVATE_API
+
 void RedBlackTreeNode_Destroy(RedBlackTreeNode node);
 
 #endif

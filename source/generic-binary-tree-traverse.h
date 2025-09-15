@@ -3,27 +3,21 @@
 
 #include <data-structures.h>
 
-typedef struct {
-    DS_Generic tree_root;
-    DS_Size node_size;
-    DS_Size tree_size;
-    DS_Offset data_offest;
-    DS_Offset left_offset;
-    DS_Offset right_offset;
-    DS_FunctionTraverse traverse_function;
-    DS_Context traverse_context;
-} GenericBinaryTreeTraverseInfo;
 
-DS_PRIVATE_API
-void GenericBinaryTree_TraversePreorder(GenericBinaryTreeTraverseInfo *bttInfo);
+void GenericBinaryTree_TraversePreorder(DS_Generic gNode, DS_Size sNode, DS_Size sTree, DS_Offset oData,
+                                        DS_Offset oLeft, DS_Offset oRight, DS_FunctionUnary fUnary,
+                                        DS_Context cUnary);
 
-DS_PRIVATE_API
-void GenericBinaryTree_TraverseInorder(GenericBinaryTreeTraverseInfo *bttInfo);
+void GenericBinaryTree_TraverseInorder(DS_Generic gNode, DS_Size sNode, DS_Size sTree, DS_Offset oData,
+                                       DS_Offset oLeft, DS_Offset oRight, DS_FunctionUnary fUnary,
+                                       DS_Context cUnary);
 
-DS_PRIVATE_API
-void GenericBinaryTree_TraversePostorder(GenericBinaryTreeTraverseInfo *bttInfo);
+void GenericBinaryTree_TraversePostorder(DS_Generic gNode, DS_Size sNode, DS_Size sTree, DS_Offset oData,
+                                         DS_Offset oLeft, DS_Offset oRight, DS_FunctionUnary fUnary,
+                                         DS_Context cUnary);
 
-DS_PRIVATE_API
-void GenericBinaryTree_TraverseLevelorder(GenericBinaryTreeTraverseInfo *bttInfo);
+void GenericBinaryTree_TraverseLevelorder(DS_Generic gNode, DS_Size sNode, DS_Size sTree, DS_Offset oData,
+                                          DS_Offset oLeft, DS_Offset oRight, DS_FunctionUnary fUnary,
+                                          DS_Context cUnary);
 
 #endif

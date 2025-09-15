@@ -5,8 +5,6 @@
 #include <array.h>
 #include <matrix.h>
 
-typedef MatrixOperation Operation;
-
 struct matrix {
      Array array;
      DS_Size row_count;
@@ -113,11 +111,11 @@ Matrix Matrix_ColumnVectorization(Matrix matrix)
      return mVectorize;
 }
 
-void Matrix_Traverse(Matrix matrix, DS_FunctionTraverse fTraverse, DS_Context context)
+void Matrix_Traverse(Matrix matrix, DS_FunctionUnary fUnary, DS_Context context)
 {
      for (DS_Size i = 0; i < matrix->row_count; i++) {
           for (DS_Size j = 0; j < matrix->column_count; j++) {
-               fTraverse(Matrix_GetData(matrix, i, j), context);
+               fUnary(Matrix_GetData(matrix, i, j), context);
           }
      }
 }

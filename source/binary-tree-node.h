@@ -11,10 +11,10 @@ struct binary_tree_node {
     BinaryTreeNode right;
 };
 
-DS_PRIVATE_API
+
 BinaryTreeNode BinaryTreeNode_Create(const DS_Data data, DS_Size sData);
 
-DS_PRIVATE_API
+
 void BinaryTreeNode_Destroy(BinaryTreeNode node);
 
 #endif

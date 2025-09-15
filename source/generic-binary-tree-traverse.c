@@ -1,27 +1,31 @@
 #include <generic-binary-tree-traverse.h>
 #include <stack.h>
 
-void GenericBinaryTree_TraversePreorder(GenericBinaryTreeTraverseInfo *bttcInfo)
+void GenericBinaryTree_TraversePreorder(DS_Generic gNode, DS_Size sNode, DS_Size sTree, DS_Offset oData,
+                                        DS_Offset oLeft, DS_Offset oRight, DS_FunctionUnary fUnary,
+                                        DS_Context cUnary)
 {
-    DS_Generic node = bttcInfo->tree_root;
-    Stack stack = Stack_Create(bttcInfo->node_size, bttcInfo->tree_size);
+    DS_Generic node = gNode;
+    Stack stack = Stack_Create(sNode, sTree);
     while (node || !Stack_IsEmpty(stack)) {
         if (node) {
-            DS_Data data = *(DS_Data *)((DS_Int8 *)node + bttcInfo->data_offest);
-            atTraverse(data, bttcInfo->traverse_context);
+            DS_Data data = *(DS_Data *)((DS_Int8 *)node + oData);
+            fUnary(data, cUnary);
             Stack_Push(stack, node);
-            node = *(DS_Generic *)((DS_Int8 *)node + bttcInfo->left_offset);
+            node = *(DS_Generic *)((DS_Int8 *)node + oLeft);
         } else {
             node = *(DS_Generic *)Stack_GetTop(stack);
             Stack_Pop(stack);
-            node = *(DS_Generic *)((DS_Int8 *)node + bttcInfo->right_offset);
+            node = *(DS_Generic *)((DS_Int8 *)node + oRight);
         }
     }
     Stack_Destroy(stack);
 }
 
 
-void GenericBinaryTree_TraverseInorder(GenericBinaryTreeTraverseInfo *bttInfo)
+void GenericBinaryTree_TraverseInorder(DS_Generic gNode, DS_Size sNode, DS_Size sTree, DS_Offset oData,
+                                       DS_Offset oLeft, DS_Offset oRight, DS_FunctionUnary fUnary,
+                                       DS_Context cUnary)
 {
     Node node = tree->root;
     Stack *stack = Stack_Create(sizeof (struct avl_tree_node), tree->size);
@@ -39,7 +43,9 @@ void GenericBinaryTree_TraverseInorder(GenericBinaryTreeTraverseInfo *bttInfo)
     Stack_Destroy(stack);
 }
 
-void GenericBinaryTree_TraversePostorder(GenericBinaryTreeTraverseInfo *bttInfo)
+void GenericBinaryTree_TraversePostorder(DS_Generic gNode, DS_Size sNode, DS_Size sTree, DS_Offset oData,
+                                          DS_Offset oLeft, DS_Offset oRight, DS_FunctionUnary fUnary,
+                                          DS_Context cUnary)
 {
     Node node = tree->root;
     Stack *stack = Stack_Create(sizeof (struct avl_tree_node), tree->size);
@@ -57,7 +63,9 @@ void GenericBinaryTree_TraversePostorder(GenericBinaryTreeTraverseInfo *bttInfo)
     Stack_Destroy(stack);
 }
 
-void GenericBinaryTree_TraverseLevelorder(GenericBinaryTreeTraverseInfo *bttInfo)
+void GenericBinaryTree_TraverseLevelorder(DS_Generic gNode, DS_Size sNode, DS_Size sTree, DS_Offset oData,
+                                          DS_Offset oLeft, DS_Offset oRight, DS_FunctionUnary fUnary,
+                                          DS_Context cUnary)
 {
     Node node = tree->root;
     CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (struct avl_tree_node), tree->size);

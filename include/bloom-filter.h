@@ -5,16 +5,16 @@
 
 typedef struct bloom_filter * BloomFilter;
 
-DS_PUBLIC_API
+DS_API
 BloomFilter BloomFilter_Create(DS_Size sData, DS_Size nBucket, DS_FunctionHash fHash, DS_Context cHash);
 
-DS_PUBLIC_API
+DS_API
 void BloomFilter_Destroy(BloomFilter bFilter);
 
-DS_PUBLIC_API
+DS_API
 DS_Bool BloomFilter_Search(BloomFilter bFilter, const DS_Data data);
 
-DS_PUBLIC_API
+DS_API
 void Bloom_Filter_Insert(BloomFilter bFilter, const DS_Data data);
 
 #endif

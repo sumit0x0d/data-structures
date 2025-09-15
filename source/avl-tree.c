@@ -176,64 +176,20 @@ void AvlTree_Remove(AvlTree tree, const DS_Data data)
     tree->size--;
 }
 
-void AvlTree_TraversePreorder(AvlTree tree, DS_FunctionTraverse fTraverse, DS_Context cTraverse)
+void AvlTree_TraversePreorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary)
 {
-    GenericBinaryTreeTraverseInfo gbttInfo = {
-        .tree_root = tree->root,
-        .node_size = tree->data_size,
-        .tree_size = tree->size,
-        .data_offest = DS_OFFSET(AvlTreeNode, data),
-        .left_offset = DS_OFFSET(AvlTreeNode, left),
-        .right_offset = DS_OFFSET(AvlTreeNode, right),
-        .traverse_function = fTraverse,
-        .traverse_context = cTraverse
-    };
-    GenericBinaryTree_TraverseLevelorder(&gbttInfo);
 }
 
-void AvlTree_TraverseInorder(AvlTree tree, DS_FunctionTraverse fTraverse, DS_Context cTraverse)
+void AvlTree_TraverseInorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary)
 {
-    GenericBinaryTreeTraverseInfo gbttInfo = {
-        .tree_root = tree->root,
-        .node_size = tree->data_size,
-        .tree_size = tree->size,
-        .data_offest = DS_OFFSET(AvlTreeNode, data),
-        .left_offset = DS_OFFSET(AvlTreeNode, left),
-        .right_offset = DS_OFFSET(AvlTreeNode, right),
-        .traverse_function = fTraverse,
-        .traverse_context = cTraverse
-    };
-    GenericBinaryTree_TraverseLevelorder(&gbttInfo);
 }
 
-void AvlTree_TraversePostorder(AvlTree tree, DS_FunctionTraverse fTraverse, DS_Context cTraverse)
+void AvlTree_TraversePostorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary)
 {
-    GenericBinaryTreeTraverseInfo gbttInfo = {
-        .tree_root = tree->root,
-        .node_size = tree->data_size,
-        .tree_size = tree->size,
-        .data_offest = DS_OFFSET(AvlTreeNode, data),
-        .left_offset = DS_OFFSET(AvlTreeNode, left),
-        .right_offset = DS_OFFSET(AvlTreeNode, right),
-        .traverse_function = fTraverse,
-        .traverse_context = cTraverse
-    };
-    GenericBinaryTree_TraverseLevelorder(&gbttInfo);
 }
 
-void AvlTree_TraverseLevelorder(AvlTree tree, DS_FunctionTraverse fTraverse, DS_Context cTraverse)
+void AvlTree_TraverseLevelorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary)
 {
-    GenericBinaryTreeTraverseInfo gbttInfo = {
-        .tree_root = tree->root,
-        .node_size = tree->data_size,
-        .tree_size = tree->size,
-        .data_offest = DS_OFFSET(AvlTreeNode, data),
-        .left_offset = DS_OFFSET(AvlTreeNode, left),
-        .right_offset = DS_OFFSET(AvlTreeNode, right),
-        .traverse_function = fTraverse,
-        .traverse_context = cTraverse
-    };
-    GenericBinaryTree_TraverseLevelorder(&gbttInfo);
 }
 
 

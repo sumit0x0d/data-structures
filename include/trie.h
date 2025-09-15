@@ -6,19 +6,19 @@
 typedef struct trie Trie;
 typedef struct trie_node TrieNode;
 
-DS_PUBLIC_API
+DS_API
 Trie *Trie_Create();
 
-DS_PUBLIC_API
+DS_API
 void Trie_Destroy(Trie *trie);
 
-DS_PUBLIC_API
+DS_API
 char *Trie_Search(Trie *trie, char *string);
 
-DS_PUBLIC_API
+DS_API
 DS_Bool Trie_Insert(Trie *trie, char *string);
 
-DS_PUBLIC_API
+DS_API
 int Trie_Remove(Trie *trie, char *string);
 
 #endif

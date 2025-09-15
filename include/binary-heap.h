@@ -6,13 +6,13 @@
 typedef struct binary_heap * BinaryHeap;
 typedef struct binary_heap_node * BinaryHeapNode;
 
-DS_PUBLIC_API
+DS_API
 BinaryHeap BinaryHeap_Create(DS_Size sData, DS_FunctionCompare fCompare, DS_Context cCompare);
 
-DS_PUBLIC_API
+DS_API
 void BinaryHeap_Destroy(BinaryHeap heap);
 
-DS_PUBLIC_API
-void BinaryHeap_Traverse(BinaryHeap heap, DS_FunctionTraverse fTraverse, DS_Context cTraverse);
+DS_API
+void BinaryHeap_Traverse(BinaryHeap heap, DS_FunctionUnary fUnary, DS_Context cUnary);
 
 #endif

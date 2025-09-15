@@ -66,7 +66,7 @@ void HashTable_Insert(HashTable hTable, const void *key, const void *value)
           hTable->pair[index] = HashTablePair_Create(key, hTable->key_size, value, hTable->value_size);
           return;
      }
-     int compare = 0;
+     DS_Compare compare = DS_COMPARE_EQUAL;
      HashTablePair pair = hTable->pair[index];
      do {
           compare = hTable->compare_function(key, pair->key, hTable->compare_context);

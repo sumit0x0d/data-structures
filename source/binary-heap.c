@@ -6,8 +6,8 @@ struct binary_heap_node {
 };
 
 struct binary_heap {
-     BinaryHeapNode *head;
-     BinaryHeapNode *tail;
+     BinaryHeapNode head;
+     BinaryHeapNode tail;
      DS_Size data_size;
      DS_Size size;
      DS_FunctionCompare compare_function;

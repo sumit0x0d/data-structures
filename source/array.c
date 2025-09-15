@@ -76,10 +76,10 @@ void Array_SwapData(Array array, DS_Data data1, DS_Data data2)
      memcpy(data2, array->swap_buffer, array->data_size);
 }
 
-void Array_Traverse(Array array, DS_FunctionTraverse fTraverse, DS_Context context)
+void Array_Traverse(Array array, DS_FunctionUnary fUnary, DS_Context context)
 {
      for (DS_Size i = 0; i < array->size; i++) {
-          fTraverse(Array_GetData(array, i), context);
+          fUnary(Array_GetData(array, i), context);
      }
 }
 

@@ -68,7 +68,7 @@ void DynamicArray_PopBack(DynamicArray array)
      array->size--;
 }
 
-void DynamicArray_Traverse(DynamicArray array, DS_FunctionTraverse traverse, DS_Data dTemporary)
+void DynamicArray_Traverse(DynamicArray array, DS_FunctionUnary traverse, DS_Data dTemporary)
 {
      for (DS_Size i = 0; i < Array_GetSize(array->array); i++) {
           traverse(DynamicArray_GetData(array, i), dTemporary);

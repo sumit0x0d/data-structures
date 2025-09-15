@@ -85,7 +85,7 @@ void SinglyLinkedList_PopTail(SinglyLinkedList list)
      list->size--;
 }
 
-void SinglyLinkedList_Traverse(SinglyLinkedList list, DS_FunctionTraverse fTraverse, DS_Context context)
+void SinglyLinkedList_Traverse(SinglyLinkedList list, DS_FunctionUnary fUnary, DS_Context context)
 {
      SinglyLinkedListNode node = list->head;
      while (node) {

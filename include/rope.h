@@ -6,10 +6,10 @@
 typedef struct rope * Rope;
 typedef struct rope_node * RopeNode;
 
-DS_PUBLIC_API
+DS_API
 Rope Rope_Create(DS_Size sData);
 
-DS_PUBLIC_API
+DS_API
 void Rope_Destroy(Rope rope);
 
 #endif

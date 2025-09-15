@@ -137,7 +137,7 @@ void DoublyLinkedList_Remove(DoublyLinkedList list, Node node)
      list->size--;
 }
 
-void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_FunctionTraverse fTraverse, DS_Context context)
+void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_FunctionUnary fUnary, DS_Context context)
 {
      Node node = list->head;
      while (node) {
