@@ -10,7 +10,7 @@ DS_API
 RedBlackTree RedBlackTree_Create(DS_Size sData, DS_FunctionCompare fCompare, DS_Context cCompare);
 
 DS_API
-void RedBlackTree_Destroy(RedBlackTree tree);
+DS_Void RedBlackTree_Destroy(RedBlackTree tree);
 
 DS_API
 DS_Size RedBlackTree_GetSize(RedBlackTree tree);
@@ -19,12 +19,12 @@ DS_API
 DS_Data RedBlackTreeNode_GetData(RedBlackTreeNode node);
 
 DS_API
-void RedBlackTree_Insert(RedBlackTree tree, const DS_Data data);
+DS_Void RedBlackTree_Insert(RedBlackTree tree, const DS_Data data);
 
 DS_API
 RedBlackTreeNode RedBlackTree_Search(RedBlackTree tree, const DS_Data data);
 
 DS_API
-void RedBlackTree_Remove(RedBlackTree tree, const DS_Data data);
+DS_Void RedBlackTree_Remove(RedBlackTree tree, const DS_Data data);
 
 #endif

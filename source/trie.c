@@ -17,7 +17,7 @@ struct trie {
 };
 
 static Node *_TrieNode_Create();
-// static void _TrieNode_Destroy();
+// static DS_Void _TrieNode_Destroy();
 
 Trie *node_create()
 {
@@ -33,7 +33,7 @@ Trie *Trie_Create()
      return trie;
 }
 
-void Trie_Destroy(Trie *trie)
+DS_Void Trie_Destroy(Trie *trie)
 {
      free(trie);
 }
@@ -74,7 +74,7 @@ bool Trie_Insert(Trie *trie, char* string)
      return true;
 }
 
-// void
+// DS_Void
 // node_destroy(Trie *T, char character)
 // {
 //      Node* node = T->root;

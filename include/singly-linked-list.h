@@ -13,7 +13,7 @@ DS_API
 SinglyLinkedList SinglyLinkedList_Create(DS_Size sData);
 
 DS_API
-void SinglyLinkedList_Destroy(SinglyLinkedList list);
+DS_Void SinglyLinkedList_Destroy(SinglyLinkedList list);
 
 DS_API
 DS_Size SinglyLinkedList_GetSize(SinglyLinkedList list);
@@ -28,25 +28,25 @@ DS_API
 SinglyLinkedListNode SinglyLinkedList_GetTailNode(SinglyLinkedList list);
 
 DS_API
-void SinglyLinkedList_SetData(SinglyLinkedList list, SinglyLinkedListNode node, const DS_Data data);
+DS_Void SinglyLinkedList_SetData(SinglyLinkedList list, SinglyLinkedListNode node, const DS_Data data);
 
 DS_API
 DS_Data SinglyLinkedListNode_GetData(SinglyLinkedListNode node);
 
 DS_API
-void SinglyLinkedList_PushHead(SinglyLinkedList list, const DS_Data data);
+DS_Void SinglyLinkedList_PushHead(SinglyLinkedList list, const DS_Data data);
 
 DS_API
-void SinglyLinkedList_PushTail(SinglyLinkedList list, const DS_Data data);
+DS_Void SinglyLinkedList_PushTail(SinglyLinkedList list, const DS_Data data);
 
 DS_API
-void SinglyLinkedList_PopHead(SinglyLinkedList list);
+DS_Void SinglyLinkedList_PopHead(SinglyLinkedList list);
 
 DS_API
-void SinglyLinkedList_PopTail(SinglyLinkedList list);
+DS_Void SinglyLinkedList_PopTail(SinglyLinkedList list);
 
 DS_API
-void SinglyLinkedList_Traverse(SinglyLinkedList list, DS_FunctionUnary fUnary, DS_Context cUnary);
+DS_Void SinglyLinkedList_Traverse(SinglyLinkedList list, DS_FunctionUnary fUnary, DS_Context cUnary);
 
 DS_API
 SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList list);

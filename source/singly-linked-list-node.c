@@ -15,7 +15,7 @@ SinglyLinkedListNode SinglyLinkedListNode_Create(const DS_Data data, DS_Size sDa
     return node;
 }
 
-void SinglyLinkedListNode_Destroy(SinglyLinkedListNode node)
+DS_Void SinglyLinkedListNode_Destroy(SinglyLinkedListNode node)
 {
     free(node->data);
     free(node);

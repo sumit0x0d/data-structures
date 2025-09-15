@@ -9,7 +9,7 @@ DS_API
 CircularBuffer CircularBuffer_Create(DS_Size sData, DS_Size size);
 
 DS_API
-void CircularBuffer_Destroy(CircularBuffer buffer);
+DS_Void CircularBuffer_Destroy(CircularBuffer buffer);
 
 DS_API
 DS_Bool CircularBuffer_IsEmpty(CircularBuffer buffer);
@@ -24,9 +24,9 @@ DS_API
 DS_Data CircularBuffer_GetBackData(CircularBuffer buffer);
 
 DS_API
-void CircularBuffer_PushBack(CircularBuffer buffer, const DS_Data data);
+DS_Void CircularBuffer_PushBack(CircularBuffer buffer, const DS_Data data);
 
 DS_API
-void CircularBuffer_PopFront(CircularBuffer buffer);
+DS_Void CircularBuffer_PopFront(CircularBuffer buffer);
 
 #endif

@@ -10,6 +10,6 @@ DS_API
 Rope Rope_Create(DS_Size sData);
 
 DS_API
-void Rope_Destroy(Rope rope);
+DS_Void Rope_Destroy(Rope rope);
 
 #endif

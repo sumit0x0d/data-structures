@@ -9,12 +9,12 @@ DS_API
 BloomFilter BloomFilter_Create(DS_Size sData, DS_Size nBucket, DS_FunctionHash fHash, DS_Context cHash);
 
 DS_API
-void BloomFilter_Destroy(BloomFilter bFilter);
+DS_Void BloomFilter_Destroy(BloomFilter bFilter);
 
 DS_API
 DS_Bool BloomFilter_Search(BloomFilter bFilter, const DS_Data data);
 
 DS_API
-void Bloom_Filter_Insert(BloomFilter bFilter, const DS_Data data);
+DS_Void Bloom_Filter_Insert(BloomFilter bFilter, const DS_Data data);
 
 #endif

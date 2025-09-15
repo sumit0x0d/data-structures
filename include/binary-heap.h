@@ -10,9 +10,9 @@ DS_API
 BinaryHeap BinaryHeap_Create(DS_Size sData, DS_FunctionCompare fCompare, DS_Context cCompare);
 
 DS_API
-void BinaryHeap_Destroy(BinaryHeap heap);
+DS_Void BinaryHeap_Destroy(BinaryHeap heap);
 
 DS_API
-void BinaryHeap_Traverse(BinaryHeap heap, DS_FunctionUnary fUnary, DS_Context cUnary);
+DS_Void BinaryHeap_Traverse(BinaryHeap heap, DS_FunctionUnary fUnary, DS_Context cUnary);
 
 #endif

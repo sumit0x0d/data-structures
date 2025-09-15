@@ -20,11 +20,11 @@ struct avl_tree {
     DS_Context context;
 };
 
-static void _Rebalance(AvlTree tree, Node node, CircularBuffer *cBuffer);
-static void _RotateRight(AvlTree tree, Node node);
-static void _RotateLeftRight(AvlTree tree, Node node);
-static void _RotateLeft(AvlTree tree, Node node);
-static void _RotateRightLeft(AvlTree tree, Node node);
+static DS_Void _Rebalance(AvlTree tree, Node node, CircularBuffer *cBuffer);
+static DS_Void _RotateRight(AvlTree tree, Node node);
+static DS_Void _RotateLeftRight(AvlTree tree, Node node);
+static DS_Void _RotateLeft(AvlTree tree, Node node);
+static DS_Void _RotateRightLeft(AvlTree tree, Node node);
 
 AvlTree AvlTree_Create(DS_Size sData, DS_FunctionCompare fCompare, DS_Context context)
 {
@@ -40,7 +40,7 @@ AvlTree AvlTree_Create(DS_Size sData, DS_FunctionCompare fCompare, DS_Context co
     return tree;
 }
 
-void AvlTree_Destroy(AvlTree tree)
+DS_Void AvlTree_Destroy(AvlTree tree)
 {
     CircularBuffer cBuffer = CircularBuffer_Create(sizeof (Node), tree->size);
     Node node = tree->root;
@@ -80,7 +80,7 @@ Node AvlTree_Search(AvlTree tree, const DS_Data data)
     return NULL;
 }
 
-void AvlTree_Insert(AvlTree tree, const DS_Data data)
+DS_Void AvlTree_Insert(AvlTree tree, const DS_Data data)
 {
     if (!tree->root) {
         tree->root = AvlTreeNode_Create(data, tree->data_size);
@@ -117,7 +117,7 @@ void AvlTree_Insert(AvlTree tree, const DS_Data data)
     tree->size++;
 }
 
-void AvlTree_Remove(AvlTree tree, const DS_Data data)
+DS_Void AvlTree_Remove(AvlTree tree, const DS_Data data)
 {
     CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (struct avl_tree_node), (tree->size + 2) / 2);
     Node node = tree->root;
@@ -176,24 +176,24 @@ void AvlTree_Remove(AvlTree tree, const DS_Data data)
     tree->size--;
 }
 
-void AvlTree_TraversePreorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary)
+DS_Void AvlTree_TraversePreorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary)
 {
 }
 
-void AvlTree_TraverseInorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary)
+DS_Void AvlTree_TraverseInorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary)
 {
 }
 
-void AvlTree_TraversePostorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary)
+DS_Void AvlTree_TraversePostorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary)
 {
 }
 
-void AvlTree_TraverseLevelorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary)
+DS_Void AvlTree_TraverseLevelorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary)
 {
 }
 
 
-static void _RotateRight(AvlTree tree, Node node)
+static DS_Void _RotateRight(AvlTree tree, Node node)
 {
     Node nLeft = node->left;
     node->left = nLeft->right;
@@ -211,7 +211,7 @@ static void _RotateRight(AvlTree tree, Node node)
     nLeft->right = node;
 }
 
-static void _RotateLeftRight(AvlTree tree, Node node)
+static DS_Void _RotateLeftRight(AvlTree tree, Node node)
 {
     Node nLeft = node->left;
     Node nlRight = node->left->right;
@@ -239,7 +239,7 @@ static void _RotateLeftRight(AvlTree tree, Node node)
     nlRight->right = node;
 }
 
-static void _RotateLeft(AvlTree tree, Node node)
+static DS_Void _RotateLeft(AvlTree tree, Node node)
 {
     Node nRight = node->right;
     node->right = nRight->left;
@@ -260,7 +260,7 @@ static void _RotateLeft(AvlTree tree, Node node)
     nRight->left = node;
 }
 
-static void _RotateRightLeft(AvlTree tree, Node node)
+static DS_Void _RotateRightLeft(AvlTree tree, Node node)
 {
     Node nRight = node->right;
     Node nrLeft = node->right->left;
@@ -288,7 +288,7 @@ static void _RotateRightLeft(AvlTree tree, Node node)
     nrLeft->left = node;
 }
 
-static void _Rebalance(AvlTree tree, Node node, CircularBuffer *cBuffer)
+static DS_Void _Rebalance(AvlTree tree, Node node, CircularBuffer *cBuffer)
 {
     while (node) {
         AvlTreeNode_UpdateBalanceFactor(node, cBuffer);

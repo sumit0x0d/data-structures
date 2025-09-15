@@ -10,7 +10,7 @@ DS_API
 AvlTree AvlTree_Create(DS_Size sData, DS_FunctionCompare fCompare, DS_Context cCompare);
 
 DS_API
-void AvlTree_Destroy(AvlTree tree);
+DS_Void AvlTree_Destroy(AvlTree tree);
 
 DS_API
 DS_Size AvlTree_GetSize(AvlTree tree);
@@ -25,21 +25,21 @@ DS_API
 AvlTreeNode AvlTree_Search(AvlTree tree, const DS_Data data);
 
 DS_API
-void AvlTree_Insert(AvlTree tree, const DS_Data data);
+DS_Void AvlTree_Insert(AvlTree tree, const DS_Data data);
 
 DS_API
-void AvlTree_Remove(AvlTree tree, const DS_Data data);
+DS_Void AvlTree_Remove(AvlTree tree, const DS_Data data);
 
 DS_API
-void AvlTree_TraversePreorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary);
+DS_Void AvlTree_TraversePreorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary);
 
 DS_API
-void AvlTree_TraverseInorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary);
+DS_Void AvlTree_TraverseInorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary);
 
 DS_API
-void AvlTree_TraversePostorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary);
+DS_Void AvlTree_TraversePostorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary);
 
 DS_API
-void AvlTree_TraverseLevelorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary);
+DS_Void AvlTree_TraverseLevelorder(AvlTree tree, DS_FunctionUnary fUnary, DS_Context cUnary);
 
 #endif

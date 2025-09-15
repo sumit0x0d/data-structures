@@ -10,33 +10,33 @@ DS_API
 XorLinkedList XorLinkedList_Create(DS_Size sData);
 
 DS_API
-void XorLinkedList_Destroy(XorLinkedList list);
+DS_Void XorLinkedList_Destroy(XorLinkedList list);
 
 DS_API
 DS_Data XorLinkedListNode_GetData(XorLinkedListNode node);
 
 DS_API
-void XorLinkedList_PushHead(XorLinkedList list, const DS_Data data);
+DS_Void XorLinkedList_PushHead(XorLinkedList list, const DS_Data data);
 
 DS_API
-void XorLinkedList_PushTail(XorLinkedList list, const DS_Data data);
+DS_Void XorLinkedList_PushTail(XorLinkedList list, const DS_Data data);
 
 DS_API
-void XorLinkedList_PopHead(XorLinkedList list);
+DS_Void XorLinkedList_PopHead(XorLinkedList list);
 
 DS_API
-void XorLinkedList_PopTail(XorLinkedList list);
+DS_Void XorLinkedList_PopTail(XorLinkedList list);
 
 DS_API
-void XorLinkedList_Insert(XorLinkedList list, DS_Size index, const DS_Data data);
+DS_Void XorLinkedList_Insert(XorLinkedList list, DS_Size index, const DS_Data data);
 
 DS_API
-void XorLinkedList_Remove(XorLinkedList list, const DS_Data data);
+DS_Void XorLinkedList_Remove(XorLinkedList list, const DS_Data data);
 
 DS_API
-void XorLinkedList_Erase(XorLinkedList list, DS_Size index);
+DS_Void XorLinkedList_Erase(XorLinkedList list, DS_Size index);
 
 DS_API
-void XorLinkedList_Update(XorLinkedList list, DS_Size index, const DS_Data data);
+DS_Void XorLinkedList_Update(XorLinkedList list, DS_Size index, const DS_Data data);
 
 #endif

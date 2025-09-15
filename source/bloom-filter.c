@@ -26,7 +26,7 @@ BloomFilter BloomFilter_Create(DS_Size size, DS_Size bCount, DS_FunctionCompare 
      return bFilter;
 }
 
-void BloomFilter_Destroy(BloomFilter bFilter)
+DS_Void BloomFilter_Destroy(BloomFilter bFilter)
 {
      Array_Destroy(bFilter->array);
      free(bFilter);
@@ -38,7 +38,7 @@ DS_Bool BloomFilter_Search(BloomFilter bFilter, const DS_Data data)
      return Array_GetData(bFilter->array, index);
 }
 
-void BloomFilter_Insert(BloomFilter bFilter, const DS_Data data)
+DS_Void BloomFilter_Insert(BloomFilter bFilter, const DS_Data data)
 {
      DS_Size index = bFilter->hash_function(data, Array_GetSize(bFilter->array), bFilter->hash_context);
      Array_SetData(bFilter->array, index, data);

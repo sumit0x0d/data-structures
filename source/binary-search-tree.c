@@ -22,7 +22,7 @@ struct binary_search_tree {
 };
 
 static BinarySearchTreeNode  BinarySearchTreeNode_Create(const DS_Data data, DS_Size size);
-static void BinarySearchTreeNode_Destroy(BinarySearchTreeNode node);
+static DS_Void BinarySearchTreeNode_Destroy(BinarySearchTreeNode node);
 
 BinarySearchTree BinarySearchTree_create(DS_Size sData, int (*compare)(const DS_Data data1, const DS_Data data2))
 {
@@ -35,7 +35,7 @@ BinarySearchTree BinarySearchTree_create(DS_Size sData, int (*compare)(const DS_
      return tree;
 }
 
-void BinarySearchTree_destroy(BinarySearchTree *tree)
+DS_Void BinarySearchTree_destroy(BinarySearchTree *tree)
 {
      free(tree);
 }
@@ -58,7 +58,7 @@ BinarySearchTreeNode BinarySearchTree_search(BinarySearchTree tree, const DS_Dat
      return NULL;
 }
 
-void BinarySearchTree_insert(BinarySearchTree *tree, const DS_Data data)
+DS_Void BinarySearchTree_insert(BinarySearchTree *tree, const DS_Data data)
 {
      if (!tree->root) {
           tree->root = _BinarySearchTree_node_create(data, tree->data_size);
@@ -92,7 +92,7 @@ void BinarySearchTree_insert(BinarySearchTree *tree, const DS_Data data)
      tree->size++;
 }
 
-void BinarySearchTree_remove(BinarySearchTree *tree, const DS_Data data)
+DS_Void BinarySearchTree_remove(BinarySearchTree *tree, const DS_Data data)
 {
      BinarySearchTreeNode node = tree->root;
      BinarySearchTreeNode pnode = tree->root->parent;
@@ -118,7 +118,7 @@ void BinarySearchTree_remove(BinarySearchTree *tree, const DS_Data data)
 
      }
      node->parent->left = node->left;
-     (void)pnode;
+     (DS_Void)pnode;
 }
 
 static BinarySearchTreeNode _BinarySearchTree_node_create(const DS_Data data, DS_Size size)
@@ -133,7 +133,7 @@ static BinarySearchTreeNode _BinarySearchTree_node_create(const DS_Data data, DS
      return node;
 }
 
-static void _BinarySearchTree_node_destroy(BinarySearchTreeNode node)
+static DS_Void _BinarySearchTree_node_destroy(BinarySearchTreeNode node)
 {
      free(node->data);
      free(node);

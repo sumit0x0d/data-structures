@@ -19,7 +19,7 @@ Node DoublyLinkedListNode_Create(const DS_Data data, DS_Size sData)
     return node;
 }
 
-void DoublyLinkedListNode_Destroy(Node node)
+DS_Void DoublyLinkedListNode_Destroy(Node node)
 {
     free(node->data);
     free(node);

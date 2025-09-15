@@ -19,7 +19,7 @@ static RedBlackTreeNode RedBlackTreeNode_Create(const DS_Data data, DS_Size sDat
     return node;
 }
 
-static void RedBlackTreeNode_Destroy(RedBlackTreeNode node)
+static DS_Void RedBlackTreeNode_Destroy(RedBlackTreeNode node)
 {
     free(node->data);
     free(node);

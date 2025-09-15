@@ -21,7 +21,7 @@ HashTable HashTable_Create(DS_Size sKey, DS_Size sValue, DS_Size sBucket, DS_Fun
                            DS_Context cHash, DS_FunctionCompare fCompare, DS_Context cCompare);
 
 DS_API
-void HashTable_Destroy(HashTable hTable);
+DS_Void HashTable_Destroy(HashTable hTable);
 
 DS_API
 DS_Data HashTablePair_GetKey(HashTablePair htPair);
@@ -30,10 +30,10 @@ DS_API
 DS_Data HashTablePair_GetValue(HashTablePair htPair);
 
 DS_API
-void HashTable_Insert(HashTable hTable, const DS_Data key, const DS_Data value);
+DS_Void HashTable_Insert(HashTable hTable, const DS_Data key, const DS_Data value);
 
 DS_API
-void HashTable_Remove(HashTable hTable, const DS_Data key);
+DS_Void HashTable_Remove(HashTable hTable, const DS_Data key);
 
 DS_API
 HashTablePair HashTable_Search(HashTable hTable, const DS_Data key);

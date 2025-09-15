@@ -27,7 +27,7 @@ Matrix Matrix_Create(DS_Size sData, DS_Size nRow, DS_Size nColumn)
      return matrix;
 }
 
-void Matrix_Destroy(Matrix matrix)
+DS_Void Matrix_Destroy(Matrix matrix)
 {
      Array_Destroy(matrix->array);
      free(matrix);
@@ -48,7 +48,7 @@ DS_Size Matrix_GetColumnCount(const Matrix matrix)
      return matrix->column_count;
 }
 
-void Matrix_SetData(Matrix matrix, DS_Size row, DS_Size column, const DS_Data data)
+DS_Void Matrix_SetData(Matrix matrix, DS_Size row, DS_Size column, const DS_Data data)
 {
      Array_SetData(matrix->array, (row * matrix->column_count) + column, data);
 }
@@ -111,7 +111,7 @@ Matrix Matrix_ColumnVectorization(Matrix matrix)
      return mVectorize;
 }
 
-void Matrix_Traverse(Matrix matrix, DS_FunctionUnary fUnary, DS_Context context)
+DS_Void Matrix_Traverse(Matrix matrix, DS_FunctionUnary fUnary, DS_Context context)
 {
      for (DS_Size i = 0; i < matrix->row_count; i++) {
           for (DS_Size j = 0; j < matrix->column_count; j++) {

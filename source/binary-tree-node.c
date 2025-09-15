@@ -19,7 +19,7 @@ BinaryTreeNode BinaryTreeNode_Create(const DS_Data data, DS_Size sData)
     return node;
 }
 
-void BinaryTreeNode_Destroy(BinaryTreeNode node)
+DS_Void BinaryTreeNode_Destroy(BinaryTreeNode node)
 {
     free(node->data);
     free(node);

@@ -23,7 +23,7 @@ Node AvlTreeNode_Create(const DS_Data data, DS_Size sData)
     return node;
 }
 
-void AvlTreeNode_Destroy(Node node)
+DS_Void AvlTreeNode_Destroy(Node node)
 {
     free(node->data);
     free(node);
@@ -47,7 +47,7 @@ DS_Size AvlTreeNode_GetHeight(Node node, CircularBuffer cBuffer)
     return height;
 }
 
-void AvlTreeNode_UpdateBalanceFactor(Node node, CircularBuffer cBuffer)
+DS_Void AvlTreeNode_UpdateBalanceFactor(Node node, CircularBuffer cBuffer)
 {
     DS_Size hnLeft = 0;
     DS_Size hnRight = 0;

@@ -19,24 +19,24 @@ BinaryTree BinaryTree_Create(DS_Size sData)
     return tree;
 }
 
-void BinaryTree_Destroy(BinaryTree tree)
+DS_Void BinaryTree_Destroy(BinaryTree tree)
 {
     free(tree);
 }
 
-void BinaryTree_InsertLeft(BinaryTree tree, BinaryTreeNode node, const DS_Data data)
+DS_Void BinaryTree_InsertLeft(BinaryTree tree, BinaryTreeNode node, const DS_Data data)
 {
      node->left = BinaryTreeNode_Create(data, tree->data_size);
      tree->size++;
 }
 
-void BinaryTree_InsertRight(BinaryTree tree, BinaryTreeNode node, const DS_Data data)
+DS_Void BinaryTree_InsertRight(BinaryTree tree, BinaryTreeNode node, const DS_Data data)
 {
      node->right = BinaryTreeNode_Create(data, tree->data_size);
      tree->size++;
 }
 
-void BinaryTree_Remove(BinaryTree tree, BinaryTreeNode node)
+DS_Void BinaryTree_Remove(BinaryTree tree, BinaryTreeNode node)
 {
      BinaryTreeNode nCurrent = node;
      if (node == node->parent->left) {

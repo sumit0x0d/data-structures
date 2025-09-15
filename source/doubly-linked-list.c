@@ -28,7 +28,7 @@ DoublyLinkedList DoublyLinkedList_Create(DS_Size size)
      return list;
 }
 
-void DoublyLinkedList_Destroy(DoublyLinkedList list)
+DS_Void DoublyLinkedList_Destroy(DoublyLinkedList list)
 {
      Node node = list->head;
      while (node) {
@@ -64,12 +64,12 @@ DS_Data DoublyLinkedListNode_GetData(Node node)
      return node->data;
 }
 
-void DoublyLinkedList_set_data(DoublyLinkedList list, Node node, const DS_Data data)
+DS_Void DoublyLinkedList_set_data(DoublyLinkedList list, Node node, const DS_Data data)
 {
      memcpy(node->data, data, list->data_size);
 }
 
-void DoublyLinkedList_PushHead(DoublyLinkedList list, const DS_Data data)
+DS_Void DoublyLinkedList_PushHead(DoublyLinkedList list, const DS_Data data)
 {
      Node node = DoublyLinkedListNode_Create(data, list->data_size);
      node->previous = NULL;
@@ -84,7 +84,7 @@ void DoublyLinkedList_PushHead(DoublyLinkedList list, const DS_Data data)
      list->size++;
 }
 
-void DoublyLinkedList_PushTail(DoublyLinkedList list, const DS_Data data)
+DS_Void DoublyLinkedList_PushTail(DoublyLinkedList list, const DS_Data data)
 {
      Node node = DoublyLinkedListNode_Create(data, list->data_size);
      node->next = NULL;
@@ -99,7 +99,7 @@ void DoublyLinkedList_PushTail(DoublyLinkedList list, const DS_Data data)
      list->size++;
 }
 
-void DoublyLinkedList_PopHead(DoublyLinkedList list)
+DS_Void DoublyLinkedList_PopHead(DoublyLinkedList list)
 {
      Node node = list->head;
      list->head = list->head->next;
@@ -110,7 +110,7 @@ void DoublyLinkedList_PopHead(DoublyLinkedList list)
      list->size--;
 }
 
-void DoublyLinkedList_PopTail(DoublyLinkedList list)
+DS_Void DoublyLinkedList_PopTail(DoublyLinkedList list)
 {
      Node node = list->tail;
      list->tail = list->tail->previous;
@@ -121,7 +121,7 @@ void DoublyLinkedList_PopTail(DoublyLinkedList list)
      list->size--;
 }
 
-void DoublyLinkedList_Remove(DoublyLinkedList list, Node node)
+DS_Void DoublyLinkedList_Remove(DoublyLinkedList list, Node node)
 {
      if (node->previous && node->previous->next == (Node)node) {
           node->previous->next = node->next;
@@ -137,11 +137,11 @@ void DoublyLinkedList_Remove(DoublyLinkedList list, Node node)
      list->size--;
 }
 
-void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_FunctionUnary fUnary, DS_Context context)
+DS_Void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_FunctionUnary fUnary, DS_Context cUnary)
 {
      Node node = list->head;
      while (node) {
-          traverse(node->data, context);
+          traverse(node->data, cUnary);
           node = node->next;
      }
 }

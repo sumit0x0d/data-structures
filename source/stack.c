@@ -19,7 +19,7 @@ Stack Stack_Create(DS_Size sData, DS_Size capacity)
      return stack;
 }
 
-void Stack_Destroy(Stack stack)
+DS_Void Stack_Destroy(Stack stack)
 {
      Array_Destroy(stack->array);
      free(stack);
@@ -46,13 +46,13 @@ DS_Data Stack_GetTop(Stack stack)
      return Array_GetData(stack->array, stack->size - 1);
 }
 
-void Stack_Push(Stack stack, const DS_Data data)
+DS_Void Stack_Push(Stack stack, const DS_Data data)
 {
      Array_SetData(stack->array, stack->size, data);
      stack->size++;
 }
 
-void Stack_Pop(Stack stack)
+DS_Void Stack_Pop(Stack stack)
 {
      stack->size--;
 }

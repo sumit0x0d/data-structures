@@ -9,10 +9,8 @@ struct hash_table_pair {
     HashTablePair next;
 };
 
-
 HashTablePair HashTablePair_Create(const DS_Data key, DS_Size sKey, const DS_Data value, DS_Size sValue);
 
-
-void HashTablePair_Destroy(HashTablePair pair);
+DS_Void HashTablePair_Destroy(HashTablePair pair);
 
 #endif

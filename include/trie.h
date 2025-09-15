@@ -10,7 +10,7 @@ DS_API
 Trie *Trie_Create();
 
 DS_API
-void Trie_Destroy(Trie *trie);
+DS_Void Trie_Destroy(Trie *trie);
 
 DS_API
 char *Trie_Search(Trie *trie, char *string);

@@ -8,10 +8,8 @@ struct singly_linked_list_node {
     SinglyLinkedListNode next;
 };
 
-
 SinglyLinkedListNode SinglyLinkedListNode_Create(const DS_Data data, DS_Size sData);
 
-
-void SinglyLinkedListNode_Destroy(SinglyLinkedListNode node);
+DS_Void SinglyLinkedListNode_Destroy(SinglyLinkedListNode node);
 
 #endif

@@ -39,7 +39,7 @@ HashTable HashTable_Create(DS_Size sKey, DS_Size sValue, DS_Size nBucket, DS_Fun
      return hTable;
 }
 
-void HashTable_Destroy(HashTable hTable)
+DS_Void HashTable_Destroy(HashTable hTable)
 {
      for (DS_Size i = 0; i < hTable->bucket_count; i++) {
           if (hTable->pair[i]) {
@@ -49,17 +49,17 @@ void HashTable_Destroy(HashTable hTable)
      free(hTable);
 }
 
-void *HashTablePair_GetKey(HashTablePair pair)
+DS_Void *HashTablePair_GetKey(HashTablePair pair)
 {
      return pair->key;
 }
 
-void *HashTablePair_GetValue(HashTablePair pair)
+DS_Void *HashTablePair_GetValue(HashTablePair pair)
 {
      return pair->value;
 }
 
-void HashTable_Insert(HashTable hTable, const void *key, const void *value)
+DS_Void HashTable_Insert(HashTable hTable, const DS_Void *key, const DS_Void *value)
 {
      DS_Size index = hTable->hash_function(key, hTable->bucket_count, hTable->hash_context);
      if (!hTable->pair[index]) {
@@ -80,7 +80,7 @@ void HashTable_Insert(HashTable hTable, const void *key, const void *value)
      pair->next = HashTablePair_Create(key, hTable->key_size, value, hTable->value_size);
 }
 
-void HashTable_Remove(HashTable hTable, const void *key)
+DS_Void HashTable_Remove(HashTable hTable, const DS_Void *key)
 {
      DS_Size index = hTable->hash_function(key, hTable->bucket_count, hTable->hash_context);
      if (hTable->pair[index]) {
@@ -101,7 +101,7 @@ void HashTable_Remove(HashTable hTable, const void *key)
      };
 }
 
-HashTablePair HashTable_Search(HashTable hTable, const void *key)
+HashTablePair HashTable_Search(HashTable hTable, const DS_Void *key)
 {
      DS_Size index = hTable->hash_function(key, hTable->bucket_count, hTable->hash_context);
      if (hTable->pair[index]) {

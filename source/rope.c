@@ -26,7 +26,7 @@ Rope *Rope_Create(DS_Size size)
      return rope;
 }
 
-void Rope_Destroy(Rope *rope)
+DS_Void Rope_Destroy(Rope *rope)
 {
      free(rope);
 }

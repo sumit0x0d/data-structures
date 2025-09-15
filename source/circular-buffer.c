@@ -23,7 +23,7 @@ CircularBuffer CircularBuffer_Create(DS_Size sData, DS_Size size)
      return cBuffer;
 }
 
-void CircularBuffer_Destroy(CircularBuffer cBuffer)
+DS_Void CircularBuffer_Destroy(CircularBuffer cBuffer)
 {
      Array_Destroy(cBuffer->array);
      free(cBuffer);
@@ -60,14 +60,14 @@ DS_Data CircularBuffer_GetBackData(CircularBuffer cBuffer)
      return NULL;
 }
 
-void CircularBuffer_PushBack(CircularBuffer cBuffer, const DS_Data data)
+DS_Void CircularBuffer_PushBack(CircularBuffer cBuffer, const DS_Data data)
 {
      Array_SetData(cBuffer->array, cBuffer->back, data);
      cBuffer->size++;
      cBuffer->back = (cBuffer->back + 1) % Array_GetSize(cBuffer->array);
 }
 
-void CircularBuffer_PopFront(CircularBuffer cBuffer)
+DS_Void CircularBuffer_PopFront(CircularBuffer cBuffer)
 {
      cBuffer->front = (cBuffer->front + 1) % Array_GetSize(cBuffer->array);
      cBuffer->size--;

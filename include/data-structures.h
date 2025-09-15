@@ -3,6 +3,8 @@
 
 #define DS_API  __attribute__((visibility("default")))
 
+typedef void DS_Void;
+
 typedef char  DS_Int8;
 typedef short DS_Int16;
 typedef int   DS_Int32;

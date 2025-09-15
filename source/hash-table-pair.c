@@ -25,7 +25,7 @@ HashTablePair HashTablePair_Create(const DS_Data key, DS_Size sKey, const DS_Dat
     return pair;
 }
 
-void HashTablePair_Destroy(HashTablePair pair)
+DS_Void HashTablePair_Destroy(HashTablePair pair)
 {
     free(pair->key);
     free(pair->value);

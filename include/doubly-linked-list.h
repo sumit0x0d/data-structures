@@ -10,7 +10,7 @@ DS_API
 DoublyLinkedList DoublyLinkedList_Create(DS_Size sData);
 
 DS_API
-void DoublyLinkedList_Destroy(DoublyLinkedList list);
+DS_Void DoublyLinkedList_Destroy(DoublyLinkedList list);
 
 DS_API
 DS_Size DoublyLinkedList_GetSize(DoublyLinkedList list);
@@ -28,24 +28,24 @@ DS_API
 DS_Data DoublyLinkedListNode_GetData(DoublyLinkedListNode node);
 
 DS_API
-void DoublyLinkedList_SetData(DoublyLinkedList list, DoublyLinkedListNode node, const DS_Data data);
+DS_Void DoublyLinkedList_SetData(DoublyLinkedList list, DoublyLinkedListNode node, const DS_Data data);
 
 DS_API
-void DoublyLinkedList_PushHead(DoublyLinkedList list, const DS_Data data);
+DS_Void DoublyLinkedList_PushHead(DoublyLinkedList list, const DS_Data data);
 
 DS_API
-void DoublyLinkedList_PushTail(DoublyLinkedList list, const DS_Data data);
+DS_Void DoublyLinkedList_PushTail(DoublyLinkedList list, const DS_Data data);
 
 DS_API
-void DoublyLinkedList_PopHead(DoublyLinkedList list);
+DS_Void DoublyLinkedList_PopHead(DoublyLinkedList list);
 
 DS_API
-void DoublyLinkedList_PopTail(DoublyLinkedList list);
+DS_Void DoublyLinkedList_PopTail(DoublyLinkedList list);
 
 DS_API
-void DoublyLinkedList_Remove(DoublyLinkedList list, DoublyLinkedListNode node);
+DS_Void DoublyLinkedList_Remove(DoublyLinkedList list, DoublyLinkedListNode node);
 
 DS_API
-void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_FunctionUnary fUnary, DS_Context cUnary);
+DS_Void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_FunctionUnary fUnary, DS_Context cUnary);
 
 #endif

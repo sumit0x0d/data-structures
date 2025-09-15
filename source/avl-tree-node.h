@@ -16,13 +16,13 @@ struct avl_tree_node {
 AvlTreeNode AvlTreeNode_Create(const DS_Data data, DS_Size sData);
 
 
-void AvlTreeNode_Destroy(AvlTreeNode node);
+DS_Void AvlTreeNode_Destroy(AvlTreeNode node);
 
 
 DS_Size AvlTreeNode_GetHeight(AvlTreeNode node, CircularBuffer cBuffer);
 
 
-void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode node, CircularBuffer cBuffer);
+DS_Void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode node, CircularBuffer cBuffer);
 
 
 AvlTreeNode AvlTreeNode_GetPredecessor(AvlTreeNode node);

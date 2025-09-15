@@ -11,7 +11,7 @@
 
 static int _compare_int(const DS_Data data1, const DS_Data data2, DS_Context context);
 static DS_Size _hash_int(const DS_Data data, DS_Size aSize, DS_Context context);
-static void _traverse_print(DS_Data data, DS_Context context);
+static DS_Void _traverse_print(DS_Data data, DS_Context context);
 
 int main()
 {
@@ -42,7 +42,7 @@ int main()
 
 static int _compare_int(const DS_Data data1, const DS_Data data2, DS_Context context)
 {
-     (void)uData;
+     (DS_Void)uData;
      if (*(int *)data1 < *(int *)data2) {
           return -1;
      }
@@ -54,12 +54,12 @@ static int _compare_int(const DS_Data data1, const DS_Data data2, DS_Context con
 
 static DS_Size _hash_int(const DS_Data data, DS_Size aSize, DS_Context context)
 {
-     (void)uData;
+     (DS_Void)uData;
      return (*(int *)data) % aSize;
 }
 
-static void _traverse_print(DS_Data data, DS_Context context)
+static DS_Void _traverse_print(DS_Data data, DS_Context context)
 {
-     (void)uData;
+     (DS_Void)uData;
      printf("%d ", *(int *)data);
 }
