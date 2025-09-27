@@ -6,7 +6,7 @@
 typedef struct circular_buffer * CircularBuffer;
 
 DS_API
-CircularBuffer CircularBuffer_Create(DS_Size sData, DS_Size size);
+CircularBuffer CircularBuffer_Create(DS_Size data_size, DS_Size size);
 
 DS_API
 DS_Void CircularBuffer_Destroy(CircularBuffer buffer);

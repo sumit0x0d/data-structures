@@ -9,7 +9,7 @@ struct doubly_linked_list_node {
     DoublyLinkedListNode next;
 };
 
-DoublyLinkedListNode DoublyLinkedListNode_Create(const DS_Data data, DS_Size sData);
+DoublyLinkedListNode DoublyLinkedListNode_Create(const DS_Data data, DS_Size data_size);
 
 DS_Void DoublyLinkedListNode_Destroy(DoublyLinkedListNode node);
 

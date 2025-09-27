@@ -4,18 +4,18 @@
 
 typedef DoublyLinkedListNode Node;
 
-Node DoublyLinkedListNode_Create(const DS_Data data, DS_Size sData)
+Node DoublyLinkedListNode_Create(const DS_Data data, DS_Size data_size)
 {
     Node node = (Node)malloc(sizeof (struct doubly_linked_list_node));
     if (!node) {
         return NULL;
     }
-    node->data = malloc(sData);
+    node->data = malloc(data_size);
     if (!node->data) {
         free(node);
         return NULL;
     }
-    memcpy(node->data, data, sData);
+    memcpy(node->data, data, data_size);
     return node;
 }
 

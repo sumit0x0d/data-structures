@@ -10,7 +10,7 @@ typedef struct singly_linked_list * SinglyLinkedList;
 typedef struct singly_linked_list_node * SinglyLinkedListNode;
 
 DS_API
-SinglyLinkedList SinglyLinkedList_Create(DS_Size sData);
+SinglyLinkedList SinglyLinkedList_Create(DS_Size data_size);
 
 DS_API
 DS_Void SinglyLinkedList_Destroy(SinglyLinkedList list);
@@ -31,7 +31,7 @@ DS_API
 DS_Void SinglyLinkedList_SetData(SinglyLinkedList list, SinglyLinkedListNode node, const DS_Data data);
 
 DS_API
-DS_Data SinglyLinkedListNode_GetData(SinglyLinkedListNode node);
+DS_Data SinglyLinkedList_GetNodeData(SinglyLinkedListNode node);
 
 DS_API
 DS_Void SinglyLinkedList_PushHead(SinglyLinkedList list, const DS_Data data);
@@ -46,7 +46,7 @@ DS_API
 DS_Void SinglyLinkedList_PopTail(SinglyLinkedList list);
 
 DS_API
-DS_Void SinglyLinkedList_Traverse(SinglyLinkedList list, DS_FunctionUnary fUnary, DS_Context cUnary);
+DS_Void SinglyLinkedList_Traverse(SinglyLinkedList list, DS_FunctionUnary unary_function, DS_Context unary_context);
 
 DS_API
 SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList list);

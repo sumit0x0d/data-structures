@@ -6,36 +6,26 @@
 typedef struct hash_table * HashTable;
 typedef struct hash_table_pair * HashTablePair;
 
-/**
- * Creates a new hash table.
- * @param sKey     Size of the key.
- * @param sValue   Size of the value.
- * @param nBucket  Number of buckets.
- * @param fHash    Function pointer for hashing keys.
- * @param fCompare Function pointer for comparing keys.
- * @param context  conext passed to hash and compare functions.
- * @return         HashTable.
- */
 DS_API
-HashTable HashTable_Create(DS_Size sKey, DS_Size sValue, DS_Size sBucket, DS_FunctionHash fHash,
-                           DS_Context cHash, DS_FunctionCompare fCompare, DS_Context cCompare);
+HashTable HashTable_Create(DS_Size key_size, DS_Size value_size, DS_Size bucket_count, DS_FunctionHash hash_function,
+                           DS_Context hash_context, DS_FunctionCompare compare_function, DS_Context compare_context);
 
 DS_API
-DS_Void HashTable_Destroy(HashTable hTable);
+DS_Void HashTable_Destroy(HashTable table);
 
 DS_API
-DS_Data HashTablePair_GetKey(HashTablePair htPair);
+DS_Data HashTable_GetKey(HashTablePair pair);
 
 DS_API
-DS_Data HashTablePair_GetValue(HashTablePair htPair);
+DS_Data HashTable_GetValue(HashTablePair pair);
 
 DS_API
-DS_Void HashTable_Insert(HashTable hTable, const DS_Data key, const DS_Data value);
+DS_Void HashTable_Insert(HashTable table, const DS_Data key, const DS_Data value);
 
 DS_API
-DS_Void HashTable_Remove(HashTable hTable, const DS_Data key);
+DS_Void HashTable_Remove(HashTable table, const DS_Data key);
 
 DS_API
-HashTablePair HashTable_Search(HashTable hTable, const DS_Data key);
+HashTablePair HashTable_Search(HashTable table, const DS_Data key);
 
 #endif

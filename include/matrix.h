@@ -6,7 +6,7 @@
 typedef struct matrix * Matrix;
 
 DS_API
-Matrix Matrix_Create(DS_Size sData, DS_Size nRow, DS_Size nColumn);
+Matrix Matrix_Create(DS_Size data_size, DS_Size nRow, DS_Size nColumn);
 
 DS_API
 DS_Void Matrix_Destroy(Matrix matrix);
@@ -36,6 +36,6 @@ DS_API
 Matrix Matrix_ColumnVectorization(Matrix matrix);
 
 DS_API
-DS_Void Matrix_Traverse(Matrix matrix, DS_FunctionUnary fUnary, DS_Context cUnary);
+DS_Void Matrix_Traverse(Matrix matrix, DS_FunctionUnary unary_function, DS_Context unary_context);
 
 #endif

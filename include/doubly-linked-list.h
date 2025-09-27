@@ -7,7 +7,7 @@ typedef struct doubly_linked_list * DoublyLinkedList;
 typedef struct doubly_linked_list_node * DoublyLinkedListNode;
 
 DS_API
-DoublyLinkedList DoublyLinkedList_Create(DS_Size sData);
+DoublyLinkedList DoublyLinkedList_Create(DS_Size data_size);
 
 DS_API
 DS_Void DoublyLinkedList_Destroy(DoublyLinkedList list);
@@ -25,7 +25,7 @@ DS_API
 DoublyLinkedListNode DoublyLinkedList_GetTail(DoublyLinkedList list);
 
 DS_API
-DS_Data DoublyLinkedListNode_GetData(DoublyLinkedListNode node);
+DS_Data DoublyLinkedList_GetData(DoublyLinkedListNode node);
 
 DS_API
 DS_Void DoublyLinkedList_SetData(DoublyLinkedList list, DoublyLinkedListNode node, const DS_Data data);
@@ -46,6 +46,6 @@ DS_API
 DS_Void DoublyLinkedList_Remove(DoublyLinkedList list, DoublyLinkedListNode node);
 
 DS_API
-DS_Void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_FunctionUnary fUnary, DS_Context cUnary);
+DS_Void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_FunctionUnary unary_function, DS_Context unary_context);
 
 #endif

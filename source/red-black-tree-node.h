@@ -16,7 +16,7 @@ struct red_black_tree_node {
     RedBlackTreeNodeColor color;
 };
 
-RedBlackTreeNode RedBlackTreeNode_Create(const DS_Data data, DS_Size sData);
+RedBlackTreeNode RedBlackTreeNode_Create(const DS_Data data, DS_Size data_size);
 
 DS_Void RedBlackTreeNode_Destroy(RedBlackTreeNode node);
 

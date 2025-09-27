@@ -11,7 +11,7 @@ struct binary_tree_node {
     BinaryTreeNode right;
 };
 
-BinaryTreeNode BinaryTreeNode_Create(const DS_Data data, DS_Size sData);
+BinaryTreeNode BinaryTreeNode_Create(const DS_Data data, DS_Size data_size);
 
 DS_Void BinaryTreeNode_Destroy(BinaryTreeNode node);
 

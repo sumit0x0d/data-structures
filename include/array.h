@@ -6,7 +6,7 @@
 typedef struct array * Array;
 
 DS_API
-Array Array_Create(DS_Size sData, DS_Size size);
+Array Array_Create(DS_Size data_size, DS_Size size);
 
 DS_API
 DS_Void Array_Destroy(Array array);
@@ -30,37 +30,39 @@ DS_API
 DS_Void Array_SwapData(Array array, DS_Data data1, DS_Data data2);
 
 DS_API
-DS_Void Array_Traverse(Array array, DS_FunctionUnary aTraverse, DS_Context cCompare);
+DS_Void Array_Traverse(Array array, DS_FunctionUnary unary_function, DS_Context unary_context);
 
 DS_API
-DS_Data Array_SearchLinear(const Array array, const DS_Data data, DS_FunctionCompare fCompare, DS_Context cCompare);
+DS_Data Array_SearchLinear(const Array array, const DS_Data data, DS_FunctionCompare compare_function,
+                           DS_Context compare_conext);
 
 DS_API
-DS_Data Array_SearchBinary(const Array array, const DS_Data data, DS_FunctionCompare fCompare, DS_Context cCompare);
+DS_Data Array_SearchBinary(const Array array, const DS_Data data, DS_FunctionCompare compare_function,
+                           DS_Context compare_conext);
 
 DS_API
-DS_Void Array_SortBubble(Array array, DS_FunctionCompare fCompare, DS_Context cCompare);
+DS_Void Array_SortBubble(Array array, DS_FunctionCompare compare_function, DS_Context compare_conext);
 
 DS_API
-DS_Void Array_SortInsertion(Array array, DS_FunctionCompare fCompare, DS_Context cCompare);
+DS_Void Array_SortInsertion(Array array, DS_FunctionCompare compare_function, DS_Context compare_conext);
 
 DS_API
-DS_Void Array_SortSelection(Array array, DS_FunctionCompare fCompare, DS_Context cCompare);
+DS_Void Array_SortSelection(Array array, DS_FunctionCompare compare_function, DS_Context compare_conext);
 
 DS_API
-DS_Void Array_SortQuick(Array array, DS_FunctionCompare fCompare, DS_Context cCompare);
+DS_Void Array_SortQuick(Array array, DS_FunctionCompare compare_function, DS_Context compare_conext);
 
 DS_API
-DS_Void Array_SortMerge(Array array, DS_FunctionCompare fCompare, DS_Context cCompare);
+DS_Void Array_SortMerge(Array array, DS_FunctionCompare compare_function, DS_Context compare_conext);
 
 DS_API
 DS_Data Array_PatternSearchNaive(const Array array, const DS_Data pattern, DS_Size sPattern);
 
 DS_API
-DS_Data Array_PatternSearchRabinKarp(const Array array, const DS_Data pattern, DS_Size sPattern,
-                                     DS_FunctionHash fHash, DS_Context cCompare);
+DS_Data Array_PatternSearchRabinKarp(const Array array, const DS_Data pattern, DS_Size pattern_size,
+                                     DS_FunctionHash hash_function, DS_Context hash_context);
 
 DS_API
-DS_Data Array_PatternSearchKnuthMorrisPratt(const Array array, const DS_Data pattern, DS_Size sPattern);
+DS_Data Array_PatternSearchKnuthMorrisPratt(const Array array, const DS_Data pattern, DS_Size pattern_size);
 
 #endif

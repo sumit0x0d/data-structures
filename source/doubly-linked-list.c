@@ -137,11 +137,11 @@ DS_Void DoublyLinkedList_Remove(DoublyLinkedList list, Node node)
      list->size--;
 }
 
-DS_Void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_FunctionUnary fUnary, DS_Context cUnary)
+DS_Void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_FunctionUnary unary_function, DS_Context unary_context)
 {
      Node node = list->head;
      while (node) {
-          traverse(node->data, cUnary);
+          traverse(node->data, unary_context);
           node = node->next;
      }
 }

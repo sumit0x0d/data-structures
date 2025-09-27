@@ -11,13 +11,13 @@ struct matrix {
      DS_Size column_count;
 };
 
-Matrix Matrix_Create(DS_Size sData, DS_Size nRow, DS_Size nColumn)
+Matrix Matrix_Create(DS_Size data_size, DS_Size nRow, DS_Size nColumn)
 {
      Matrix matrix = (Matrix )malloc(sizeof (struct matrix));
      if (!matrix) {
           return NULL;
      }
-     matrix->array = Array_Create(sData, nRow * nColumn);
+     matrix->array = Array_Create(data_size, nRow * nColumn);
      if (!matrix->array) {
           free(matrix);
           return NULL;
@@ -67,7 +67,7 @@ Matrix Matrix_Transposition(Matrix matrix)
      return mTranspose;
 }
 
-Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, Operation multiplication)
+Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, DS_FunctionBinary fBinary, DS_Context cBinary)
 {
      if (matrix1->column_count != matrix2->row_count) {
           return NULL;
@@ -76,14 +76,14 @@ Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, Operation multiplic
      for (DS_Size i = 0; i < matrix->row_count; i++) {
           for (DS_Size j = 0; j < matrix->column_count; j++) {
                for (DS_Size k = 0; k < matrix1->column_count; k++) {
-                    multiplication(Matrix_GetData(matrix, i, j), Matrix_GetData(matrix1, i, k), Matrix_GetData(matrix2, k, j));
+                    fBinary(Matrix_GetData(matrix, i, j), Matrix_GetData(matrix1, i, k), Matrix_GetData(matrix2, k, j));
                }
           }
      }
      return matrix;
 }
 
-Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, Operation operation)
+Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, DS_FunctionBinary fBinary, DS_Context cBinary)
 {
      assert(matrix1->row_count == matrix2->row_count);
      assert(matrix1->column_count == matrix2->column_count);
@@ -91,7 +91,7 @@ Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, Operation operation)
      assert(matrix);
      for (DS_Size i = 0; i < matrix1->row_count; i++) {
           for (DS_Size j = 0; j < matrix2->column_count; j++) {
-               operation(Matrix_GetData(matrix, i, j), Matrix_GetData(matrix1, i, j), Matrix_GetData(matrix2, i, j));
+               fBinary(Matrix_GetData(matrix, i, j), Matrix_GetData(matrix1, i, j), Matrix_GetData(matrix2, i, j));
           }
      }
      return matrix;
@@ -111,11 +111,11 @@ Matrix Matrix_ColumnVectorization(Matrix matrix)
      return mVectorize;
 }
 
-DS_Void Matrix_Traverse(Matrix matrix, DS_FunctionUnary fUnary, DS_Context context)
+DS_Void Matrix_Traverse(Matrix matrix, DS_FunctionUnary unary_function, DS_Context context)
 {
      for (DS_Size i = 0; i < matrix->row_count; i++) {
           for (DS_Size j = 0; j < matrix->column_count; j++) {
-               fUnary(Matrix_GetData(matrix, i, j), context);
+               unary_function(Matrix_GetData(matrix, i, j), context);
           }
      }
 }

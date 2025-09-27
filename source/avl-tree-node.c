@@ -5,18 +5,18 @@
 
 typedef AvlTreeNode Node;
 
-Node AvlTreeNode_Create(const DS_Data data, DS_Size sData)
+Node AvlTreeNode_Create(const DS_Data data, DS_Size data_size)
 {
     Node node = (Node)malloc(sizeof (struct avl_tree_node));
     if (!node) {
         return NULL;
     }
-    node->data = malloc(sData);
+    node->data = malloc(data_size);
     if (!node->data){
         free(node);
         return NULL;
     }
-    memcpy(node->data, data, sData);
+    memcpy(node->data, data, data_size);
     node->left = NULL;
     node->right = NULL;
     node->balance_factor = 0;
@@ -29,33 +29,33 @@ DS_Void AvlTreeNode_Destroy(Node node)
     free(node);
 }
 
-DS_Size AvlTreeNode_GetHeight(Node node, CircularBuffer cBuffer)
+DS_Size AvlTreeNode_GetHeight(Node node, CircularBuffer buffer)
 {
     DS_Size height = 0;
-    CircularBuffer_PushBack(cBuffer, node);
-    while (!CircularBuffer_IsEmpty(cBuffer)) {
-        node = CircularBuffer_GetFrontData(cBuffer);
-        CircularBuffer_PopFront(cBuffer);
+    CircularBuffer_PushBack(buffer, node);
+    while (!CircularBuffer_IsEmpty(buffer)) {
+        node = CircularBuffer_GetFrontData(buffer);
+        CircularBuffer_PopFront(buffer);
         if (node->left) {
-            CircularBuffer_PushBack(cBuffer, node->left);
+            CircularBuffer_PushBack(buffer, node->left);
         }
         if (node->right) {
-            CircularBuffer_PushBack(cBuffer, node->right);
+            CircularBuffer_PushBack(buffer, node->right);
         }
         height++;
     }
     return height;
 }
 
-DS_Void AvlTreeNode_UpdateBalanceFactor(Node node, CircularBuffer cBuffer)
+DS_Void AvlTreeNode_UpdateBalanceFactor(Node node, CircularBuffer buffer)
 {
     DS_Size hnLeft = 0;
     DS_Size hnRight = 0;
     if (node->left) {
-        hnLeft = AvlTreeNode_GetHeight(node->left, cBuffer);
+        hnLeft = AvlTreeNode_GetHeight(node->left, buffer);
     }
     if (node->right) {
-        hnRight = AvlTreeNode_GetHeight(node->right, cBuffer);
+        hnRight = AvlTreeNode_GetHeight(node->right, buffer);
     }
     node->balance_factor = (int)(hnLeft - hnRight);
 }

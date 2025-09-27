@@ -13,13 +13,13 @@ struct singly_linked_list {
      DS_Size size;
 };
 
-SinglyLinkedList SinglyLinkedList_Create(DS_Size sData)
+SinglyLinkedList SinglyLinkedList_Create(DS_Size data_size)
 {
      SinglyLinkedList list = (SinglyLinkedList )malloc(sizeof (SinglyLinkedList));
      assert(list);
      list->head = NULL;
      list->tail = NULL;
-     list->data_size = sData;
+     list->data_size = data_size;
      list->size = 0;
      return list;
 }
@@ -85,7 +85,7 @@ DS_Void SinglyLinkedList_PopTail(SinglyLinkedList list)
      list->size--;
 }
 
-DS_Void SinglyLinkedList_Traverse(SinglyLinkedList list, DS_FunctionUnary fUnary, DS_Context context)
+DS_Void SinglyLinkedList_Traverse(SinglyLinkedList list, DS_FunctionUnary unary_function, DS_Context context)
 {
      SinglyLinkedListNode node = list->head;
      while (node) {

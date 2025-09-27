@@ -7,7 +7,7 @@ typedef struct xor_linked_list * XorLinkedList;
 typedef struct xor_linked_list_node * XorLinkedListNode;
 
 DS_API
-XorLinkedList XorLinkedList_Create(DS_Size sData);
+XorLinkedList XorLinkedList_Create(DS_Size data_size);
 
 DS_API
 DS_Void XorLinkedList_Destroy(XorLinkedList list);

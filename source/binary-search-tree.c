@@ -24,12 +24,12 @@ struct binary_search_tree {
 static BinarySearchTreeNode  BinarySearchTreeNode_Create(const DS_Data data, DS_Size size);
 static DS_Void BinarySearchTreeNode_Destroy(BinarySearchTreeNode node);
 
-BinarySearchTree BinarySearchTree_create(DS_Size sData, int (*compare)(const DS_Data data1, const DS_Data data2))
+BinarySearchTree BinarySearchTree_create(DS_Size data_size, int (*compare)(const DS_Data data1, const DS_Data data2))
 {
      BinarySearchTree tree = (BinarySearchTree *)malloc(sizeof (BinarySearchTree));
      assert(tree);
      tree->root = NULL;
-     tree->data_size = sData;
+     tree->data_size = data_size;
      tree->size = 0;
      tree->compare_function = compare;
      return tree;

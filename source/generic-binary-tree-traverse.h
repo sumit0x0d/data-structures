@@ -4,20 +4,20 @@
 #include <data-structures.h>
 
 
-DS_Void GenericBinaryTree_TraversePreorder(DS_Generic gNode, DS_Size sNode, DS_Size sTree, DS_Offset oData,
-                                        DS_Offset oLeft, DS_Offset oRight, DS_FunctionUnary fUnary,
-                                        DS_Context cUnary);
+DS_Void GenericBinaryTree_TraversePreorder(DS_Generic node_generic, DS_Size node_size, DS_Size tree_size,
+                                           DS_Offset data_offeset, DS_Offset left_offset, DS_Offset right_offset,
+                                           DS_FunctionUnary unary_function, DS_Context unary_context);
 
-DS_Void GenericBinaryTree_TraverseInorder(DS_Generic gNode, DS_Size sNode, DS_Size sTree, DS_Offset oData,
-                                       DS_Offset oLeft, DS_Offset oRight, DS_FunctionUnary fUnary,
-                                       DS_Context cUnary);
+DS_Void GenericBinaryTree_TraverseInorder(DS_Generic node_generic, DS_Size node_size, DS_Size tree_size,
+                                          DS_Offset data_offeset, DS_Offset left_offset, DS_Offset right_offset,
+                                          DS_FunctionUnary unary_function, DS_Context unary_context);
 
-DS_Void GenericBinaryTree_TraversePostorder(DS_Generic gNode, DS_Size sNode, DS_Size sTree, DS_Offset oData,
-                                         DS_Offset oLeft, DS_Offset oRight, DS_FunctionUnary fUnary,
-                                         DS_Context cUnary);
+DS_Void GenericBinaryTree_TraversePostorder(DS_Generic node_generic, DS_Size node_size, DS_Size tree_size,
+                                            DS_Offset data_offeset, DS_Offset left_offset, DS_Offset right_offset,
+                                            DS_FunctionUnary unary_function, DS_Context unary_context);
 
-DS_Void GenericBinaryTree_TraverseLevelorder(DS_Generic gNode, DS_Size sNode, DS_Size sTree, DS_Offset oData,
-                                          DS_Offset oLeft, DS_Offset oRight, DS_FunctionUnary fUnary,
-                                          DS_Context cUnary);
+DS_Void GenericBinaryTree_TraverseLevelorder(DS_Generic node_generic, DS_Size node_size, DS_Size tree_size,
+                                             DS_Offset data_offeset, DS_Offset left_offset, DS_Offset right_offset,
+                                             DS_FunctionUnary unary_function, DS_Context unary_context);
 
 #endif

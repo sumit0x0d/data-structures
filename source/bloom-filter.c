@@ -10,7 +10,7 @@ struct bloom_filter {
      DS_Context hash_context;
 };
 
-BloomFilter BloomFilter_Create(DS_Size size, DS_Size bCount, DS_FunctionCompare fHash, DS_Context cHash)
+BloomFilter BloomFilter_Create(DS_Size size, DS_Size bCount, DS_FunctionCompare hash_function, DS_Context hash_context)
 {
      BloomFilter bFilter = (BloomFilter *)malloc(sizeof (BloomFilter));
      if (!bFilter) {
@@ -21,8 +21,8 @@ BloomFilter BloomFilter_Create(DS_Size size, DS_Size bCount, DS_FunctionCompare 
           free(bFilter);
           return NULL;
      }
-     bFilter->hash_function = fHash;
-     bFilter->hash_context = cHash;
+     bFilter->hash_function = hash_function;
+     bFilter->hash_context = hash_context;
      return bFilter;
 }
 

@@ -11,7 +11,7 @@ struct dynamic_array {
      DS_Float64 growth_factor;
 };
 
-DynamicArray DynamicArray_Create(DS_Size sData, DS_Size capacity, DS_Float64 gFactor)
+DynamicArray DynamicArray_Create(DS_Size data_size, DS_Size capacity, DS_Float64 gFactor)
 {
      if (gFactor > 1) {
           return NULL;
@@ -20,7 +20,7 @@ DynamicArray DynamicArray_Create(DS_Size sData, DS_Size capacity, DS_Float64 gFa
      if (!array) {
           return NULL;
      }
-     array->array = Array_Create(sData, capacity);
+     array->array = Array_Create(data_size, capacity);
      if (!array->array) {
           free(array);
           return NULL;

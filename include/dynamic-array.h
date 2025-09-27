@@ -6,7 +6,7 @@
 typedef struct dynamic_array * DynamicArray;
 
 DS_API
-DynamicArray DynamicArray_Create(DS_Size sData, DS_Size size, DS_Float64 gFactor);
+DynamicArray DynamicArray_Create(DS_Size data_size, DS_Size size, DS_Float64 gFactor);
 
 DS_API
 DS_Void DynamicArray_Destroy(DynamicArray array);
@@ -27,6 +27,6 @@ DS_API
 DS_Void DynamicArray_PopBack(DynamicArray array);
 
 DS_API
-DS_Void DynamicArray_Traverse(DynamicArray array, DS_FunctionUnary fUnary, DS_Context cUnary);
+DS_Void DynamicArray_Traverse(DynamicArray array, DS_FunctionUnary unary_function, DS_Context unary_context);
 
 #endif

@@ -23,7 +23,7 @@ static DS_Void _RotateLeft(RedBlackTree tree, Node node);
 static DS_Void _RotateRightLeft(RedBlackTree tree, Node node);
 static DS_Void _Rebalance(RedBlackTree tree, Node node);
 
-RedBlackTree RedBlackTree_Create(DS_Size size, DS_FunctionCompare fCompare, DS_Context cCompare)
+RedBlackTree RedBlackTree_Create(DS_Size size, DS_FunctionCompare compare_function, DS_Context compare_context)
 {
      RedBlackTree tree = (RedBlackTree)malloc(sizeof (RedBlackTree));
      if (!tree) {
@@ -32,30 +32,30 @@ RedBlackTree RedBlackTree_Create(DS_Size size, DS_FunctionCompare fCompare, DS_C
      tree->root = NULL;
      tree->data_size = size;
      tree->size = 0;
-     tree->compare_function = fCompare;
-     tree->compare_context = cCompare;
+     tree->compare_function = compare_function;
+     tree->compare_context = compare_context;
      return tree;
 }
 
 DS_Void RedBlackTree_Destroy(RedBlackTree tree)
 {
      Node node = tree->root;
-     CircularBuffer *cBuffer = CircularBuffer_Create(sizeof (Node ), tree->size);
+     CircularBuffer *buffer = CircularBuffer_Create(sizeof (Node ), tree->size);
      free(node->data);
-     CircularBuffer_PushBack(cBuffer, node);
-     while (!CircularBuffer_IsEmpty(cBuffer)) {
-          node = (Node )CircularBuffer_GetFrontData(cBuffer);
-          CircularBuffer_PopFront(cBuffer);
+     CircularBuffer_PushBack(buffer, node);
+     while (!CircularBuffer_IsEmpty(buffer)) {
+          node = (Node )CircularBuffer_GetFrontData(buffer);
+          CircularBuffer_PopFront(buffer);
           if (node->left) {
                RedBlackTreeNode_Destroy(node);
-               // CircularBuffer_PushBack(cBuffer, node->left);
+               // CircularBuffer_PushBack(buffer, node->left);
           }
           if (node->right) {
                RedBlackTreeNode_Destroy(node);
-               // CircularBuffer_PushBack(cBuffer, node->right);
+               // CircularBuffer_PushBack(buffer, node->right);
           }
      }
-     CircularBuffer_Destroy(cBuffer);
+     CircularBuffer_Destroy(buffer);
      free(tree);
 }
 

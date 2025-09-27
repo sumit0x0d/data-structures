@@ -7,7 +7,7 @@
 #include <hash-table-pair.h>
 
 struct hash_table {
-     Pair *pair;
+     HashTablePair *pair;
      DS_Size key_size;
      DS_Size value_size;
      DS_Size bucket_count;
@@ -17,25 +17,25 @@ struct hash_table {
      DS_Context compare_context;
 };
 
-HashTable HashTable_Create(DS_Size sKey, DS_Size sValue, DS_Size nBucket, DS_FunctionHash fHash,
-                           DS_Context cHash, DS_FunctionCompare fCompare, DS_Context cCompare)
+HashTable HashTable_Create(DS_Size key_size, DS_Size value_size, DS_Size bucket_count, DS_FunctionHash hash_function,
+                           DS_Context hash_context, DS_FunctionCompare compare_function, DS_Context compare_context)
 {
      HashTable hTable = (HashTable)malloc(sizeof (struct hash_table));
      if (!hTable) {
           return NULL;
      }
-     hTable->pair = (HashTablePair)calloc(nBucket, sizeof (struct hash_table_pair));
+     hTable->pair = (HashTablePair *)calloc(bucket_count, sizeof (struct hash_table_pair));
      if (!hTable->pair) {
           free(hTable);
           return NULL;
      }
-     hTable->key_size = sKey;
-     hTable->value_size = sValue;
-     hTable->bucket_count = nBucket;
-     hTable->hash_function = fHash;
-     hTable->compare_context = cHash;
-     hTable->compare_function = fCompare;
-     hTable->compare_context = cCompare;
+     hTable->key_size = key_size;
+     hTable->value_size = value_size;
+     hTable->bucket_count = bucket_count;
+     hTable->hash_function = hash_function;
+     hTable->compare_context = hash_context;
+     hTable->compare_function = compare_function;
+     hTable->compare_context = compare_context;
      return hTable;
 }
 
@@ -49,12 +49,12 @@ DS_Void HashTable_Destroy(HashTable hTable)
      free(hTable);
 }
 
-DS_Void *HashTablePair_GetKey(HashTablePair pair)
+DS_Data HashTable_GetKey(HashTablePair pair)
 {
      return pair->key;
 }
 
-DS_Void *HashTablePair_GetValue(HashTablePair pair)
+DS_Data HashTable_GetValue(HashTablePair pair)
 {
      return pair->value;
 }

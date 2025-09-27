@@ -9,12 +9,12 @@ struct binary_tree {
      DS_Size size;
 };
 
-BinaryTree BinaryTree_Create(DS_Size sData)
+BinaryTree BinaryTree_Create(DS_Size data_size)
 {
     BinaryTree tree = (BinaryTree)malloc(sizeof (struct binary_tree));
     assert(tree);
     tree->root = NULL;
-    tree->data_size = sData;
+    tree->data_size = data_size;
     tree->size = 0;
     return tree;
 }

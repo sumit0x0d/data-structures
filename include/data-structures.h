@@ -39,10 +39,10 @@ typedef enum {
     DS_COMPARE_GREATER = 1
 } DS_Compare;
 
-typedef void       (*DS_FunctionUnary)(DS_Data data, DS_Context cUnary);
-typedef void       (*DS_FunctionBinary)(DS_Data data1, DS_Data data2, DS_Context cBinary);
+typedef void       (*DS_FunctionUnary)(DS_Data data, DS_Context unary_context);
+typedef void       (*DS_FunctionBinary)(DS_Data data1, DS_Data data2, DS_Context binary_context);
 
-typedef DS_Compare (*DS_FunctionCompare)(const DS_Data data1, const DS_Data data2, DS_Context cCompare);
-typedef DS_Hash    (*DS_FunctionHash)(const DS_Data data, DS_Size size, DS_Context cHash);
+typedef DS_Compare (*DS_FunctionCompare)(const DS_Data data1, const DS_Data data2, DS_Context compare_context);
+typedef DS_Hash    (*DS_FunctionHash)(const DS_Data data, DS_Size size, DS_Context hash_context);
 
 #endif

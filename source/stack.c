@@ -9,11 +9,11 @@ struct stack {
      DS_Size size;
 };
 
-Stack Stack_Create(DS_Size sData, DS_Size capacity)
+Stack Stack_Create(DS_Size data_size, DS_Size capacity)
 {
      Stack stack = (Stack)malloc(sizeof (struct stack));
      assert(stack);
-     stack->array = Array_Create(sData, capacity);
+     stack->array = Array_Create(data_size, capacity);
      assert(stack->array);
      stack->size = 0;
      return stack;
