@@ -28,16 +28,16 @@ DS_API
 SinglyLinkedListNode SinglyLinkedList_GetTailNode(SinglyLinkedList list);
 
 DS_API
-DS_Void SinglyLinkedList_SetData(SinglyLinkedList list, SinglyLinkedListNode node, const DS_Data data);
+DS_Void SinglyLinkedList_SetData(SinglyLinkedList list, SinglyLinkedListNode node, const DS_Generic data);
 
 DS_API
-DS_Data SinglyLinkedList_GetNodeData(SinglyLinkedListNode node);
+DS_Generic SinglyLinkedList_GetNodeData(SinglyLinkedListNode node);
 
 DS_API
-DS_Void SinglyLinkedList_PushHead(SinglyLinkedList list, const DS_Data data);
+DS_Void SinglyLinkedList_PushHead(SinglyLinkedList list, const DS_Generic data);
 
 DS_API
-DS_Void SinglyLinkedList_PushTail(SinglyLinkedList list, const DS_Data data);
+DS_Void SinglyLinkedList_PushTail(SinglyLinkedList list, const DS_Generic data);
 
 DS_API
 DS_Void SinglyLinkedList_PopHead(SinglyLinkedList list);
@@ -46,7 +46,7 @@ DS_API
 DS_Void SinglyLinkedList_PopTail(SinglyLinkedList list);
 
 DS_API
-DS_Void SinglyLinkedList_Traverse(SinglyLinkedList list, DS_FunctionUnary unary_function, DS_Context unary_context);
+DS_Void SinglyLinkedList_Traverse(SinglyLinkedList list, DS_CallbackUnary unary_callback, DS_Generic unary_context);
 
 DS_API
 SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList list);

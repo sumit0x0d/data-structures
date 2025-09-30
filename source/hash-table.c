@@ -11,84 +11,84 @@ struct hash_table {
      DS_Size key_size;
      DS_Size value_size;
      DS_Size bucket_count;
-     DS_FunctionHash hash_function;
-     DS_Context hash_context;
-     DS_FunctionCompare compare_function;
-     DS_Context compare_context;
+     DS_CallbackHash hash_callback;
+     DS_Generic hash_context;
+     DS_CallbackCompare compare_callback;
+     DS_Generic compare_context;
 };
 
-HashTable HashTable_Create(DS_Size key_size, DS_Size value_size, DS_Size bucket_count, DS_FunctionHash hash_function,
-                           DS_Context hash_context, DS_FunctionCompare compare_function, DS_Context compare_context)
+HashTable HashTable_Create(DS_Size key_size, DS_Size value_size, DS_Size bucket_count, DS_CallbackHash hash_callback,
+                           DS_Generic hash_context, DS_CallbackCompare compare_callback, DS_Generic compare_context)
 {
-     HashTable hTable = (HashTable)malloc(sizeof (struct hash_table));
-     if (!hTable) {
+     HashTable table = (HashTable)malloc(sizeof (struct hash_table));
+     if (!table) {
           return NULL;
      }
-     hTable->pair = (HashTablePair *)calloc(bucket_count, sizeof (struct hash_table_pair));
-     if (!hTable->pair) {
-          free(hTable);
+     table->pair = (HashTablePair *)calloc(bucket_count, sizeof (struct hash_table_pair));
+     if (!table->pair) {
+          free(table);
           return NULL;
      }
-     hTable->key_size = key_size;
-     hTable->value_size = value_size;
-     hTable->bucket_count = bucket_count;
-     hTable->hash_function = hash_function;
-     hTable->compare_context = hash_context;
-     hTable->compare_function = compare_function;
-     hTable->compare_context = compare_context;
-     return hTable;
+     table->key_size = key_size;
+     table->value_size = value_size;
+     table->bucket_count = bucket_count;
+     table->hash_callback = hash_callback;
+     table->compare_context = hash_context;
+     table->compare_callback = compare_callback;
+     table->compare_context = compare_context;
+     return table;
 }
 
-DS_Void HashTable_Destroy(HashTable hTable)
+DS_Void HashTable_Destroy(HashTable table)
 {
-     for (DS_Size i = 0; i < hTable->bucket_count; i++) {
-          if (hTable->pair[i]) {
-               HashTablePair_Destroy(hTable->pair[i]);
+     for (DS_Size i = 0; i < table->bucket_count; i++) {
+          if (table->pair[i]) {
+               HashTablePair_Destroy(table->pair[i]);
           }
      }
-     free(hTable);
+     free(table);
 }
 
-DS_Data HashTable_GetKey(HashTablePair pair)
+DS_Generic HashTable_GetKey(HashTablePair pair)
 {
      return pair->key;
 }
 
-DS_Data HashTable_GetValue(HashTablePair pair)
+DS_Generic HashTable_GetValue(HashTablePair pair)
 {
      return pair->value;
 }
 
-DS_Void HashTable_Insert(HashTable hTable, const DS_Void *key, const DS_Void *value)
+DS_Void HashTable_Insert(HashTable table, const DS_Void *key, const DS_Void *value)
 {
-     DS_Size index = hTable->hash_function(key, hTable->bucket_count, hTable->hash_context);
-     if (!hTable->pair[index]) {
-          hTable->pair[index] = HashTablePair_Create(key, hTable->key_size, value, hTable->value_size);
+     DS_Size index = table->hash_callback(key, table->bucket_count, table->hash_context);
+     if (!table->pair[index]) {
+          table->pair[index] = HashTablePair_Create(key, table->key_size, value, table->value_size);
           return;
      }
      DS_Compare compare = DS_COMPARE_EQUAL;
-     HashTablePair pair = hTable->pair[index];
+     HashTablePair pair = table->pair[index];
      do {
-          compare = hTable->compare_function(key, pair->key, hTable->compare_context);
+          compare = table->compare_callback(key, pair->key, table->compare_context);
           if (compare) {
                pair = pair->next;
           } else {
-               memcpy(hTable->pair[index]->value, value, hTable->value_size);
+               memcpy(table->pair[index]->value, value, table->value_size);
                return;
           } 
      } while (compare && pair->next);
-     pair->next = HashTablePair_Create(key, hTable->key_size, value, hTable->value_size);
+     pair->next = HashTablePair_Create(key, table->key_size, value, table->value_size);
 }
 
-DS_Void HashTable_Remove(HashTable hTable, const DS_Void *key)
+DS_Void HashTable_Remove(HashTable table, const DS_Void *key)
 {
-     DS_Size index = hTable->hash_function(key, hTable->bucket_count, hTable->hash_context);
-     if (hTable->pair[index]) {
+     DS_Size index = table->hash_callback(key, table->bucket_count, table->hash_context);
+     if (table->pair[index]) {
           int compare = 0;
-          HashTablePair pair = hTable->pair[index];
+          HashTablePair pair = table->pair[index];
           HashTablePair ppair = pair;
           do {
-               compare = hTable->compare_function(key, pair->key, hTable->compare_context);
+               compare = table->compare_callback(key, pair->key, table->compare_context);
                if (compare) {
                     ppair = pair;
                     pair = pair->next;
@@ -101,14 +101,14 @@ DS_Void HashTable_Remove(HashTable hTable, const DS_Void *key)
      };
 }
 
-HashTablePair HashTable_Search(HashTable hTable, const DS_Void *key)
+HashTablePair HashTable_Search(HashTable table, const DS_Void *key)
 {
-     DS_Size index = hTable->hash_function(key, hTable->bucket_count, hTable->hash_context);
-     if (hTable->pair[index]) {
+     DS_Size index = table->hash_callback(key, table->bucket_count, table->hash_context);
+     if (table->pair[index]) {
           DS_Compare compare = 0;
-          HashTablePair pair = hTable->pair[index];
+          HashTablePair pair = table->pair[index];
           do {
-               compare = hTable->compare_function(key, pair->key, hTable->compare_context);
+               compare = table->compare_callback(key, pair->key, table->compare_context);
                if (compare) {
                     pair = pair->next;
                } else {

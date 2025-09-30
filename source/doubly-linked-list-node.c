@@ -4,7 +4,7 @@
 
 typedef DoublyLinkedListNode Node;
 
-Node DoublyLinkedListNode_Create(const DS_Data data, DS_Size data_size)
+Node DoublyLinkedListNode_Create(const DS_Generic data, DS_Size data_size)
 {
     Node node = (Node)malloc(sizeof (struct doubly_linked_list_node));
     if (!node) {

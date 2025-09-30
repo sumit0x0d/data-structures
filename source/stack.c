@@ -41,12 +41,12 @@ DS_Bool Stack_IsFull(Stack stack)
      return DS_FALSE;
 }
 
-DS_Data Stack_GetTop(Stack stack)
+DS_Generic Stack_GetTop(Stack stack)
 {
      return Array_GetData(stack->array, stack->size - 1);
 }
 
-DS_Void Stack_Push(Stack stack, const DS_Data data)
+DS_Void Stack_Push(Stack stack, const DS_Generic data)
 {
      Array_SetData(stack->array, stack->size, data);
      stack->size++;

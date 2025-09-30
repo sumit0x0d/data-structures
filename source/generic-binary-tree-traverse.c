@@ -2,15 +2,15 @@
 #include <stack.h>
 
 DS_Void GenericBinaryTree_TraversePreorder(DS_Generic node_generic, DS_Size node_size, DS_Size tree_size,
-                                           DS_Offset data_offeset, DS_Offset left_offset, DS_Offset right_offset,
-                                           DS_FunctionUnary unary_function, DS_Context unary_context)
+                                           DS_Size data_offeset, DS_Size left_offset, DS_Size right_offset,
+                                           DS_CallbackUnary unary_callback, DS_Generic unary_context)
 {
     DS_Generic node = node_generic;
     Stack stack = Stack_Create(node_size, tree_size);
     while (node || !Stack_IsEmpty(stack)) {
         if (node) {
-            DS_Data data = *(DS_Data *)((DS_Int8 *)node + data_offeset);
-            unary_function(data, unary_context);
+            DS_Generic data = *(DS_Generic *)((DS_Int8 *)node + data_offeset);
+            unary_callback(data, unary_context);
             Stack_Push(stack, node);
             node = *(DS_Generic *)((DS_Int8 *)node + left_offset);
         } else {
@@ -24,8 +24,8 @@ DS_Void GenericBinaryTree_TraversePreorder(DS_Generic node_generic, DS_Size node
 
 
 DS_Void GenericBinaryTree_TraverseInorder(DS_Generic node_generic, DS_Size node_size, DS_Size tree_size,
-                                          DS_Offset data_offeset, DS_Offset left_offset, DS_Offset right_offset,
-                                          DS_FunctionUnary unary_function, DS_Context unary_context)
+                                          DS_Size data_offeset, DS_Size left_offset, DS_Size right_offset,
+                                          DS_CallbackUnary unary_callback, DS_Generic unary_context)
 {
     Node node = tree->root;
     Stack *stack = Stack_Create(sizeof (struct avl_tree_node), tree->size);
@@ -44,8 +44,8 @@ DS_Void GenericBinaryTree_TraverseInorder(DS_Generic node_generic, DS_Size node_
 }
 
 DS_Void GenericBinaryTree_TraversePostorder(DS_Generic node_generic, DS_Size node_size, DS_Size tree_size,
-                                            DS_Offset data_offeset, DS_Offset left_offset, DS_Offset right_offset,
-                                            DS_FunctionUnary unary_function, DS_Context unary_context)
+                                            DS_Size data_offeset, DS_Size left_offset, DS_Size right_offset,
+                                            DS_CallbackUnary unary_callback, DS_Generic unary_context)
 {
     Node node = tree->root;
     Stack *stack = Stack_Create(sizeof (struct avl_tree_node), tree->size);
@@ -64,8 +64,8 @@ DS_Void GenericBinaryTree_TraversePostorder(DS_Generic node_generic, DS_Size nod
 }
 
 DS_Void GenericBinaryTree_TraverseLevelorder(DS_Generic node_generic, DS_Size node_size, DS_Size tree_size,
-                                             DS_Offset data_offeset, DS_Offset left_offset, DS_Offset right_offset,
-                                             DS_FunctionUnary unary_function, DS_Context unary_context)
+                                             DS_Size data_offeset, DS_Size left_offset, DS_Size right_offset,
+                                             DS_CallbackUnary unary_callback, DS_Generic unary_context)
 {
     Node node = tree->root;
     CircularBuffer *buffer = CircularBuffer_Create(sizeof (struct avl_tree_node), tree->size);

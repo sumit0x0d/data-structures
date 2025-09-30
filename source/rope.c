@@ -6,7 +6,7 @@
 typedef RopeNode Node;
 
 struct rope_node {
-     DS_Data data;
+     DS_Generic data;
      struct rope_node *parent;
      struct rope_node *left;
      struct rope_node *right;     

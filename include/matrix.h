@@ -12,7 +12,7 @@ DS_API
 DS_Void Matrix_Destroy(Matrix matrix);
 
 DS_API
-DS_Data Matrix_GetData(const Matrix matrix, DS_Size row, DS_Size column);
+DS_Generic Matrix_GetData(const Matrix matrix, DS_Size row, DS_Size column);
 
 DS_API
 DS_Size Matrix_GetRowCount(const Matrix matrix);
@@ -21,21 +21,21 @@ DS_API
 DS_Size Matrix_GetColumnCount(const Matrix matrix);
 
 DS_API
-DS_Void Matrix_SetData(Matrix matrix, DS_Size row, DS_Size column, const DS_Data data);
+DS_Void Matrix_SetData(Matrix matrix, DS_Size row, DS_Size column, const DS_Generic data);
 
 DS_API
 Matrix Matrix_Transposition(Matrix matrix);
 
 DS_API
-Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, DS_FunctionBinary fBinary, DS_Context cBinary);
+Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, DS_CallbackBinary fBinary, DS_Generic cBinary);
 
 DS_API
-Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, DS_FunctionBinary fBinary, DS_Context cBinary);
+Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, DS_CallbackBinary fBinary, DS_Generic cBinary);
 
 DS_API
 Matrix Matrix_ColumnVectorization(Matrix matrix);
 
 DS_API
-DS_Void Matrix_Traverse(Matrix matrix, DS_FunctionUnary unary_function, DS_Context unary_context);
+DS_Void Matrix_Traverse(Matrix matrix, DS_CallbackUnary unary_callback, DS_Generic unary_context);
 
 #endif

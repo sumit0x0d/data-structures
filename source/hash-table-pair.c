@@ -2,7 +2,7 @@
 
 #include "hash-table-pair.h"
 
-HashTablePair HashTablePair_Create(const DS_Data key, DS_Size key_size, const DS_Data value, DS_Size value_size)
+HashTablePair HashTablePair_Create(const DS_Generic key, DS_Size key_size, const DS_Generic value, DS_Size value_size)
 {
     HashTablePair pair = (HashTablePair)malloc(sizeof (struct hash_table_pair));
     if (!pair) {

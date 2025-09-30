@@ -5,7 +5,7 @@
 #include <circular-buffer.h>
 
 struct avl_tree_node {
-    DS_Data data;
+    DS_Generic data;
     AvlTreeNode parent;
     AvlTreeNode left;
     AvlTreeNode right;
@@ -13,7 +13,7 @@ struct avl_tree_node {
 };
 
 
-AvlTreeNode AvlTreeNode_Create(const DS_Data data, DS_Size data_size);
+AvlTreeNode AvlTreeNode_Create(const DS_Generic data, DS_Size data_size);
 
 
 DS_Void AvlTreeNode_Destroy(AvlTreeNode node);

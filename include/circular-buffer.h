@@ -18,13 +18,13 @@ DS_API
 DS_Bool CircularBuffer_IsFull(CircularBuffer buffer);
 
 DS_API
-DS_Data CircularBuffer_GetFrontData(CircularBuffer buffer);
+DS_Generic CircularBuffer_GetFrontData(CircularBuffer buffer);
 
 DS_API
-DS_Data CircularBuffer_GetBackData(CircularBuffer buffer);
+DS_Generic CircularBuffer_GetBackData(CircularBuffer buffer);
 
 DS_API
-DS_Void CircularBuffer_PushBack(CircularBuffer buffer, const DS_Data data);
+DS_Void CircularBuffer_PushBack(CircularBuffer buffer, const DS_Generic data);
 
 DS_API
 DS_Void CircularBuffer_PopFront(CircularBuffer buffer);

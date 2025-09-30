@@ -24,13 +24,13 @@ DS_Void BinaryTree_Destroy(BinaryTree tree)
     free(tree);
 }
 
-DS_Void BinaryTree_InsertLeft(BinaryTree tree, BinaryTreeNode node, const DS_Data data)
+DS_Void BinaryTree_InsertLeft(BinaryTree tree, BinaryTreeNode node, const DS_Generic data)
 {
      node->left = BinaryTreeNode_Create(data, tree->data_size);
      tree->size++;
 }
 
-DS_Void BinaryTree_InsertRight(BinaryTree tree, BinaryTreeNode node, const DS_Data data)
+DS_Void BinaryTree_InsertRight(BinaryTree tree, BinaryTreeNode node, const DS_Generic data)
 {
      node->right = BinaryTreeNode_Create(data, tree->data_size);
      tree->size++;

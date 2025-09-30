@@ -2,7 +2,7 @@
 
 #include <red-black-tree-node.h>
 
-static RedBlackTreeNode RedBlackTreeNode_Create(const DS_Data data, DS_Size data_size)
+static RedBlackTreeNode RedBlackTreeNode_Create(const DS_Generic data, DS_Size data_size)
 {
     RedBlackTreeNode node = (RedBlackTreeNode)malloc(sizeof (RedBlackTreeNode));
     if (!node) {

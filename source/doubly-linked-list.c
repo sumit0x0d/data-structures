@@ -59,17 +59,17 @@ DoublyLinkedListNode DoublyLinkedList_GetTail(DoublyLinkedList list)
      return list->tail;
 }
 
-DS_Data DoublyLinkedListNode_GetData(Node node)
+DS_Generic DoublyLinkedListNode_GetData(Node node)
 {
      return node->data;
 }
 
-DS_Void DoublyLinkedList_set_data(DoublyLinkedList list, Node node, const DS_Data data)
+DS_Void DoublyLinkedList_set_data(DoublyLinkedList list, Node node, const DS_Generic data)
 {
      memcpy(node->data, data, list->data_size);
 }
 
-DS_Void DoublyLinkedList_PushHead(DoublyLinkedList list, const DS_Data data)
+DS_Void DoublyLinkedList_PushHead(DoublyLinkedList list, const DS_Generic data)
 {
      Node node = DoublyLinkedListNode_Create(data, list->data_size);
      node->previous = NULL;
@@ -84,7 +84,7 @@ DS_Void DoublyLinkedList_PushHead(DoublyLinkedList list, const DS_Data data)
      list->size++;
 }
 
-DS_Void DoublyLinkedList_PushTail(DoublyLinkedList list, const DS_Data data)
+DS_Void DoublyLinkedList_PushTail(DoublyLinkedList list, const DS_Generic data)
 {
      Node node = DoublyLinkedListNode_Create(data, list->data_size);
      node->next = NULL;
@@ -137,7 +137,7 @@ DS_Void DoublyLinkedList_Remove(DoublyLinkedList list, Node node)
      list->size--;
 }
 
-DS_Void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_FunctionUnary unary_function, DS_Context unary_context)
+DS_Void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_CallbackUnary unary_callback, DS_Generic unary_context)
 {
      Node node = list->head;
      while (node) {

@@ -5,7 +5,7 @@
 
 typedef AvlTreeNode Node;
 
-Node AvlTreeNode_Create(const DS_Data data, DS_Size data_size)
+Node AvlTreeNode_Create(const DS_Generic data, DS_Size data_size)
 {
     Node node = (Node)malloc(sizeof (struct avl_tree_node));
     if (!node) {

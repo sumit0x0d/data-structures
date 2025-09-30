@@ -45,12 +45,12 @@ DS_Bool CircularBuffer_IsFull(CircularBuffer buffer)
      return DS_TRUE;
 }
 
-DS_Data CircularBuffer_GetFrontData(CircularBuffer buffer)
+DS_Generic CircularBuffer_GetFrontData(CircularBuffer buffer)
 {
      return Array_GetData(buffer->array, buffer->front);
 }
 
-DS_Data CircularBuffer_GetBackData(CircularBuffer buffer)
+DS_Generic CircularBuffer_GetBackData(CircularBuffer buffer)
 {
      if (buffer->back == 0) {
           return Array_GetData(buffer->array, Array_GetSize(buffer->array) - 1);
@@ -60,7 +60,7 @@ DS_Data CircularBuffer_GetBackData(CircularBuffer buffer)
      return NULL;
 }
 
-DS_Void CircularBuffer_PushBack(CircularBuffer buffer, const DS_Data data)
+DS_Void CircularBuffer_PushBack(CircularBuffer buffer, const DS_Generic data)
 {
      Array_SetData(buffer->array, buffer->back, data);
      buffer->size++;

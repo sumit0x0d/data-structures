@@ -33,7 +33,7 @@ DS_Void Matrix_Destroy(Matrix matrix)
      free(matrix);
 }
 
-DS_Data Matrix_GetData(const Matrix matrix, DS_Size row, DS_Size column)
+DS_Generic Matrix_GetData(const Matrix matrix, DS_Size row, DS_Size column)
 {
      return Array_GetData(matrix->array, (row * matrix->column_count) + column);
 }
@@ -48,7 +48,7 @@ DS_Size Matrix_GetColumnCount(const Matrix matrix)
      return matrix->column_count;
 }
 
-DS_Void Matrix_SetData(Matrix matrix, DS_Size row, DS_Size column, const DS_Data data)
+DS_Void Matrix_SetData(Matrix matrix, DS_Size row, DS_Size column, const DS_Generic data)
 {
      Array_SetData(matrix->array, (row * matrix->column_count) + column, data);
 }
@@ -67,7 +67,7 @@ Matrix Matrix_Transposition(Matrix matrix)
      return mTranspose;
 }
 
-Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, DS_FunctionBinary fBinary, DS_Context cBinary)
+Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, DS_CallbackBinary fBinary, DS_Generic cBinary)
 {
      if (matrix1->column_count != matrix2->row_count) {
           return NULL;
@@ -83,7 +83,7 @@ Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, DS_FunctionBinary f
      return matrix;
 }
 
-Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, DS_FunctionBinary fBinary, DS_Context cBinary)
+Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, DS_CallbackBinary fBinary, DS_Generic cBinary)
 {
      assert(matrix1->row_count == matrix2->row_count);
      assert(matrix1->column_count == matrix2->column_count);
@@ -111,11 +111,11 @@ Matrix Matrix_ColumnVectorization(Matrix matrix)
      return mVectorize;
 }
 
-DS_Void Matrix_Traverse(Matrix matrix, DS_FunctionUnary unary_function, DS_Context context)
+DS_Void Matrix_Traverse(Matrix matrix, DS_CallbackUnary unary_callback, DS_Generic context)
 {
      for (DS_Size i = 0; i < matrix->row_count; i++) {
           for (DS_Size j = 0; j < matrix->column_count; j++) {
-               unary_function(Matrix_GetData(matrix, i, j), context);
+               unary_callback(Matrix_GetData(matrix, i, j), context);
           }
      }
 }

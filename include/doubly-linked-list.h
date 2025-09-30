@@ -25,16 +25,16 @@ DS_API
 DoublyLinkedListNode DoublyLinkedList_GetTail(DoublyLinkedList list);
 
 DS_API
-DS_Data DoublyLinkedList_GetData(DoublyLinkedListNode node);
+DS_Generic DoublyLinkedList_GetData(DoublyLinkedListNode node);
 
 DS_API
-DS_Void DoublyLinkedList_SetData(DoublyLinkedList list, DoublyLinkedListNode node, const DS_Data data);
+DS_Void DoublyLinkedList_SetData(DoublyLinkedList list, DoublyLinkedListNode node, const DS_Generic data);
 
 DS_API
-DS_Void DoublyLinkedList_PushHead(DoublyLinkedList list, const DS_Data data);
+DS_Void DoublyLinkedList_PushHead(DoublyLinkedList list, const DS_Generic data);
 
 DS_API
-DS_Void DoublyLinkedList_PushTail(DoublyLinkedList list, const DS_Data data);
+DS_Void DoublyLinkedList_PushTail(DoublyLinkedList list, const DS_Generic data);
 
 DS_API
 DS_Void DoublyLinkedList_PopHead(DoublyLinkedList list);
@@ -46,6 +46,6 @@ DS_API
 DS_Void DoublyLinkedList_Remove(DoublyLinkedList list, DoublyLinkedListNode node);
 
 DS_API
-DS_Void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_FunctionUnary unary_function, DS_Context unary_context);
+DS_Void DoublyLinkedList_Traverse(DoublyLinkedList list, DS_CallbackUnary unary_callback, DS_Generic unary_context);
 
 #endif

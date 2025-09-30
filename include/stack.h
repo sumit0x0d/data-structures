@@ -18,10 +18,10 @@ DS_API
 DS_Bool Stack_IsFull(Stack stack);
 
 DS_API
-DS_Data Stack_GetTop(Stack stack);
+DS_Generic Stack_GetTop(Stack stack);
 
 DS_API
-DS_Void Stack_Push(Stack stack, const DS_Data data);
+DS_Void Stack_Push(Stack stack, const DS_Generic data);
 
 DS_API
 DS_Void Stack_Pop(Stack stack);

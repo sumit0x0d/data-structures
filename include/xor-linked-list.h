@@ -13,13 +13,13 @@ DS_API
 DS_Void XorLinkedList_Destroy(XorLinkedList list);
 
 DS_API
-DS_Data XorLinkedListNode_GetData(XorLinkedListNode node);
+DS_Generic XorLinkedListNode_GetData(XorLinkedListNode node);
 
 DS_API
-DS_Void XorLinkedList_PushHead(XorLinkedList list, const DS_Data data);
+DS_Void XorLinkedList_PushHead(XorLinkedList list, const DS_Generic data);
 
 DS_API
-DS_Void XorLinkedList_PushTail(XorLinkedList list, const DS_Data data);
+DS_Void XorLinkedList_PushTail(XorLinkedList list, const DS_Generic data);
 
 DS_API
 DS_Void XorLinkedList_PopHead(XorLinkedList list);
@@ -28,15 +28,15 @@ DS_API
 DS_Void XorLinkedList_PopTail(XorLinkedList list);
 
 DS_API
-DS_Void XorLinkedList_Insert(XorLinkedList list, DS_Size index, const DS_Data data);
+DS_Void XorLinkedList_Insert(XorLinkedList list, DS_Size index, const DS_Generic data);
 
 DS_API
-DS_Void XorLinkedList_Remove(XorLinkedList list, const DS_Data data);
+DS_Void XorLinkedList_Remove(XorLinkedList list, const DS_Generic data);
 
 DS_API
 DS_Void XorLinkedList_Erase(XorLinkedList list, DS_Size index);
 
 DS_API
-DS_Void XorLinkedList_Update(XorLinkedList list, DS_Size index, const DS_Data data);
+DS_Void XorLinkedList_Update(XorLinkedList list, DS_Size index, const DS_Generic data);
 
 #endif

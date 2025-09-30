@@ -2,7 +2,7 @@
 
 #include <binary-tree-node.h>
 
-BinaryTreeNode BinaryTreeNode_Create(const DS_Data data, DS_Size data_size)
+BinaryTreeNode BinaryTreeNode_Create(const DS_Generic data, DS_Size data_size)
 {
     BinaryTreeNode node = (BinaryTreeNode)malloc(sizeof (BinaryTreeNode));
     if (!node) {

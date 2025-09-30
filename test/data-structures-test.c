@@ -9,9 +9,9 @@
 #define CAPACITY 30000
 
 
-static int _compare_int(const DS_Data data1, const DS_Data data2, DS_Context context);
-static DS_Size _hash_int(const DS_Data data, DS_Size aSize, DS_Context context);
-static DS_Void _traverse_print(DS_Data data, DS_Context context);
+static int _CallbackCompareInt(const DS_Generic data1, const DS_Generic data2, DS_Generic context);
+static DS_Size _CallbackHashInt(const DS_Generic data, DS_Size aSize, DS_Generic context);
+static DS_Void _CallbackUnaryPrint(DS_Generic data, DS_Generic context);
 
 int main()
 {
@@ -40,9 +40,9 @@ int main()
      return 0;
 }
 
-static int _compare_int(const DS_Data data1, const DS_Data data2, DS_Context context)
+static int _CallbackCompareInt(const DS_Generic data1, const DS_Generic data2, DS_Generic compare_context)
 {
-     (DS_Void)uData;
+     (DS_Void)compare_context;
      if (*(int *)data1 < *(int *)data2) {
           return -1;
      }
@@ -52,14 +52,14 @@ static int _compare_int(const DS_Data data1, const DS_Data data2, DS_Context con
      return 0;
 }
 
-static DS_Size _hash_int(const DS_Data data, DS_Size aSize, DS_Context context)
+static DS_Size _CallbackHashInt(const DS_Generic data, DS_Size aSize, DS_Generic hash_context)
 {
-     (DS_Void)uData;
+     (DS_Void)hash_context;
      return (*(int *)data) % aSize;
 }
 
-static DS_Void _traverse_print(DS_Data data, DS_Context context)
+static DS_Void _CallbackUnaryPrint(DS_Generic data, DS_Generic uanry_context)
 {
-     (DS_Void)uData;
+     (DS_Void)uanry_context;
      printf("%d ", *(int *)data);
 }

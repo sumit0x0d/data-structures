@@ -24,14 +24,10 @@ typedef DS_UInt8 DS_Bool;
 
 typedef const DS_UInt8 * DS_String;
 
-typedef void * DS_Data;
-typedef void * DS_Context;
 typedef void * DS_Generic;
 
 typedef DS_UInt64 DS_Size;
-typedef DS_Size   DS_Hash;
-typedef DS_Size   DS_Offset;
-#define DS_OFFSET(type, member) ((DS_Offset) & (((type)0)->member))
+#define DS_OFFSET(type, member) ((DS_Size) & (((type)0)->member))
 
 typedef enum {
     DS_COMPARE_LESS    = -1,
@@ -39,10 +35,10 @@ typedef enum {
     DS_COMPARE_GREATER = 1
 } DS_Compare;
 
-typedef void       (*DS_FunctionUnary)(DS_Data data, DS_Context unary_context);
-typedef void       (*DS_FunctionBinary)(DS_Data data1, DS_Data data2, DS_Context binary_context);
+typedef void       (*DS_CallbackUnary)(DS_Generic data, DS_Generic unary_context);
+typedef void       (*DS_CallbackBinary)(DS_Generic data1, DS_Generic data2, DS_Generic binary_context);
 
-typedef DS_Compare (*DS_FunctionCompare)(const DS_Data data1, const DS_Data data2, DS_Context compare_context);
-typedef DS_Hash    (*DS_FunctionHash)(const DS_Data data, DS_Size size, DS_Context hash_context);
+typedef DS_Compare (*DS_CallbackCompare)(const DS_Generic data1, const DS_Generic data2, DS_Generic compare_context);
+typedef DS_Size    (*DS_CallbackHash)(const DS_Generic data, DS_Size size, DS_Generic hash_context);
 
 #endif
