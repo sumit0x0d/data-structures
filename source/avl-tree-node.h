@@ -4,7 +4,7 @@
 #include <avl-tree.h>
 #include <circular-buffer.h>
 
-struct avl_tree_node {
+struct AvlTreeNode {
     DS_Generic data;
     AvlTreeNode parent;
     AvlTreeNode left;
@@ -12,22 +12,17 @@ struct avl_tree_node {
     DS_UInt8 balance_factor;
 };
 
-
 AvlTreeNode AvlTreeNode_Create(const DS_Generic data, DS_Size data_size);
 
+DS_Void AvlTreeNode_Destroy(AvlTreeNode avl_tree_node);
 
-DS_Void AvlTreeNode_Destroy(AvlTreeNode node);
+DS_Size AvlTreeNode_GetHeight(AvlTreeNode avl_tree_node, CircularBuffer circular_buffer);
 
+DS_Void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode avl_tree_node,
+    CircularBuffer circular_buffer);
 
-DS_Size AvlTreeNode_GetHeight(AvlTreeNode node, CircularBuffer buffer);
+AvlTreeNode AvlTreeNode_GetPredecessor(AvlTreeNode avl_tree_node);
 
-
-DS_Void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode node, CircularBuffer buffer);
-
-
-AvlTreeNode AvlTreeNode_GetPredecessor(AvlTreeNode node);
-
-
-AvlTreeNode AvlTreeNode_GetSuccessor(AvlTreeNode node);
+AvlTreeNode AvlTreeNode_GetSuccessor(AvlTreeNode avl_tree_node);
 
 #endif

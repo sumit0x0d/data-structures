@@ -4,7 +4,7 @@
 #include <binary-tree.h>
 #include <stack.h>
 
-struct binary_tree_node {
+struct BinaryTreeNode {
     DS_Generic data;
     BinaryTreeNode parent;
     BinaryTreeNode left;

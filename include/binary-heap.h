@@ -3,16 +3,18 @@
 
 #include <data-structures.h>
 
-typedef struct binary_heap * BinaryHeap;
-typedef struct binary_heap_node * BinaryHeapNode;
+typedef struct BinaryHeap * BinaryHeap;
+typedef struct BinaryHeapNode * BinaryHeapNode;
 
 DS_API
-BinaryHeap BinaryHeap_Create(DS_Size data_size, DS_CallbackCompare compare_callback, DS_Generic compare_context);
+BinaryHeap BinaryHeap_Create(DS_Size data_size, DS_CallbackCompare compare_callback,
+    DS_Generic compare_context);
 
 DS_API
 DS_Void BinaryHeap_Destroy(BinaryHeap heap);
 
 DS_API
-DS_Void BinaryHeap_Traverse(BinaryHeap heap, DS_CallbackUnary unary_callback, DS_Generic unary_context);
+DS_Void BinaryHeap_Traverse(BinaryHeap heap, DS_CallbackUnary unary_callback, 
+    DS_Generic unary_context);
 
 #endif

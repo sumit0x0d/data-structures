@@ -6,55 +6,60 @@
 
 #include <data-structures.h>
 
-typedef struct singly_linked_list * SinglyLinkedList;
-typedef struct singly_linked_list_node * SinglyLinkedListNode;
+typedef struct SinglyLinkedList * SinglyLinkedList;
+typedef struct SinglyLinkedListNode * SinglyLinkedListNode;
 
 DS_API
 SinglyLinkedList SinglyLinkedList_Create(DS_Size data_size);
 
 DS_API
-DS_Void SinglyLinkedList_Destroy(SinglyLinkedList list);
+DS_Void SinglyLinkedList_Destroy(SinglyLinkedList singly_linked_list);
 
 DS_API
-DS_Size SinglyLinkedList_GetSize(SinglyLinkedList list);
+DS_Size SinglyLinkedList_GetSize(SinglyLinkedList singly_linked_list);
 
 DS_API
-DS_Size SinglyLinkedList_GetDataSize(SinglyLinkedList list);
+DS_Size SinglyLinkedList_GetDataSize(SinglyLinkedList singly_linked_list);
 
 DS_API
-SinglyLinkedListNode SinglyLinkedList_GetHeadNode(SinglyLinkedList list);
+SinglyLinkedListNode SinglyLinkedList_GetHeadNode(SinglyLinkedList singly_linked_list);
 
 DS_API
-SinglyLinkedListNode SinglyLinkedList_GetTailNode(SinglyLinkedList list);
+SinglyLinkedListNode SinglyLinkedList_GetTailNode(SinglyLinkedList singly_linked_list);
 
 DS_API
-DS_Void SinglyLinkedList_SetData(SinglyLinkedList list, SinglyLinkedListNode node, const DS_Generic data);
+DS_Void SinglyLinkedList_SetData(SinglyLinkedList singly_linked_list,
+    SinglyLinkedListNode node, const DS_Generic data);
 
 DS_API
 DS_Generic SinglyLinkedList_GetNodeData(SinglyLinkedListNode node);
 
 DS_API
-DS_Void SinglyLinkedList_PushHead(SinglyLinkedList list, const DS_Generic data);
+DS_Void SinglyLinkedList_PushHead(SinglyLinkedList singly_linked_list,
+    const DS_Generic data);
 
 DS_API
-DS_Void SinglyLinkedList_PushTail(SinglyLinkedList list, const DS_Generic data);
+DS_Void SinglyLinkedList_PushTail(SinglyLinkedList singly_linked_list,
+    const DS_Generic data);
 
 DS_API
-DS_Void SinglyLinkedList_PopHead(SinglyLinkedList list);
+DS_Void SinglyLinkedList_PopHead(SinglyLinkedList singly_linked_list);
 
 DS_API
-DS_Void SinglyLinkedList_PopTail(SinglyLinkedList list);
+DS_Void SinglyLinkedList_PopTail(SinglyLinkedList singly_linked_list);
 
 DS_API
-DS_Void SinglyLinkedList_Traverse(SinglyLinkedList list, DS_CallbackUnary unary_callback, DS_Generic unary_context);
+DS_Void SinglyLinkedList_Traverse(SinglyLinkedList singly_linked_list,
+    DS_CallbackUnary unary_callback, DS_Generic unary_context);
 
 DS_API
-SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList list);
+SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList singly_linked_list);
 
 DS_API
-SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(SinglyLinkedList list);
+SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(SinglyLinkedList singly_linked_list);
 
 DS_API
-SinglyLinkedList SinglyLinkedList_MergeSorted(SinglyLinkedList list1, SinglyLinkedList list2);
+SinglyLinkedList SinglyLinkedList_MergeSorted(SinglyLinkedList singly_linked_list1,
+    SinglyLinkedList singly_linked_list2);
 
 #endif

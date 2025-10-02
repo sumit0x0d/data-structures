@@ -3,7 +3,7 @@
 
 #include <data-structures.h>
 
-typedef struct stack * Stack;
+typedef struct Stack * Stack;
 
 DS_API
 Stack Stack_Create(DS_Size data_size, DS_Size size);

@@ -2,11 +2,11 @@
 
 #include "doubly-linked-list-node.h"
 
-typedef DoublyLinkedListNode Node;
-
-Node DoublyLinkedListNode_Create(const DS_Generic data, DS_Size data_size)
+DoublyLinkedListNode DoublyLinkedListNode_Create(const DS_Generic data,
+    DS_Size data_size)
 {
-    Node node = (Node)malloc(sizeof (struct doubly_linked_list_node));
+    DoublyLinkedListNode node = 
+        (DoublyLinkedListNode)malloc(sizeof (struct DoublyLinkedListNode));
     if (!node) {
         return NULL;
     }
@@ -19,7 +19,7 @@ Node DoublyLinkedListNode_Create(const DS_Generic data, DS_Size data_size)
     return node;
 }
 
-DS_Void DoublyLinkedListNode_Destroy(Node node)
+DS_Void DoublyLinkedListNode_Destroy(DoublyLinkedListNode node)
 {
     free(node->data);
     free(node);
