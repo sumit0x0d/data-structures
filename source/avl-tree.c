@@ -86,7 +86,7 @@ AvlTreeNode AvlTree_Search(AvlTree avl_tree, const DS_Generic data)
 DS_Void AvlTree_Insert(AvlTree avl_tree, const DS_Generic data)
 {
     if (!avl_tree->root) {
-        avl_tree->root = AvlTreeAvlTreeNode_Create(data, avl_tree->data_size);
+        avl_tree->root = AvlTreeNode_Create(data, avl_tree->data_size);
         avl_tree->root->parent = NULL;
         avl_tree->size++;
         return;
@@ -180,25 +180,25 @@ DS_Void AvlTree_Remove(AvlTree avl_tree, const DS_Generic data)
     avl_tree->size--;
 }
 
-DS_Void AvlTree_TraversePreorder(AvlTree avl_tree, DS_CallbackUnary unary_callback,
-    DS_Generic unary_context)
-{
-}
+// DS_Void AvlTree_TraversePreorder(AvlTree avl_tree, DS_CallbackUnary unary_callback,
+//     DS_Generic unary_context)
+// {
+// }
 
-DS_Void AvlTree_TraverseInorder(AvlTree avl_tree, DS_CallbackUnary unary_callback,
-    DS_Generic unary_context)
-{
-}
+// DS_Void AvlTree_TraverseInorder(AvlTree avl_tree, DS_CallbackUnary unary_callback,
+//     DS_Generic unary_context)
+// {
+// }
 
-DS_Void AvlTree_TraversePostorder(AvlTree avl_tree, DS_CallbackUnary unary_callback,
-    DS_Generic unary_context)
-{
-}
+// DS_Void AvlTree_TraversePostorder(AvlTree avl_tree, DS_CallbackUnary unary_callback,
+//     DS_Generic unary_context)
+// {
+// }
 
-DS_Void AvlTree_TraverseLevelorder(AvlTree avl_tree, DS_CallbackUnary unary_callback,
-    DS_Generic unary_context)
-{
-}
+// DS_Void AvlTree_TraverseLevelorder(AvlTree avl_tree, DS_CallbackUnary unary_callback,
+//     DS_Generic unary_context)
+// {
+// }
 
 
 static DS_Void _RotateRight(AvlTree avl_tree, AvlTreeNode node)

@@ -3,13 +3,14 @@
 
 #include <hash-table.h>
 
-struct hash_table_pair {
+struct HashTablePair {
     DS_Generic key;
     DS_Generic value;
     HashTablePair next;
 };
 
-HashTablePair HashTablePair_Create(const DS_Generic key, DS_Size key_size, const DS_Generic value, DS_Size value_size);
+HashTablePair HashTablePair_Create(const DS_Generic key, DS_Size key_size,
+    const DS_Generic value, DS_Size value_size);
 
 DS_Void HashTablePair_Destroy(HashTablePair pair);
 

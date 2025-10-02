@@ -6,7 +6,7 @@
 #include <dynamic-array.h>
 
 struct DynamicArray {
-    Array *array;
+    Array array;
     DS_Size size;
     DS_Float64 growth_factor;
 };

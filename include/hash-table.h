@@ -15,10 +15,10 @@ DS_API
 DS_Void HashTable_Destroy(HashTable hash_table);
 
 DS_API
-DS_Generic HashTable_GetKey(HashTablePair hash_table_pair);
+DS_Generic HashTable_GetKey(HashTablePair pair);
 
 DS_API
-DS_Generic HashTable_GetValue(HashTablePair hash_table_pair);
+DS_Generic HashTable_GetValue(HashTablePair pair);
 
 DS_API
 DS_Void HashTable_Insert(HashTable hash_table, const DS_Generic key,

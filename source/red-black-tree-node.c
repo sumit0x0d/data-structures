@@ -1,8 +1,9 @@
 #include <stdlib.h>
+#include <string.h>
 
-#include <red-black-tree-node.h>
+#include "red-black-tree-node.h"
 
-static RedBlackTreeNode RedBlackTreeNode_Create(const DS_Generic data, DS_Size data_size)
+RedBlackTreeNode RedBlackTreeNode_Create(const DS_Generic data, DS_Size data_size)
 {
     RedBlackTreeNode node = (RedBlackTreeNode)malloc(sizeof (RedBlackTreeNode));
     if (!node) {
@@ -19,7 +20,7 @@ static RedBlackTreeNode RedBlackTreeNode_Create(const DS_Generic data, DS_Size d
     return node;
 }
 
-static DS_Void RedBlackTreeNode_Destroy(RedBlackTreeNode node)
+DS_Void RedBlackTreeNode_Destroy(RedBlackTreeNode node)
 {
     free(node->data);
     free(node);

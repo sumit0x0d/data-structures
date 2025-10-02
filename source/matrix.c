@@ -5,7 +5,7 @@
 #include <array.h>
 #include <matrix.h>
 
-struct matrix {
+struct Matrix {
     Array array;
     DS_Size row_count;
     DS_Size column_count;
@@ -13,7 +13,7 @@ struct matrix {
 
 Matrix Matrix_Create(DS_Size data_size, DS_Size nRow, DS_Size nColumn)
 {
-    Matrix matrix = (Matrix )malloc(sizeof (struct matrix));
+    Matrix matrix = (Matrix)malloc(sizeof (struct Matrix));
     if (!matrix) {
         return NULL;
     }
@@ -67,31 +67,45 @@ Matrix Matrix_Transposition(Matrix matrix)
     return mTranspose;
 }
 
-Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, DS_CallbackBinary fBinary, DS_Generic cBinary)
+Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2,
+    DS_CallbackBinary binary_callback, DS_Generic binary_context)
 {
     if (matrix1->column_count != matrix2->row_count) {
         return NULL;
     }
-    Matrix matrix = Matrix_Create(Array_GetDataSize(matrix1->array), matrix1->row_count, matrix2->column_count);
+    Matrix matrix =
+        Matrix_Create(Array_GetDataSize(matrix1->array), matrix1->row_count,
+            matrix2->column_count);
     for (DS_Size i = 0; i < matrix->row_count; i++) {
         for (DS_Size j = 0; j < matrix->column_count; j++) {
             for (DS_Size k = 0; k < matrix1->column_count; k++) {
-                fBinary(Matrix_GetData(matrix, i, j), Matrix_GetData(matrix1, i, k), Matrix_GetData(matrix2, k, j));
+                binary_callback(Matrix_GetData(matrix, i, j),
+                    Matrix_GetData(matrix1, i, k), Matrix_GetData(matrix2, k, j));
+                (void)binary_context;
             }
         }
     }
     return matrix;
 }
 
-Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, DS_CallbackBinary fBinary, DS_Generic cBinary)
+Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2,
+    DS_CallbackBinary binary_callback, DS_Generic binary_context)
 {
-    assert(matrix1->row_count == matrix2->row_count);
-    assert(matrix1->column_count == matrix2->column_count);
-    Matrix matrix = Matrix_Create(Array_GetDataSize(matrix1->array), matrix1->row_count, matrix1->column_count);
-    assert(matrix);
+    if (matrix1->row_count != matrix2->row_count ||
+        matrix1->column_count == matrix2->column_count) {
+        return NULL;   
+    }
+    Matrix matrix =
+        Matrix_Create(Array_GetDataSize(matrix1->array), matrix1->row_count,
+            matrix1->column_count);
+    if (!matrix) {
+        return NULL;
+    }
     for (DS_Size i = 0; i < matrix1->row_count; i++) {
         for (DS_Size j = 0; j < matrix2->column_count; j++) {
-            fBinary(Matrix_GetData(matrix, i, j), Matrix_GetData(matrix1, i, j), Matrix_GetData(matrix2, i, j));
+            binary_callback(Matrix_GetData(matrix, i, j), Matrix_GetData(matrix1, i, j),
+                Matrix_GetData(matrix2, i, j));
+            (void)binary_context;
         }
     }
     return matrix;

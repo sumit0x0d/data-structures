@@ -3,12 +3,12 @@
 
 #include <red-black-tree.h>
 
-typedef enum red_black_tree_node_color {
+typedef enum RedBlackTreeNodeColor {
     RED_BLACK_TREE_NODE_COLOR_RED = 0,
     RED_BLACK_TREE_NODE_COLOR_BLACK = 1
 } RedBlackTreeNodeColor;
 
-struct red_black_tree_node {
+struct RedBlackTreeNode {
     DS_Generic data;
     RedBlackTreeNode parent;
     RedBlackTreeNode left;

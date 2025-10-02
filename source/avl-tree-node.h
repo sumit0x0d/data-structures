@@ -9,7 +9,7 @@ struct AvlTreeNode {
     AvlTreeNode parent;
     AvlTreeNode left;
     AvlTreeNode right;
-    DS_UInt8 balance_factor;
+    DS_Int8 balance_factor;
 };
 
 AvlTreeNode AvlTreeNode_Create(const DS_Generic data, DS_Size data_size);

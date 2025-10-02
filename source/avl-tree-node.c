@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <avl-tree-node.h>
+#include "avl-tree-node.h"
 
 typedef AvlTreeNode Node;
 

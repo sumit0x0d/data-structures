@@ -3,7 +3,7 @@
 
 #include <array.h>
 
-struct array {
+struct Array {
     DS_Generic base;
     DS_Size data_size;
     DS_Size size;
@@ -12,12 +12,12 @@ struct array {
 
 Array Array_Create(DS_Size data_size, DS_Size size)
 {
-    Array array = (Array)malloc(sizeof (struct array));
+    Array array = (Array)malloc(sizeof (struct Array));
     if (!array) {
         return NULL;
     }
     array->base = malloc(data_size * size);
-    if (array->base) {
+    if (!array->base) {
         free(array);
         return NULL;
     };
@@ -59,7 +59,7 @@ DS_Void Array_SetSize(Array array, DS_Size size)
     array->size = size;
 }
 
-inline DS_Generic Array_GetData(const Array array, DS_Size index)
+DS_Generic Array_GetData(const Array array, DS_Size index)
 {
     return (DS_Int8 *)array->base + (array->data_size * index);
 }
@@ -76,8 +76,7 @@ DS_Void Array_SwapData(Array array, DS_Generic data1, DS_Generic data2)
     memcpy(data2, array->swap_buffer, array->data_size);
 }
 
-DS_Void Array_Traverse(Array array, DS_CallbackUnary unary_callback,
-    DS_Generic context)
+DS_Void Array_Traverse(Array array, DS_CallbackUnary unary_callback, DS_Generic context)
 {
     for (DS_Size i = 0; i < array->size; i++) {
         unary_callback(Array_GetData(array, i), context);

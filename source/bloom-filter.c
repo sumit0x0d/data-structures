@@ -4,42 +4,47 @@
 #include <array.h>
 #include <bloom-filter.h>
 
-struct bloom_filter {
+struct BloomFilter {
     Array array;
-    DS_CallbackCompare hash_callback;
+    DS_CallbackHash hash_callback;
     DS_Generic hash_context;
 };
 
-BloomFilter BloomFilter_Create(DS_Size size, DS_Size bCount, DS_CallbackCompare hash_callback, DS_Generic hash_context)
+BloomFilter BloomFilter_Create(DS_Size data_size, DS_Size bucket_count,
+    DS_CallbackHash hash_callback, DS_Generic hash_context)
 {
-    BloomFilter bFilter = (BloomFilter *)malloc(sizeof (BloomFilter));
-    if (!bFilter) {
+    BloomFilter bloom_filter = (BloomFilter)malloc(sizeof (struct BloomFilter));
+    if (!bloom_filter) {
         return NULL;
     }
-    bFilter->array = Array_Create(size, bCount);
-    if (!bFilter->array) {
-        free(bFilter);
+    bloom_filter->array = Array_Create(data_size, bucket_count);
+    if (!bloom_filter->array) {
+        free(bloom_filter);
         return NULL;
     }
-    bFilter->hash_callback = hash_callback;
-    bFilter->hash_context = hash_context;
-    return bFilter;
+    bloom_filter->hash_callback = hash_callback;
+    bloom_filter->hash_context = hash_context;
+    return bloom_filter;
 }
 
-DS_Void BloomFilter_Destroy(BloomFilter bFilter)
+DS_Void BloomFilter_Destroy(BloomFilter bloom_filter)
 {
-    Array_Destroy(bFilter->array);
-    free(bFilter);
+    Array_Destroy(bloom_filter->array);
+    free(bloom_filter);
 }
 
-DS_Bool BloomFilter_Search(BloomFilter bFilter, const DS_Generic data)
+DS_Generic BloomFilter_Search(BloomFilter bloom_filter, const DS_Generic data)
 {
-    DS_Size index =  bFilter->hash_callback(data, Array_GetSize(bFilter->array), bFilter->hash_context);
-    return Array_GetData(bFilter->array, index);
+    DS_Size index =
+        bloom_filter->hash_callback(data, Array_GetSize(bloom_filter->array),
+            bloom_filter->hash_context);
+    return Array_GetData(bloom_filter->array, index);
 }
 
-DS_Void BloomFilter_Insert(BloomFilter bFilter, const DS_Generic data)
+DS_Void BloomFilter_Insert(BloomFilter bloom_filter, const DS_Generic data)
 {
-    DS_Size index = bFilter->hash_callback(data, Array_GetSize(bFilter->array), bFilter->hash_context);
-    Array_SetData(bFilter->array, index, data);
+    DS_Size index =
+        bloom_filter->hash_callback(data, Array_GetSize(bloom_filter->array),
+            bloom_filter->hash_context);
+    Array_SetData(bloom_filter->array, index, data);
 }

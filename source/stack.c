@@ -4,14 +4,14 @@
 #include <array.h>
 #include <stack.h>
 
-struct stack {
+struct Stack {
     Array array;
     DS_Size size;
 };
 
 Stack Stack_Create(DS_Size data_size, DS_Size size)
 {
-    Stack stack = (Stack)malloc(sizeof (struct stack));
+    Stack stack = (Stack)malloc(sizeof (struct Stack));
     assert(stack);
     stack->array = Array_Create(data_size, size);
     assert(stack->array);

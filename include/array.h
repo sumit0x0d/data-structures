@@ -3,7 +3,7 @@
 
 #include "data-structures.h"
 
-typedef struct array * Array;
+typedef struct Array * Array;
 
 DS_API
 Array Array_Create(DS_Size data_size, DS_Size size);

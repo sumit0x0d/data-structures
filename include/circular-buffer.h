@@ -3,30 +3,30 @@
 
 #include <data-structures.h>
 
-typedef struct circular_buffer * CircularBuffer;
+typedef struct CircularBuffer * CircularBuffer;
 
 DS_API
 CircularBuffer CircularBuffer_Create(DS_Size data_size, DS_Size size);
 
 DS_API
-DS_Void CircularBuffer_Destroy(CircularBuffer buffer);
+DS_Void CircularBuffer_Destroy(CircularBuffer circular_buffer);
 
 DS_API
-DS_Bool CircularBuffer_IsEmpty(CircularBuffer buffer);
+DS_Bool CircularBuffer_IsEmpty(CircularBuffer circular_buffer);
 
 DS_API
-DS_Bool CircularBuffer_IsFull(CircularBuffer buffer);
+DS_Bool CircularBuffer_IsFull(CircularBuffer circular_buffer);
 
 DS_API
-DS_Generic CircularBuffer_GetFrontData(CircularBuffer buffer);
+DS_Generic CircularBuffer_GetFrontData(CircularBuffer circular_buffer);
 
 DS_API
-DS_Generic CircularBuffer_GetBackData(CircularBuffer buffer);
+DS_Generic CircularBuffer_GetBackData(CircularBuffer circular_buffer);
 
 DS_API
-DS_Void CircularBuffer_PushBack(CircularBuffer buffer, const DS_Generic data);
+DS_Void CircularBuffer_PushBack(CircularBuffer circular_buffer, const DS_Generic data);
 
 DS_API
-DS_Void CircularBuffer_PopFront(CircularBuffer buffer);
+DS_Void CircularBuffer_PopFront(CircularBuffer circular_buffer);
 
 #endif
