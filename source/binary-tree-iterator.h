@@ -30,4 +30,5 @@ DS_Void GenericBinaryTree_TraverseLevelorder(DS_Generic node, DS_Size node_size,
                                              DS_Size right_offset,
                                              DS_CallbackUnary unary_callback,
                                              DS_Generic unary_context);
+
 #endif

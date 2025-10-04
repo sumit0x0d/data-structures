@@ -6,15 +6,15 @@
 typedef struct BinaryHeap * BinaryHeap;
 typedef struct BinaryHeapNode * BinaryHeapNode;
 
-DS_API
+DATA_STRUCTURES_API
 BinaryHeap BinaryHeap_Create(DS_Size data_size, DS_CallbackCompare compare_callback,
-                              DS_Generic compare_context);
+                             DS_Generic compare_context);
 
-DS_API
+DATA_STRUCTURES_API
 DS_Void BinaryHeap_Destroy(BinaryHeap heap);
 
-DS_API
+DATA_STRUCTURES_API
 DS_Void BinaryHeap_Traverse(BinaryHeap heap, DS_CallbackUnary unary_callback, 
-                              DS_Generic unary_context);
+                            DS_Generic unary_context);
 
 #endif

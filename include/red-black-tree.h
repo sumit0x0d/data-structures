@@ -6,26 +6,26 @@
 typedef struct RedBlackTree * RedBlackTree;
 typedef struct RedBlackTreeNode * RedBlackTreeNode;
 
-DS_API
+DATA_STRUCTURES_API
 RedBlackTree RedBlackTree_Create(DS_Size data_size, DS_CallbackCompare compare_callback,
                                  DS_Generic compare_context);
 
-DS_API
+DATA_STRUCTURES_API
 DS_Void RedBlackTree_Destroy(RedBlackTree red_black_tree);
 
-DS_API
+DATA_STRUCTURES_API
 DS_Size RedBlackTree_GetSize(RedBlackTree red_black_tree);
 
-DS_API
+DATA_STRUCTURES_API
 DS_Generic RedBlackTree_GetNodeData(RedBlackTreeNode node);
 
-DS_API
+DATA_STRUCTURES_API
 DS_Void RedBlackTree_Insert(RedBlackTree red_black_tree, const DS_Generic data);
 
-DS_API
+DATA_STRUCTURES_API
 RedBlackTreeNode RedBlackTree_Search(RedBlackTree red_black_tree, const DS_Generic data);
 
-DS_API
+DATA_STRUCTURES_API
 DS_Void RedBlackTree_Remove(RedBlackTree red_black_tree, const DS_Generic data);
 
 #endif

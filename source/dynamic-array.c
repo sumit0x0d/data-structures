@@ -53,18 +53,18 @@ DS_Generic DynamicArray_GetBackData(DynamicArray dynamic_array)
 
 DS_Void DynamicArray_PushBack(DynamicArray dynamic_array, const DS_Generic data)
 {
-     DS_Size aSize = Array_GetSize(dynamic_array->array);
-     if (dynamic_array->size == aSize) {
-          Array_SetSize(dynamic_array->array, aSize * dynamic_array->growth_factor);
+     DS_Size size = Array_GetSize(dynamic_array->array);
+     if (dynamic_array->size == size) {
+          Array_SetSize(dynamic_array->array, size * dynamic_array->growth_factor);
      }
      Array_SetData(dynamic_array->array, dynamic_array->size, data);
 }
 
 DS_Void DynamicArray_PopBack(DynamicArray dynamic_array)
 {
-     DS_Size aSize = Array_GetSize(dynamic_array->array);
-     if (dynamic_array->size == aSize / dynamic_array->growth_factor) {
-          Array_SetSize(dynamic_array->array, aSize / dynamic_array->growth_factor);
+     DS_Size size = Array_GetSize(dynamic_array->array);
+     if (dynamic_array->size == size / dynamic_array->growth_factor) {
+          Array_SetSize(dynamic_array->array, size / dynamic_array->growth_factor);
      }
      dynamic_array->size--;
 }

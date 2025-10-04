@@ -154,7 +154,7 @@ DS_Void Array_SortInsertion(Array array,
 }
 
 DS_Void Array_SortSelection(Array array, DS_CallbackCompare compare_callback,
-                              DS_Generic compare_context)
+                            DS_Generic compare_context)
 {
      for (DS_Size i = 0; i < array->size - 1; i++) {
           DS_Size minimum = i;
@@ -185,7 +185,7 @@ DS_Void Array_SortQuick(Array array, DS_CallbackCompare compare_callback,
 }
 
 DS_Void Array_SortMerge(Array array, DS_CallbackCompare compare_callback,
-                         DS_Generic compare_context)
+                        DS_Generic compare_context)
 {
      for (DS_Size i = 0; i < array->size - 1; i++) {
           for (DS_Size j = i + 1; j < array->size - i; j++) {

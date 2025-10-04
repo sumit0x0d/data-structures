@@ -8,7 +8,7 @@
 
 #include "avl-tree-node.h"
 
-#include "generic-binary-tree-traverse.h"
+// #include "binary-tree-i.h"
 
 struct AvlTree {
      AvlTreeNode root;

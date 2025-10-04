@@ -1,7 +1,7 @@
 #ifndef DATA_STRUCTURES_H
 #define DATA_STRUCTURES_H
 
-#define DS_API  __attribute__((visibility("default")))
+#define DATA_STRUCTURES_API  __attribute__((visibility("default")))
 
 typedef void DS_Void;
 

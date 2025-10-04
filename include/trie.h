@@ -3,22 +3,22 @@
 
 #include <data-structures.h>
 
-typedef struct trie Trie;
-typedef struct trie_node TrieNode;
+typedef struct Trie * Trie;
+typedef struct TrieNode * TrieNode;
 
-DS_API
-Trie *Trie_Create();
+DATA_STRUCTURES_API
+Trie Trie_Create();
 
-DS_API
-DS_Void Trie_Destroy(Trie *trie);
+DATA_STRUCTURES_API
+DS_Void Trie_Destroy(Trie trie);
 
-DS_API
-char *Trie_Search(Trie *trie, char *string);
+DATA_STRUCTURES_API
+char *Trie_Search(Trie trie, char *string);
 
-DS_API
-DS_Bool Trie_Insert(Trie *trie, char *string);
+DATA_STRUCTURES_API
+DS_Bool Trie_Insert(Trie trie, char *string);
 
-DS_API
-int Trie_Remove(Trie *trie, char *string);
+DATA_STRUCTURES_API
+int Trie_Remove(Trie trie, char *string);
 
 #endif

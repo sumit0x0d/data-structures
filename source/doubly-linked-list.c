@@ -58,15 +58,15 @@ DoublyLinkedListNode DoublyLinkedList_GetTail(DoublyLinkedList doubly_linked_lis
      return doubly_linked_list->tail;
 }
 
-DS_Generic DoublyLinkedListNode_GetData(DoublyLinkedListNode node)
+DS_Generic DoublyLinkedList_GetNodeData(DoublyLinkedListNode node)
 {
      return node->data;
 }
 
-DS_Void DoublyLinkedList_set_data(DoublyLinkedList list, DoublyLinkedListNode node,
-                                  const DS_Generic data)
+DS_Void DoublyLinkedList_SetNodeData(DoublyLinkedList doubly_linked_list,
+                                     DoublyLinkedListNode node, const DS_Generic data)
 {
-     memcpy(node->data, data, list->data_size);
+     memcpy(node->data, data, doubly_linked_list->data_size);
 }
 
 DS_Void DoublyLinkedList_PushHead(DoublyLinkedList doubly_linked_list,
@@ -126,7 +126,7 @@ DS_Void DoublyLinkedList_PopTail(DoublyLinkedList doubly_linked_list)
 }
 
 DS_Void DoublyLinkedList_Remove(DoublyLinkedList doubly_linked_list,
-          DoublyLinkedListNode node)
+                                DoublyLinkedListNode node)
 {
      if (node->previous && node->previous->next == (DoublyLinkedListNode)node) {
           node->previous->next = node->next;

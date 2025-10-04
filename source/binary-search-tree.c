@@ -127,8 +127,8 @@ DS_Void BinarySearchTree_remove(BinarySearchTree tree, const DS_Generic data)
      (DS_Void)pnode;
 }
 
-static BinarySearchTreeNode _BinarySearchTree_node_create(const DS_Generic data,
-                                                          DS_Size size)
+static BinarySearchTreeNode _BinarySearchTreeNode_create(const DS_Generic data,
+                                                         DS_Size size)
 {
      BinarySearchTreeNode node = (BinarySearchTreeNode )malloc(sizeof (Node));
      assert(node);

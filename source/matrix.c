@@ -55,18 +55,18 @@ DS_Void Matrix_SetData(Matrix matrix, DS_Size row, DS_Size column, const DS_Gene
 
 Matrix Matrix_Transposition(Matrix matrix)
 {
-     Matrix mTranspose =
+     Matrix transpose =
           Matrix_Create(Array_GetDataSize(matrix->array),
                         matrix->column_count, matrix->row_count);
-     if (!mTranspose) {
+     if (!transpose) {
           return NULL;
      }
-     for (DS_Size i = 0; i < mTranspose->row_count; i++) {
-          for (DS_Size j = 0; j < mTranspose->column_count; j++) {
-               Matrix_SetData(mTranspose, i, j, Matrix_GetData(matrix, i, j));
+     for (DS_Size i = 0; i < transpose->row_count; i++) {
+          for (DS_Size j = 0; j < transpose->column_count; j++) {
+               Matrix_SetData(transpose, i, j, Matrix_GetData(matrix, i, j));
           }
      }
-     return mTranspose;
+     return transpose;
 }
 
 Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2,
@@ -118,19 +118,19 @@ Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2,
 
 Matrix Matrix_ColumnVectorization(Matrix matrix)
 {
-     Matrix mVectorize =
+     Matrix vectorize =
           Matrix_Create(Array_GetDataSize(matrix->array),
                         matrix->row_count * matrix->column_count, 1);
-     if (!mVectorize) {
+     if (!vectorize) {
           return NULL;
      }
      for (DS_Size i = 0; i < matrix->row_count; i++) {
           for (DS_Size j = 0; j < matrix->column_count; j++) {
-               Matrix_SetData(mVectorize, (i * matrix->column_count) + j, 0,
+               Matrix_SetData(vectorize, (i * matrix->column_count) + j, 0,
                               Matrix_GetData(matrix, i, j));
           }
      }
-     return mVectorize;
+     return vectorize;
 }
 
 DS_Void Matrix_Traverse(Matrix matrix, DS_CallbackUnary unary_callback,

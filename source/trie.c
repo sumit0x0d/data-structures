@@ -4,11 +4,9 @@
 
 #include <trie.h>
 
-typedef TrieNode Node;
-
-struct trie_node {
+struct TrieNode {
      int terminal;
-     Node *children[128];
+     TrieNode *children[128];
 };
 
 struct trie {

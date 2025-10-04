@@ -68,13 +68,13 @@ DS_Void CircularBuffer_PushBack(CircularBuffer circular_buffer, const DS_Generic
 {
      Array_SetData(circular_buffer->array, circular_buffer->back, data);
      circular_buffer->size++;
-     circular_buffer->back = (circular_buffer->back + 1) %
-                              Array_GetSize(circular_buffer->array);
+     circular_buffer->back =
+          (circular_buffer->back + 1) % Array_GetSize(circular_buffer->array);
 }
 
 DS_Void CircularBuffer_PopFront(CircularBuffer circular_buffer)
 {
-     circular_buffer->front = (circular_buffer->front + 1) %
-                              Array_GetSize(circular_buffer->array);
+     circular_buffer->front =
+          (circular_buffer->front + 1) % Array_GetSize(circular_buffer->array);
      circular_buffer->size--;
 }
