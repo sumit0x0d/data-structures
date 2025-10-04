@@ -55,8 +55,9 @@ DS_Generic CircularBuffer_GetBackData(CircularBuffer circular_buffer)
 {
      DS_Generic data = NULL;
      if (circular_buffer->back == 0) {
-          data = Array_GetData(circular_buffer->array,
-                    Array_GetSize(circular_buffer->array) - 1);
+          data =
+               Array_GetData(circular_buffer->array,
+                             Array_GetSize(circular_buffer->array) - 1);
      } else {
           data = Array_GetData(circular_buffer->array, circular_buffer->back - 1);
      }
@@ -68,12 +69,12 @@ DS_Void CircularBuffer_PushBack(CircularBuffer circular_buffer, const DS_Generic
      Array_SetData(circular_buffer->array, circular_buffer->back, data);
      circular_buffer->size++;
      circular_buffer->back = (circular_buffer->back + 1) %
-                                   Array_GetSize(circular_buffer->array);
+                              Array_GetSize(circular_buffer->array);
 }
 
 DS_Void CircularBuffer_PopFront(CircularBuffer circular_buffer)
 {
      circular_buffer->front = (circular_buffer->front + 1) %
-                                   Array_GetSize(circular_buffer->array);
+                              Array_GetSize(circular_buffer->array);
      circular_buffer->size--;
 }

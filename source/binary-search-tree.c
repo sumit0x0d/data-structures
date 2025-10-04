@@ -22,14 +22,14 @@ struct BinarySearchTree {
 };
 
 static BinarySearchTreeNode BinarySearchTreeNode_Create(const DS_Generic data,
-                              DS_Size size);
+                                                        DS_Size size);
 static DS_Void BinarySearchTreeNode_Destroy(BinarySearchTreeNode node);
 
 BinarySearchTree BinarySearchTree_create(DS_Size data_size,
-                    DS_CallbackCompare compare_callback,
-                    const DS_Generic compare_context)
+                                         DS_CallbackCompare compare_callback,
+                                         const DS_Generic compare_context)
 {
-     BinarySearchTree tree = (BinarySearchTree *)malloc(sizeof (BinarySearchTree));
+     BinarySearchTree tree = (BinarySearchTree)malloc(sizeof (struct BinarySearchTree));
      assert(tree);
      tree->root = NULL;
      tree->data_size = data_size;
@@ -45,7 +45,7 @@ DS_Void BinarySearchTree_destroy(BinarySearchTree *tree)
 }
 
 BinarySearchTreeNode BinarySearchTree_search(BinarySearchTree tree,
-                         const DS_Generic data)
+                                             const DS_Generic data)
 {
      BinarySearchTreeNode node = tree->root;
      while (node) {
@@ -102,7 +102,8 @@ DS_Void BinarySearchTree_remove(BinarySearchTree tree, const DS_Generic data)
      BinarySearchTreeNode node = tree->root;
      BinarySearchTreeNode pnode = tree->root->parent;
      while (node) {
-          int compare = tree->compare_callback(data, node->data, tree->compare_context);
+          DS_Compare compare =
+               tree->compare_callback(data, node->data, tree->compare_context);
           if (compare == 0) {
                break;
           }
@@ -127,7 +128,7 @@ DS_Void BinarySearchTree_remove(BinarySearchTree tree, const DS_Generic data)
 }
 
 static BinarySearchTreeNode _BinarySearchTree_node_create(const DS_Generic data,
-                              DS_Size size)
+                                                          DS_Size size)
 {
      BinarySearchTreeNode node = (BinarySearchTreeNode )malloc(sizeof (Node));
      assert(node);

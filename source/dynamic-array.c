@@ -12,7 +12,7 @@ struct DynamicArray {
 };
 
 DynamicArray DynamicArray_Create(DS_Size data_size, DS_Size size,
-               DS_Float64 growth_factor)
+                                 DS_Float64 growth_factor)
 {
      if (growth_factor > 1) {
           return NULL;
@@ -70,7 +70,8 @@ DS_Void DynamicArray_PopBack(DynamicArray dynamic_array)
 }
 
 DS_Void DynamicArray_Traverse(DynamicArray dynamic_array,
-          DS_CallbackUnary unary_callback, DS_Generic unary_context)
+                              DS_CallbackUnary unary_callback,
+                              DS_Generic unary_context)
 {
      for (DS_Size i = 0; i < Array_GetSize(dynamic_array->array); i++) {
           unary_callback(DynamicArray_GetData(dynamic_array, i), unary_context);

@@ -14,29 +14,33 @@ DS_Void BinaryTree_Destroy(BinaryTree binary_tree);
 
 DS_API
 DS_Void BinaryTree_InsertLeft(BinaryTree binary_tree, BinaryTreeNode node,
-          const DS_Generic data);
+                              const DS_Generic data);
 
 DS_API
 DS_Void BinaryTree_InsertRight(BinaryTree binary_tree, BinaryTreeNode node,
-          const DS_Generic data);
+                               const DS_Generic data);
 
 DS_API
 DS_Void BinaryTree_Remove(BinaryTree binary_tree, BinaryTreeNode node);
 
 DS_API
 DS_Void BinaryTree_TraversePreorder(BinaryTree binary_tree,
-          DS_CallbackUnary unary_callback, DS_Generic unary_context);
+                                    DS_CallbackUnary unary_callback,
+                                    DS_Generic unary_context);
 
 DS_API
 DS_Void BinaryTree_TraverseInorder(BinaryTree binary_tree,
-          DS_CallbackUnary unary_callback, DS_Generic unary_context);
+                                   DS_CallbackUnary unary_callback, 
+                                   DS_Generic unary_context);
 
 DS_API
 DS_Void BinaryTree_TraversePostorder(BinaryTree binary_tree,
-          DS_CallbackUnary unary_callback, DS_Generic unary_context);
+                                     DS_CallbackUnary unary_callback,
+                                     DS_Generic unary_context);
 
 DS_API
 DS_Void BinaryTree_TraverseLevelorder(BinaryTree binary_tree,
-          DS_CallbackUnary unary_callback, DS_Generic unary_context);
+                                      DS_CallbackUnary unary_callback,
+                                      DS_Generic unary_context);
 
 #endif

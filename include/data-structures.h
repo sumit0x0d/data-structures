@@ -37,11 +37,11 @@ typedef enum {
 
 typedef void (*DS_CallbackUnary)(DS_Generic data, DS_Generic unary_context);
 typedef void (*DS_CallbackBinary)(DS_Generic data1, DS_Generic data2,
-                DS_Generic binary_context);
+                                  DS_Generic binary_context);
 
 typedef DS_Compare (*DS_CallbackCompare)(const DS_Generic data1, const DS_Generic data2,
-                    DS_Generic compare_context);
+                                         DS_Generic compare_context);
 typedef DS_Size (*DS_CallbackHash)(const DS_Generic data, DS_Size size,
-                    DS_Generic hash_context);
+                                   DS_Generic hash_context);
 
 #endif

@@ -34,10 +34,10 @@ DS_Void SinglyLinkedList_Destroy(SinglyLinkedList singly_linked_list)
 }
 
 DS_Void SinglyLinkedList_PushHead(SinglyLinkedList singly_linked_list,
-          const DS_Generic data)
+                                  const DS_Generic data)
 {
-     SinglyLinkedListNode node = SinglyLinkedListNode_Create(data,
-                                   singly_linked_list->data_size);
+     SinglyLinkedListNode node =
+          SinglyLinkedListNode_Create(data, singly_linked_list->data_size);
      if (singly_linked_list->size) {
           node->next = singly_linked_list->head;
      } else {
@@ -49,10 +49,10 @@ DS_Void SinglyLinkedList_PushHead(SinglyLinkedList singly_linked_list,
 }
 
 DS_Void SinglyLinkedList_PushTail(SinglyLinkedList singly_linked_list,
-          const DS_Generic data)
+                                  const DS_Generic data)
 {
-     SinglyLinkedListNode node = SinglyLinkedListNode_Create(data,
-                                   singly_linked_list->data_size);
+     SinglyLinkedListNode node =
+          SinglyLinkedListNode_Create(data, singly_linked_list->data_size);
      node->next = NULL;
      if (singly_linked_list->size) {
           singly_linked_list->tail->next = node;
@@ -93,7 +93,8 @@ DS_Void SinglyLinkedList_PopTail(SinglyLinkedList singly_linked_list)
 }
 
 DS_Void SinglyLinkedList_Traverse(SinglyLinkedList singly_linked_list,
-          DS_CallbackUnary unary_callback, DS_Generic unary_context)
+                                  DS_CallbackUnary unary_callback,
+                                  DS_Generic unary_context)
 {
      SinglyLinkedListNode node = singly_linked_list->head;
      while (node) {
@@ -108,7 +109,8 @@ DS_Generic SinglyLinkedListNode_GetData(SinglyLinkedListNode node)
 }
 
 DS_Void SinglyLinkedList_SetData(SinglyLinkedList singly_linked_list,
-          SinglyLinkedListNode node, const DS_Generic data)
+                                 SinglyLinkedListNode node,
+                                 const DS_Generic data)
 {
      memcpy(node->data, data, singly_linked_list->data_size);
 }
@@ -139,7 +141,7 @@ SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(SinglyLinkedList singly_link
 }
 
 SinglyLinkedList SinglyLinkedList_MergeSorted(SinglyLinkedList singly_linked_list1,
-                    SinglyLinkedList singly_linked_list2)
+                                              SinglyLinkedList singly_linked_list2)
 {
      SinglyLinkedList singly_linked_list =
           SinglyLinkedList_Create(singly_linked_list1->data_size);

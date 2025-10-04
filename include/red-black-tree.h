@@ -7,8 +7,8 @@ typedef struct RedBlackTree * RedBlackTree;
 typedef struct RedBlackTreeNode * RedBlackTreeNode;
 
 DS_API
-RedBlackTree RedBlackTree_Create(DS_Size data_size,
-               DS_CallbackCompare compare_callback, DS_Generic compare_context);
+RedBlackTree RedBlackTree_Create(DS_Size data_size, DS_CallbackCompare compare_callback,
+                                 DS_Generic compare_context);
 
 DS_API
 DS_Void RedBlackTree_Destroy(RedBlackTree red_black_tree);

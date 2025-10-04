@@ -7,7 +7,7 @@ typedef struct BloomFilter * BloomFilter;
 
 DS_API
 BloomFilter BloomFilter_Create(DS_Size data_size, DS_Size bucket_count,
-    DS_CallbackHash hash_callback, DS_Generic hash_context);
+                               DS_CallbackHash hash_callback, DS_Generic hash_context);
 
 DS_API
 DS_Void BloomFilter_Destroy(BloomFilter bloom_filter);

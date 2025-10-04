@@ -4,7 +4,7 @@
 #include "doubly-linked-list-node.h"
 
 DoublyLinkedListNode DoublyLinkedListNode_Create(const DS_Generic data,
-                         DS_Size data_size)
+                                                 DS_Size data_size)
 {
      DoublyLinkedListNode node =
           (DoublyLinkedListNode)malloc(sizeof (struct DoublyLinkedListNode));

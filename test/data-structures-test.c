@@ -9,7 +9,8 @@
 #define SIZE 300
 
 
-static int _CallbackCompareInt(const DS_Generic data1, const DS_Generic data2, DS_Generic context);
+static int _CallbackCompareInt(const DS_Generic data1, const DS_Generic data2,
+                               DS_Generic compare_context);
 // static DS_Size _CallbackHashInt(const DS_Generic data, DS_Size aSize, DS_Generic context);
 static DS_Void _CallbackUnaryPrint(DS_Generic data, DS_Generic context);
 

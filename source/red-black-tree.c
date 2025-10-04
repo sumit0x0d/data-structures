@@ -233,22 +233,22 @@ static DS_Void _Rebalance(RedBlackTree tree, RedBlackTreeNode node)
           }
           if (node->parent->left == node) {
                if (node->color == 0 &&
-                    (!node->parent->right || node->parent->right->color == 1)) {
+                  (!node->parent->right || node->parent->right->color == 1)) {
                }
                if (node->color == 0 &&
-                    (node->parent->right && node->parent->right->color == 0)) {
+                  (node->parent->right && node->parent->right->color == 0)) {
                     node->parent->color = 1;
                }
           } else {
                if (node->color == 0 &&
-                    (!node->parent->left || node->parent->left->color == 1)) {
+                  (!node->parent->left || node->parent->left->color == 1)) {
                     _RotateLeft(tree, node);
                     _RotateRightLeft(tree, node);
                     _RotateLeftRight(tree, node);
                     _RotateRight(tree, node);
                }
                if (node->color == 0 &&
-                    (node->parent->left && node->parent->left->color == 0)) {
+                  (node->parent->left && node->parent->left->color == 0)) {
                     node->parent->color = 1;
                }
           }

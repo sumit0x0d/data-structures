@@ -16,7 +16,7 @@ AvlTreeNode AvlTreeNode_Create(const DS_Generic data, DS_Size data_size);
 DS_Void AvlTreeNode_Destroy(AvlTreeNode node);
 DS_Size AvlTreeNode_GetHeight(AvlTreeNode node, CircularBuffer circular_buffer);
 DS_Void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode node,
-          CircularBuffer circular_buffer);
+                                        CircularBuffer circular_buffer);
 AvlTreeNode AvlTreeNode_GetPredecessor(AvlTreeNode node);
 AvlTreeNode AvlTreeNode_GetSuccessor(AvlTreeNode node);
 

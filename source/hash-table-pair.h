@@ -10,7 +10,7 @@ struct HashTablePair {
 };
 
 HashTablePair HashTablePair_Create(const DS_Generic key, DS_Size key_size,
-               const DS_Generic value, DS_Size value_size);
+                                   const DS_Generic value, DS_Size value_size);
 
 DS_Void HashTablePair_Destroy(HashTablePair pair);
 

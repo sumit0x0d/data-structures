@@ -4,7 +4,7 @@
 #include "singly-linked-list-node.h"
 
 SinglyLinkedListNode SinglyLinkedListNode_Create(const DS_Generic data,
-                         DS_Size data_size)
+                                                 DS_Size data_size)
 {
      SinglyLinkedListNode node =
           (SinglyLinkedListNode)malloc(sizeof (struct SinglyLinkedListNode));
