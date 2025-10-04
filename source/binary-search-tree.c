@@ -47,100 +47,100 @@ DS_Void BinarySearchTree_destroy(BinarySearchTree *tree)
 BinarySearchTreeNode BinarySearchTree_search(BinarySearchTree tree,
                          const DS_Generic data)
 {
-    BinarySearchTreeNode node = tree->root;
-    while (node) {
-        switch (tree->compare_callback(node->data, data, tree->compare_context)) {
-        case -1:
-            node = node->left;
-            break;
-        case 0:
-            return node;
-        case 1:
-            node = node->right;
-            break;
-        }
-    }
-    return NULL;
+     BinarySearchTreeNode node = tree->root;
+     while (node) {
+          switch (tree->compare_callback(node->data, data, tree->compare_context)) {
+          case -1:
+               node = node->left;
+               break;
+          case 0:
+               return node;
+          case 1:
+               node = node->right;
+               break;
+          }
+     }
+     return NULL;
 }
 
 DS_Void BinarySearchTree_insert(BinarySearchTree tree, const DS_Generic data)
 {
-    if (!tree->root) {
-        tree->root = _BinarySearchTree_node_create(data, tree->data_size);
-        tree->root->parent = NULL;
-        tree->size++;
-        return;
-    }
-    BinarySearchTreeNode node = tree->root;
-    BinarySearchTreeNode pnode = tree->root->parent;
-    int compare = 0;
-    while (node) {
-        compare = tree->compare_callback(data, node->data, tree->compare_context);
-        if (compare == 0) {
-            return;
-        }
-        pnode = node;
-        if (compare == -1) {
-            node = node->left;
-        } else {
-            node = node->right;
-        }
-    }
-    node = _BinarySearchTree_node_create(data, tree->data_size);
-    node->parent = pnode;
-    compare = tree->compare_callback(data, pnode->data, tree->compare_context);
-    if (compare < 0) {
-        pnode->left = node;
-    } else {
-        pnode->right = node;
-    }
-    tree->size++;
+     if (!tree->root) {
+          tree->root = _BinarySearchTree_node_create(data, tree->data_size);
+          tree->root->parent = NULL;
+          tree->size++;
+          return;
+     }
+     BinarySearchTreeNode node = tree->root;
+     BinarySearchTreeNode pnode = tree->root->parent;
+     int compare = 0;
+     while (node) {
+          compare = tree->compare_callback(data, node->data, tree->compare_context);
+          if (compare == 0) {
+               return;
+          }
+          pnode = node;
+          if (compare == -1) {
+               node = node->left;
+          } else {
+               node = node->right;
+          }
+     }
+     node = _BinarySearchTree_node_create(data, tree->data_size);
+     node->parent = pnode;
+     compare = tree->compare_callback(data, pnode->data, tree->compare_context);
+     if (compare < 0) {
+          pnode->left = node;
+     } else {
+          pnode->right = node;
+     }
+     tree->size++;
 }
 
 DS_Void BinarySearchTree_remove(BinarySearchTree tree, const DS_Generic data)
 {
-    BinarySearchTreeNode node = tree->root;
-    BinarySearchTreeNode pnode = tree->root->parent;
-    while (node) {
-        int compare = tree->compare_callback(data, node->data, tree->compare_context);
-        if (compare == 0) {
-            break;
-        }
-        pnode = node;
-        if (compare == -1) {
-            node = node->left;
-        } else {
-            node = node->right;
-        }
-    }
-    if (!node) {
-        return;
-    }
-    if (node->parent->left == node) {
+     BinarySearchTreeNode node = tree->root;
+     BinarySearchTreeNode pnode = tree->root->parent;
+     while (node) {
+          int compare = tree->compare_callback(data, node->data, tree->compare_context);
+          if (compare == 0) {
+               break;
+          }
+          pnode = node;
+          if (compare == -1) {
+               node = node->left;
+          } else {
+               node = node->right;
+          }
+     }
+     if (!node) {
+          return;
+     }
+     if (node->parent->left == node) {
 
-    }
-    if (node->parent->right == node) {
+     }
+     if (node->parent->right == node) {
 
-    }
-    node->parent->left = node->left;
-    (DS_Void)pnode;
+     }
+     node->parent->left = node->left;
+     (DS_Void)pnode;
 }
 
 static BinarySearchTreeNode _BinarySearchTree_node_create(const DS_Generic data,
                               DS_Size size)
 {
-    BinarySearchTreeNode node = (BinarySearchTreeNode )malloc(sizeof (Node));
-    assert(node);
-    node->data = malloc(size);
-    assert(node->data);
-    memcpy(node->data, data, size);
-    node->left = NULL;
-    node->right = NULL;
-    return node;
+     BinarySearchTreeNode node = (BinarySearchTreeNode )malloc(sizeof (Node));
+     assert(node);
+     node->data = malloc(size);
+     assert(node->data);
+     memcpy(node->data, data, size);
+     node->left = NULL;
+     node->right = NULL;
+     return node;
 }
 
 static DS_Void _BinarySearchTree_node_destroy(BinarySearchTreeNode node)
 {
-    free(node->data);
-    free(node);
+     free(node->data);
+     free(node);
 }
