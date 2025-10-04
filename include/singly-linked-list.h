@@ -29,18 +29,18 @@ SinglyLinkedListNode SinglyLinkedList_GetTailNode(SinglyLinkedList singly_linked
 
 DS_API
 DS_Void SinglyLinkedList_SetData(SinglyLinkedList singly_linked_list,
-    SinglyLinkedListNode node, const DS_Generic data);
+          SinglyLinkedListNode node, const DS_Generic data);
 
 DS_API
 DS_Generic SinglyLinkedList_GetNodeData(SinglyLinkedListNode node);
 
 DS_API
 DS_Void SinglyLinkedList_PushHead(SinglyLinkedList singly_linked_list,
-    const DS_Generic data);
+          const DS_Generic data);
 
 DS_API
 DS_Void SinglyLinkedList_PushTail(SinglyLinkedList singly_linked_list,
-    const DS_Generic data);
+          const DS_Generic data);
 
 DS_API
 DS_Void SinglyLinkedList_PopHead(SinglyLinkedList singly_linked_list);
@@ -50,7 +50,7 @@ DS_Void SinglyLinkedList_PopTail(SinglyLinkedList singly_linked_list);
 
 DS_API
 DS_Void SinglyLinkedList_Traverse(SinglyLinkedList singly_linked_list,
-    DS_CallbackUnary unary_callback, DS_Generic unary_context);
+          DS_CallbackUnary unary_callback, DS_Generic unary_context);
 
 DS_API
 SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList singly_linked_list);
@@ -60,6 +60,6 @@ SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(SinglyLinkedList singly_link
 
 DS_API
 SinglyLinkedList SinglyLinkedList_MergeSorted(SinglyLinkedList singly_linked_list1,
-    SinglyLinkedList singly_linked_list2);
+                    SinglyLinkedList singly_linked_list2);
 
 #endif

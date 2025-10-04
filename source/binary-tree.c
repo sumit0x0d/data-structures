@@ -11,12 +11,12 @@ struct BinaryTree {
 
 BinaryTree BinaryTree_Create(DS_Size data_size)
 {
-    BinaryTree tree = (BinaryTree)malloc(sizeof (struct BinaryTree));
-    assert(tree);
-    tree->root = NULL;
-    tree->data_size = data_size;
-    tree->size = 0;
-    return tree;
+    BinaryTree binary_tree = (BinaryTree)malloc(sizeof (struct BinaryTree));
+    assert(binary_tree);
+    binary_tree->root = NULL;
+    binary_tree->data_size = data_size;
+    binary_tree->size = 0;
+    return binary_tree;
 }
 
 DS_Void BinaryTree_Destroy(BinaryTree tree)
@@ -24,19 +24,19 @@ DS_Void BinaryTree_Destroy(BinaryTree tree)
     free(tree);
 }
 
-DS_Void BinaryTree_InsertLeft(BinaryTree tree, BinaryTreeNode node, const DS_Generic data)
+DS_Void BinaryTree_InsertLeft(BinaryTree binary_tree, BinaryTreeNode node, const DS_Generic data)
 {
-    node->left = BinaryTreeNode_Create(data, tree->data_size);
-    tree->size++;
+    node->left = BinaryTreeNode_Create(data, binary_tree->data_size);
+    binary_tree->size++;
 }
 
-DS_Void BinaryTree_InsertRight(BinaryTree tree, BinaryTreeNode node, const DS_Generic data)
+DS_Void BinaryTree_InsertRight(BinaryTree binary_tree, BinaryTreeNode node, const DS_Generic data)
 {
-    node->right = BinaryTreeNode_Create(data, tree->data_size);
-    tree->size++;
+    node->right = BinaryTreeNode_Create(data, binary_tree->data_size);
+    binary_tree->size++;
 }
 
-DS_Void BinaryTree_Remove(BinaryTree tree, BinaryTreeNode node)
+DS_Void BinaryTree_Remove(BinaryTree binary_tree, BinaryTreeNode node)
 {
     BinaryTreeNode nCurrent = node;
     if (node == node->parent->left) {

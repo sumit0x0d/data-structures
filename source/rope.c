@@ -3,30 +3,28 @@
 
 #include <rope.h>
 
-typedef RopeNode Node;
-
-struct rope_node {
-    DS_Generic data;
-    struct rope_node *parent;
-    struct rope_node *left;
-    struct rope_node *right;    
+struct RopeNode {
+     DS_Generic data;
+     RopeNode parent;
+     RopeNode left;
+     RopeNode right;    
 };
 
-struct rope {
-    DS_Size data_size;
-    DS_Size size;
+struct Rope {
+     DS_Size data_size;
+     DS_Size size;
 };
 
-Rope *Rope_Create(DS_Size size)
+Rope Rope_Create(DS_Size size)
 {
-    Rope *rope = (Rope *)malloc(sizeof(Rope));
-    assert(rope);
-    rope->data_size = size;
-    rope->size = 0;    
-    return rope;
+     Rope rope = (Rope)malloc(sizeof(struct Rope));
+     assert(rope);
+     rope->data_size = size;
+     rope->size = 0;    
+     return rope;
 }
 
 DS_Void Rope_Destroy(Rope *rope)
 {
-    free(rope);
+     free(rope);
 }

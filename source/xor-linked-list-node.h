@@ -4,8 +4,8 @@
 #include <xor-linked-list.h>
 
 struct XorLinkedListNode {
-    DS_Generic data;
-    DS_Size xor;
+     DS_Generic data;
+     DS_Size xor;
 };
 
 XorLinkedListNode XorLinkedListNode_Create(const DS_Generic data, DS_Size data_size);

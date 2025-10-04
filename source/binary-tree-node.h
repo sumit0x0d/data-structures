@@ -5,10 +5,10 @@
 #include <stack.h>
 
 struct BinaryTreeNode {
-    DS_Generic data;
-    BinaryTreeNode parent;
-    BinaryTreeNode left;
-    BinaryTreeNode right;
+     DS_Generic data;
+     BinaryTreeNode parent;
+     BinaryTreeNode left;
+     BinaryTreeNode right;
 };
 
 BinaryTreeNode BinaryTreeNode_Create(const DS_Generic data, DS_Size data_size);

@@ -7,12 +7,12 @@ typedef void DS_Void;
 
 typedef char  DS_Int8;
 typedef short DS_Int16;
-typedef int    DS_Int32;
+typedef int   DS_Int32;
 typedef long  DS_Int64;
 
 typedef unsigned char  DS_UInt8;
 typedef unsigned short DS_UInt16;
-typedef unsigned int    DS_UInt32;
+typedef unsigned int   DS_UInt32;
 typedef unsigned long  DS_UInt64;
 
 typedef float  DS_Float32;

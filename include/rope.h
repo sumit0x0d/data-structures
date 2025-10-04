@@ -3,8 +3,8 @@
 
 #include <data-structures.h>
 
-typedef struct rope * Rope;
-typedef struct rope_node * RopeNode;
+typedef struct Rope * Rope;
+typedef struct RopeNode * RopeNode;
 
 DS_API
 Rope Rope_Create(DS_Size data_size);
