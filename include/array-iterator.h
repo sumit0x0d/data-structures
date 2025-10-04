@@ -3,6 +3,12 @@
 
 #include <array.h>
 
+typedef enum {
+     ARRAY_ITERATOR_OK,
+     ARRAY_ITERATOR_END,
+     ARRAY_ITERATOR_ERROR
+} ArrayIteratorStatus;
+
 struct ArrayIterator {
      Array array;
      DS_Size index;
