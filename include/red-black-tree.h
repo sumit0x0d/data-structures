@@ -25,7 +25,7 @@ DS_Size RedBlackTree_GetSize(
 
 DATA_STRUCTURES_API
 DS_Generic RedBlackTree_GetNodeData(
-     RedBlackTreeNode node
+     RedBlackTreeNode red_black_tree_node
 );
 
 DATA_STRUCTURES_API

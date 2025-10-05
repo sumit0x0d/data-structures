@@ -51,13 +51,13 @@ typedef void (*DS_CallbackBinary)(
 typedef DS_Compare (*DS_CallbackCompare)(
      const DS_Generic data1,
      const DS_Generic data2,
-     DS_Generic compare_context
+     DS_Generic       compare_context
 );
 
 typedef DS_Size (*DS_CallbackHash)(
      const DS_Generic data,
-     DS_Size size,
-     DS_Generic hash_context
+     DS_Size          size,
+     DS_Generic       hash_context
 );
 
 #endif

@@ -18,28 +18,28 @@ DS_Void BinaryTree_Destroy(
 
 DATA_STRUCTURES_API
 DS_Void BinaryTree_InsertLeft(
-     BinaryTree binary_tree,
-     BinaryTreeNode node,
+     BinaryTree       binary_tree,
+     BinaryTreeNode   binary_tree_node,
      const DS_Generic data
 );
 
 DATA_STRUCTURES_API
 DS_Void BinaryTree_InsertRight(
-     BinaryTree binary_tree,
-     BinaryTreeNode node,
+     BinaryTree       binary_tree,
+     BinaryTreeNode   binary_tree_node,
      const DS_Generic data
 );
 
 DATA_STRUCTURES_API
 DS_Void BinaryTree_Remove(
-     BinaryTree binary_tree,
-     BinaryTreeNode node);
+     BinaryTree     binary_tree,
+     BinaryTreeNode binary_tree_node);
 
 DATA_STRUCTURES_API
 DS_Void BinaryTree_TraversePreorder(
-     BinaryTree binary_tree,
+     BinaryTree       binary_tree,
      DS_CallbackUnary unary_callback,
-     DS_Generic unary_context
+     DS_Generic       unary_context
 );
 
 DATA_STRUCTURES_API

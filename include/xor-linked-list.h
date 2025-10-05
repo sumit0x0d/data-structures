@@ -59,13 +59,13 @@ DS_Void XorLinkedList_Remove(
 DATA_STRUCTURES_API
 DS_Void XorLinkedList_Erase(
      XorLinkedList xor_linked_list,
-     DS_Size index
+     DS_Size       index
 );
 
 DATA_STRUCTURES_API
 DS_Void XorLinkedList_Update(
-     XorLinkedList xor_linked_list,
-     DS_Size index,
+     XorLinkedList    xor_linked_list,
+     DS_Size          index,
      const DS_Generic data
 );
 

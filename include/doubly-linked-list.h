@@ -39,13 +39,13 @@ DoublyLinkedListNode DoublyLinkedList_GetTail(
 
 DATA_STRUCTURES_API
 DS_Generic DoublyLinkedList_GetNodeData(
-     DoublyLinkedListNode node
+     DoublyLinkedListNode doubly_linked_list_node
 );
 
 DATA_STRUCTURES_API
 DS_Void DoublyLinkedList_SetNodeData(
      DoublyLinkedList     doubly_linked_list,
-     DoublyLinkedListNode node,
+     DoublyLinkedListNode doubly_linked_list_node,
      const DS_Generic     data
 );
 
@@ -74,7 +74,7 @@ DS_Void DoublyLinkedList_PopTail(
 DATA_STRUCTURES_API
 DS_Void DoublyLinkedList_RemoveNode(
      DoublyLinkedList     doubly_linked_list,
-     DoublyLinkedListNode node
+     DoublyLinkedListNode doubly_linked_list_node
 );
 
 DATA_STRUCTURES_API
@@ -84,8 +84,8 @@ DS_Void DoublyLinkedList_Traverse(
      DS_Generic       unary_context
 );
 
-DATA_STRUCTURES_API
-DoublyLinkedListIterator DoublyLinkedList_CreateItreator(
+DATA_STRUCTURES_API DoublyLinkedListIterator
+DoublyLinkedList_CreateItreator(
      DoublyLinkedList doubly_linked_list
 );
 

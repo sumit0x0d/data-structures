@@ -30,7 +30,7 @@ DS_Size AvlTree_GetDataSize(
 
 DATA_STRUCTURES_API
 DS_Generic AvlTree_GetNodeData(
-     AvlTreeNode node
+     AvlTreeNode avl_tree_node
 );
 
 DATA_STRUCTURES_API

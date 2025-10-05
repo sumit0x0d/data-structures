@@ -24,12 +24,12 @@ DS_Void HashTable_Destroy(
 
 DATA_STRUCTURES_API
 DS_Generic HashTable_GetKey(
-     HashTablePair pair
+     HashTablePair hash_table_pair
 );
 
 DATA_STRUCTURES_API
 DS_Generic HashTable_GetValue(
-     HashTablePair pair
+     HashTablePair hash_table_pair
 );
 
 DATA_STRUCTURES_API

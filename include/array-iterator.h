@@ -10,7 +10,7 @@ typedef enum {
 } ArrayIteratorStatus;
 
 struct ArrayIterator {
-     Array array;
+     Array   array;
      DS_Size index;
 };
 

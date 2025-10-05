@@ -41,13 +41,13 @@ SinglyLinkedListNode SinglyLinkedList_GetTail(
 DATA_STRUCTURES_API
 DS_Void SinglyLinkedList_SetData(
      SinglyLinkedList     singly_linked_list,
-     SinglyLinkedListNode node,
+     SinglyLinkedListNode singly_linked_list_node,
      const DS_Generic     data
 );
 
 DATA_STRUCTURES_API
 DS_Generic SinglyLinkedList_GetNodeData(
-     SinglyLinkedListNode node
+     SinglyLinkedListNode singly_linked_list_node
 );
 
 DATA_STRUCTURES_API

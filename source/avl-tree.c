@@ -11,23 +11,40 @@
 // #include "binary-tree-i.h"
 
 struct AvlTree {
-     AvlTreeNode root;
-     DS_Size data_size;
-     DS_Size size;
+     AvlTreeNode        root;
+     DS_Size            data_size;
+     DS_Size            size;
      DS_CallbackCompare compare_callback;
-     DS_Generic compare_context;
+     DS_Generic         compare_context;
 };
 
-static DS_Void _Rebalance(AvlTree avl_tree, AvlTreeNode node,
-                          CircularBuffer circular_buffer);
-static DS_Void _RotateRight(AvlTree avl_tree, AvlTreeNode node);
-static DS_Void _RotateLeftRight(AvlTree avl_tree, AvlTreeNode node);
-static DS_Void _RotateLeft(AvlTree avl_tree, AvlTreeNode node);
-static DS_Void _RotateRightLeft(AvlTree avl_tree, AvlTreeNode node);
+static DS_Void _Rebalance(
+     AvlTree        avl_tree,
+     AvlTreeNode    node,
+     CircularBuffer circular_buffer
+);
+static DS_Void _RotateRight(
+     AvlTree     avl_tree,
+     AvlTreeNode node
+);
+static DS_Void _RotateLeftRight(
+     AvlTree     avl_tree,
+     AvlTreeNode node
+);
+static DS_Void _RotateLeft(
+     AvlTree     avl_tree,
+     AvlTreeNode node
+);
+static DS_Void _RotateRightLeft(
+     AvlTree     avl_tree,
+     AvlTreeNode node
+);
 
-AvlTree AvlTree_Create(DS_Size data_size, DS_CallbackCompare compare_callback,
-                       DS_Generic compare_context)
-{
+AvlTree AvlTree_Create(
+     DS_Size            data_size,
+     DS_CallbackCompare compare_callback,
+     DS_Generic         compare_context
+) {
      AvlTree avl_tree = (AvlTree)malloc(sizeof (struct AvlTree));
      if (!avl_tree) {
           return NULL;
@@ -40,8 +57,9 @@ AvlTree AvlTree_Create(DS_Size data_size, DS_CallbackCompare compare_callback,
      return avl_tree;
 }
 
-DS_Void AvlTree_Destroy(AvlTree avl_tree)
-{
+DS_Void AvlTree_Destroy(
+     AvlTree avl_tree
+) {
      CircularBuffer circular_buffer =
           CircularBuffer_Create(sizeof (AvlTreeNode), avl_tree->size);
      AvlTreeNode node = avl_tree->root;
@@ -63,13 +81,16 @@ DS_Void AvlTree_Destroy(AvlTree avl_tree)
      free(avl_tree);
 }
 
-DS_Size AvlTree_GetDataSize(AvlTree avl_tree)
-{
+DS_Size AvlTree_GetSize(
+     AvlTree avl_tree
+) {
      return avl_tree->data_size;
 }
 
-AvlTreeNode AvlTree_Search(AvlTree avl_tree, const DS_Generic data)
-{
+AvlTreeNode AvlTree_Search(
+     AvlTree          avl_tree,
+     const DS_Generic data
+) {
      AvlTreeNode node = avl_tree->root;
      while (node) {
           DS_Compare compare =
@@ -88,8 +109,10 @@ AvlTreeNode AvlTree_Search(AvlTree avl_tree, const DS_Generic data)
      return NULL;
 }
 
-DS_Void AvlTree_Insert(AvlTree avl_tree, const DS_Generic data)
-{
+DS_Void AvlTree_Insert(
+     AvlTree          avl_tree,
+     const DS_Generic data
+) {
      if (!avl_tree->root) {
           avl_tree->root = AvlTreeNode_Create(data, avl_tree->data_size);
           avl_tree->root->parent = NULL;
@@ -127,15 +150,17 @@ DS_Void AvlTree_Insert(AvlTree avl_tree, const DS_Generic data)
      avl_tree->size++;
 }
 
-DS_Void AvlTree_Remove(AvlTree avl_tree, const DS_Generic data)
-{
+DS_Void AvlTree_Remove(
+     AvlTree          avl_tree,
+     const DS_Generic data
+) {
      CircularBuffer circular_buffer =
           CircularBuffer_Create(sizeof (struct AvlTreeNode), (avl_tree->size + 2) / 2);
      AvlTreeNode node = avl_tree->root;
      AvlTreeNode parent = avl_tree->root->parent;
      while (node) {
-          DS_Compare compare = avl_tree->compare_callback(data, node->data,
-                                   avl_tree->compare_context);
+          DS_Compare compare =
+               avl_tree->compare_callback(data, node->data, avl_tree->compare_context);
           if (compare == 0) {
                break;
           }
@@ -206,8 +231,10 @@ DS_Void AvlTree_Remove(AvlTree avl_tree, const DS_Generic data)
 // }
 
 
-static DS_Void _RotateRight(AvlTree avl_tree, AvlTreeNode node)
-{
+static DS_Void _RotateRight(
+     AvlTree     avl_tree,
+     AvlTreeNode node
+) {
      AvlTreeNode left = node->left;
      node->left = left->right;
      if (node->left) {
@@ -227,8 +254,10 @@ static DS_Void _RotateRight(AvlTree avl_tree, AvlTreeNode node)
      left->right = node;
 }
 
-static DS_Void _RotateLeftRight(AvlTree avl_tree, AvlTreeNode node)
-{
+static DS_Void _RotateLeftRight(
+     AvlTree     avl_tree,
+     AvlTreeNode node
+) {
      AvlTreeNode left = node->left;
      AvlTreeNode left_right = node->left->right;
      left->right = left_right->left;
@@ -255,8 +284,10 @@ static DS_Void _RotateLeftRight(AvlTree avl_tree, AvlTreeNode node)
      left_right->right = node;
 }
 
-static DS_Void _RotateLeft(AvlTree avl_tree, AvlTreeNode node)
-{
+static DS_Void _RotateLeft(
+     AvlTree     avl_tree,
+     AvlTreeNode node
+) {
      AvlTreeNode right = node->right;
      node->right = right->left;
      if (node->right) {
@@ -276,8 +307,10 @@ static DS_Void _RotateLeft(AvlTree avl_tree, AvlTreeNode node)
      right->left = node;
 }
 
-static DS_Void _RotateRightLeft(AvlTree avl_tree, AvlTreeNode node)
-{
+static DS_Void _RotateRightLeft(
+     AvlTree     avl_tree,
+     AvlTreeNode node
+) {
      AvlTreeNode right = node->right;
      AvlTreeNode right_left = node->right->left;
      right->left = right_left->right;
@@ -304,9 +337,11 @@ static DS_Void _RotateRightLeft(AvlTree avl_tree, AvlTreeNode node)
      right_left->left = node;
 }
 
-static DS_Void _Rebalance(AvlTree avl_tree, AvlTreeNode node,
-                          CircularBuffer circular_buffer)
-{
+static DS_Void _Rebalance(
+     AvlTree        avl_tree,
+     AvlTreeNode    node,
+     CircularBuffer circular_buffer
+) {
      while (node) {
           AvlTreeNode_UpdateBalanceFactor(node, circular_buffer);
           if (node->balance_factor == -2) {
