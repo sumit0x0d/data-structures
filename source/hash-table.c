@@ -74,12 +74,13 @@ DS_Void HashTable_Insert(
      const DS_Generic key,
      const DS_Generic value
 ) {
-     DS_Size index = hash_table->hash_callback(key, hash_table->bucket_count,
-                                               hash_table->hash_context);
+     DS_Size index =
+          hash_table->hash_callback(key, hash_table->bucket_count,
+                    hash_table->hash_context);
      if (!hash_table->pair[index]) {
           hash_table->pair[index] =
-               HashTablePair_Create(key, hash_table->key_size, value,
-                                    hash_table->value_size);
+               HashTablePair_Create(key, hash_table->key_size,
+                         value, hash_table->value_size);
           return;
      }
      DS_Compare compare = DS_COMPARE_EQUAL;
@@ -90,7 +91,8 @@ DS_Void HashTable_Insert(
           if (compare) {
                pair = pair->next;
           } else {
-               memcpy(hash_table->pair[index]->value, value, hash_table->value_size);
+               memcpy(hash_table->pair[index]->value, value,
+                         hash_table->value_size);
                return;
           } 
      } while (compare && pair->next);
@@ -102,9 +104,8 @@ DS_Void HashTable_Remove(
      HashTable        hash_table,
      const DS_Generic key
 ) {
-     DS_Size index =
-          hash_table->hash_callback(key, hash_table->bucket_count,
-                                    hash_table->hash_context);
+     DS_Size index = hash_table->hash_callback(key, hash_table->bucket_count,
+                         hash_table->hash_context);
      if (hash_table->pair[index]) {
           DS_Compare compare = DS_COMPARE_EQUAL;
           HashTablePair pair = hash_table->pair[index];
@@ -112,7 +113,7 @@ DS_Void HashTable_Remove(
           do {
                compare =
                     hash_table->compare_callback(key, pair->key,
-                                                 hash_table->compare_context);
+                              hash_table->compare_context);
                if (compare) {
                     ppair = pair;
                     pair = pair->next;
@@ -131,14 +132,14 @@ HashTablePair HashTable_Search(
 ) {
      DS_Size index =
           hash_table->hash_callback(key, hash_table->bucket_count,
-                                    hash_table->hash_context);
+                    hash_table->hash_context);
      if (hash_table->pair[index]) {
           DS_Compare compare = DS_COMPARE_EQUAL;
           HashTablePair pair = hash_table->pair[index];
           do {
                compare =
                     hash_table->compare_callback(key, pair->key,
-                                                 hash_table->compare_context);
+                              hash_table->compare_context);
                if (compare) {
                     pair = pair->next;
                } else {

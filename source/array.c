@@ -151,7 +151,7 @@ DS_Void Array_SortBubble(
                DS_Generic data1 = Array_GetData(array, j);
                DS_Generic data2 = Array_GetData(array, j + 1);
                if (compare_callback(data1, data2, compare_context) ==
-                              DS_COMPARE_GREATER) {
+                         DS_COMPARE_GREATER) {
                     Array_SwapData(array, data1, data2);
                }
           }
@@ -169,7 +169,7 @@ DS_Void Array_SortInsertion(
                DS_Generic data1 = Array_GetData(array, j - 1);
                DS_Generic data2 = Array_GetData(array, j);
                if (compare_callback(data1, data2, compare_context) ==
-                              DS_COMPARE_GREATER) {
+                         DS_COMPARE_GREATER) {
                     Array_SwapData(array, data1, data2);
                }
                j--;
@@ -188,7 +188,7 @@ DS_Void Array_SortSelection(
                DS_Generic data1 = Array_GetData(array, minimum);
                DS_Generic data2 = Array_GetData(array, j);
                if (compare_callback(data1, data2, compare_context) ==
-                              DS_COMPARE_GREATER) {
+                         DS_COMPARE_GREATER) {
                     Array_SwapData(array, data1, data2);
                }
           }
@@ -205,7 +205,7 @@ DS_Void Array_SortQuick(
                DS_Generic data1 = Array_GetData(array, i);
                DS_Generic data2 = Array_GetData(array, j);
                if (compare_callback(data1, data2, compare_context) ==
-                              DS_COMPARE_GREATER) {
+                         DS_COMPARE_GREATER) {
                     Array_SwapData(array, data1, data2);
                }
           }
@@ -221,8 +221,8 @@ DS_Void Array_SortMerge(
           for (DS_Size j = i + 1; j < array->size - i; j++) {
                DS_Generic data1 = Array_GetData(array, i);
                DS_Generic data2 = Array_GetData(array, j);
-               if (compare_callback(data1, data2, compare_context) ==
-                              DS_COMPARE_GREATER) {
+               if (compare_callback(data1, data2, compare_context) == 
+                         DS_COMPARE_GREATER) {
                     Array_SwapData(array, data1, data2);
                }
           }

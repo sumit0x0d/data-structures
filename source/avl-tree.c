@@ -160,7 +160,7 @@ DS_Void AvlTree_Remove(
      AvlTreeNode parent = avl_tree->root->parent;
      while (node) {
           DS_Compare compare =
-               avl_tree->compare_callback(data, node->data, avl_tree->compare_context);
+               avl_tree->compare_callback(data, node->data,avl_tree->compare_context);
           if (compare == 0) {
                break;
           }
