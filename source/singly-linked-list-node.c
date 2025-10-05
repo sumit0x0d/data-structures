@@ -3,9 +3,10 @@
 
 #include "singly-linked-list-node.h"
 
-SinglyLinkedListNode SinglyLinkedListNode_Create(const DS_Generic data,
-                                                 DS_Size data_size)
-{
+SinglyLinkedListNode SinglyLinkedListNode_Create(
+     const DS_Generic data,
+     DS_Size          data_size
+) {
      SinglyLinkedListNode node =
           (SinglyLinkedListNode)malloc(sizeof (struct SinglyLinkedListNode));
      if (!node) {
@@ -20,8 +21,9 @@ SinglyLinkedListNode SinglyLinkedListNode_Create(const DS_Generic data,
      return node;
 }
 
-DS_Void SinglyLinkedListNode_Destroy(SinglyLinkedListNode node)
-{
+DS_Void SinglyLinkedListNode_Destroy(
+     SinglyLinkedListNode node
+) {
      free(node->data);
      free(node);
 }

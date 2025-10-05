@@ -9,12 +9,13 @@
 struct SinglyLinkedList {
      SinglyLinkedListNode head;
      SinglyLinkedListNode tail;
-     DS_Size data_size;
-     DS_Size size;
+     DS_Size              data_size;
+     DS_Size              size;
 };
 
-SinglyLinkedList SinglyLinkedList_Create(DS_Size data_size)
-{
+SinglyLinkedList SinglyLinkedList_Create(
+     DS_Size data_size
+) {
      SinglyLinkedList singly_linked_list =
           (SinglyLinkedList)malloc(sizeof (struct SinglyLinkedList));
      if (!singly_linked_list) {
@@ -27,15 +28,17 @@ SinglyLinkedList SinglyLinkedList_Create(DS_Size data_size)
      return singly_linked_list;
 }
 
-DS_Void SinglyLinkedList_Destroy(SinglyLinkedList singly_linked_list)
-{
+DS_Void SinglyLinkedList_Destroy(
+     SinglyLinkedList singly_linked_list
+) {
      free(singly_linked_list->head);
      free(singly_linked_list);
 }
 
-DS_Void SinglyLinkedList_PushHead(SinglyLinkedList singly_linked_list,
-                                  const DS_Generic data)
-{
+DS_Void SinglyLinkedList_PushHead(
+     SinglyLinkedList singly_linked_list,
+     const DS_Generic data
+) {
      SinglyLinkedListNode node =
           SinglyLinkedListNode_Create(data, singly_linked_list->data_size);
      if (singly_linked_list->size) {
@@ -48,9 +51,10 @@ DS_Void SinglyLinkedList_PushHead(SinglyLinkedList singly_linked_list,
      singly_linked_list->size++;
 }
 
-DS_Void SinglyLinkedList_PushTail(SinglyLinkedList singly_linked_list,
-                                  const DS_Generic data)
-{
+DS_Void SinglyLinkedList_PushTail(
+     SinglyLinkedList singly_linked_list,
+     const DS_Generic data
+) {
      SinglyLinkedListNode node =
           SinglyLinkedListNode_Create(data, singly_linked_list->data_size);
      node->next = NULL;
@@ -63,8 +67,9 @@ DS_Void SinglyLinkedList_PushTail(SinglyLinkedList singly_linked_list,
      singly_linked_list->size++;
 }
 
-DS_Void SinglyLinkedList_PopHead(SinglyLinkedList singly_linked_list)
-{
+DS_Void SinglyLinkedList_PopHead(
+     SinglyLinkedList singly_linked_list
+) {
      SinglyLinkedListNode node = singly_linked_list->head;
      singly_linked_list->head = singly_linked_list->head->next;
      if (!singly_linked_list->head) {
@@ -74,8 +79,9 @@ DS_Void SinglyLinkedList_PopHead(SinglyLinkedList singly_linked_list)
      singly_linked_list->size--;
 }
 
-DS_Void SinglyLinkedList_PopTail(SinglyLinkedList singly_linked_list)
-{
+DS_Void SinglyLinkedList_PopTail(
+     SinglyLinkedList singly_linked_list
+) {
      if (singly_linked_list->head == singly_linked_list->tail) {
           free(singly_linked_list->head);
           singly_linked_list->head = NULL;
@@ -92,10 +98,11 @@ DS_Void SinglyLinkedList_PopTail(SinglyLinkedList singly_linked_list)
      singly_linked_list->size--;
 }
 
-DS_Void SinglyLinkedList_Traverse(SinglyLinkedList singly_linked_list,
-                                  DS_CallbackUnary unary_callback,
-                                  DS_Generic unary_context)
-{
+DS_Void SinglyLinkedList_Traverse(
+     SinglyLinkedList singly_linked_list,
+     DS_CallbackUnary unary_callback,
+     DS_Generic       unary_context
+) {
      SinglyLinkedListNode node = singly_linked_list->head;
      while (node) {
           unary_callback(node->data, unary_context);
@@ -103,20 +110,23 @@ DS_Void SinglyLinkedList_Traverse(SinglyLinkedList singly_linked_list,
      }
 }
 
-DS_Generic SinglyLinkedListNode_GetData(SinglyLinkedListNode node)
-{
+DS_Generic SinglyLinkedListNode_GetData(
+     SinglyLinkedListNode node
+) {
      return node->data;
 }
 
-DS_Void SinglyLinkedList_SetData(SinglyLinkedList singly_linked_list,
-                                 SinglyLinkedListNode node,
-                                 const DS_Generic data)
-{
+DS_Void SinglyLinkedList_SetData(
+     SinglyLinkedList     singly_linked_list,
+     SinglyLinkedListNode node,
+     const DS_Generic     data
+) {
      memcpy(node->data, data, singly_linked_list->data_size);
 }
 
-SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList singly_linked_list)
-{
+SinglyLinkedListNode SinglyLinkedList_DetectCycle(
+     SinglyLinkedList singly_linked_list
+) {
      SinglyLinkedListNode nTortoise = singly_linked_list->head;
      SinglyLinkedListNode nHare = singly_linked_list->head;
      while (nHare && nHare->next) {
@@ -129,8 +139,9 @@ SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList singly_linked
      return NULL;
 }
 
-SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(SinglyLinkedList singly_linked_list)
-{
+SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(
+     SinglyLinkedList singly_linked_list
+) {
      SinglyLinkedListNode tortoise = singly_linked_list->head;
      SinglyLinkedListNode hare = singly_linked_list->head;
      while (hare && hare->next) {
@@ -140,9 +151,10 @@ SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(SinglyLinkedList singly_link
      return tortoise;
 }
 
-SinglyLinkedList SinglyLinkedList_MergeSorted(SinglyLinkedList singly_linked_list1,
-                                              SinglyLinkedList singly_linked_list2)
-{
+SinglyLinkedList SinglyLinkedList_MergeSorted(
+     SinglyLinkedList singly_linked_list1,
+     SinglyLinkedList singly_linked_list2
+) {
      SinglyLinkedList singly_linked_list =
           SinglyLinkedList_Create(singly_linked_list1->data_size);
      if (singly_linked_list1->head->data <= singly_linked_list2->head->data) {

@@ -7,22 +7,25 @@
 #include "hash-table-pair.h"
 
 struct HashTable {
-     HashTablePair *pair;
-     DS_Size key_size;
-     DS_Size value_size;
-     DS_Size bucket_count;
-     DS_CallbackHash hash_callback;
-     DS_Generic hash_context;
+     HashTablePair      *pair;
+     DS_Size            key_size;
+     DS_Size            value_size;
+     DS_Size            bucket_count;
+     DS_CallbackHash    hash_callback;
+     DS_Generic         hash_context;
      DS_CallbackCompare compare_callback;
-     DS_Generic compare_context;
+     DS_Generic         compare_context;
 };
 
-HashTable HashTable_Create(DS_Size key_size, DS_Size value_size, DS_Size bucket_count,
-                           DS_CallbackHash hash_callback,
-                           DS_Generic hash_context,
-                           DS_CallbackCompare compare_callback,
-                           DS_Generic compare_context)
-{
+HashTable HashTable_Create(
+     DS_Size            key_size,
+     DS_Size            value_size,
+     DS_Size            bucket_count,
+     DS_CallbackHash    hash_callback,
+     DS_Generic         hash_context,
+     DS_CallbackCompare compare_callback,
+     DS_Generic         compare_context
+) {
      HashTable hash_table = (HashTable)malloc(sizeof (struct HashTable));
      if (!hash_table) {
           return NULL;
@@ -43,8 +46,9 @@ HashTable HashTable_Create(DS_Size key_size, DS_Size value_size, DS_Size bucket_
      return hash_table;
 }
 
-DS_Void HashTable_Destroy(HashTable hash_table)
-{
+DS_Void HashTable_Destroy(
+     HashTable hash_table
+) {
      for (DS_Size i = 0; i < hash_table->bucket_count; i++) {
           if (hash_table->pair[i]) {
                HashTablePair_Destroy(hash_table->pair[i]);
@@ -53,19 +57,23 @@ DS_Void HashTable_Destroy(HashTable hash_table)
      free(hash_table);
 }
 
-DS_Generic HashTable_GetKey(HashTablePair pair)
-{
+DS_Generic HashTable_GetKey(
+     HashTablePair pair
+) {
      return pair->key;
 }
 
-DS_Generic HashTable_GetValue(HashTablePair pair)
-{
+DS_Generic HashTable_GetValue(
+     HashTablePair pair
+) {
      return pair->value;
 }
 
-DS_Void HashTable_Insert(HashTable hash_table, const DS_Generic key,
-                         const DS_Generic value)
-{
+DS_Void HashTable_Insert(
+     HashTable        hash_table,
+     const DS_Generic key,
+     const DS_Generic value
+) {
      DS_Size index = hash_table->hash_callback(key, hash_table->bucket_count,
                                                hash_table->hash_context);
      if (!hash_table->pair[index]) {
@@ -90,8 +98,10 @@ DS_Void HashTable_Insert(HashTable hash_table, const DS_Generic key,
           HashTablePair_Create(key, hash_table->key_size, value, hash_table->value_size);
 }
 
-DS_Void HashTable_Remove(HashTable hash_table, const DS_Generic key)
-{
+DS_Void HashTable_Remove(
+     HashTable        hash_table,
+     const DS_Generic key
+) {
      DS_Size index =
           hash_table->hash_callback(key, hash_table->bucket_count,
                                     hash_table->hash_context);
@@ -115,8 +125,10 @@ DS_Void HashTable_Remove(HashTable hash_table, const DS_Generic key)
      };
 }
 
-HashTablePair HashTable_Search(HashTable hash_table, const DS_Generic key)
-{
+HashTablePair HashTable_Search(
+     HashTable        hash_table,
+     const DS_Generic key
+) {
      DS_Size index =
           hash_table->hash_callback(key, hash_table->bucket_count,
                                     hash_table->hash_context);

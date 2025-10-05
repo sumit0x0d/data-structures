@@ -15,8 +15,9 @@ struct Rope {
      DS_Size size;
 };
 
-Rope Rope_Create(DS_Size size)
-{
+Rope Rope_Create(
+     DS_Size size
+) {
      Rope rope = (Rope)malloc(sizeof(struct Rope));
      assert(rope);
      rope->data_size = size;
@@ -24,7 +25,8 @@ Rope Rope_Create(DS_Size size)
      return rope;
 }
 
-DS_Void Rope_Destroy(Rope *rope)
-{
+DS_Void Rope_Destroy(
+     Rope rope
+) {
      free(rope);
 }

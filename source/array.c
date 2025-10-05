@@ -5,8 +5,8 @@
 
 struct Array {
      DS_Generic base;
-     DS_Size data_size;
-     DS_Size size;
+     DS_Size    data_size;
+     DS_Size    size;
      DS_Generic swap_buffer;
 };
 

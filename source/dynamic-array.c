@@ -6,14 +6,16 @@
 #include <dynamic-array.h>
 
 struct DynamicArray {
-     Array array;
-     DS_Size size;
+     Array      array;
+     DS_Size    size;
      DS_Float64 growth_factor;
 };
 
-DynamicArray DynamicArray_Create(DS_Size data_size, DS_Size size,
-                                 DS_Float64 growth_factor)
-{
+DynamicArray DynamicArray_Create(
+     DS_Size    data_size,
+     DS_Size    size,
+     DS_Float64 growth_factor
+) {
      if (growth_factor > 1) {
           return NULL;
      }
@@ -30,29 +32,36 @@ DynamicArray DynamicArray_Create(DS_Size data_size, DS_Size size,
      return dynamic_array;
 }
 
-DS_Void DynamicArray_Destroy(DynamicArray dynamic_array)
-{
+DS_Void DynamicArray_Destroy(
+     DynamicArray dynamic_array
+) {
      Array_Destroy(dynamic_array->array);
      free(dynamic_array);
 }
 
-DS_Size DynamicArray_GetSize(DynamicArray dynamic_array)
-{
+DS_Size DynamicArray_GetSize(
+     DynamicArray dynamic_array
+) {
      return dynamic_array->size;
 }
 
-DS_Generic DynamicArray_GetData(DynamicArray dynamic_array, DS_Size index)
-{
+DS_Generic DynamicArray_GetData(
+     DynamicArray dynamic_array,
+     DS_Size      index
+) {
 	return Array_GetData(dynamic_array->array, index);
 }
 
-DS_Generic DynamicArray_GetBackData(DynamicArray dynamic_array)
-{
+DS_Generic DynamicArray_GetBackData(
+     DynamicArray dynamic_array
+) {
      return Array_GetData(dynamic_array->array, dynamic_array->size);
 }
 
-DS_Void DynamicArray_PushBack(DynamicArray dynamic_array, const DS_Generic data)
-{
+DS_Void DynamicArray_PushBack(
+     DynamicArray     dynamic_array,
+     const DS_Generic data
+) {
      DS_Size size = Array_GetSize(dynamic_array->array);
      if (dynamic_array->size == size) {
           Array_SetSize(dynamic_array->array, size * dynamic_array->growth_factor);
@@ -60,8 +69,9 @@ DS_Void DynamicArray_PushBack(DynamicArray dynamic_array, const DS_Generic data)
      Array_SetData(dynamic_array->array, dynamic_array->size, data);
 }
 
-DS_Void DynamicArray_PopBack(DynamicArray dynamic_array)
-{
+DS_Void DynamicArray_PopBack(
+     DynamicArray dynamic_array
+) {
      DS_Size size = Array_GetSize(dynamic_array->array);
      if (dynamic_array->size == size / dynamic_array->growth_factor) {
           Array_SetSize(dynamic_array->array, size / dynamic_array->growth_factor);
@@ -69,10 +79,11 @@ DS_Void DynamicArray_PopBack(DynamicArray dynamic_array)
      dynamic_array->size--;
 }
 
-DS_Void DynamicArray_Traverse(DynamicArray dynamic_array,
-                              DS_CallbackUnary unary_callback,
-                              DS_Generic unary_context)
-{
+DS_Void DynamicArray_Traverse(
+     DynamicArray     dynamic_array,
+     DS_CallbackUnary unary_callback,
+     DS_Generic       unary_context
+) {
      for (DS_Size i = 0; i < Array_GetSize(dynamic_array->array); i++) {
           unary_callback(DynamicArray_GetData(dynamic_array, i), unary_context);
      }

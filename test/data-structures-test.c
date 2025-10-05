@@ -8,14 +8,20 @@
 
 #define SIZE 300
 
+static int _CallbackCompareInt(
+     const DS_Generic data1,
+     const DS_Generic data2,
+     DS_Generic       compare_context
+);
 
-static int _CallbackCompareInt(const DS_Generic data1, const DS_Generic data2,
-                               DS_Generic compare_context);
-// static DS_Size _CallbackHashInt(const DS_Generic data, DS_Size aSize, DS_Generic context);
-static DS_Void _CallbackUnaryPrint(DS_Generic data, DS_Generic context);
+static DS_Void _CallbackUnaryPrint(
+     DS_Generic data,
+     DS_Generic context
+);
 
-int main()
-{
+int main(
+     DS_Void
+) {
      srand((int)time(NULL));
      Array array = Array_Create(sizeof(int), SIZE);
      if (array == NULL) {
@@ -41,9 +47,11 @@ int main()
      return 0;
 }
 
-static int _CallbackCompareInt(const DS_Generic data1, const DS_Generic data2,
-               DS_Generic compare_context)
-{
+static DS_Compare _CallbackCompareInt(
+     const DS_Generic data1,
+     const DS_Generic data2,
+     DS_Generic       compare_context
+) {
      (DS_Void)compare_context;
      if (*(int *)data1 < *(int *)data2) {
           return -1;
@@ -60,8 +68,10 @@ static int _CallbackCompareInt(const DS_Generic data1, const DS_Generic data2,
 //     return (*(int *)data) % aSize;
 // }
 
-static DS_Void _CallbackUnaryPrint(DS_Generic data, DS_Generic uanry_context)
-{
+static DS_Void _CallbackUnaryPrint(
+     DS_Generic data,
+     DS_Generic uanry_context
+) {
      (DS_Void)uanry_context;
      printf("%d ", *(int *)data);
 }

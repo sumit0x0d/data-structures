@@ -3,8 +3,10 @@
 
 #include "xor-linked-list-node.h"
 
-XorLinkedListNode XorLinkedListNode_Create(const DS_Generic data, DS_Size data_size)
-{
+XorLinkedListNode XorLinkedListNode_Create(
+     const DS_Generic data,
+     DS_Size          data_size
+) {
      XorLinkedListNode node =
           (XorLinkedListNode)malloc(sizeof (struct XorLinkedListNode));
      if (!node) {
@@ -19,8 +21,9 @@ XorLinkedListNode XorLinkedListNode_Create(const DS_Generic data, DS_Size data_s
      return node;
 }
 
-DS_Void XorLinkedListNode_Destroy(XorLinkedListNode node)
-{
+DS_Void XorLinkedListNode_Destroy(
+     XorLinkedListNode node
+) {
      free(node->data);
      free(node);
 }

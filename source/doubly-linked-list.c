@@ -9,12 +9,13 @@
 struct DoublyLinkedList {
      DoublyLinkedListNode head;
      DoublyLinkedListNode tail;
-     DS_Size data_size;
-     DS_Size size;
+     DS_Size              data_size;
+     DS_Size              size;
 };
 
-DoublyLinkedList DoublyLinkedList_Create(DS_Size data_size)
-{
+DoublyLinkedList DoublyLinkedList_Create(
+     DS_Size data_size
+) {
      DoublyLinkedList doubly_linked_list =
           (DoublyLinkedList)malloc(sizeof (struct DoublyLinkedList));
      if (!doubly_linked_list) {
@@ -27,8 +28,9 @@ DoublyLinkedList DoublyLinkedList_Create(DS_Size data_size)
      return doubly_linked_list;
 }
 
-DS_Void DoublyLinkedList_Destroy(DoublyLinkedList doubly_linked_list)
-{
+DS_Void DoublyLinkedList_Destroy(
+     DoublyLinkedList doubly_linked_list
+) {
      DoublyLinkedListNode node = doubly_linked_list->head;
      while (node) {
           DoublyLinkedListNode next = node->next;
@@ -38,40 +40,48 @@ DS_Void DoublyLinkedList_Destroy(DoublyLinkedList doubly_linked_list)
      free(doubly_linked_list);
 }
 
-DS_Size DoublyLinkedList_GetSize(DoublyLinkedList doubly_linked_list)
-{
+DS_Size DoublyLinkedList_GetSize(
+     DoublyLinkedList doubly_linked_list
+) {
      return doubly_linked_list->size;
 }
 
-DS_Size DoublyLinkedList_GetDataSize(DoublyLinkedList doubly_linked_list)
-{
+DS_Size DoublyLinkedList_GetDataSize(
+     DoublyLinkedList doubly_linked_list
+) {
      return doubly_linked_list->data_size;
 }
 
-DoublyLinkedListNode DoublyLinkedList_GetHead(DoublyLinkedList doubly_linked_list)
-{
+DoublyLinkedListNode DoublyLinkedList_GetHead(
+     DoublyLinkedList doubly_linked_list
+) {
      return doubly_linked_list->head;
 }
 
-DoublyLinkedListNode DoublyLinkedList_GetTail(DoublyLinkedList doubly_linked_list)
-{
+DoublyLinkedListNode DoublyLinkedList_GetTail(
+     DoublyLinkedList doubly_linked_list
+) {
      return doubly_linked_list->tail;
 }
 
-DS_Generic DoublyLinkedList_GetNodeData(DoublyLinkedListNode node)
-{
+DS_Generic DoublyLinkedList_GetNodeData(
+     DoublyLinkedListNode node
+) {
      return node->data;
 }
 
-DS_Void DoublyLinkedList_SetNodeData(DoublyLinkedList doubly_linked_list,
-                                     DoublyLinkedListNode node, const DS_Generic data)
-{
+DS_Void DoublyLinkedList_SetNodeData(
+     DoublyLinkedList     doubly_linked_list,
+     DoublyLinkedListNode node,
+     const DS_Generic     data
+) {
      memcpy(node->data, data, doubly_linked_list->data_size);
 }
 
-DS_Void DoublyLinkedList_PushHead(DoublyLinkedList doubly_linked_list,
-                                  const DS_Generic data)
-{
+DS_Void DoublyLinkedList_PushHead(
+     DoublyLinkedList doubly_linked_list,
+     const DS_Generic data
+) {
      DoublyLinkedListNode node =
           DoublyLinkedListNode_Create(data, doubly_linked_list->data_size);
      node->previous = NULL;
@@ -86,9 +96,10 @@ DS_Void DoublyLinkedList_PushHead(DoublyLinkedList doubly_linked_list,
      doubly_linked_list->size++;
 }
 
-DS_Void DoublyLinkedList_PushTail(DoublyLinkedList doubly_linked_list,
-                                  const DS_Generic data)
-{
+DS_Void DoublyLinkedList_PushTail(
+     DoublyLinkedList doubly_linked_list,
+     const DS_Generic data
+) {
      DoublyLinkedListNode node = 
           DoublyLinkedListNode_Create(data, doubly_linked_list->data_size);
      node->next = NULL;
@@ -103,8 +114,9 @@ DS_Void DoublyLinkedList_PushTail(DoublyLinkedList doubly_linked_list,
      doubly_linked_list->size++;
 }
 
-DS_Void DoublyLinkedList_PopHead(DoublyLinkedList doubly_linked_list)
-{
+DS_Void DoublyLinkedList_PopHead(
+     DoublyLinkedList doubly_linked_list
+) {
      DoublyLinkedListNode node = doubly_linked_list->head;
      doubly_linked_list->head = doubly_linked_list->head->next;
      if (!doubly_linked_list->head) {
@@ -114,8 +126,9 @@ DS_Void DoublyLinkedList_PopHead(DoublyLinkedList doubly_linked_list)
      doubly_linked_list->size--;
 }
 
-DS_Void DoublyLinkedList_PopTail(DoublyLinkedList doubly_linked_list)
-{
+DS_Void DoublyLinkedList_PopTail(
+     DoublyLinkedList doubly_linked_list
+) {
      DoublyLinkedListNode node = doubly_linked_list->tail;
      doubly_linked_list->tail = doubly_linked_list->tail->previous;
      if (doubly_linked_list->tail) {
@@ -125,9 +138,10 @@ DS_Void DoublyLinkedList_PopTail(DoublyLinkedList doubly_linked_list)
      doubly_linked_list->size--;
 }
 
-DS_Void DoublyLinkedList_Remove(DoublyLinkedList doubly_linked_list,
-                                DoublyLinkedListNode node)
-{
+DS_Void DoublyLinkedList_Remove(
+     DoublyLinkedList     doubly_linked_list,
+     DoublyLinkedListNode node
+) {
      if (node->previous && node->previous->next == (DoublyLinkedListNode)node) {
           node->previous->next = node->next;
      } else {
@@ -142,10 +156,11 @@ DS_Void DoublyLinkedList_Remove(DoublyLinkedList doubly_linked_list,
      doubly_linked_list->size--;
 }
 
-DS_Void DoublyLinkedList_Traverse(DoublyLinkedList doubly_linked_list,
-                                  DS_CallbackUnary unary_callback,
-                                  DS_Generic unary_context)
-{
+DS_Void DoublyLinkedList_Traverse(
+     DoublyLinkedList doubly_linked_list,
+     DS_CallbackUnary unary_callback,
+     DS_Generic       unary_context
+) {
      DoublyLinkedListNode node = doubly_linked_list->head;
      while (node) {
           unary_callback(node->data, unary_context);

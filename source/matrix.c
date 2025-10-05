@@ -11,50 +11,64 @@ struct Matrix {
      DS_Size column_count;
 };
 
-Matrix Matrix_Create(DS_Size data_size, DS_Size nRow, DS_Size nColumn)
-{
+Matrix Matrix_Create(
+     DS_Size data_size,
+     DS_Size row_count,
+     DS_Size column_count
+) {
      Matrix matrix = (Matrix)malloc(sizeof (struct Matrix));
      if (!matrix) {
           return NULL;
      }
-     matrix->array = Array_Create(data_size, nRow * nColumn);
+     matrix->array = Array_Create(data_size, row_count * column_count);
      if (!matrix->array) {
           free(matrix);
           return NULL;
      }
-     matrix->row_count = nRow;
-     matrix->column_count = nColumn;
+     matrix->row_count = row_count;
+     matrix->column_count = column_count;
      return matrix;
 }
 
-DS_Void Matrix_Destroy(Matrix matrix)
-{
+DS_Void Matrix_Destroy(
+     Matrix matrix
+) {
      Array_Destroy(matrix->array);
      free(matrix);
 }
 
-DS_Generic Matrix_GetData(const Matrix matrix, DS_Size row, DS_Size column)
-{
+DS_Generic Matrix_GetData(
+     const Matrix matrix,
+     DS_Size      row,
+     DS_Size      column
+) {
      return Array_GetData(matrix->array, (row * matrix->column_count) + column);
 }
 
-DS_Size Matrix_GetRowCount(const Matrix matrix)
-{
+DS_Size Matrix_GetRowCount(
+     const Matrix matrix
+) {
      return matrix->row_count;
 }
 
-DS_Size Matrix_GetColumnCount(const Matrix matrix)
-{
+DS_Size Matrix_GetColumnCount(
+     const Matrix matrix
+) {
      return matrix->column_count;
 }
 
-DS_Void Matrix_SetData(Matrix matrix, DS_Size row, DS_Size column, const DS_Generic data)
-{
+DS_Void Matrix_SetData(
+     Matrix           matrix,
+     DS_Size          row,
+     DS_Size          column,
+     const DS_Generic data
+) {
      Array_SetData(matrix->array, (row * matrix->column_count) + column, data);
 }
 
-Matrix Matrix_Transposition(Matrix matrix)
-{
+Matrix Matrix_Transposition(
+     Matrix matrix
+) {
      Matrix transpose =
           Matrix_Create(Array_GetDataSize(matrix->array),
                         matrix->column_count, matrix->row_count);
@@ -70,11 +84,11 @@ Matrix Matrix_Transposition(Matrix matrix)
 }
 
 Matrix Matrix_Multiplication(
-     Matrix matrix1,
-     Matrix matrix2,
+     Matrix            matrix1,
+     Matrix            matrix2,
      DS_CallbackBinary binary_callback,
-     DS_Generic binary_context)
-{
+     DS_Generic        binary_context
+) {
      if (matrix1->column_count != matrix2->row_count) {
           return NULL;
      }
@@ -95,11 +109,11 @@ Matrix Matrix_Multiplication(
 }
 
 Matrix Matrix_Operation(
-     Matrix matrix1,
-     Matrix matrix2,
+     Matrix            matrix1,
+     Matrix            matrix2,
      DS_CallbackBinary binary_callback,
-     DS_Generic binary_context)
-{
+     DS_Generic        binary_context
+) {
      if (matrix1->row_count != matrix2->row_count ||
          matrix1->column_count == matrix2->column_count) {
           return NULL;   
@@ -121,8 +135,9 @@ Matrix Matrix_Operation(
      return matrix;
 }
 
-Matrix Matrix_ColumnVectorization(Matrix matrix)
-{
+Matrix Matrix_ColumnVectorization(
+     Matrix matrix
+) {
      Matrix vectorize =
           Matrix_Create(Array_GetDataSize(matrix->array),
                         matrix->row_count * matrix->column_count, 1);
@@ -138,12 +153,14 @@ Matrix Matrix_ColumnVectorization(Matrix matrix)
      return vectorize;
 }
 
-DS_Void Matrix_Traverse(Matrix matrix, DS_CallbackUnary unary_callback,
-                        DS_Generic context)
-{
+DS_Void Matrix_Traverse(
+     Matrix           matrix,
+     DS_CallbackUnary unary_callback,
+     DS_Generic       unary_context
+) {
      for (DS_Size i = 0; i < matrix->row_count; i++) {
           for (DS_Size j = 0; j < matrix->column_count; j++) {
-               unary_callback(Matrix_GetData(matrix, i, j), context);
+               unary_callback(Matrix_GetData(matrix, i, j), unary_context);
           }
      }
 }

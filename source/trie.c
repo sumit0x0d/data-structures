@@ -5,34 +5,37 @@
 #include <trie.h>
 
 struct TrieNode {
-     int terminal;
+     int      terminal;
      TrieNode *children[128];
 };
 
-struct trie {
-     Node *root;
-     DS_Size size;
+struct Trie {
+     TrieNode *root;
+     DS_Size  size;
 };
 
-static Node *_TrieNode_Create();
+static TrieNode *_TrieNode_Create();
 // static DS_Void _TrieNode_Destroy();
 
-Trie *node_create()
-{
+Trie *node_create(
+     DS_Void
+) {
      return NULL;
 }
 
-Trie *Trie_Create()
-{
-     Trie *trie = (Trie *)malloc(sizeof (Trie));
+Trie *Trie_Create(
+     DS_Void
+) {
+     Trie trie = (Trie *)malloc(sizeof (struct Trie));
      assert(trie);
      trie->root = NULL;
      trie->size = 0;
      return trie;
 }
 
-DS_Void Trie_Destroy(Trie *trie)
-{
+DS_Void Trie_Destroy(
+     Trie *trie
+) {
      free(trie);
 }
 
@@ -42,8 +45,10 @@ DS_Void Trie_Destroy(Trie *trie)
 //     return node;
 // }
 
-bool Trie_Insert(Trie *trie, char* string)
-{
+bool Trie_Insert(
+     Trie *trie,
+     char* string
+) {
      if (!trie->root) {
           trie->root = _TrieNode_Create();
           if (!trie->root) {
