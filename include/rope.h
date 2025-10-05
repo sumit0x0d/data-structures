@@ -7,9 +7,13 @@ typedef struct Rope * Rope;
 typedef struct RopeNode * RopeNode;
 
 DATA_STRUCTURES_API
-Rope Rope_Create(DS_Size data_size);
+Rope Rope_Create(
+     DS_Size data_size
+);
 
 DATA_STRUCTURES_API
-DS_Void Rope_Destroy(Rope rope);
+DS_Void Rope_Destroy(
+     Rope rope
+);
 
 #endif

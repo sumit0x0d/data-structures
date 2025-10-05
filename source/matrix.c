@@ -69,9 +69,11 @@ Matrix Matrix_Transposition(Matrix matrix)
      return transpose;
 }
 
-Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2,
-                             DS_CallbackBinary binary_callback,
-                             DS_Generic binary_context)
+Matrix Matrix_Multiplication(
+     Matrix matrix1,
+     Matrix matrix2,
+     DS_CallbackBinary binary_callback,
+     DS_Generic binary_context)
 {
      if (matrix1->column_count != matrix2->row_count) {
           return NULL;
@@ -92,11 +94,14 @@ Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2,
      return matrix;
 }
 
-Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2,
-                        DS_CallbackBinary binary_callback, DS_Generic binary_context)
+Matrix Matrix_Operation(
+     Matrix matrix1,
+     Matrix matrix2,
+     DS_CallbackBinary binary_callback,
+     DS_Generic binary_context)
 {
      if (matrix1->row_count != matrix2->row_count ||
-          matrix1->column_count == matrix2->column_count) {
+         matrix1->column_count == matrix2->column_count) {
           return NULL;   
      }
      Matrix matrix =

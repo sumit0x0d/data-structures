@@ -1,7 +1,8 @@
 #ifndef DATA_STRUCTURES_H
 #define DATA_STRUCTURES_H
 
-#define DATA_STRUCTURES_API  __attribute__((visibility("default")))
+#define DATA_STRUCTURES_API \
+     __attribute__((visibility("default")))
 
 typedef void DS_Void;
 
@@ -27,21 +28,36 @@ typedef const DS_UInt8 * DS_String;
 typedef void * DS_Generic;
 
 typedef DS_UInt64 DS_Size;
-#define DS_OFFSET(type, member) ((DS_Size) & (((type)0)->member))
+#define DS_OFFSET(type, member) \
+     ((DS_Size) & (((type)0)->member))
 
 typedef enum {
-    DS_COMPARE_LESS    = -1,
-    DS_COMPARE_EQUAL    = 0,
-    DS_COMPARE_GREATER = 1
+     DS_COMPARE_LESS    = -1,
+     DS_COMPARE_EQUAL   = 0,
+     DS_COMPARE_GREATER = 1
 } DS_Compare;
 
-typedef void (*DS_CallbackUnary)(DS_Generic data, DS_Generic unary_context);
-typedef void (*DS_CallbackBinary)(DS_Generic data1, DS_Generic data2,
-                                  DS_Generic binary_context);
+typedef void (*DS_CallbackUnary)(
+     DS_Generic data,
+     DS_Generic unary_context
+);
 
-typedef DS_Compare (*DS_CallbackCompare)(const DS_Generic data1, const DS_Generic data2,
-                                         DS_Generic compare_context);
-typedef DS_Size (*DS_CallbackHash)(const DS_Generic data, DS_Size size,
-                                   DS_Generic hash_context);
+typedef void (*DS_CallbackBinary)(
+     DS_Generic data1,
+     DS_Generic data2,
+     DS_Generic binary_context
+);
+
+typedef DS_Compare (*DS_CallbackCompare)(
+     const DS_Generic data1,
+     const DS_Generic data2,
+     DS_Generic compare_context
+);
+
+typedef DS_Size (*DS_CallbackHash)(
+     const DS_Generic data,
+     DS_Size size,
+     DS_Generic hash_context
+);
 
 #endif
