@@ -71,7 +71,7 @@ Matrix Matrix_Transposition(
 ) {
      Matrix transpose =
           Matrix_Create(Array_GetDataSize(matrix->array),
-                        matrix->column_count, matrix->row_count);
+                    matrix->column_count, matrix->row_count);
      if (!transpose) {
           return NULL;
      }
@@ -94,7 +94,7 @@ Matrix Matrix_Multiplication(
      }
      Matrix matrix =
           Matrix_Create(Array_GetDataSize(matrix1->array), matrix1->row_count,
-                        matrix2->column_count);
+                     matrix2->column_count);
      for (DS_Size i = 0; i < matrix->row_count; i++) {
           for (DS_Size j = 0; j < matrix->column_count; j++) {
                for (DS_Size k = 0; k < matrix1->column_count; k++) {

@@ -64,7 +64,7 @@ DS_Generic CircularBuffer_GetBackData(
      if (circular_buffer->back == 0) {
           data =
                Array_GetData(circular_buffer->array,
-                             Array_GetSize(circular_buffer->array) - 1);
+                         Array_GetSize(circular_buffer->array) - 1);
      } else {
           data = Array_GetData(circular_buffer->array, circular_buffer->back - 1);
      }

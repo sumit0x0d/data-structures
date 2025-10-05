@@ -52,8 +52,8 @@ DS_Size AvlTreeNode_GetHeight(
 
 DS_Void AvlTreeNode_UpdateBalanceFactor(
      AvlTreeNode    node,
-     CircularBuffer circular_buffer)
-{
+     CircularBuffer circular_buffer
+) {
      DS_Size left_height = 0;
      DS_Size right_height = 0;
      if (node->left) {
