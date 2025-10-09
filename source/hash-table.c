@@ -30,8 +30,8 @@ HashTable HashTable_Create(
      if (!hash_table) {
           return NULL;
      }
-     hash_table->pair =
-          (HashTablePair *)calloc(bucket_count, sizeof (struct HashTablePair));
+     hash_table->pair = (HashTablePair *)calloc(bucket_count,
+          sizeof (struct HashTablePair));
      if (!hash_table->pair) {
           free(hash_table);
           return NULL;
@@ -74,30 +74,27 @@ DS_Void HashTable_Insert(
      const DS_Generic key,
      const DS_Generic value
 ) {
-     DS_Size index =
-          hash_table->hash_callback(key, hash_table->bucket_count,
-                    hash_table->hash_context);
+     DS_Size index = hash_table->hash_callback(key, hash_table->bucket_count,
+          hash_table->hash_context);
      if (!hash_table->pair[index]) {
-          hash_table->pair[index] =
-               HashTablePair_Create(key, hash_table->key_size,
-                         value, hash_table->value_size);
+          hash_table->pair[index] = HashTablePair_Create(key, hash_table->key_size,
+               value, hash_table->value_size);
           return;
      }
      DS_Compare compare = DS_COMPARE_EQUAL;
      HashTablePair pair = hash_table->pair[index];
      do {
-          compare =
-               hash_table->compare_callback(key, pair->key, hash_table->compare_context);
+          compare = hash_table->compare_callback(key, pair->key,
+               hash_table->compare_context);
           if (compare) {
                pair = pair->next;
           } else {
-               memcpy(hash_table->pair[index]->value, value,
-                         hash_table->value_size);
+               memcpy(hash_table->pair[index]->value, value, hash_table->value_size);
                return;
           } 
      } while (compare && pair->next);
-     pair->next =
-          HashTablePair_Create(key, hash_table->key_size, value, hash_table->value_size);
+     pair->next = HashTablePair_Create(key, hash_table->key_size, value,
+          hash_table->value_size);
 }
 
 DS_Void HashTable_Remove(
@@ -105,20 +102,19 @@ DS_Void HashTable_Remove(
      const DS_Generic key
 ) {
      DS_Size index = hash_table->hash_callback(key, hash_table->bucket_count,
-                         hash_table->hash_context);
+          hash_table->hash_context);
      if (hash_table->pair[index]) {
           DS_Compare compare = DS_COMPARE_EQUAL;
           HashTablePair pair = hash_table->pair[index];
-          HashTablePair ppair = pair;
+          HashTablePair previous = pair;
           do {
-               compare =
-                    hash_table->compare_callback(key, pair->key,
-                              hash_table->compare_context);
+               compare = hash_table->compare_callback(key, pair->key, 
+                    hash_table->compare_context);
                if (compare) {
-                    ppair = pair;
+                    previous = pair;
                     pair = pair->next;
                } else {
-                    ppair->next = pair->next;
+                    previous->next = pair->next;
                     HashTablePair_Destroy(pair->next);
                     pair = NULL;
                }
@@ -130,16 +126,14 @@ HashTablePair HashTable_Search(
      HashTable        hash_table,
      const DS_Generic key
 ) {
-     DS_Size index =
-          hash_table->hash_callback(key, hash_table->bucket_count,
-                    hash_table->hash_context);
+     DS_Size index = hash_table->hash_callback(key, hash_table->bucket_count,
+          hash_table->hash_context);
      if (hash_table->pair[index]) {
           DS_Compare compare = DS_COMPARE_EQUAL;
           HashTablePair pair = hash_table->pair[index];
           do {
-               compare =
-                    hash_table->compare_callback(key, pair->key,
-                              hash_table->compare_context);
+               compare = hash_table->compare_callback(key, pair->key,
+                    hash_table->compare_context);
                if (compare) {
                     pair = pair->next;
                } else {

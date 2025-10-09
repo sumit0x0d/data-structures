@@ -113,8 +113,8 @@ DS_Void BinarySearchTree_remove(
      BinarySearchTreeNode node = tree->root;
      BinarySearchTreeNode pnode = tree->root->parent;
      while (node) {
-          DS_Compare compare =
-               tree->compare_callback(data, node->data, tree->compare_context);
+          DS_Compare compare = tree->compare_callback(data, node->data,
+               tree->compare_context);
           if (compare == 0) {
                break;
           }

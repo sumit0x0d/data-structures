@@ -17,7 +17,7 @@ DS_Void XorLinkedList_Destroy(
 );
 
 DATA_STRUCTURES_API
-DS_Generic XorLinkedListNode_GetData(
+DS_Generic XorLinkedList_GetNodeData(
      XorLinkedListNode node
 );
 

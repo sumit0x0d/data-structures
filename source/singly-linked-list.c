@@ -16,8 +16,8 @@ struct SinglyLinkedList {
 SinglyLinkedList SinglyLinkedList_Create(
      DS_Size data_size
 ) {
-     SinglyLinkedList singly_linked_list =
-          (SinglyLinkedList)malloc(sizeof (struct SinglyLinkedList));
+     SinglyLinkedList singly_linked_list = (SinglyLinkedList)malloc(
+          sizeof (struct SinglyLinkedList));
      if (!singly_linked_list) {
           return NULL;
      }
@@ -39,8 +39,8 @@ DS_Void SinglyLinkedList_PushHead(
      SinglyLinkedList singly_linked_list,
      const DS_Generic data
 ) {
-     SinglyLinkedListNode node =
-          SinglyLinkedListNode_Create(data, singly_linked_list->data_size);
+     SinglyLinkedListNode node = SinglyLinkedListNode_Create(data,
+          singly_linked_list->data_size);
      if (singly_linked_list->size) {
           node->next = singly_linked_list->head;
      } else {
@@ -55,8 +55,8 @@ DS_Void SinglyLinkedList_PushTail(
      SinglyLinkedList singly_linked_list,
      const DS_Generic data
 ) {
-     SinglyLinkedListNode node =
-          SinglyLinkedListNode_Create(data, singly_linked_list->data_size);
+     SinglyLinkedListNode node = SinglyLinkedListNode_Create(data,
+          singly_linked_list->data_size);
      node->next = NULL;
      if (singly_linked_list->size) {
           singly_linked_list->tail->next = node;
@@ -82,6 +82,9 @@ DS_Void SinglyLinkedList_PopHead(
 DS_Void SinglyLinkedList_PopTail(
      SinglyLinkedList singly_linked_list
 ) {
+     if (singly_linked_list->size == 0) {
+          return;
+     }
      if (singly_linked_list->head == singly_linked_list->tail) {
           free(singly_linked_list->head);
           singly_linked_list->head = NULL;
@@ -127,14 +130,14 @@ DS_Void SinglyLinkedList_SetData(
 SinglyLinkedListNode SinglyLinkedList_DetectCycle(
      SinglyLinkedList singly_linked_list
 ) {
-     SinglyLinkedListNode nTortoise = singly_linked_list->head;
-     SinglyLinkedListNode nHare = singly_linked_list->head;
-     while (nHare && nHare->next) {
-          if (nTortoise == nHare) {
-               return nTortoise;
+     SinglyLinkedListNode tortoise = singly_linked_list->head;
+     SinglyLinkedListNode hare = singly_linked_list->head;
+     while (hare && hare->next) {
+          if (tortoise == hare) {
+               return tortoise;
           }
-          nTortoise = nTortoise->next;
-          nHare = nHare->next->next;
+          tortoise = tortoise->next;
+          hare = hare->next->next;
      }
      return NULL;
 }
@@ -155,8 +158,8 @@ SinglyLinkedList SinglyLinkedList_MergeSorted(
      SinglyLinkedList singly_linked_list1,
      SinglyLinkedList singly_linked_list2
 ) {
-     SinglyLinkedList singly_linked_list =
-          SinglyLinkedList_Create(singly_linked_list1->data_size);
+     SinglyLinkedList singly_linked_list = SinglyLinkedList_Create(
+          singly_linked_list1->data_size);
      if (singly_linked_list1->head->data <= singly_linked_list2->head->data) {
           singly_linked_list->head = singly_linked_list1->head;
           singly_linked_list1->head = singly_linked_list1->head->next;

@@ -6,7 +6,7 @@
 #include <matrix.h>
 
 struct Matrix {
-     Array array;
+     Array   array;
      DS_Size row_count;
      DS_Size column_count;
 };
@@ -19,16 +19,16 @@ Matrix Matrix_Create(
      Matrix matrix = (Matrix)malloc(sizeof (struct Matrix));
      if (!matrix) {
           return NULL;
-     }
+     };
      matrix->array = Array_Create(data_size, row_count * column_count);
      if (!matrix->array) {
           free(matrix);
           return NULL;
-     }
+     };
      matrix->row_count = row_count;
      matrix->column_count = column_count;
      return matrix;
-}
+};
 
 DS_Void Matrix_Destroy(
      Matrix matrix
@@ -69,9 +69,8 @@ DS_Void Matrix_SetData(
 Matrix Matrix_Transposition(
      Matrix matrix
 ) {
-     Matrix transpose =
-          Matrix_Create(Array_GetDataSize(matrix->array),
-                    matrix->column_count, matrix->row_count);
+     Matrix transpose = Matrix_Create(Array_GetDataSize(matrix->array),
+          matrix->column_count, matrix->row_count);
      if (!transpose) {
           return NULL;
      }
@@ -92,15 +91,13 @@ Matrix Matrix_Multiplication(
      if (matrix1->column_count != matrix2->row_count) {
           return NULL;
      }
-     Matrix matrix =
-          Matrix_Create(Array_GetDataSize(matrix1->array), matrix1->row_count,
-                     matrix2->column_count);
+     Matrix matrix = Matrix_Create(Array_GetDataSize(matrix1->array), matrix1->row_count,
+          matrix2->column_count);
      for (DS_Size i = 0; i < matrix->row_count; i++) {
           for (DS_Size j = 0; j < matrix->column_count; j++) {
                for (DS_Size k = 0; k < matrix1->column_count; k++) {
                     binary_callback(Matrix_GetData(matrix, i, j),
-                                   Matrix_GetData(matrix1, i, k),
-                                   Matrix_GetData(matrix2, k, j));
+                         Matrix_GetData(matrix1, i, k), Matrix_GetData(matrix2, k, j));
                     (void)binary_context;
                }
           }
@@ -119,15 +116,14 @@ Matrix Matrix_Operation(
           return NULL;   
      }
      Matrix matrix = Matrix_Create(Array_GetDataSize(matrix1->array), matrix1->row_count,
-                    matrix1->column_count);
+          matrix1->column_count);
      if (!matrix) {
           return NULL;
      }
      for (DS_Size i = 0; i < matrix1->row_count; i++) {
           for (DS_Size j = 0; j < matrix2->column_count; j++) {
                binary_callback(Matrix_GetData(matrix, i, j),
-                              Matrix_GetData(matrix1, i, j),
-                              Matrix_GetData(matrix2, i, j));
+                    Matrix_GetData(matrix1, i, j), Matrix_GetData(matrix2, i, j));
                (void)binary_context;
           }
      }
@@ -138,14 +134,14 @@ Matrix Matrix_ColumnVectorization(
      Matrix matrix
 ) {
      Matrix vectorize = Matrix_Create(Array_GetDataSize(matrix->array),
-                    matrix->row_count * matrix->column_count, 1);
+               matrix->row_count * matrix->column_count, 1);
      if (!vectorize) {
           return NULL;
      }
      for (DS_Size i = 0; i < matrix->row_count; i++) {
           for (DS_Size j = 0; j < matrix->column_count; j++) {
                Matrix_SetData(vectorize, (i * matrix->column_count) + j, 0,
-                              Matrix_GetData(matrix, i, j));
+                    Matrix_GetData(matrix, i, j));
           }
      }
      return vectorize;

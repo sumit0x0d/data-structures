@@ -14,8 +14,8 @@ struct XorLinkedList {
 XorLinkedList XorLinkedList_Create(
      DS_Size size
 ) {
-     XorLinkedList xor_linked_list =
-          (XorLinkedList)malloc(sizeof (struct XorLinkedList));
+     XorLinkedList xor_linked_list = (XorLinkedList)malloc(
+          sizeof (struct XorLinkedList));
      if (!xor_linked_list) {
           return NULL;
      }

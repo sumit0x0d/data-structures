@@ -41,9 +41,8 @@ DS_Generic BloomFilter_Search(
      BloomFilter      bloom_filter,
      const DS_Generic data
 ) {
-     DS_Size index =
-          bloom_filter->hash_callback(data, Array_GetSize(bloom_filter->array),
-                    bloom_filter->hash_context);
+     DS_Size index = bloom_filter->hash_callback(data,
+          Array_GetSize(bloom_filter->array), bloom_filter->hash_context);
      return Array_GetData(bloom_filter->array, index);
 }
 
@@ -51,8 +50,7 @@ DS_Void BloomFilter_Insert(
      BloomFilter      bloom_filter,
      const DS_Generic data
 ) {
-     DS_Size index =
-          bloom_filter->hash_callback(data, Array_GetSize(bloom_filter->array),
-                    bloom_filter->hash_context);
+     DS_Size index = bloom_filter->hash_callback(data,
+          Array_GetSize(bloom_filter->array), bloom_filter->hash_context);
      Array_SetData(bloom_filter->array, index, data);
 }

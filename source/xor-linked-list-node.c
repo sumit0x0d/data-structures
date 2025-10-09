@@ -7,8 +7,8 @@ XorLinkedListNode XorLinkedListNode_Create(
      const DS_Generic data,
      DS_Size          data_size
 ) {
-     XorLinkedListNode node =
-          (XorLinkedListNode)malloc(sizeof (struct XorLinkedListNode));
+     XorLinkedListNode node = (XorLinkedListNode)malloc(
+          sizeof (struct XorLinkedListNode));
      if (!node) {
           return NULL;
      }  

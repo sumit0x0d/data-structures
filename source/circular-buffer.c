@@ -16,8 +16,8 @@ CircularBuffer CircularBuffer_Create(
      DS_Size data_size,
      DS_Size size
 ) {
-     CircularBuffer circular_buffer =
-          (CircularBuffer)malloc(sizeof (struct CircularBuffer));
+     CircularBuffer circular_buffer = (CircularBuffer)malloc(
+          sizeof (struct CircularBuffer));
      assert(circular_buffer);
      circular_buffer->array = Array_Create(data_size, size);
      assert(circular_buffer->array);
@@ -60,15 +60,13 @@ DS_Generic CircularBuffer_GetFrontData(
 DS_Generic CircularBuffer_GetBackData(
      CircularBuffer circular_buffer
 ) {
-     DS_Generic data = NULL;
      if (circular_buffer->back == 0) {
-          data =
-               Array_GetData(circular_buffer->array,
-                         Array_GetSize(circular_buffer->array) - 1);
+          return Array_GetData(circular_buffer->array,
+               Array_GetSize(circular_buffer->array) - 1);
      } else {
-          data = Array_GetData(circular_buffer->array, circular_buffer->back - 1);
+          return Array_GetData(circular_buffer->array, circular_buffer->back - 1);
      }
-     return data;
+     return NULL;
 }
 
 DS_Void CircularBuffer_PushBack(
@@ -77,14 +75,14 @@ DS_Void CircularBuffer_PushBack(
 ) {
      Array_SetData(circular_buffer->array, circular_buffer->back, data);
      circular_buffer->size++;
-     circular_buffer->back =
-          (circular_buffer->back + 1) % Array_GetSize(circular_buffer->array);
+     circular_buffer->back = (circular_buffer->back + 1) %
+          Array_GetSize(circular_buffer->array);
 }
 
 DS_Void CircularBuffer_PopFront(
      CircularBuffer circular_buffer
 ) {
-     circular_buffer->front =
-          (circular_buffer->front + 1) % Array_GetSize(circular_buffer->array);
+     circular_buffer->front = (circular_buffer->front + 1) %
+          Array_GetSize(circular_buffer->array);
      circular_buffer->size--;
 }

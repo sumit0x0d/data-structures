@@ -8,19 +8,18 @@
 
 #define SIZE 300
 
-static int _CallbackCompareInt(
+static DS_Compare _CallbackCompareInt(
      const DS_Generic data1,
      const DS_Generic data2,
      DS_Generic       compare_context
 );
-
 static DS_Void _CallbackUnaryPrint(
      DS_Generic data,
-     DS_Generic context
+     DS_Generic unary_context
 );
 
 int main(
-     DS_Void
+     void
 ) {
      srand((int)time(NULL));
      Array array = Array_Create(sizeof(int), SIZE);
