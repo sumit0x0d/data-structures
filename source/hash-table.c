@@ -103,7 +103,7 @@ DS_Void HashTable_Insert(
           if (compare) {
                pair = pair->next;
           } else {
-               memcpy(hash_table->pair[index]->value, value, hash_table->value_size);
+               memcpy(pair->value, value, hash_table->value_size);
                return;
           } 
      } while (compare && pair->next);
@@ -134,13 +134,17 @@ DS_Void HashTable_Remove(
      do {
           compare = hash_table->compare_callback(key,
                pair->key, hash_table->compare_context);
-          if (compare) {
-               previous = pair;
-               pair = pair->next;
-          } else {
+          switch (compare) {
+          case DS_COMPARE_EQUAL:
                previous->next = pair->next;
                HashTablePair_Destroy(pair->next);
                pair = NULL;
+               break;
+          case DS_COMPARE_LESS:
+          case DS_COMPARE_GREATER:
+               previous = pair;
+               pair = pair->next;
+               break;
           }
      } while (compare && pair->next);
 }
@@ -155,22 +159,25 @@ HashTablePair HashTable_Search(
      
      index = hash_table->hash_callback(key,
           hash_table->bucket_count, hash_table->hash_context);
-     
+
      if (!hash_table->pair[index]) {
           return NULL;
      }
-     
+
      pair = hash_table->pair[index];
-     
+
      do {
           compare = hash_table->compare_callback(key,
                pair->key, hash_table->compare_context);
-          if (compare) {
-               pair = pair->next;
-          } else {
+          switch (compare) {
+          case DS_COMPARE_EQUAL:
                return pair;
+          case DS_COMPARE_LESS:
+          case DS_COMPARE_GREATER:
+               pair = pair->next;
+               break;
           }
-     } while (compare != DS_COMPARE_EQUAL && pair);
+     } while (pair);
 
      return NULL;
 }
