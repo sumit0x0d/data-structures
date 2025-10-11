@@ -16,8 +16,8 @@ struct SinglyLinkedList {
 SinglyLinkedList SinglyLinkedList_Create(
      DS_Size data_size
 ) {
-     SinglyLinkedList singly_linked_list = (SinglyLinkedList)malloc(
-          sizeof (struct SinglyLinkedList));
+     SinglyLinkedList singly_linked_list = (SinglyLinkedList)
+          malloc(sizeof (struct SinglyLinkedList));
      if (!singly_linked_list) {
           return NULL;
      }
@@ -158,8 +158,8 @@ SinglyLinkedList SinglyLinkedList_MergeSorted(
      SinglyLinkedList singly_linked_list1,
      SinglyLinkedList singly_linked_list2
 ) {
-     SinglyLinkedList singly_linked_list = SinglyLinkedList_Create(
-          singly_linked_list1->data_size);
+     SinglyLinkedList singly_linked_list =
+          SinglyLinkedList_Create(singly_linked_list1->data_size);
      if (singly_linked_list1->head->data <= singly_linked_list2->head->data) {
           singly_linked_list->head = singly_linked_list1->head;
           singly_linked_list1->head = singly_linked_list1->head->next;
