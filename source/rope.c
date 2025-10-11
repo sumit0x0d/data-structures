@@ -18,10 +18,16 @@ struct Rope {
 Rope Rope_Create(
      DS_Size size
 ) {
-     Rope rope = (Rope)malloc(sizeof(struct Rope));
-     assert(rope);
+     Rope rope;
+
+     rope = (Rope)malloc(sizeof(struct Rope));
+     if (!rope) {
+          return NULL;
+     }
+
      rope->data_size = size;
      rope->size = 0;    
+     
      return rope;
 }
 

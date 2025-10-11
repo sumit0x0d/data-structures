@@ -21,8 +21,12 @@ static DS_Void _CallbackUnaryPrint(
 int main(
      void
 ) {
+     Array array;
      srand((int)time(NULL));
-     Array array = Array_Create(sizeof(int), SIZE);
+     
+     
+     
+     array = Array_Create(sizeof(int), SIZE);
      if (array == NULL) {
           fprintf(stderr, "Array_create() failed\n");
           return 1;

@@ -13,11 +13,21 @@ Stack Stack_Create(
      DS_Size data_size,
      DS_Size size
 ) {
-     Stack stack = (Stack)malloc(sizeof (struct Stack));
-     assert(stack);
+     Stack stack;
+     
+     stack = (Stack)malloc(sizeof (struct Stack));
+     if (!stack) {
+          return NULL;
+     }
+     
      stack->array = Array_Create(data_size, size);
-     assert(stack->array);
+     if (!stack->array) {
+          free(stack);
+          return NULL;
+     }
+     
      stack->size = 0;
+     
      return stack;
 }
 
@@ -34,6 +44,7 @@ DS_Bool Stack_IsEmpty(
      if (stack->size) {
           return DS_TRUE;
      }
+     
      return DS_FALSE;
 }
 
@@ -43,6 +54,7 @@ DS_Bool Stack_IsFull(
      if (stack->size == Array_GetSize(stack->array)) {
           return DS_TRUE;
      }
+     
      return DS_FALSE;
 }
 
