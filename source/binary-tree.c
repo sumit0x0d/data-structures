@@ -48,7 +48,6 @@ DS_Void BinaryTree_Remove(
      BinaryTree     binary_tree,
      BinaryTreeNode node
 ) {
-     BinaryTreeNode nCurrent = node;
      if (node == node->parent->left) {
           node->parent->left = node->left;
      }

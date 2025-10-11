@@ -45,7 +45,7 @@ AvlTree AvlTree_Create(
      DS_CallbackCompare compare_callback,
      DS_Generic         compare_context
 ) {
-     AvlTree avl_tree = NULL;
+     AvlTree avl_tree;
 
      avl_tree = (AvlTree)malloc(sizeof (struct AvlTree));
      if (!avl_tree) {

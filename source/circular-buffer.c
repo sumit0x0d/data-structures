@@ -16,13 +16,22 @@ CircularBuffer CircularBuffer_Create(
      DS_Size data_size,
      DS_Size size
 ) {
-     CircularBuffer circular_buffer = (CircularBuffer)
-          malloc(sizeof (struct CircularBuffer));
-     assert(circular_buffer);
+     CircularBuffer circular_buffer;
+
+     circular_buffer = (CircularBuffer)malloc(sizeof (struct CircularBuffer));
+     if(!circular_buffer) {
+          return NULL;
+     }
+
      circular_buffer->array = Array_Create(data_size, size);
-     assert(circular_buffer->array);
+     if (!circular_buffer->array) {
+          free(circular_buffer);
+          return NULL;
+     }
+
      circular_buffer->front = 0;
      circular_buffer->back = 0;
+
      return circular_buffer;
 }
 
@@ -39,6 +48,7 @@ DS_Bool CircularBuffer_IsEmpty(
      if (circular_buffer->size == 0) {
           return DS_TRUE;
      }
+     
      return DS_FALSE;
 }
 
@@ -49,6 +59,7 @@ DS_Bool CircularBuffer_IsFull(
           circular_buffer->array)) {
           return DS_FALSE;
      }
+     
      return DS_TRUE;
 }
 
@@ -67,6 +78,7 @@ DS_Generic CircularBuffer_GetBackData(
      } else {
           return Array_GetData(circular_buffer->array, circular_buffer->back - 1);
      }
+     
      return NULL;
 }
 
@@ -74,8 +86,7 @@ DS_Void CircularBuffer_PushBack(
      CircularBuffer   circular_buffer,
      const DS_Generic data
 ) {
-     Array_SetData(circular_buffer->array,
-          circular_buffer->back, data);
+     Array_SetData(circular_buffer->array, circular_buffer->back, data);
      circular_buffer->size++;
      circular_buffer->back = (circular_buffer->back + 1)
           % Array_GetSize(circular_buffer->array);

@@ -16,19 +16,25 @@ DynamicArray DynamicArray_Create(
      DS_Size    size,
      DS_Float64 growth_factor
 ) {
+     DynamicArray dynamic_array;
+
      if (growth_factor > 1) {
           return NULL;
      }
-     DynamicArray dynamic_array = (DynamicArray)malloc(sizeof (struct DynamicArray));
+     
+     dynamic_array = (DynamicArray)malloc(sizeof (struct DynamicArray));
      if (!dynamic_array) {
           return NULL;
      }
+     
      dynamic_array->array = Array_Create(data_size, size);
      if (!dynamic_array->array) {
           free(dynamic_array);
           return NULL;
      }
+     
      dynamic_array->growth_factor = growth_factor;
+     
      return dynamic_array;
 }
 
@@ -62,20 +68,26 @@ DS_Void DynamicArray_PushBack(
      DynamicArray     dynamic_array,
      const DS_Generic data
 ) {
-     DS_Size size = Array_GetSize(dynamic_array->array);
+     DS_Size size;
+
+     size = Array_GetSize(dynamic_array->array);
      if (dynamic_array->size == size) {
           Array_SetSize(dynamic_array->array, size * dynamic_array->growth_factor);
      }
+     
      Array_SetData(dynamic_array->array, dynamic_array->size, data);
 }
 
 DS_Void DynamicArray_PopBack(
      DynamicArray dynamic_array
 ) {
-     DS_Size size = Array_GetSize(dynamic_array->array);
+     DS_Size size;
+     
+     size = Array_GetSize(dynamic_array->array);
      if (dynamic_array->size == size / dynamic_array->growth_factor) {
           Array_SetSize(dynamic_array->array, size / dynamic_array->growth_factor);
      }
+     
      dynamic_array->size--;
 }
 
@@ -84,7 +96,9 @@ DS_Void DynamicArray_Traverse(
      DS_CallbackUnary unary_callback,
      DS_Generic       unary_context
 ) {
-     for (DS_Size i = 0; i < Array_GetSize(dynamic_array->array); i++) {
+     DS_Size i;
+
+     for (i = 0; i < Array_GetSize(dynamic_array->array); i++) {
           unary_callback(DynamicArray_GetData(dynamic_array, i), unary_context);
      }
 }
