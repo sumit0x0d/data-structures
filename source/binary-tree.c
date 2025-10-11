@@ -12,11 +12,17 @@ struct BinaryTree {
 BinaryTree BinaryTree_Create(
      DS_Size data_size
 ) {
-     BinaryTree binary_tree = (BinaryTree)malloc(sizeof (struct BinaryTree));
-     assert(binary_tree);
+     BinaryTree binary_tree;
+
+     binary_tree = (BinaryTree)malloc(sizeof (struct BinaryTree));
+     if (!binary_tree) {
+          return NULL;
+     }
+
      binary_tree->root = NULL;
      binary_tree->data_size = data_size;
      binary_tree->size = 0;
+     
      return binary_tree;
 }
 
@@ -51,8 +57,10 @@ DS_Void BinaryTree_Remove(
      if (node == node->parent->left) {
           node->parent->left = node->left;
      }
+     
      if (node == node->parent->right) {
 
      }
+     
      BinaryTreeNode_Destroy(node);
 }

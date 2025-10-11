@@ -191,9 +191,9 @@ DS_Void AvlTree_Remove(
 
      circular_buffer = CircularBuffer_Create(
           sizeof (struct AvlTreeNode), (avl_tree->size + 2) / 2);
-     node = avl_tree->root;
      parent = avl_tree->root->parent;
-     
+          
+     node = avl_tree->root;
      while (node) {
           compare = avl_tree->compare_callback(data,
                node->data, avl_tree->compare_context);

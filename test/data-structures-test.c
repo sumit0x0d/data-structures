@@ -22,20 +22,22 @@ int main(
      void
 ) {
      Array array;
+     
      srand((int)time(NULL));
-     
-     
-     
+
      array = Array_Create(sizeof(int), SIZE);
      if (array == NULL) {
           fprintf(stderr, "Array_create() failed\n");
           return 1;
      }
+     
      printf("Array_create() passed\n");
+     
      for (int i = 0; i < SIZE; i++) {
           int value = rand() % 100;
           Array_SetData(array, i, &value);
      }
+     
      printf("Array_set_data() passed\n");
      Array_Traverse(array, _CallbackUnaryPrint, NULL);
      printf("\nArray_traverse() passed\n");
@@ -47,6 +49,7 @@ int main(
      Array_Destroy(array);
      printf("Array_destroy() passed\n");
      printf("All array tests passed!\n");
+     
      return 0;
 }
 
@@ -56,12 +59,15 @@ static DS_Compare _CallbackCompareInt(
      DS_Generic       compare_context
 ) {
      (DS_Void)compare_context;
+     
      if (*(int *)data1 < *(int *)data2) {
           return -1;
      }
+     
      if (*(int *)data1 > *(int *)data2) {
           return 1;
      }
+     
      return 0;
 }
 
