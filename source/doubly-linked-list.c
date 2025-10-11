@@ -146,14 +146,14 @@ DS_Void DoublyLinkedList_PopTail(
      DoublyLinkedList doubly_linked_list
 ) {
      DoublyLinkedListNode node;
-     
+
      node = doubly_linked_list->tail;
-     
+
      doubly_linked_list->tail = doubly_linked_list->tail->previous;
      if (doubly_linked_list->tail) {
           doubly_linked_list->tail->next = NULL;
      }
-     
+
      DoublyLinkedListNode_Destroy(node);
      doubly_linked_list->size--;
 }
@@ -167,13 +167,13 @@ DS_Void DoublyLinkedList_Remove(
      } else {
           doubly_linked_list->head = doubly_linked_list->head->next;
      }
-     
+
      if (node->next && node->next->previous == node) {
           node->next->previous = node->previous;
      } else {
           doubly_linked_list->tail = doubly_linked_list->tail->previous;
      }
-     
+
      DoublyLinkedListNode_Destroy(node);
      doubly_linked_list->size--;
 }
@@ -184,7 +184,7 @@ DS_Void DoublyLinkedList_Traverse(
      DS_Generic       unary_context
 ) {
      DoublyLinkedListNode node;
-     
+
      node = doubly_linked_list->head;
      while (node) {
           unary_callback(node->data, unary_context);

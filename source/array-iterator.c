@@ -4,11 +4,15 @@
 
 ArrayIterator ArrayIterator_Create(Array array)
 {
-     ArrayIterator iterator = (ArrayIterator)malloc(sizeof (struct ArrayIterator));
+     ArrayIterator iterator;
+     
+     iterator = (ArrayIterator)malloc(sizeof (struct ArrayIterator));
      if (!iterator) {
           return NULL;
      }
+
      iterator->array = array;
      iterator->index = 0;
+
      return iterator;
 }
