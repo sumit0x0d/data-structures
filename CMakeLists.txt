@@ -9,7 +9,7 @@ set(CMAKE_C_VISIBILITY_PRESET hidden)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
-add_compile_options(-Wall -Wextra -g -Werror)
+add_compile_options(-Wall -Wextra -g -Werror -Wuninitialized)
 # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pg")
 
 add_library(array SHARED source/array.c)

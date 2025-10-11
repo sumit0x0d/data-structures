@@ -64,8 +64,8 @@ AvlTree AvlTree_Create(
 DS_Void AvlTree_Destroy(
      AvlTree avl_tree
 ) {
-     AvlTreeNode node = NULL;
-     CircularBuffer circular_buffer = NULL;
+     AvlTreeNode    node ;
+     CircularBuffer circular_buffer;
 
      node = avl_tree->root;
      circular_buffer = CircularBuffer_Create(sizeof (AvlTreeNode), avl_tree->size);
@@ -108,8 +108,8 @@ AvlTreeNode AvlTree_Search(
      AvlTree          avl_tree,
      const DS_Generic data
 ) {
-     AvlTreeNode node = NULL;
-     DS_Compare compare = DS_COMPARE_EQUAL;
+     AvlTreeNode node;
+     DS_Compare  compare;
 
      node = avl_tree->root;
      while (node) {
@@ -134,10 +134,10 @@ DS_Void AvlTree_Insert(
      AvlTree          avl_tree,
      const DS_Generic data
 ) {
-     CircularBuffer circular_buffer = NULL;
-     AvlTreeNode node = NULL;
-     AvlTreeNode parent = NULL;
-     DS_Compare compare = DS_COMPARE_EQUAL;
+     CircularBuffer circular_buffer;
+     AvlTreeNode    current;
+     AvlTreeNode    parent;
+     DS_Compare     compare;
 
      if (!avl_tree->root) {
           avl_tree->root = AvlTreeNode_Create(data, avl_tree->data_size);
@@ -148,33 +148,33 @@ DS_Void AvlTree_Insert(
      
      circular_buffer = CircularBuffer_Create(
           sizeof (struct AvlTreeNode), (avl_tree->size + 2) / 2);
-     node = avl_tree->root;
      parent = avl_tree->root->parent;
-
-     while (node) {
-          compare = avl_tree->compare_callback(node->data,
+          
+     current = avl_tree->root;
+     while (current) {
+          compare = avl_tree->compare_callback(current->data,
                data, avl_tree->compare_context);
           if (compare == DS_COMPARE_EQUAL) {
                CircularBuffer_Destroy(circular_buffer);
                return;
           }
-          parent = node;
+          parent = current;
           if (compare < DS_COMPARE_EQUAL) {
-               node = node->left;
+               current = current->left;
           } else {
-               node = node->right;
+               current = current->right;
           }
      }
      
-     node = AvlTreeNode_Create(data, avl_tree->data_size);
-     node->parent = parent;
+     current = AvlTreeNode_Create(data, avl_tree->data_size);
+     current->parent = parent;
      
      if (compare < 0) {
-          parent->left = node;
+          parent->left = current;
      } else {
-          parent->right = node;
+          parent->right = current;
      }
-     
+
      _Rebalance(avl_tree, parent, circular_buffer);
      CircularBuffer_Destroy(circular_buffer);
      avl_tree->size++;
@@ -184,10 +184,10 @@ DS_Void AvlTree_Remove(
      AvlTree          avl_tree,
      const DS_Generic data
 ) {
-     CircularBuffer circular_buffer = NULL;
-     AvlTreeNode node = NULL;
-     AvlTreeNode parent = NULL;
-     DS_Compare compare = DS_COMPARE_EQUAL;
+     CircularBuffer circular_buffer;
+     AvlTreeNode    node;
+     AvlTreeNode    parent;
+     DS_Compare     compare;
 
      circular_buffer = CircularBuffer_Create(
           sizeof (struct AvlTreeNode), (avl_tree->size + 2) / 2);
@@ -274,7 +274,7 @@ static DS_Void _RotateRight(
      AvlTree     avl_tree,
      AvlTreeNode node
 ) {
-     AvlTreeNode left = NULL;
+     AvlTreeNode left;
 
      left = node->left;
 
@@ -302,17 +302,17 @@ static DS_Void _RotateLeftRight(
      AvlTree     avl_tree,
      AvlTreeNode node
 ) {
-     AvlTreeNode left = NULL;
-     AvlTreeNode left_right = NULL;
-     
+     AvlTreeNode left;
+     AvlTreeNode left_right;
+
      left = node->left;
      left_right = node->left->right;
-     
+
      left->right = left_right->left;
      if (left->right) {
           left->right->parent = left;
      }
-     
+
      node->left = left_right->right;
      if (node->left) {
           node->left->parent = node;
@@ -320,7 +320,7 @@ static DS_Void _RotateLeftRight(
      
      left_right->left = left;
      left->parent = left_right;
-     
+
      left_right->parent = node->parent;
      if (left_right->parent) {
           if (left_right->parent->left == node) {
@@ -331,7 +331,7 @@ static DS_Void _RotateLeftRight(
      } else {
           avl_tree->root = left_right;
      }
-     
+
      node->parent = left_right;
      left_right->right = node;
 }
@@ -340,7 +340,7 @@ static DS_Void _RotateLeft(
      AvlTree     avl_tree,
      AvlTreeNode node
 ) {
-     AvlTreeNode right = NULL;
+     AvlTreeNode right;
 
      right = node->right;
      
@@ -359,7 +359,7 @@ static DS_Void _RotateLeft(
      } else {
           avl_tree->root = right;
      }
-     
+
      node->parent = right;
      right->left = node;
 }
@@ -368,8 +368,8 @@ static DS_Void _RotateRightLeft(
      AvlTree     avl_tree,
      AvlTreeNode node
 ) {
-     AvlTreeNode right = NULL;
-     AvlTreeNode right_left = NULL;
+     AvlTreeNode right;
+     AvlTreeNode right_left;
 
      right = node->right;
      right_left = node->right->left;
@@ -378,7 +378,7 @@ static DS_Void _RotateRightLeft(
      if (right->left) {
           right->left->parent = right;
      }
-     
+
      node->right = right_left->left;
      if (node->right) {
           node->right->parent = node;
@@ -386,7 +386,7 @@ static DS_Void _RotateRightLeft(
      
      right_left->right = right;
      right->parent = right_left;
-     
+
      right_left->parent = node->parent;
      if (right_left->parent) {
           if (right_left->parent->left == node) {

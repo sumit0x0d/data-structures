@@ -14,7 +14,7 @@ Array Array_Create(
      DS_Size data_size,
      DS_Size size
 ) {
-     Array array = NULL;
+     Array array;
 
      array = (Array)malloc(sizeof (struct Array));
      if (!array) {
@@ -64,7 +64,7 @@ DS_Void Array_SetSize(
      Array array,
      DS_Size size
 ) {
-     DS_Generic base = NULL;
+     DS_Generic base;
 
      base = realloc(array->base, array->data_size * size);
      if (!base) {
@@ -105,7 +105,9 @@ DS_Void Array_Traverse(
      DS_CallbackUnary unary_callback,
      DS_Generic       unary_context
 ) {
-     for (DS_Size i = 0; i < array->size; i++) {
+     DS_Size i;
+
+     for (i = 0; i < array->size; i++) {
           unary_callback(Array_GetData(array, i), unary_context);
      }
 }
@@ -116,8 +118,8 @@ DS_Generic Array_SearchLinear(
      DS_CallbackCompare compare_callback,
      DS_Generic         compare_context
 ) {
-     DS_Size i = 0;
-     DS_Generic current = NULL;
+     DS_Size    i;
+     DS_Generic current;
 
      for (i = 0; i < array->size; i++) {
           current = Array_GetData(array, i);
@@ -135,11 +137,12 @@ DS_Generic Array_SearchBinary(
      DS_CallbackCompare compare_callback,
      DS_Generic         compare_context
 ) {
-     DS_Size right = 0;
-     DS_Size left = 0;
-     DS_Size middle = 0;
-     DS_Size current = 0;
+     DS_Size    left;
+     DS_Size    right;
+     DS_Size    middle;
+     DS_Generic current;
      
+     left = 0;
      right = array->size;
      while (left < right) {
           middle = left + (right - left) / 2;
@@ -164,10 +167,10 @@ DS_Void Array_SortBubble(
      DS_CallbackCompare compare_callback,
      DS_Generic         compare_context
 ) {
-     DS_Size i = 0;
-     DS_Size j = 0;
-     DS_Generic data1 = NULL;
-     DS_Generic data2 = NULL;
+     DS_Size    i;
+     DS_Size    j;
+     DS_Generic data1;
+     DS_Generic data2;
 
      for (i = array->size - 1; i > 0; i--) {
           for (j = 0; j < i; j++) {
@@ -186,10 +189,10 @@ DS_Void Array_SortInsertion(
      DS_CallbackCompare compare_callback,
      DS_Generic         compare_context
 ) {
-     DS_Size i = 0;
-     DS_Size j = 0;
-     DS_Generic data1 = NULL;
-     DS_Generic data2 = NULL;
+     DS_Size    i;
+     DS_Size    j;
+     DS_Generic data1;
+     DS_Generic data2;
 
      for (i = 1; i < array->size; i++) {
           j = i;
@@ -210,11 +213,11 @@ DS_Void Array_SortSelection(
      DS_CallbackCompare compare_callback,
      DS_Generic         compare_context
 ) {
-     DS_Size i = 0;
-     DS_Size minimum = 0;
-     DS_Size j = 0;
-     DS_Generic data1 = NULL;
-     DS_Generic data2 = NULL;
+     DS_Size    i;
+     DS_Size    minimum;
+     DS_Size    j;
+     DS_Generic data1;
+     DS_Generic data2;
 
      for (i = 0; i < array->size - 1; i++) {
           minimum = i;
@@ -234,10 +237,10 @@ DS_Void Array_SortQuick(
      DS_CallbackCompare compare_callback,
      DS_Generic         compare_context
 ) {
-     DS_Size i = 0;
-     DS_Size j = 0;
-     DS_Generic data1 = NULL;
-     DS_Generic data2 = NULL;
+     DS_Size    i;
+     DS_Size    j;
+     DS_Generic data1;
+     DS_Generic data2;
 
      for (i = 0; i < array->size - 1; i++) {
           for (j = i + 1; j < array->size - i; j++) {
@@ -256,10 +259,10 @@ DS_Void Array_SortMerge(
      DS_CallbackCompare compare_callback,
      DS_Generic         compare_context
 ) {
-     DS_Size i = 0;
-     DS_Size j = 0;
-     DS_Generic data1 = NULL;
-     DS_Generic data2 = NULL;
+     DS_Size    i;
+     DS_Size    j;
+     DS_Generic data1;
+     DS_Generic data2;
 
      for (i = 0; i < array->size - 1; i++) {
           for (j = i + 1; j < array->size - i; j++) {
