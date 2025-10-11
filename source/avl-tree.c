@@ -108,21 +108,21 @@ AvlTreeNode AvlTree_Search(
      AvlTree          avl_tree,
      const DS_Generic data
 ) {
-     AvlTreeNode node;
+     AvlTreeNode current;
      DS_Compare  compare;
 
-     node = avl_tree->root;
-     while (node) {
+     current = avl_tree->root;
+     while (current) {
           compare = avl_tree->compare_callback(data,
-               node->data, avl_tree->compare_context);
+               current->data, avl_tree->compare_context);
           switch (compare) {
-          case -1:
-               node = node->left;
+          case DS_COMPARE_LESS:
+               current = current->left;
                break;
-          case 0:
-               return node;
-          case 1:
-               node = node->right;
+          case DS_COMPARE_EQUAL:
+               return current;
+          case DS_COMPARE_GREATER:
+               current = current->right;
                break;
           }
      }
@@ -185,7 +185,7 @@ DS_Void AvlTree_Remove(
      const DS_Generic data
 ) {
      CircularBuffer circular_buffer;
-     AvlTreeNode    node;
+     AvlTreeNode    current;
      AvlTreeNode    parent;
      DS_Compare     compare;
 
@@ -193,58 +193,58 @@ DS_Void AvlTree_Remove(
           sizeof (struct AvlTreeNode), (avl_tree->size + 2) / 2);
      parent = avl_tree->root->parent;
           
-     node = avl_tree->root;
-     while (node) {
+     current = avl_tree->root;
+     while (current) {
           compare = avl_tree->compare_callback(data,
-               node->data, avl_tree->compare_context);
+               current->data, avl_tree->compare_context);
           if (compare == 0) {
                break;
           }
-          parent = node;
+          parent = current;
           if (compare < 0) {
-               node = node->left;
+               current = current->left;
           } else {
-               node = node->right;
+               current = current->right;
           }
      }
      
-     if (!node) {
+     if (!current) {
           return;
      }
      
-     if (!node->left && !node->right) {
-          if (parent->left == node) {
+     if (!current->left && !current->right) {
+          if (parent->left == current) {
                parent->left = NULL;
           } else {
                parent->right = NULL;
           }
-          AvlTreeNode_Destroy(node);
+          AvlTreeNode_Destroy(current);
           _Rebalance(avl_tree, parent, circular_buffer);
-     } else if (!node->left) {
-          if (parent->right == node) {
-               parent->right = node->right;
+     } else if (!current->left) {
+          if (parent->right == current) {
+               parent->right = current->right;
           } else {
-               parent->left = node->right;
+               parent->left = current->right;
           }
-          AvlTreeNode_Destroy(node);
+          AvlTreeNode_Destroy(current);
           _Rebalance(avl_tree, parent, circular_buffer);
-     } else if (!node->right) {
-          if (parent->left == node) {
-               parent->left = node->left;
+     } else if (!current->right) {
+          if (parent->left == current) {
+               parent->left = current->left;
           } else {
-               parent->right = node->left;
+               parent->right = current->left;
           }
-          AvlTreeNode_Destroy(node);
+          AvlTreeNode_Destroy(current);
           _Rebalance(avl_tree, parent, circular_buffer);
      } else {
           if (avl_tree->root->balance_factor < 0) {
-               node = AvlTreeNode_GetPredecessor(node);
+               current = AvlTreeNode_GetPredecessor(current);
           } else {
-               node = AvlTreeNode_GetSuccessor(node);
+               current = AvlTreeNode_GetSuccessor(current);
           }
-          _Rebalance(avl_tree, node, circular_buffer);
+          _Rebalance(avl_tree, current, circular_buffer);
      }
-     
+
      CircularBuffer_Destroy(circular_buffer);
      avl_tree->size--;
 }

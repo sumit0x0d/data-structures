@@ -92,6 +92,7 @@ DS_Void DoublyLinkedList_PushHead(
      
      node = DoublyLinkedListNode_Create(data, doubly_linked_list->data_size);
      node->previous = NULL;
+
      if (doubly_linked_list->size) {
           doubly_linked_list->head->previous = node;
           node->next = doubly_linked_list->head;
@@ -99,6 +100,7 @@ DS_Void DoublyLinkedList_PushHead(
           doubly_linked_list->tail = node;
           node->next = NULL;
      }
+
      doubly_linked_list->head = node;
      doubly_linked_list->size++;
 }

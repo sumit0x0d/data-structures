@@ -87,9 +87,9 @@ DS_Void CircularBuffer_PushBack(
      const DS_Generic data
 ) {
      Array_SetData(circular_buffer->array, circular_buffer->back, data);
-     circular_buffer->size++;
      circular_buffer->back = (circular_buffer->back + 1)
           % Array_GetSize(circular_buffer->array);
+     circular_buffer->size++;
 }
 
 DS_Void CircularBuffer_PopFront(
