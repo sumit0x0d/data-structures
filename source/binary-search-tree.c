@@ -34,7 +34,8 @@ BinarySearchTree BinarySearchTree_create(
      DS_CallbackCompare compare_callback,
      const DS_Generic   compare_context
 ) {
-     BinarySearchTree tree = (BinarySearchTree)malloc(sizeof (struct BinarySearchTree));
+     BinarySearchTree tree = (BinarySearchTree)
+          malloc(sizeof (struct BinarySearchTree));
      assert(tree);
      tree->root = NULL;
      tree->data_size = data_size;
@@ -56,7 +57,8 @@ BinarySearchTreeNode BinarySearchTree_search(
 ) {
      BinarySearchTreeNode node = tree->root;
      while (node) {
-          switch (tree->compare_callback(node->data, data, tree->compare_context)) {
+          switch (tree->compare_callback(node->data,
+               data, tree->compare_context)) {
           case -1:
                node = node->left;
                break;
@@ -75,7 +77,8 @@ DS_Void BinarySearchTree_insert(
      const DS_Generic data
 ) {
      if (!tree->root) {
-          tree->root = _BinarySearchTree_node_create(data, tree->data_size);
+          tree->root = _BinarySearchTree_node_create(
+               data, tree->data_size);
           tree->root->parent = NULL;
           tree->size++;
           return;
@@ -84,7 +87,8 @@ DS_Void BinarySearchTree_insert(
      BinarySearchTreeNode pnode = tree->root->parent;
      int compare = 0;
      while (node) {
-          compare = tree->compare_callback(data, node->data, tree->compare_context);
+          compare = tree->compare_callback(data,
+               node->data, tree->compare_context);
           if (compare == 0) {
                return;
           }
@@ -95,9 +99,11 @@ DS_Void BinarySearchTree_insert(
                node = node->right;
           }
      }
-     node = _BinarySearchTree_node_create(data, tree->data_size);
+     node = _BinarySearchTree_node_create(
+          data, tree->data_size);
      node->parent = pnode;
-     compare = tree->compare_callback(data, pnode->data, tree->compare_context);
+     compare = tree->compare_callback(data,
+          pnode->data, tree->compare_context);
      if (compare < 0) {
           pnode->left = node;
      } else {
@@ -113,8 +119,8 @@ DS_Void BinarySearchTree_remove(
      BinarySearchTreeNode node = tree->root;
      BinarySearchTreeNode pnode = tree->root->parent;
      while (node) {
-          DS_Compare compare = tree->compare_callback(data, node->data,
-               tree->compare_context);
+          DS_Compare compare = tree->compare_callback(
+               data, node->data, tree->compare_context);
           if (compare == 0) {
                break;
           }
@@ -142,7 +148,8 @@ static BinarySearchTreeNode _BinarySearchTreeNode_create(
      const DS_Generic data,
      DS_Size          size
 ) {
-     BinarySearchTreeNode node = (BinarySearchTreeNode )malloc(sizeof (Node));
+     BinarySearchTreeNode node = (BinarySearchTreeNode)
+          malloc(sizeof (Node));
      assert(node);
      node->data = malloc(size);
      assert(node->data);

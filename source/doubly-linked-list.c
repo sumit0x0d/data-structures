@@ -16,8 +16,8 @@ struct DoublyLinkedList {
 DoublyLinkedList DoublyLinkedList_Create(
      DS_Size data_size
 ) {
-     DoublyLinkedList doubly_linked_list = (DoublyLinkedList)malloc(
-          sizeof (struct DoublyLinkedList));
+     DoublyLinkedList doubly_linked_list = (DoublyLinkedList)
+          malloc(sizeof (struct DoublyLinkedList));
      if (!doubly_linked_list) {
           return NULL;
      }
@@ -82,8 +82,8 @@ DS_Void DoublyLinkedList_PushHead(
      DoublyLinkedList doubly_linked_list,
      const DS_Generic data
 ) {
-     DoublyLinkedListNode node = DoublyLinkedListNode_Create(data,
-          doubly_linked_list->data_size);
+     DoublyLinkedListNode node = DoublyLinkedListNode_Create(
+          data, doubly_linked_list->data_size);
      node->previous = NULL;
      if (doubly_linked_list->size) {
           doubly_linked_list->head->previous = node;
@@ -100,8 +100,8 @@ DS_Void DoublyLinkedList_PushTail(
      DoublyLinkedList doubly_linked_list,
      const DS_Generic data
 ) {
-     DoublyLinkedListNode node = DoublyLinkedListNode_Create(data,
-          doubly_linked_list->data_size);
+     DoublyLinkedListNode node = DoublyLinkedListNode_Create(
+          data, doubly_linked_list->data_size);
      node->next = NULL;
      if (doubly_linked_list->size) {
           doubly_linked_list->tail->next = node;

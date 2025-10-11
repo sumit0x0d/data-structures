@@ -91,8 +91,8 @@ Matrix Matrix_Multiplication(
      if (matrix1->column_count != matrix2->row_count) {
           return NULL;
      }
-     Matrix matrix = Matrix_Create(Array_GetDataSize(matrix1->array), matrix1->row_count,
-          matrix2->column_count);
+     Matrix matrix = Matrix_Create(Array_GetDataSize(matrix1->array),
+          matrix1->row_count, matrix2->column_count);
      for (DS_Size i = 0; i < matrix->row_count; i++) {
           for (DS_Size j = 0; j < matrix->column_count; j++) {
                for (DS_Size k = 0; k < matrix1->column_count; k++) {
@@ -115,8 +115,8 @@ Matrix Matrix_Operation(
          matrix1->column_count == matrix2->column_count) {
           return NULL;   
      }
-     Matrix matrix = Matrix_Create(Array_GetDataSize(matrix1->array), matrix1->row_count,
-          matrix1->column_count);
+     Matrix matrix = Matrix_Create(Array_GetDataSize(matrix1->array),
+          matrix1->row_count, matrix1->column_count);
      if (!matrix) {
           return NULL;
      }
@@ -140,8 +140,8 @@ Matrix Matrix_ColumnVectorization(
      }
      for (DS_Size i = 0; i < matrix->row_count; i++) {
           for (DS_Size j = 0; j < matrix->column_count; j++) {
-               Matrix_SetData(vectorize, (i * matrix->column_count) + j, 0,
-                    Matrix_GetData(matrix, i, j));
+               Matrix_SetData(vectorize, (i * matrix->column_count) + j,
+                    0, Matrix_GetData(matrix, i, j));
           }
      }
      return vectorize;

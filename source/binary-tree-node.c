@@ -16,7 +16,7 @@ BinaryTreeNode BinaryTreeNode_Create(
      BinaryTreeNode node = (BinaryTreeNode)malloc(sizeof (BinaryTreeNode));
      if (!node) {
           return NULL;
-     } 
+     }
      node->data = malloc(data_size);
      if (!node->data) {
           free(node);

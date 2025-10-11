@@ -89,8 +89,8 @@ RedBlackTreeNode RedBlackTree_Search(
 ) {
      RedBlackTreeNode node = red_black_tree->root;
      while (node) {
-          DS_Compare compare = red_black_tree->compare_callback(data, node->data,
-               red_black_tree->compare_context);
+          DS_Compare compare = red_black_tree->compare_callback(
+               data, node->data, red_black_tree->compare_context);
           if (compare == DS_COMPARE_EQUAL) {
                return node;
           } else if (compare == DS_COMPARE_LESS) {
@@ -107,8 +107,8 @@ DS_Void RedBlackTree_Insert(
      const DS_Generic data
 ) {
      if (!red_black_tree->root) {
-          red_black_tree->root = RedBlackTreeNode_Create(data,
-               red_black_tree->data_size);
+          red_black_tree->root = RedBlackTreeNode_Create(
+               data, red_black_tree->data_size);
           red_black_tree->root->parent = NULL;
           red_black_tree->root->color = 1;
           red_black_tree->size++;

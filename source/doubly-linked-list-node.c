@@ -7,8 +7,8 @@ DoublyLinkedListNode DoublyLinkedListNode_Create(
      const DS_Generic data,
      DS_Size          data_size
 ) {
-     DoublyLinkedListNode node = (DoublyLinkedListNode)malloc(
-          sizeof (struct DoublyLinkedListNode));
+     DoublyLinkedListNode node = (DoublyLinkedListNode)
+          malloc(sizeof (struct DoublyLinkedListNode));
      if (!node) {
           return NULL;
      }

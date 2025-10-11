@@ -39,8 +39,8 @@ DS_Void SinglyLinkedList_PushHead(
      SinglyLinkedList singly_linked_list,
      const DS_Generic data
 ) {
-     SinglyLinkedListNode node = SinglyLinkedListNode_Create(data,
-          singly_linked_list->data_size);
+     SinglyLinkedListNode node = SinglyLinkedListNode_Create(
+          data, singly_linked_list->data_size);
      if (singly_linked_list->size) {
           node->next = singly_linked_list->head;
      } else {
@@ -55,8 +55,8 @@ DS_Void SinglyLinkedList_PushTail(
      SinglyLinkedList singly_linked_list,
      const DS_Generic data
 ) {
-     SinglyLinkedListNode node = SinglyLinkedListNode_Create(data,
-          singly_linked_list->data_size);
+     SinglyLinkedListNode node = SinglyLinkedListNode_Create(
+          data, singly_linked_list->data_size);
      node->next = NULL;
      if (singly_linked_list->size) {
           singly_linked_list->tail->next = node;
