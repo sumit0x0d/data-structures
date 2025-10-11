@@ -159,8 +159,8 @@ DS_Void DoublyLinkedList_Remove(
 DS_Void DoublyLinkedList_Traverse(
      DoublyLinkedList doubly_linked_list,
      DS_CallbackUnary unary_callback,
-     DS_Generic       unary_context)
-{
+     DS_Generic       unary_context
+) {
      DoublyLinkedListNode node = doubly_linked_list->head;
      while (node) {
           unary_callback(node->data, unary_context);

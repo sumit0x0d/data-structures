@@ -7,8 +7,8 @@ SinglyLinkedListNode SinglyLinkedListNode_Create(
      const DS_Generic data,
      DS_Size          data_size
 ) {
-     SinglyLinkedListNode node = (SinglyLinkedListNode)malloc(
-          sizeof (struct SinglyLinkedListNode));
+     SinglyLinkedListNode node = (SinglyLinkedListNode)
+          malloc(sizeof (struct SinglyLinkedListNode));
      if (!node) {
           return NULL;
      }
