@@ -5,7 +5,7 @@
 #include <stack.h>
 
 struct Stack {
-     Array   array;
+     Array array;
      DS_Size size;
 };
 
@@ -65,7 +65,7 @@ DS_Generic Stack_GetTop(
 }
 
 DS_Void Stack_Push(
-     Stack            stack,
+     Stack stack,
      const DS_Generic data
 ) {
      Array_SetData(stack->array, stack->size, data);

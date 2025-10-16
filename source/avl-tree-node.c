@@ -5,7 +5,7 @@
 
 AvlTreeNode AvlTreeNode_Create(
      const DS_Generic data,
-     DS_Size          data_size
+     DS_Size data_size
 ) {
      AvlTreeNode node;
 
@@ -36,7 +36,7 @@ DS_Void AvlTreeNode_Destroy(
 }
 
 DS_Size AvlTreeNode_GetHeight(
-     AvlTreeNode    node,
+     AvlTreeNode node,
      CircularBuffer circular_buffer
 ) {
      DS_Size height;
@@ -60,7 +60,7 @@ DS_Size AvlTreeNode_GetHeight(
 }
 
 DS_Void AvlTreeNode_UpdateBalanceFactor(
-     AvlTreeNode    node,
+     AvlTreeNode node,
      CircularBuffer circular_buffer
 ) {
      DS_Size left_height;

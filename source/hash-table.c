@@ -7,24 +7,24 @@
 #include "hash-table-pair.h"
 
 struct HashTable {
-     HashTablePair      *pair;
-     DS_Size            key_size;
-     DS_Size            value_size;
-     DS_Size            bucket_count;
-     DS_CallbackHash    hash_callback;
-     DS_Generic         hash_context;
+     HashTablePair *pair;
+     DS_Size key_size;
+     DS_Size value_size;
+     DS_Size bucket_count;
+     DS_CallbackHash hash_callback;
+     DS_Generic hash_context;
      DS_CallbackCompare compare_callback;
-     DS_Generic         compare_context;
+     DS_Generic compare_context;
 };
 
 HashTable HashTable_Create(
-     DS_Size            key_size,
-     DS_Size            value_size,
-     DS_Size            bucket_count,
-     DS_CallbackHash    hash_callback,
-     DS_Generic         hash_context,
+     DS_Size key_size,
+     DS_Size value_size,
+     DS_Size bucket_count,
+     DS_CallbackHash hash_callback,
+     DS_Generic hash_context,
      DS_CallbackCompare compare_callback,
-     DS_Generic         compare_context
+     DS_Generic compare_context
 ) {
      HashTable hash_table;
      
@@ -78,12 +78,12 @@ DS_Generic HashTable_GetValue(
 }
 
 DS_Void HashTable_Insert(
-     HashTable        hash_table,
+     HashTable hash_table,
      const DS_Generic key,
      const DS_Generic value
 ) {
-     DS_Size       index;
-     DS_Compare    compare;
+     DS_Size index;
+     DS_Compare compare;
      HashTablePair pair;
      
      index = hash_table->hash_callback(key,
@@ -98,8 +98,10 @@ DS_Void HashTable_Insert(
      pair = hash_table->pair[index];
 
      do {
-          compare = hash_table->compare_callback(key,
-               pair->key, hash_table->compare_context);
+          compare = hash_table->compare_callback(
+                    key,
+                    pair->key,
+                    hash_table->compare_context);
           if (compare) {
                pair = pair->next;
           } else {
@@ -113,13 +115,13 @@ DS_Void HashTable_Insert(
 }
 
 DS_Void HashTable_Remove(
-     HashTable        hash_table,
+     HashTable hash_table,
      const DS_Generic key
 ) {
-     DS_Size       index;
+     DS_Size index;
      HashTablePair pair;
      HashTablePair previous;
-     DS_Compare    compare;
+     DS_Compare compare;
 
      index = hash_table->hash_callback(key,
           hash_table->bucket_count, hash_table->hash_context);
@@ -150,12 +152,12 @@ DS_Void HashTable_Remove(
 }
 
 HashTablePair HashTable_Search(
-     HashTable        hash_table,
+     HashTable hash_table,
      const DS_Generic key
 ) {
-     DS_Size       index;
+     DS_Size index;
      HashTablePair pair;
-     DS_Compare    compare;
+     DS_Compare compare;
      
      index = hash_table->hash_callback(key,
           hash_table->bucket_count, hash_table->hash_context);

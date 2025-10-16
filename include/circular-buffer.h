@@ -38,7 +38,7 @@ DS_Generic CircularBuffer_GetBackData(
 
 DATA_STRUCTURES_API
 DS_Void CircularBuffer_PushBack(
-     CircularBuffer   circular_buffer,
+     CircularBuffer circular_buffer,
      const DS_Generic data
 );
 

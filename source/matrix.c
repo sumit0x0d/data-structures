@@ -6,7 +6,7 @@
 #include <matrix.h>
 
 struct Matrix {
-     Array   array;
+     Array array;
      DS_Size row_count;
      DS_Size column_count;
 };
@@ -44,8 +44,8 @@ DS_Void Matrix_Destroy(
 
 DS_Generic Matrix_GetData(
      const Matrix matrix,
-     DS_Size      row,
-     DS_Size      column
+     DS_Size row,
+     DS_Size column
 ) {
      return Array_GetData(matrix->array, (row * matrix->column_count) + column);
 }
@@ -63,9 +63,9 @@ DS_Size Matrix_GetColumnCount(
 }
 
 DS_Void Matrix_SetData(
-     Matrix           matrix,
-     DS_Size          row,
-     DS_Size          column,
+     Matrix matrix,
+     DS_Size row,
+     DS_Size column,
      const DS_Generic data
 ) {
      Array_SetData(matrix->array, (row * matrix->column_count) + column, data);
@@ -94,12 +94,12 @@ Matrix Matrix_Transposition(
 }
 
 Matrix Matrix_Multiplication(
-     Matrix            matrix1,
-     Matrix            matrix2,
+     Matrix matrix1,
+     Matrix matrix2,
      DS_CallbackBinary binary_callback,
-     DS_Generic        binary_context
+     DS_Generic binary_context
 ) {
-     Matrix  matrix;
+     Matrix matrix;
      DS_Size i;
      DS_Size j;
      DS_Size k;
@@ -115,7 +115,8 @@ Matrix Matrix_Multiplication(
           for (j = 0; j < matrix->column_count; j++) {
                for (k = 0; k < matrix1->column_count; k++) {
                     binary_callback(Matrix_GetData(matrix, i, j),
-                         Matrix_GetData(matrix1, i, k), Matrix_GetData(matrix2, k, j));
+                         Matrix_GetData(matrix1, i, k),
+                         Matrix_GetData(matrix2, k, j));
                     (void)binary_context;
                }
           }
@@ -125,12 +126,12 @@ Matrix Matrix_Multiplication(
 }
 
 Matrix Matrix_Operation(
-     Matrix            matrix1,
-     Matrix            matrix2,
+     Matrix matrix1,
+     Matrix matrix2,
      DS_CallbackBinary binary_callback,
-     DS_Generic        binary_context
+     DS_Generic binary_context
 ) {
-     Matrix  matrix;
+     Matrix matrix;
      DS_Size i;
      DS_Size j;
 
@@ -159,7 +160,7 @@ Matrix Matrix_Operation(
 Matrix Matrix_ColumnVectorization(
      Matrix matrix
 ) {
-     Matrix  vectorize;
+     Matrix vectorize;
      DS_Size i;
      DS_Size j;
 

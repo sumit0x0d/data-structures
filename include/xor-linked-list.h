@@ -23,13 +23,13 @@ DS_Generic XorLinkedList_GetNodeData(
 
 DATA_STRUCTURES_API
 DS_Void XorLinkedList_PushHead(
-     XorLinkedList    xor_linked_list,
+     XorLinkedList xor_linked_list,
      const DS_Generic data
 );
 
 DATA_STRUCTURES_API
 DS_Void XorLinkedList_PushTail(
-     XorLinkedList    xor_linked_list,
+     XorLinkedList xor_linked_list,
      const DS_Generic data
 );
 
@@ -45,27 +45,27 @@ DS_Void XorLinkedList_PopTail(
 
 DATA_STRUCTURES_API
 DS_Void XorLinkedList_Insert(
-     XorLinkedList    xor_linked_list,
-     DS_Size          index,
+     XorLinkedList xor_linked_list,
+     DS_Size index,
      const DS_Generic data
 );
 
 DATA_STRUCTURES_API
 DS_Void XorLinkedList_Remove(
-     XorLinkedList    xor_linked_list,
+     XorLinkedList xor_linked_list,
      const DS_Generic data
 );
 
 DATA_STRUCTURES_API
 DS_Void XorLinkedList_Erase(
      XorLinkedList xor_linked_list,
-     DS_Size       index
+     DS_Size index
 );
 
 DATA_STRUCTURES_API
 DS_Void XorLinkedList_Update(
-     XorLinkedList    xor_linked_list,
-     DS_Size          index,
+     XorLinkedList xor_linked_list,
+     DS_Size index,
      const DS_Generic data
 );
 

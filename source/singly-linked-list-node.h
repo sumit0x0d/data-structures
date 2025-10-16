@@ -4,13 +4,13 @@
 #include <singly-linked-list.h>
 
 struct SinglyLinkedListNode {
-     DS_Generic           data;
+     DS_Generic data;
      SinglyLinkedListNode next;
 };
 
 SinglyLinkedListNode SinglyLinkedListNode_Create(
      const DS_Generic data,
-     DS_Size          data_size);
+     DS_Size data_size);
 
 DS_Void SinglyLinkedListNode_Destroy(
      SinglyLinkedListNode node

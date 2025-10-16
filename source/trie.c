@@ -5,7 +5,7 @@
 #include <trie.h>
 
 struct TrieNode {
-     int      terminal;
+     int terminal;
      TrieNode *children[128];
 };
 

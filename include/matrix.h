@@ -20,8 +20,8 @@ DS_Void Matrix_Destroy(
 DATA_STRUCTURES_API
 DS_Generic Matrix_GetData(
      const Matrix matrix,
-     DS_Size      row,
-     DS_Size      column
+     DS_Size row,
+     DS_Size column
 );
 
 DATA_STRUCTURES_API
@@ -36,9 +36,9 @@ DS_Size Matrix_GetColumnCount(
 
 DATA_STRUCTURES_API
 DS_Void Matrix_SetData(
-     Matrix           matrix,
-     DS_Size          row,
-     DS_Size          column,
+     Matrix matrix,
+     DS_Size row,
+     DS_Size column,
      const DS_Generic data
 );
 
@@ -49,18 +49,18 @@ Matrix Matrix_Transposition(
 
 DATA_STRUCTURES_API
 Matrix Matrix_Multiplication(
-     Matrix            matrix1,
-     Matrix            matrix2,
+     Matrix matrix1,
+     Matrix matrix2,
      DS_CallbackBinary binary_callback,
-     DS_Generic        binary_context
+     DS_Generic binary_context
 );
 
 DATA_STRUCTURES_API
 Matrix Matrix_Operation(
-     Matrix            matrix1,
-     Matrix            matrix2,
+     Matrix matrix1,
+     Matrix matrix2,
      DS_CallbackBinary binary_callback,
-     DS_Generic        binary_context
+     DS_Generic binary_context
 );
 
 DATA_STRUCTURES_API
@@ -70,9 +70,9 @@ Matrix Matrix_ColumnVectorization(
 
 DATA_STRUCTURES_API
 DS_Void Matrix_Traverse(
-     Matrix           matrix,
+     Matrix matrix,
      DS_CallbackUnary unary_callback,
-     DS_Generic       unary_context
+     DS_Generic unary_context
 );
 
 #endif

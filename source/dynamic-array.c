@@ -6,14 +6,14 @@
 #include <dynamic-array.h>
 
 struct DynamicArray {
-     Array      array;
-     DS_Size    size;
+     Array array;
+     DS_Size size;
      DS_Float64 growth_factor;
 };
 
 DynamicArray DynamicArray_Create(
-     DS_Size    data_size,
-     DS_Size    size,
+     DS_Size data_size,
+     DS_Size size,
      DS_Float64 growth_factor
 ) {
      DynamicArray dynamic_array;
@@ -53,7 +53,7 @@ DS_Size DynamicArray_GetSize(
 
 DS_Generic DynamicArray_GetData(
      DynamicArray dynamic_array,
-     DS_Size      index
+     DS_Size index
 ) {
 	return Array_GetData(dynamic_array->array, index);
 }
@@ -92,9 +92,9 @@ DS_Void DynamicArray_PopBack(
 }
 
 DS_Void DynamicArray_Traverse(
-     DynamicArray     dynamic_array,
+     DynamicArray dynamic_array,
      DS_CallbackUnary unary_callback,
-     DS_Generic       unary_context
+     DS_Generic unary_context
 ) {
      DS_Size i;
 

@@ -5,7 +5,7 @@
 
 DoublyLinkedListNode DoublyLinkedListNode_Create(
      const DS_Generic data,
-     DS_Size          data_size
+     DS_Size data_size
 ) {
      DoublyLinkedListNode node;
 
@@ -13,13 +13,13 @@ DoublyLinkedListNode DoublyLinkedListNode_Create(
      if (!node) {
           return NULL;
      }
-     
+
      node->data = malloc(data_size);
      if (!node->data) {
           free(node);
           return NULL;
      }
-     
+
      memcpy(node->data, data, data_size);
      
      return node;

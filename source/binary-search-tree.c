@@ -1,13 +1,13 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <regex.h>
 #include <binary-search-tree.h>
 
 typedef BinarySearchTreeNode Node;
 
 struct BinarySearchTreeNode {
-     DS_Generic           data;
+     DS_Generic data;
      BinarySearchTreeNode parent;
      BinarySearchTreeNode left;
      BinarySearchTreeNode right;
@@ -15,15 +15,15 @@ struct BinarySearchTreeNode {
 
 struct BinarySearchTree {
      BinarySearchTreeNode root;
-     DS_Size              data_size;
-     DS_Size              size;
-     DS_CallbackCompare   compare_callback;
-     DS_Generic           compare_context;
+     DS_Size data_size;
+     DS_Size size;
+     DS_CallbackCompare compare_callback;
+     DS_Generic compare_context;
 };
 
 static BinarySearchTreeNode BinarySearchTreeNode_Create(
      const DS_Generic data,
-     DS_Size          size
+     DS_Size size
 );
 static DS_Void BinarySearchTreeNode_Destroy(
      BinarySearchTreeNode node
@@ -55,7 +55,9 @@ BinarySearchTreeNode BinarySearchTree_search(
      BinarySearchTree tree,
      const DS_Generic data
 ) {
-     BinarySearchTreeNode node = tree->root;
+     BinarySearchTreeNode node;
+
+     node = tree->root;
      while (node) {
           switch (tree->compare_callback(node->data,
                data, tree->compare_context)) {
@@ -146,7 +148,7 @@ DS_Void BinarySearchTree_remove(
 
 static BinarySearchTreeNode _BinarySearchTreeNode_create(
      const DS_Generic data,
-     DS_Size          size
+     DS_Size size
 ) {
      BinarySearchTreeNode node = (BinarySearchTreeNode)
           malloc(sizeof (Node));

@@ -5,7 +5,7 @@
 #include <stack.h>
 
 struct BinaryTreeNode {
-     DS_Generic     data;
+     DS_Generic data;
      BinaryTreeNode parent;
      BinaryTreeNode left;
      BinaryTreeNode right;

@@ -5,8 +5,8 @@
 
 struct BinaryTree {
      BinaryTreeNode root;
-     DS_Size        data_size;
-     DS_Size        size;
+     DS_Size data_size;
+     DS_Size size;
 };
 
 BinaryTree BinaryTree_Create(
@@ -33,8 +33,8 @@ DS_Void BinaryTree_Destroy(
 }
 
 DS_Void BinaryTree_InsertLeft(
-     BinaryTree       binary_tree,
-     BinaryTreeNode   node,
+     BinaryTree binary_tree,
+     BinaryTreeNode node,
      const DS_Generic data
 ) {
      node->left = BinaryTreeNode_Create(data, binary_tree->data_size);
@@ -42,8 +42,8 @@ DS_Void BinaryTree_InsertLeft(
 }
 
 DS_Void BinaryTree_InsertRight(
-     BinaryTree       binary_tree,
-     BinaryTreeNode   node,
+     BinaryTree binary_tree,
+     BinaryTreeNode node,
      const DS_Generic data
 ) {
      node->right = BinaryTreeNode_Create(data, binary_tree->data_size);

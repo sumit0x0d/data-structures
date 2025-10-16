@@ -39,13 +39,16 @@ int main(
      }
      
      printf("Array_set_data() passed\n");
+     
      Array_Traverse(array, _CallbackUnaryPrint, NULL);
      printf("\nArray_traverse() passed\n");
+     
      // Array_SortBubble(array, _compare_int, NULL);
      Array_SortInsertion(array, _CallbackCompareInt, NULL);
      Array_SortSelection(array, _CallbackCompareInt, NULL);
      Array_Traverse(array, _CallbackUnaryPrint, NULL);
      printf("\nArray_traverse() passed\n");
+     
      Array_Destroy(array);
      printf("Array_destroy() passed\n");
      printf("All array tests passed!\n");

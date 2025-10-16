@@ -40,9 +40,9 @@ SinglyLinkedListNode SinglyLinkedList_GetTail(
 
 DATA_STRUCTURES_API
 DS_Void SinglyLinkedList_SetData(
-     SinglyLinkedList     singly_linked_list,
+     SinglyLinkedList singly_linked_list,
      SinglyLinkedListNode singly_linked_list_node,
-     const DS_Generic     data
+     const DS_Generic data
 );
 
 DATA_STRUCTURES_API
@@ -76,7 +76,7 @@ DATA_STRUCTURES_API
 DS_Void SinglyLinkedList_Traverse(
      SinglyLinkedList singly_linked_list,
      DS_CallbackUnary unary_callback,
-     DS_Generic       unary_context
+     DS_Generic unary_context
 );
 
 DATA_STRUCTURES_API

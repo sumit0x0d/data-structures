@@ -33,7 +33,7 @@ DS_Generic Stack_GetTop(
 
 DATA_STRUCTURES_API
 DS_Void Stack_Push(
-     Stack            stack,
+     Stack stack,
      const DS_Generic data
 );
 

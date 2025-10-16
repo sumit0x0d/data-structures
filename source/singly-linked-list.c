@@ -9,8 +9,8 @@
 struct SinglyLinkedList {
      SinglyLinkedListNode head;
      SinglyLinkedListNode tail;
-     DS_Size              data_size;
-     DS_Size              size;
+     DS_Size data_size;
+     DS_Size size;
 };
 
 SinglyLinkedList SinglyLinkedList_Create(
@@ -123,7 +123,7 @@ DS_Void SinglyLinkedList_PopTail(
 DS_Void SinglyLinkedList_Traverse(
      SinglyLinkedList singly_linked_list,
      DS_CallbackUnary unary_callback,
-     DS_Generic       unary_context
+     DS_Generic unary_context
 ) {
      SinglyLinkedListNode node;
 
@@ -141,9 +141,9 @@ DS_Generic SinglyLinkedListNode_GetData(
 }
 
 DS_Void SinglyLinkedList_SetData(
-     SinglyLinkedList     singly_linked_list,
+     SinglyLinkedList singly_linked_list,
      SinglyLinkedListNode node,
-     const DS_Generic     data
+     const DS_Generic data
 ) {
      memcpy(node->data, data, singly_linked_list->data_size);
 }
@@ -189,7 +189,7 @@ SinglyLinkedList SinglyLinkedList_MergeSorted(
      SinglyLinkedList singly_linked_list1,
      SinglyLinkedList singly_linked_list2
 ) {
-     SinglyLinkedList     singly_linked_list;
+     SinglyLinkedList singly_linked_list;
      SinglyLinkedListNode node;
 
      singly_linked_list = SinglyLinkedList_Create(singly_linked_list1->data_size);

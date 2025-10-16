@@ -11,39 +11,39 @@
 // #include "binary-tree-i.h"
 
 struct AvlTree {
-     AvlTreeNode        root;
-     DS_Size            data_size;
-     DS_Size            size;
+     AvlTreeNode root;
+     DS_Size data_size;
+     DS_Size size;
      DS_CallbackCompare compare_callback;
-     DS_Generic         compare_context;
+     DS_Generic compare_context;
 };
 
 static DS_Void _Rebalance(
-     AvlTree        avl_tree,
-     AvlTreeNode    node,
+     AvlTree avl_tree,
+     AvlTreeNode node,
      CircularBuffer circular_buffer
 );
 static DS_Void _RotateRight(
-     AvlTree     avl_tree,
+     AvlTree avl_tree,
      AvlTreeNode node
 );
 static DS_Void _RotateLeftRight(
-     AvlTree     avl_tree,
+     AvlTree avl_tree,
      AvlTreeNode node
 );
 static DS_Void _RotateLeft(
-     AvlTree     avl_tree,
+     AvlTree avl_tree,
      AvlTreeNode node
 );
 static DS_Void _RotateRightLeft(
-     AvlTree     avl_tree,
+     AvlTree avl_tree,
      AvlTreeNode node
 );
 
 AvlTree AvlTree_Create(
-     DS_Size            data_size,
+     DS_Size data_size,
      DS_CallbackCompare compare_callback,
-     DS_Generic         compare_context
+     DS_Generic compare_context
 ) {
      AvlTree avl_tree;
 
@@ -64,7 +64,7 @@ AvlTree AvlTree_Create(
 DS_Void AvlTree_Destroy(
      AvlTree avl_tree
 ) {
-     AvlTreeNode    node ;
+     AvlTreeNode node ;
      CircularBuffer circular_buffer;
 
      node = avl_tree->root;
@@ -105,11 +105,11 @@ DS_Size AvlTree_GetDataSize(
 
 
 AvlTreeNode AvlTree_Search(
-     AvlTree          avl_tree,
+     AvlTree avl_tree,
      const DS_Generic data
 ) {
      AvlTreeNode current;
-     DS_Compare  compare;
+     DS_Compare compare;
 
      current = avl_tree->root;
      while (current) {
@@ -131,13 +131,13 @@ AvlTreeNode AvlTree_Search(
 }
 
 DS_Void AvlTree_Insert(
-     AvlTree          avl_tree,
+     AvlTree avl_tree,
      const DS_Generic data
 ) {
      CircularBuffer circular_buffer;
-     AvlTreeNode    current;
-     AvlTreeNode    parent;
-     DS_Compare     compare;
+     AvlTreeNode current;
+     AvlTreeNode parent;
+     DS_Compare compare;
 
      if (!avl_tree->root) {
           avl_tree->root = AvlTreeNode_Create(data, avl_tree->data_size);
@@ -147,7 +147,8 @@ DS_Void AvlTree_Insert(
      }
      
      circular_buffer = CircularBuffer_Create(
-          sizeof (struct AvlTreeNode), (avl_tree->size + 2) / 2);
+          sizeof (struct AvlTreeNode),
+          (avl_tree->size + 2) / 2);
      parent = avl_tree->root->parent;
           
      current = avl_tree->root;

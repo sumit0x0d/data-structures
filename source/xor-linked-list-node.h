@@ -5,7 +5,7 @@
 
 struct XorLinkedListNode {
      DS_Generic data;
-     DS_Size    xor;
+     DS_Size xor;
 };
 
 XorLinkedListNode XorLinkedListNode_Create(

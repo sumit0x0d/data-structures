@@ -7,8 +7,8 @@
 struct XorLinkedList {
      XorLinkedListNode head;
      XorLinkedListNode tail;
-     DS_Size           data_size;
-     DS_Size           size;
+     DS_Size data_size;
+     DS_Size size;
 };
 
 XorLinkedList XorLinkedList_Create(
@@ -37,7 +37,7 @@ DS_Void XorLinkedList_Destroy(
 }
 
 DS_Void XorLinkedList_PushHead(
-     XorLinkedList    xor_linked_list,
+     XorLinkedList xor_linked_list,
      const DS_Generic data
 ) {
      XorLinkedListNode node;
@@ -54,7 +54,7 @@ DS_Void XorLinkedList_PushHead(
 }
 
 DS_Void XorLinkedList_PushTail(
-     XorLinkedList    xor_linked_list,
+     XorLinkedList xor_linked_list,
      const DS_Generic data
 ) {
      XorLinkedListNode node;

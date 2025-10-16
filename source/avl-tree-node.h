@@ -9,12 +9,12 @@ struct AvlTreeNode {
      AvlTreeNode parent;
      AvlTreeNode left;
      AvlTreeNode right;
-     DS_Int8     balance_factor;
+     DS_Int8 balance_factor;
 };
 
 AvlTreeNode AvlTreeNode_Create(
      const DS_Generic data,
-     DS_Size          data_size
+     DS_Size data_size
 );
 
 DS_Void AvlTreeNode_Destroy(
@@ -22,12 +22,12 @@ DS_Void AvlTreeNode_Destroy(
 );
 
 DS_Size AvlTreeNode_GetHeight(
-     AvlTreeNode    node,
+     AvlTreeNode node,
      CircularBuffer circular_buffer
 );
 
 DS_Void AvlTreeNode_UpdateBalanceFactor(
-     AvlTreeNode    node,
+     AvlTreeNode node,
      CircularBuffer circular_buffer);
 
 AvlTreeNode AvlTreeNode_GetPredecessor(

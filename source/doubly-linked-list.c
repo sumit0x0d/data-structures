@@ -9,8 +9,8 @@
 struct DoublyLinkedList {
      DoublyLinkedListNode head;
      DoublyLinkedListNode tail;
-     DS_Size              data_size;
-     DS_Size              size;
+     DS_Size data_size;
+     DS_Size size;
 };
 
 DoublyLinkedList DoublyLinkedList_Create(
@@ -77,9 +77,9 @@ DS_Generic DoublyLinkedList_GetNodeData(
 }
 
 DS_Void DoublyLinkedList_SetNodeData(
-     DoublyLinkedList     doubly_linked_list,
+     DoublyLinkedList doubly_linked_list,
      DoublyLinkedListNode node,
-     const DS_Generic     data
+     const DS_Generic data
 ) {
      memcpy(node->data, data, doubly_linked_list->data_size);
 }
@@ -159,7 +159,7 @@ DS_Void DoublyLinkedList_PopTail(
 }
 
 DS_Void DoublyLinkedList_Remove(
-     DoublyLinkedList     doubly_linked_list,
+     DoublyLinkedList doubly_linked_list,
      DoublyLinkedListNode node
 ) {
      if (node->previous && node->previous->next == (DoublyLinkedListNode)node) {
@@ -181,7 +181,7 @@ DS_Void DoublyLinkedList_Remove(
 DS_Void DoublyLinkedList_Traverse(
      DoublyLinkedList doubly_linked_list,
      DS_CallbackUnary unary_callback,
-     DS_Generic       unary_context
+     DS_Generic unary_context
 ) {
      DoublyLinkedListNode node;
 

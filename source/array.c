@@ -5,8 +5,8 @@
 
 struct Array {
      DS_Generic base;
-     DS_Size    data_size;
-     DS_Size    size;
+     DS_Size data_size;
+     DS_Size size;
      DS_Generic swap_buffer;
 };
 
@@ -83,15 +83,15 @@ DS_Generic Array_GetData(
 }
 
 DS_Void Array_SetData(
-     Array            array,
-     DS_Size          index,
+     Array array,
+     DS_Size index,
      const DS_Generic data
 ) {
      memcpy(Array_GetData(array, index), data, array->data_size);
 }
 
 DS_Void Array_SwapData(
-     Array      array,
+     Array array,
      DS_Generic data1,
      DS_Generic data2
 ) {
@@ -101,9 +101,9 @@ DS_Void Array_SwapData(
 }
 
 DS_Void Array_Traverse(
-     Array            array,
+     Array array,
      DS_CallbackUnary unary_callback,
-     DS_Generic       unary_context
+     DS_Generic unary_context
 ) {
      DS_Size i;
 
@@ -113,12 +113,12 @@ DS_Void Array_Traverse(
 }
 
 DS_Generic Array_SearchLinear(
-     const Array        array,
-     const DS_Generic   data,
+     const Array array,
+     const DS_Generic data,
      DS_CallbackCompare compare_callback,
-     DS_Generic         compare_context
+     DS_Generic compare_context
 ) {
-     DS_Size    i;
+     DS_Size i;
      DS_Generic current;
 
      for (i = 0; i < array->size; i++) {
@@ -137,9 +137,9 @@ DS_Generic Array_SearchBinary(
      DS_CallbackCompare compare_callback,
      DS_Generic         compare_context
 ) {
-     DS_Size    left;
-     DS_Size    right;
-     DS_Size    middle;
+     DS_Size left;
+     DS_Size right;
+     DS_Size middle;
      DS_Generic current;
      
      left = 0;
@@ -163,12 +163,12 @@ DS_Generic Array_SearchBinary(
 }
 
 DS_Void Array_SortBubble(
-     Array              array,
+     Array array,
      DS_CallbackCompare compare_callback,
-     DS_Generic         compare_context
+     DS_Generic compare_context
 ) {
-     DS_Size    i;
-     DS_Size    j;
+     DS_Size i;
+     DS_Size j;
      DS_Generic data1;
      DS_Generic data2;
 
@@ -189,8 +189,8 @@ DS_Void Array_SortInsertion(
      DS_CallbackCompare compare_callback,
      DS_Generic         compare_context
 ) {
-     DS_Size    i;
-     DS_Size    j;
+     DS_Size i;
+     DS_Size j;
      DS_Generic data1;
      DS_Generic data2;
 
@@ -213,9 +213,9 @@ DS_Void Array_SortSelection(
      DS_CallbackCompare compare_callback,
      DS_Generic         compare_context
 ) {
-     DS_Size    i;
-     DS_Size    minimum;
-     DS_Size    j;
+     DS_Size i;
+     DS_Size minimum;
+     DS_Size j;
      DS_Generic data1;
      DS_Generic data2;
 
@@ -237,8 +237,8 @@ DS_Void Array_SortQuick(
      DS_CallbackCompare compare_callback,
      DS_Generic         compare_context
 ) {
-     DS_Size    i;
-     DS_Size    j;
+     DS_Size i;
+     DS_Size j;
      DS_Generic data1;
      DS_Generic data2;
 
@@ -255,12 +255,12 @@ DS_Void Array_SortQuick(
 }
 
 DS_Void Array_SortMerge(
-     Array              array,
+     Array array,
      DS_CallbackCompare compare_callback,
-     DS_Generic         compare_context
+     DS_Generic compare_context
 ) {
-     DS_Size    i;
-     DS_Size    j;
+     DS_Size i;
+     DS_Size j;
      DS_Generic data1;
      DS_Generic data2;
 
@@ -277,11 +277,11 @@ DS_Void Array_SortMerge(
 }
 
 DS_Generic Array_PatternSearchRabinKarp(
-     const Array      array,
+     const Array array,
      const DS_Generic pattern,
-     DS_Size          pattern_size,
-     DS_CallbackHash  hash_callback,
-     DS_Generic       hash_context
+     DS_Size pattern_size,
+     DS_CallbackHash hash_callback,
+     DS_Generic hash_context
 ) {
      (DS_Void)array;
      (DS_Void)pattern;
