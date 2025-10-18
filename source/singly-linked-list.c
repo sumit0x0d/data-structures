@@ -13,9 +13,8 @@ struct SinglyLinkedList {
      DS_Size size;
 };
 
-SinglyLinkedList SinglyLinkedList_Create(
-     DS_Size data_size
-) {
+SinglyLinkedList SinglyLinkedList_Create(DS_Size data_size)
+{
      SinglyLinkedList singly_linked_list;
 
      singly_linked_list = (SinglyLinkedList)malloc(sizeof (struct SinglyLinkedList));
@@ -31,17 +30,14 @@ SinglyLinkedList SinglyLinkedList_Create(
      return singly_linked_list;
 }
 
-DS_Void SinglyLinkedList_Destroy(
-     SinglyLinkedList singly_linked_list
-) {
+DS_Void SinglyLinkedList_Destroy(SinglyLinkedList singly_linked_list)
+{
      free(singly_linked_list->head);
      free(singly_linked_list);
 }
 
-DS_Void SinglyLinkedList_PushHead(
-     SinglyLinkedList singly_linked_list,
-     const DS_Generic data
-) {
+DS_Void SinglyLinkedList_PushHead( SinglyLinkedList singly_linked_list, const DS_Generic data)
+{
      SinglyLinkedListNode node;
      
      node = SinglyLinkedListNode_Create(data, singly_linked_list->data_size);
@@ -57,10 +53,8 @@ DS_Void SinglyLinkedList_PushHead(
      singly_linked_list->size++;
 }
 
-DS_Void SinglyLinkedList_PushTail(
-     SinglyLinkedList singly_linked_list,
-     const DS_Generic data
-) {
+DS_Void SinglyLinkedList_PushTail(SinglyLinkedList singly_linked_list, const DS_Generic data)
+{
      SinglyLinkedListNode node;
 
      node = SinglyLinkedListNode_Create(data, singly_linked_list->data_size);
@@ -76,9 +70,8 @@ DS_Void SinglyLinkedList_PushTail(
      singly_linked_list->size++;
 }
 
-DS_Void SinglyLinkedList_PopHead(
-     SinglyLinkedList singly_linked_list
-) {
+DS_Void SinglyLinkedList_PopHead(SinglyLinkedList singly_linked_list)
+{
      SinglyLinkedListNode node;
 
      node = singly_linked_list->head;
@@ -92,9 +85,8 @@ DS_Void SinglyLinkedList_PopHead(
      singly_linked_list->size--;
 }
 
-DS_Void SinglyLinkedList_PopTail(
-     SinglyLinkedList singly_linked_list
-) {
+DS_Void SinglyLinkedList_PopTail(SinglyLinkedList singly_linked_list)
+{
      SinglyLinkedListNode node;
      
      if (singly_linked_list->size == 0) {
@@ -120,11 +112,9 @@ DS_Void SinglyLinkedList_PopTail(
      singly_linked_list->size--;
 }
 
-DS_Void SinglyLinkedList_Traverse(
-     SinglyLinkedList singly_linked_list,
-     DS_CallbackUnary unary_callback,
-     DS_Generic unary_context
-) {
+DS_Void SinglyLinkedList_Traverse(SinglyLinkedList singly_linked_list,
+     DS_CallbackUnary unary_callback, DS_Generic unary_context)
+{
      SinglyLinkedListNode node;
 
      node = singly_linked_list->head;
@@ -134,23 +124,18 @@ DS_Void SinglyLinkedList_Traverse(
      }
 }
 
-DS_Generic SinglyLinkedListNode_GetData(
-     SinglyLinkedListNode node
-) {
+DS_Generic SinglyLinkedListNode_GetData(SinglyLinkedListNode node)
+{
      return node->data;
 }
 
-DS_Void SinglyLinkedList_SetData(
-     SinglyLinkedList singly_linked_list,
-     SinglyLinkedListNode node,
-     const DS_Generic data
-) {
+DS_Void SinglyLinkedList_SetData(SinglyLinkedList singly_linked_list, SinglyLinkedListNode node, const DS_Generic data)
+{
      memcpy(node->data, data, singly_linked_list->data_size);
 }
 
-SinglyLinkedListNode SinglyLinkedList_DetectCycle(
-     SinglyLinkedList singly_linked_list
-) {
+SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList singly_linked_list)
+{
      SinglyLinkedListNode tortoise;
      SinglyLinkedListNode hare;
 
@@ -168,9 +153,8 @@ SinglyLinkedListNode SinglyLinkedList_DetectCycle(
      return NULL;
 }
 
-SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(
-     SinglyLinkedList singly_linked_list
-) {
+SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(SinglyLinkedList singly_linked_list)
+{
      SinglyLinkedListNode tortoise;
      SinglyLinkedListNode hare;
 
@@ -185,10 +169,8 @@ SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(
      return tortoise;
 }
 
-SinglyLinkedList SinglyLinkedList_MergeSorted(
-     SinglyLinkedList singly_linked_list1,
-     SinglyLinkedList singly_linked_list2
-) {
+SinglyLinkedList SinglyLinkedList_MergeSorted(SinglyLinkedList singly_linked_list1, SinglyLinkedList singly_linked_list2)
+{
      SinglyLinkedList singly_linked_list;
      SinglyLinkedListNode node;
 

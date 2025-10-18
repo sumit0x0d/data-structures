@@ -10,10 +10,8 @@ struct Array {
      DS_Generic swap_buffer;
 };
 
-Array Array_Create(
-     DS_Size data_size,
-     DS_Size size
-) {
+Array Array_Create( DS_Size data_size, DS_Size size)
+{
      Array array;
 
      array = (Array)malloc(sizeof (struct Array));
@@ -40,30 +38,25 @@ Array Array_Create(
      return array;
 }
 
-DS_Void Array_Destroy(
-     Array array
-) {
+DS_Void Array_Destroy(Array array)
+{
      free(array->swap_buffer);
      free(array->base);
      free(array);
 }
 
-DS_Size Array_GetSize(
-     const Array array
-) {
+DS_Size Array_GetSize(const Array array)
+{
      return array->size;
 }
 
-DS_Size Array_GetDataSize(
-     const Array array
-) {
+DS_Size Array_GetDataSize(const Array array)
+{
      return array->data_size;
 }
 
-DS_Void Array_SetSize(
-     Array array,
-     DS_Size size
-) {
+DS_Void Array_SetSize( Array array, DS_Size size)
+{
      DS_Generic base;
 
      base = realloc(array->base, array->data_size * size);
@@ -75,36 +68,25 @@ DS_Void Array_SetSize(
      array->size = size;
 }
 
-DS_Generic Array_GetData(
-     const Array array,
-     DS_Size     index
-) {
+DS_Generic Array_GetData( const Array array, DS_Size index)
+{
      return (DS_Int8 *)array->base + (array->data_size * index);
 }
 
-DS_Void Array_SetData(
-     Array array,
-     DS_Size index,
-     const DS_Generic data
-) {
+DS_Void Array_SetData(Array array, DS_Size index, const DS_Generic data)
+{
      memcpy(Array_GetData(array, index), data, array->data_size);
 }
 
-DS_Void Array_SwapData(
-     Array array,
-     DS_Generic data1,
-     DS_Generic data2
-) {
+DS_Void Array_SwapData(Array array, DS_Generic data1, DS_Generic data2)
+{
      memcpy(array->swap_buffer, data1, array->data_size);
      memcpy(data1, data2, array->data_size);
      memcpy(data2, array->swap_buffer, array->data_size);
 }
 
-DS_Void Array_Traverse(
-     Array array,
-     DS_CallbackUnary unary_callback,
-     DS_Generic unary_context
-) {
+DS_Void Array_Traverse(Array array, DS_CallbackUnary unary_callback, DS_Generic unary_context)
+{
      DS_Size i;
 
      for (i = 0; i < array->size; i++) {
@@ -112,12 +94,9 @@ DS_Void Array_Traverse(
      }
 }
 
-DS_Generic Array_SearchLinear(
-     const Array array,
-     const DS_Generic data,
-     DS_CallbackCompare compare_callback,
-     DS_Generic compare_context
-) {
+DS_Generic Array_SearchLinear(const Array array, const DS_Generic data,
+     DS_CallbackCompare compare_callback, DS_Generic compare_context)
+{
      DS_Size i;
      DS_Generic current;
 
@@ -131,12 +110,9 @@ DS_Generic Array_SearchLinear(
     return NULL;
 }
 
-DS_Generic Array_SearchBinary(
-     const Array        array,
-     const DS_Generic   data,
-     DS_CallbackCompare compare_callback,
-     DS_Generic         compare_context
-) {
+DS_Generic Array_SearchBinary(const Array array, const DS_Generic data,
+     DS_CallbackCompare compare_callback, DS_Generic compare_context)
+{
      DS_Size left;
      DS_Size right;
      DS_Size middle;
@@ -162,11 +138,8 @@ DS_Generic Array_SearchBinary(
      return NULL;
 }
 
-DS_Void Array_SortBubble(
-     Array array,
-     DS_CallbackCompare compare_callback,
-     DS_Generic compare_context
-) {
+DS_Void Array_SortBubble(Array array, DS_CallbackCompare compare_callback, DS_Generic compare_context)
+{
      DS_Size i;
      DS_Size j;
      DS_Generic data1;
@@ -176,19 +149,15 @@ DS_Void Array_SortBubble(
           for (j = 0; j < i; j++) {
                data1 = Array_GetData(array, j);
                data2 = Array_GetData(array, j + 1);
-               if (compare_callback(data1, data2, compare_context)
-                    == DS_COMPARE_GREATER) {
+               if (compare_callback(data1, data2, compare_context) == DS_COMPARE_GREATER) {
                     Array_SwapData(array, data1, data2);
                }
           }
      }
 }
 
-DS_Void Array_SortInsertion(
-     Array              array,
-     DS_CallbackCompare compare_callback,
-     DS_Generic         compare_context
-) {
+DS_Void Array_SortInsertion(Array array, DS_CallbackCompare compare_callback, DS_Generic compare_context)
+{
      DS_Size i;
      DS_Size j;
      DS_Generic data1;
@@ -199,8 +168,7 @@ DS_Void Array_SortInsertion(
           do {
                data1 = Array_GetData(array, j - 1);
                data2 = Array_GetData(array, j);
-               if (compare_callback(data1, data2, compare_context)
-                    == DS_COMPARE_GREATER) {
+               if (compare_callback(data1, data2, compare_context) == DS_COMPARE_GREATER) {
                     Array_SwapData(array, data1, data2);
                }
                j--;
@@ -208,11 +176,8 @@ DS_Void Array_SortInsertion(
      }
 }
 
-DS_Void Array_SortSelection(
-     Array              array,
-     DS_CallbackCompare compare_callback,
-     DS_Generic         compare_context
-) {
+DS_Void Array_SortSelection(Array array, DS_CallbackCompare compare_callback, DS_Generic compare_context)
+{
      DS_Size i;
      DS_Size minimum;
      DS_Size j;
@@ -224,19 +189,15 @@ DS_Void Array_SortSelection(
           for (j = minimum + 1; j < array->size; j++) {
                data1 = Array_GetData(array, minimum);
                data2 = Array_GetData(array, j);
-               if (compare_callback(data1, data2, compare_context)
-                    == DS_COMPARE_GREATER) {
+               if (compare_callback(data1, data2, compare_context) == DS_COMPARE_GREATER) {
                     Array_SwapData(array, data1, data2);
                }
           }
      }
 }
 
-DS_Void Array_SortQuick(
-     Array              array,
-     DS_CallbackCompare compare_callback,
-     DS_Generic         compare_context
-) {
+DS_Void Array_SortQuick(Array array, DS_CallbackCompare compare_callback, DS_Generic compare_context)
+{
      DS_Size i;
      DS_Size j;
      DS_Generic data1;
@@ -246,19 +207,15 @@ DS_Void Array_SortQuick(
           for (j = i + 1; j < array->size - i; j++) {
                data1 = Array_GetData(array, i);
                data2 = Array_GetData(array, j);
-               if (compare_callback(data1, data2, compare_context)
-                    == DS_COMPARE_GREATER) {
+               if (compare_callback(data1, data2, compare_context) == DS_COMPARE_GREATER) {
                     Array_SwapData(array, data1, data2);
                }
           }
      }
 }
 
-DS_Void Array_SortMerge(
-     Array array,
-     DS_CallbackCompare compare_callback,
-     DS_Generic compare_context
-) {
+DS_Void Array_SortMerge(Array array, DS_CallbackCompare compare_callback, DS_Generic compare_context)
+{
      DS_Size i;
      DS_Size j;
      DS_Generic data1;
@@ -268,21 +225,16 @@ DS_Void Array_SortMerge(
           for (j = i + 1; j < array->size - i; j++) {
                data1 = Array_GetData(array, i);
                data2 = Array_GetData(array, j);
-               if (compare_callback(data1, data2, compare_context)
-                    ==  DS_COMPARE_GREATER) {
+               if (compare_callback(data1, data2, compare_context) ==  DS_COMPARE_GREATER) {
                     Array_SwapData(array, data1, data2);
                }
           }
      }
 }
 
-DS_Generic Array_PatternSearchRabinKarp(
-     const Array array,
-     const DS_Generic pattern,
-     DS_Size pattern_size,
-     DS_CallbackHash hash_callback,
-     DS_Generic hash_context
-) {
+DS_Generic Array_PatternSearchRabinKarp(const Array array, const DS_Generic pattern,
+     DS_Size pattern_size, DS_CallbackHash hash_callback, DS_Generic hash_context)
+{
      (DS_Void)array;
      (DS_Void)pattern;
      (DS_Void)pattern_size;

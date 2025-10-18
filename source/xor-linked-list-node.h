@@ -8,13 +8,8 @@ struct XorLinkedListNode {
      DS_Size xor;
 };
 
-XorLinkedListNode XorLinkedListNode_Create(
-     const DS_Generic data,
-     DS_Size          data_size
-);
+XorLinkedListNode XorLinkedListNode_Create(const DS_Generic data, DS_Size data_size);
 
-DS_Void XorLinkedListNode_Destroy(
-     XorLinkedListNode node
-);
+DS_Void XorLinkedListNode_Destroy(XorLinkedListNode node);
 
 #endif

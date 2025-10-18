@@ -11,9 +11,8 @@ struct XorLinkedList {
      DS_Size size;
 };
 
-XorLinkedList XorLinkedList_Create(
-     DS_Size size
-) {
+XorLinkedList XorLinkedList_Create(DS_Size size)
+{
      XorLinkedList xor_linked_list;
      
      xor_linked_list = (XorLinkedList)malloc(sizeof (struct XorLinkedList));
@@ -29,17 +28,14 @@ XorLinkedList XorLinkedList_Create(
      return xor_linked_list;
 }
 
-DS_Void XorLinkedList_Destroy(
-     XorLinkedList xor_linked_list
-) {
+DS_Void XorLinkedList_Destroy(XorLinkedList xor_linked_list)
+{
      XorLinkedListNode_Destroy(xor_linked_list->head);
      free(xor_linked_list);
 }
 
-DS_Void XorLinkedList_PushHead(
-     XorLinkedList xor_linked_list,
-     const DS_Generic data
-) {
+DS_Void XorLinkedList_PushHead(XorLinkedList xor_linked_list, const DS_Generic data)
+{
      XorLinkedListNode node;
      
      node = XorLinkedListNode_Create(data, xor_linked_list->data_size);
@@ -53,10 +49,8 @@ DS_Void XorLinkedList_PushHead(
      xor_linked_list->size++;
 }
 
-DS_Void XorLinkedList_PushTail(
-     XorLinkedList xor_linked_list,
-     const DS_Generic data
-) {
+DS_Void XorLinkedList_PushTail(XorLinkedList xor_linked_list, const DS_Generic data)
+{
      XorLinkedListNode node;
      
      node = XorLinkedListNode_Create(data, xor_linked_list->data_size);

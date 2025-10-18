@@ -18,33 +18,16 @@ struct AvlTree {
      DS_Generic compare_context;
 };
 
-static DS_Void _Rebalance(
-     AvlTree avl_tree,
-     AvlTreeNode node,
-     CircularBuffer circular_buffer
-);
-static DS_Void _RotateRight(
-     AvlTree avl_tree,
-     AvlTreeNode node
-);
-static DS_Void _RotateLeftRight(
-     AvlTree avl_tree,
-     AvlTreeNode node
-);
-static DS_Void _RotateLeft(
-     AvlTree avl_tree,
-     AvlTreeNode node
-);
-static DS_Void _RotateRightLeft(
-     AvlTree avl_tree,
-     AvlTreeNode node
-);
+static DS_Void _Rebalance(AvlTree avl_tree, AvlTreeNode node, CircularBuffer circular_buffer);
+static DS_Void _RotateRight(AvlTree avl_tree, AvlTreeNode node);
+static DS_Void _RotateLeftRight(AvlTree avl_tree, AvlTreeNode node);
+static DS_Void _RotateLeft(AvlTree avl_tree, AvlTreeNode node);
+static DS_Void _RotateRightLeft(AvlTree avl_tree, AvlTreeNode node);
 
-AvlTree AvlTree_Create(
-     DS_Size data_size,
-     DS_CallbackCompare compare_callback,
-     DS_Generic compare_context
-) {
+AvlTree AvlTree_Create(DS_Size data_size,
+                       DS_CallbackCompare compare_callback,
+                       DS_Generic compare_context)
+{
      AvlTree avl_tree;
 
      avl_tree = (AvlTree)malloc(sizeof (struct AvlTree));
@@ -61,9 +44,8 @@ AvlTree AvlTree_Create(
      return avl_tree;
 }
 
-DS_Void AvlTree_Destroy(
-     AvlTree avl_tree
-) {
+DS_Void AvlTree_Destroy(AvlTree avl_tree)
+{
      AvlTreeNode node ;
      CircularBuffer circular_buffer;
 
@@ -90,31 +72,26 @@ DS_Void AvlTree_Destroy(
      free(avl_tree);
 }
 
-DS_Size AvlTree_GetSize(
-     AvlTree avl_tree
-) {
+DS_Size AvlTree_GetSize(AvlTree avl_tree)
+{
      return avl_tree->size;
 }
 
 
-DS_Size AvlTree_GetDataSize(
-     AvlTree avl_tree
-) {
+DS_Size AvlTree_GetDataSize(AvlTree avl_tree)
+{
      return avl_tree->data_size;
 }
 
 
-AvlTreeNode AvlTree_Search(
-     AvlTree avl_tree,
-     const DS_Generic data
-) {
+AvlTreeNode AvlTree_Search(AvlTree avl_tree, const DS_Generic data)
+{
      AvlTreeNode current;
      DS_Compare compare;
 
      current = avl_tree->root;
      while (current) {
-          compare = avl_tree->compare_callback(data,
-               current->data, avl_tree->compare_context);
+          compare = avl_tree->compare_callback(data, current->data, avl_tree->compare_context);
           switch (compare) {
           case DS_COMPARE_LESS:
                current = current->left;
@@ -130,10 +107,8 @@ AvlTreeNode AvlTree_Search(
      return NULL;
 }
 
-DS_Void AvlTree_Insert(
-     AvlTree avl_tree,
-     const DS_Generic data
-) {
+DS_Void AvlTree_Insert(AvlTree avl_tree, const DS_Generic data)
+{
      CircularBuffer circular_buffer;
      AvlTreeNode current;
      AvlTreeNode parent;
@@ -146,15 +121,12 @@ DS_Void AvlTree_Insert(
           return;
      }
      
-     circular_buffer = CircularBuffer_Create(
-          sizeof (struct AvlTreeNode),
-          (avl_tree->size + 2) / 2);
+     circular_buffer = CircularBuffer_Create(sizeof (struct AvlTreeNode), (avl_tree->size + 2) / 2);
      parent = avl_tree->root->parent;
           
      current = avl_tree->root;
      while (current) {
-          compare = avl_tree->compare_callback(current->data,
-               data, avl_tree->compare_context);
+          compare = avl_tree->compare_callback(current->data, data, avl_tree->compare_context);
           if (compare == DS_COMPARE_EQUAL) {
                CircularBuffer_Destroy(circular_buffer);
                return;
@@ -181,23 +153,19 @@ DS_Void AvlTree_Insert(
      avl_tree->size++;
 }
 
-DS_Void AvlTree_Remove(
-     AvlTree          avl_tree,
-     const DS_Generic data
-) {
+DS_Void AvlTree_Remove(AvlTree avl_tree, const DS_Generic data)
+{
      CircularBuffer circular_buffer;
-     AvlTreeNode    current;
-     AvlTreeNode    parent;
-     DS_Compare     compare;
+     AvlTreeNode current;
+     AvlTreeNode parent;
+     DS_Compare compare;
 
-     circular_buffer = CircularBuffer_Create(
-          sizeof (struct AvlTreeNode), (avl_tree->size + 2) / 2);
+     circular_buffer = CircularBuffer_Create(sizeof (struct AvlTreeNode), (avl_tree->size + 2) / 2);
      parent = avl_tree->root->parent;
           
      current = avl_tree->root;
      while (current) {
-          compare = avl_tree->compare_callback(data,
-               current->data, avl_tree->compare_context);
+          compare = avl_tree->compare_callback(data, current->data, avl_tree->compare_context);
           if (compare == 0) {
                break;
           }
@@ -271,10 +239,8 @@ DS_Void AvlTree_Remove(
 // }
 
 
-static DS_Void _RotateRight(
-     AvlTree     avl_tree,
-     AvlTreeNode node
-) {
+static DS_Void _RotateRight(AvlTree avl_tree, AvlTreeNode node)
+{
      AvlTreeNode left;
 
      left = node->left;
@@ -299,10 +265,8 @@ static DS_Void _RotateRight(
      left->right = node;
 }
 
-static DS_Void _RotateLeftRight(
-     AvlTree     avl_tree,
-     AvlTreeNode node
-) {
+static DS_Void _RotateLeftRight(AvlTree avl_tree, AvlTreeNode node)
+{
      AvlTreeNode left;
      AvlTreeNode left_right;
 
@@ -337,10 +301,8 @@ static DS_Void _RotateLeftRight(
      left_right->right = node;
 }
 
-static DS_Void _RotateLeft(
-     AvlTree     avl_tree,
-     AvlTreeNode node
-) {
+static DS_Void _RotateLeft(AvlTree avl_tree, AvlTreeNode node)
+{
      AvlTreeNode right;
 
      right = node->right;
@@ -365,10 +327,8 @@ static DS_Void _RotateLeft(
      right->left = node;
 }
 
-static DS_Void _RotateRightLeft(
-     AvlTree     avl_tree,
-     AvlTreeNode node
-) {
+static DS_Void _RotateRightLeft(AvlTree avl_tree, AvlTreeNode node)
+{
      AvlTreeNode right;
      AvlTreeNode right_left;
 
@@ -403,11 +363,8 @@ static DS_Void _RotateRightLeft(
      right_left->left = node;
 }
 
-static DS_Void _Rebalance(
-     AvlTree        avl_tree,
-     AvlTreeNode    node,
-     CircularBuffer circular_buffer
-) {
+static DS_Void _Rebalance(AvlTree avl_tree, AvlTreeNode node, CircularBuffer circular_buffer)
+{
      while (node) {
           AvlTreeNode_UpdateBalanceFactor(node, circular_buffer);
           if (node->balance_factor == -2) {

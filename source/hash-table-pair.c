@@ -3,12 +3,8 @@
 
 #include "hash-table-pair.h"
 
-HashTablePair HashTablePair_Create(
-     const DS_Generic key,
-     DS_Size key_size,
-     const DS_Generic value,
-     DS_Size value_size
-) {
+HashTablePair HashTablePair_Create(const DS_Generic key, DS_Size key_size, const DS_Generic value, DS_Size value_size)
+{
      HashTablePair pair;
      
      pair = (HashTablePair)malloc(sizeof (struct HashTablePair));
@@ -36,9 +32,8 @@ HashTablePair HashTablePair_Create(
      return pair;
 }
 
-DS_Void HashTablePair_Destroy(
-     HashTablePair pair
-) {
+DS_Void HashTablePair_Destroy(HashTablePair pair)
+{
      free(pair->key);
      free(pair->value);
      free(pair);

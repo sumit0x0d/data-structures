@@ -4,8 +4,8 @@
 #include <red-black-tree.h>
 
 typedef enum RedBlackTreeNodeColor {
-     RED_BLACK_TREE_NODE_COLOR_RED = 0,
-     RED_BLACK_TREE_NODE_COLOR_BLACK = 1
+     RED_BLACK_TREE_NODE_COLOR_RED   = 1,
+     RED_BLACK_TREE_NODE_COLOR_BLACK = 2
 } RedBlackTreeNodeColor;
 
 struct RedBlackTreeNode {
@@ -16,13 +16,8 @@ struct RedBlackTreeNode {
      RedBlackTreeNodeColor color;
 };
 
-RedBlackTreeNode RedBlackTreeNode_Create(
-     const DS_Generic data,
-     DS_Size data_size
-);
+RedBlackTreeNode RedBlackTreeNode_Create(const DS_Generic data, DS_Size data_size);
 
-DS_Void RedBlackTreeNode_Destroy(
-     RedBlackTreeNode node
-);
+DS_Void RedBlackTreeNode_Destroy(RedBlackTreeNode node);
 
 #endif

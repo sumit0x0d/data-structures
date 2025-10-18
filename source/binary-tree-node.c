@@ -9,10 +9,8 @@ struct BinaryTreeNode {
      BinaryTreeNode right;
 };
 
-BinaryTreeNode BinaryTreeNode_Create(
-     const DS_Generic data,
-     DS_Size data_size
-) {
+BinaryTreeNode BinaryTreeNode_Create(const DS_Generic data, DS_Size data_size)
+{
      BinaryTreeNode node;
 
      node = (BinaryTreeNode)malloc(sizeof (BinaryTreeNode));
@@ -33,9 +31,8 @@ BinaryTreeNode BinaryTreeNode_Create(
      return node;
 }
 
-DS_Void BinaryTreeNode_Destroy(
-     BinaryTreeNode node
-) {
+DS_Void BinaryTreeNode_Destroy(BinaryTreeNode node)
+{
      free(node->data);
      free(node);
 }
