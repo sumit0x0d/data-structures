@@ -25,8 +25,7 @@ static BinarySearchTreeNode BinarySearchTreeNode_Create(const DS_Generic data, D
 static DS_Void BinarySearchTreeNode_Destroy(BinarySearchTreeNode node);
 
 BinarySearchTree BinarySearchTree_create(DS_Size data_size,
-                                         DS_CallbackCompare compare_callback,
-                                         const DS_Generic compare_context)
+     DS_CallbackCompare compare_callback, const DS_Generic compare_context)
 {
      BinarySearchTree tree;
      tree = (BinarySearchTree)malloc(sizeof (struct BinarySearchTree));
@@ -106,10 +105,8 @@ DS_Void BinarySearchTree_insert(BinarySearchTree tree, const DS_Generic data)
      tree->size++;
 }
 
-DS_Void BinarySearchTree_remove(
-     BinarySearchTree tree,
-     const DS_Generic data
-) {
+DS_Void BinarySearchTree_remove(BinarySearchTree tree, const DS_Generic data)
+{
      BinarySearchTreeNode node = tree->root;
      BinarySearchTreeNode pnode = tree->root->parent;
      while (node) {
@@ -138,12 +135,9 @@ DS_Void BinarySearchTree_remove(
      (DS_Void)pnode;
 }
 
-static BinarySearchTreeNode _BinarySearchTreeNode_create(
-     const DS_Generic data,
-     DS_Size size
-) {
-     BinarySearchTreeNode node = (BinarySearchTreeNode)
-          malloc(sizeof (Node));
+static BinarySearchTreeNode _BinarySearchTreeNode_create(const DS_Generic data, DS_Size size)
+{
+     BinarySearchTreeNode node = (BinarySearchTreeNode)malloc(sizeof (Node));
      assert(node);
      node->data = malloc(size);
      assert(node->data);

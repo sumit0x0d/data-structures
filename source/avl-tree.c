@@ -24,9 +24,7 @@ static DS_Void _RotateLeftRight(AvlTree avl_tree, AvlTreeNode node);
 static DS_Void _RotateLeft(AvlTree avl_tree, AvlTreeNode node);
 static DS_Void _RotateRightLeft(AvlTree avl_tree, AvlTreeNode node);
 
-AvlTree AvlTree_Create(DS_Size data_size,
-                       DS_CallbackCompare compare_callback,
-                       DS_Generic compare_context)
+AvlTree AvlTree_Create(DS_Size data_size, DS_CallbackCompare compare_callback, DS_Generic compare_context)
 {
      AvlTree avl_tree;
 
