@@ -42,20 +42,20 @@ DS_Void CircularBuffer_Destroy(CircularBuffer circular_buffer)
 DS_Bool CircularBuffer_IsEmpty(CircularBuffer circular_buffer)
 {
      if (circular_buffer->size == 0) {
-          return DS_TRUE;
+          return DS_BOOL_TRUE;
      }
      
-     return DS_FALSE;
+     return DS_BOOL_FALSE;
 }
 
 DS_Bool CircularBuffer_IsFull(CircularBuffer circular_buffer)
 {
      if (circular_buffer->size == Array_GetSize(
           circular_buffer->array)) {
-          return DS_FALSE;
+          return DS_BOOL_FALSE;
      }
      
-     return DS_TRUE;
+     return DS_BOOL_TRUE;
 }
 
 DS_Generic CircularBuffer_GetFrontData(CircularBuffer circular_buffer)

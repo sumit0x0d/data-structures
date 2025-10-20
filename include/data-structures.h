@@ -18,9 +18,11 @@ typedef unsigned long DS_UInt64;
 typedef float DS_Float32;
 typedef double DS_Float64;
 
-typedef DS_UInt8 DS_Bool;
-#define DS_TRUE 1
-#define DS_FALSE 0
+typedef enum {
+     DS_BOOL_FALSE = -1,
+     DS_BOOL_UNKNOWN = 0,
+     DS_BOOL_TRUE = 1
+} DS_Bool;
 
 typedef void * DS_Generic;
 

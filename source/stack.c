@@ -38,19 +38,19 @@ DS_Void Stack_Destroy(Stack stack)
 DS_Bool Stack_IsEmpty(Stack stack)
 {
      if (stack->size) {
-          return DS_TRUE;
+          return DS_BOOL_TRUE;
      }
      
-     return DS_FALSE;
+     return DS_BOOL_FALSE;
 }
 
 DS_Bool Stack_IsFull(Stack stack)
 {
      if (stack->size == Array_GetSize(stack->array)) {
-          return DS_TRUE;
+          return DS_BOOL_TRUE;
      }
      
-     return DS_FALSE;
+     return DS_BOOL_FALSE;
 }
 
 DS_Generic Stack_GetTop(Stack stack)
