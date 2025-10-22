@@ -8,8 +8,8 @@
 
 #define SIZE 300
 
-static DS_Compare _CallbackCompareInt(const DS_Generic data1, const DS_Generic data2, DS_Generic compare_context);
-static DS_Void _CallbackUnaryPrint(DS_Generic data, DS_Generic unary_context);
+static DS_Compare _CompareInt(const DS_Generic data1, const DS_Generic data2, DS_Generic context);
+static DS_Void _UnaryPrint(DS_Generic data, DS_Generic context);
 
 int main(void)
 {
@@ -19,11 +19,11 @@ int main(void)
 
      array = Array_Create(sizeof(int), SIZE);
      if (array == NULL) {
-          fprintf(stderr, "Array_create() failed\n");
+          fprintf(stderr, "Array_Create() failed\n");
           return 1;
      }
      
-     printf("Array_create() passed\n");
+     printf("Array_Create() passed\n");
      
      for (int i = 0; i < SIZE; i++) {
           int value = rand() % 100;
@@ -32,25 +32,34 @@ int main(void)
      
      printf("Array_set_data() passed\n");
      
-     Array_Traverse(array, _CallbackUnaryPrint, NULL);
-     printf("\nArray_traverse() passed\n");
      
+     DS_CompareCallback compare_callback = {
+          .function = _CompareInt,
+          .context = NULL
+     };
+
+     DS_UnaryCallback unary_callback = {
+          .function = _UnaryPrint,
+          .context = NULL
+     };
+     Array_Traverse(array, unary_callback);
+     printf("\nArray_traverse() passed\n");
      // Array_SortBubble(array, _compare_int, NULL);
-     Array_SortInsertion(array, _CallbackCompareInt, NULL);
-     Array_SortSelection(array, _CallbackCompareInt, NULL);
-     Array_Traverse(array, _CallbackUnaryPrint, NULL);
+     Array_SortInsertion(array, compare_callback);
+     Array_SortSelection(array, compare_callback);
+     Array_Traverse(array, unary_callback);
      printf("\nArray_traverse() passed\n");
      
      Array_Destroy(array);
-     printf("Array_destroy() passed\n");
+     printf("Array_Destroy() passed\n");
      printf("All array tests passed!\n");
      
      return 0;
 }
 
-static DS_Compare _CallbackCompareInt(const DS_Generic data1, const DS_Generic data2, DS_Generic compare_context)
+static DS_Compare _CompareInt(const DS_Generic data1, const DS_Generic data2, DS_Generic context)
 {
-     (DS_Void)compare_context;
+     (DS_Void)context;
      
      if (*(int *)data1 < *(int *)data2) {
           return -1;
@@ -63,14 +72,14 @@ static DS_Compare _CallbackCompareInt(const DS_Generic data1, const DS_Generic d
      return 0;
 }
 
-// static DS_Size _CallbackHashInt(const DS_Generic data, DS_Size aSize, DS_Generic hash_context)
+// static DS_Size _CallbackHashInt(const DS_Generic data, DS_Size aSize, DS_Generic hash_callback.context)
 // {
-//     (DS_Void)hash_context;
+//     (DS_Void)hash_callback.context;
 //     return (*(int *)data) % aSize;
 // }
 
-static DS_Void _CallbackUnaryPrint(DS_Generic data, DS_Generic uanry_context)
+static DS_Void _UnaryPrint(DS_Generic data, DS_Generic context)
 {
-     (DS_Void)uanry_context;
+     (DS_Void)context;
      printf("%d ", *(int *)data);
 }

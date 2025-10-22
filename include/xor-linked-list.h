@@ -10,33 +10,33 @@ DATA_STRUCTURES_API
 XorLinkedList XorLinkedList_Create(DS_Size data_size);
 
 DATA_STRUCTURES_API
-DS_Void XorLinkedList_Destroy(XorLinkedList xor_linked_list);
+DS_Void XorLinkedList_Destroy(XorLinkedList self);
 
 DATA_STRUCTURES_API
 DS_Generic XorLinkedList_GetNodeData(XorLinkedListNode node);
 
 DATA_STRUCTURES_API
-DS_Void XorLinkedList_PushHead(XorLinkedList xor_linked_list, const DS_Generic data);
+DS_Void XorLinkedList_PushHead(XorLinkedList self, const DS_Generic data);
 
 DATA_STRUCTURES_API
-DS_Void XorLinkedList_PushTail(XorLinkedList xor_linked_list, const DS_Generic data);
+DS_Void XorLinkedList_PushTail(XorLinkedList self, const DS_Generic data);
 
 DATA_STRUCTURES_API
-DS_Void XorLinkedList_PopHead(XorLinkedList xor_linked_list);
+DS_Void XorLinkedList_PopHead(XorLinkedList self);
 
 DATA_STRUCTURES_API
-DS_Void XorLinkedList_PopTail(XorLinkedList xor_linked_list);
+DS_Void XorLinkedList_PopTail(XorLinkedList self);
 
 DATA_STRUCTURES_API
-DS_Void XorLinkedList_Insert(XorLinkedList xor_linked_list, DS_Size index, const DS_Generic data);
+DS_Void XorLinkedList_Insert(XorLinkedList self, DS_Size index, const DS_Generic data);
 
 DATA_STRUCTURES_API
-DS_Void XorLinkedList_Remove(XorLinkedList xor_linked_list, const DS_Generic data);
+DS_Void XorLinkedList_Remove(XorLinkedList self, const DS_Generic data);
 
 DATA_STRUCTURES_API
-DS_Void XorLinkedList_Erase(XorLinkedList xor_linked_list, DS_Size index);
+DS_Void XorLinkedList_Erase(XorLinkedList self, DS_Size index);
 
 DATA_STRUCTURES_API
-DS_Void XorLinkedList_Update(XorLinkedList xor_linked_list, DS_Size index, const DS_Generic data);
+DS_Void XorLinkedList_Update(XorLinkedList self, DS_Size index, const DS_Generic data);
 
 #endif

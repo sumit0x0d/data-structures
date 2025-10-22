@@ -15,22 +15,22 @@ struct Rope {
      DS_Size size;
 };
 
-Rope Rope_Create( DS_Size size)
+Rope Rope_Create(DS_Size size)
 {
-     Rope rope;
+     Rope self;
 
-     rope = (Rope)malloc(sizeof(struct Rope));
-     if (!rope) {
+     self = (Rope)malloc(sizeof(struct Rope));
+     if (!self) {
           return NULL;
      }
 
-     rope->data_size = size;
-     rope->size = 0;    
+     self->data_size = size;
+     self->size = 0;    
      
-     return rope;
+     return self;
 }
 
-DS_Void Rope_Destroy(Rope rope)
+DS_Void Rope_Destroy(Rope self)
 {
-     free(rope);
+     free(self);
 }

@@ -11,28 +11,28 @@ struct BinaryTreeNode {
 
 BinaryTreeNode BinaryTreeNode_Create(const DS_Generic data, DS_Size data_size)
 {
-     BinaryTreeNode node;
+     BinaryTreeNode self;
 
-     node = (BinaryTreeNode)malloc(sizeof (BinaryTreeNode));
-     if (!node) {
+     self = (BinaryTreeNode)malloc(sizeof (BinaryTreeNode));
+     if (!self) {
           return NULL;
      }
 
-     node->data = malloc(data_size);
-     if (!node->data) {
-          free(node);
+     self->data = malloc(data_size);
+     if (!self->data) {
+          free(self);
           return NULL;
      }
 
-     memcpy(node->data, data, data_size);
-     node->left = NULL;
-     node->right = NULL;
+     memcpy(self->data, data, data_size);
+     self->left = NULL;
+     self->right = NULL;
 
-     return node;
+     return self;
 }
 
-DS_Void BinaryTreeNode_Destroy(BinaryTreeNode node)
+DS_Void BinaryTreeNode_Destroy(BinaryTreeNode self)
 {
-     free(node->data);
-     free(node);
+     free(self->data);
+     free(self);
 }

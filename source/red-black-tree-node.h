@@ -18,6 +18,6 @@ struct RedBlackTreeNode {
 
 RedBlackTreeNode RedBlackTreeNode_Create(const DS_Generic data, DS_Size data_size);
 
-DS_Void RedBlackTreeNode_Destroy(RedBlackTreeNode node);
+DS_Void RedBlackTreeNode_Destroy(RedBlackTreeNode self);
 
 #endif

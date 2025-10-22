@@ -13,78 +13,78 @@ struct DynamicArray {
 
 DynamicArray DynamicArray_Create(DS_Size data_size, DS_Size size, DS_Float64 growth_factor)
 {
-     DynamicArray dynamic_array;
+     DynamicArray self;
 
      if (growth_factor > 1) {
           return NULL;
      }
      
-     dynamic_array = (DynamicArray)malloc(sizeof (struct DynamicArray));
-     if (!dynamic_array) {
+     self = (DynamicArray)malloc(sizeof (struct DynamicArray));
+     if (!self) {
           return NULL;
      }
      
-     dynamic_array->array = Array_Create(data_size, size);
-     if (!dynamic_array->array) {
-          free(dynamic_array);
+     self->array = Array_Create(data_size, size);
+     if (!self->array) {
+          free(self);
           return NULL;
      }
      
-     dynamic_array->growth_factor = growth_factor;
+     self->growth_factor = growth_factor;
      
-     return dynamic_array;
+     return self;
 }
 
-DS_Void DynamicArray_Destroy(DynamicArray dynamic_array)
+DS_Void DynamicArray_Destroy(DynamicArray self)
 {
-     Array_Destroy(dynamic_array->array);
-     free(dynamic_array);
+     Array_Destroy(self->array);
+     free(self);
 }
 
-DS_Size DynamicArray_GetSize(DynamicArray dynamic_array)
+DS_Size DynamicArray_GetSize(DynamicArray self)
 {
-     return dynamic_array->size;
+     return self->size;
 }
 
-DS_Generic DynamicArray_GetData(DynamicArray dynamic_array, DS_Size index)
+DS_Generic DynamicArray_GetData(DynamicArray self, DS_Size index)
 {
-	return Array_GetData(dynamic_array->array, index);
+	return Array_GetData(self->array, index);
 }
 
-DS_Generic DynamicArray_GetBackData(DynamicArray dynamic_array)
+DS_Generic DynamicArray_GetBackData(DynamicArray self)
 {
-     return Array_GetData(dynamic_array->array, dynamic_array->size);
+     return Array_GetData(self->array, self->size);
 }
 
-DS_Void DynamicArray_PushBack( DynamicArray dynamic_array, const DS_Generic data)
+DS_Void DynamicArray_PushBack(DynamicArray self, const DS_Generic data)
 {
      DS_Size size;
 
-     size = Array_GetSize(dynamic_array->array);
-     if (dynamic_array->size == size) {
-          Array_SetSize(dynamic_array->array, size * dynamic_array->growth_factor);
+     size = Array_GetSize(self->array);
+     if (self->size == size) {
+          Array_SetSize(self->array, size * self->growth_factor);
      }
      
-     Array_SetData(dynamic_array->array, dynamic_array->size, data);
+     Array_SetData(self->array, self->size, data);
 }
 
-DS_Void DynamicArray_PopBack(DynamicArray dynamic_array)
+DS_Void DynamicArray_PopBack(DynamicArray self)
 {
      DS_Size size;
      
-     size = Array_GetSize(dynamic_array->array);
-     if (dynamic_array->size == size / dynamic_array->growth_factor) {
-          Array_SetSize(dynamic_array->array, size / dynamic_array->growth_factor);
+     size = Array_GetSize(self->array);
+     if (self->size == size / self->growth_factor) {
+          Array_SetSize(self->array, size / self->growth_factor);
      }
      
-     dynamic_array->size--;
+     self->size--;
 }
 
-DS_Void DynamicArray_Traverse(DynamicArray dynamic_array, DS_CallbackUnary unary_callback, DS_Generic unary_context)
+DS_Void DynamicArray_Traverse(DynamicArray self, DS_UnaryCallback unary_callback)
 {
      DS_Size i;
 
-     for (i = 0; i < Array_GetSize(dynamic_array->array); i++) {
-          unary_callback(DynamicArray_GetData(dynamic_array, i), unary_context);
+     for (i = 0; i < Array_GetSize(self->array); i++) {
+          unary_callback.function(DynamicArray_GetData(self, i), unary_callback.context);
      }
 }

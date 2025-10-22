@@ -13,53 +13,53 @@ struct XorLinkedList {
 
 XorLinkedList XorLinkedList_Create(DS_Size size)
 {
-     XorLinkedList xor_linked_list;
+     XorLinkedList self;
      
-     xor_linked_list = (XorLinkedList)malloc(sizeof (struct XorLinkedList));
-     if (!xor_linked_list) {
+     self = (XorLinkedList)malloc(sizeof (struct XorLinkedList));
+     if (!self) {
           return NULL;
      }
      
-     xor_linked_list->head = NULL;
-     xor_linked_list->tail = NULL;
-     xor_linked_list->data_size = size;
-     xor_linked_list->size = 0;
+     self->head = NULL;
+     self->tail = NULL;
+     self->data_size = size;
+     self->size = 0;
      
-     return xor_linked_list;
+     return self;
 }
 
-DS_Void XorLinkedList_Destroy(XorLinkedList xor_linked_list)
+DS_Void XorLinkedList_Destroy(XorLinkedList self)
 {
-     XorLinkedListNode_Destroy(xor_linked_list->head);
-     free(xor_linked_list);
+     XorLinkedListNode_Destroy(self->head);
+     free(self);
 }
 
-DS_Void XorLinkedList_PushHead(XorLinkedList xor_linked_list, const DS_Generic data)
-{
-     XorLinkedListNode node;
-     
-     node = XorLinkedListNode_Create(data, xor_linked_list->data_size);
-     node->xor = 0 ^ (DS_Size)xor_linked_list->head;
-     xor_linked_list->head = node;
-     
-     if (!xor_linked_list->size) {
-          xor_linked_list->tail = node;
-     }
-     
-     xor_linked_list->size++;
-}
-
-DS_Void XorLinkedList_PushTail(XorLinkedList xor_linked_list, const DS_Generic data)
+DS_Void XorLinkedList_PushHead(XorLinkedList self, const DS_Generic data)
 {
      XorLinkedListNode node;
      
-     node = XorLinkedListNode_Create(data, xor_linked_list->data_size);
-     node->xor = (DS_Size)xor_linked_list->tail ^ 0;
-     xor_linked_list->tail = node;
+     node = XorLinkedListNode_Create(data, self->data_size);
+     node->xor = 0 ^ (DS_Size)self->head;
+     self->head = node;
      
-     if (!xor_linked_list->size) {
-          xor_linked_list->head = node;
+     if (!self->size) {
+          self->tail = node;
      }
      
-     xor_linked_list->size++;
+     self->size++;
+}
+
+DS_Void XorLinkedList_PushTail(XorLinkedList self, const DS_Generic data)
+{
+     XorLinkedListNode node;
+     
+     node = XorLinkedListNode_Create(data, self->data_size);
+     node->xor = (DS_Size)self->tail ^ 0;
+     self->tail = node;
+     
+     if (!self->size) {
+          self->head = node;
+     }
+     
+     self->size++;
 }

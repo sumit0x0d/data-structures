@@ -10,6 +10,6 @@ struct SinglyLinkedListNode {
 
 SinglyLinkedListNode SinglyLinkedListNode_Create(const DS_Generic data,DS_Size data_size);
 
-DS_Void SinglyLinkedListNode_Destroy(SinglyLinkedListNode node);
+DS_Void SinglyLinkedListNode_Destroy(SinglyLinkedListNode self);
 
 #endif

@@ -5,26 +5,26 @@
 
 DoublyLinkedListNode DoublyLinkedListNode_Create(const DS_Generic data, DS_Size data_size)
 {
-     DoublyLinkedListNode node;
+     DoublyLinkedListNode self;
 
-     node = (DoublyLinkedListNode)malloc(sizeof (struct DoublyLinkedListNode));
-     if (!node) {
+     self = (DoublyLinkedListNode)malloc(sizeof (struct DoublyLinkedListNode));
+     if (!self) {
           return NULL;
      }
 
-     node->data = malloc(data_size);
-     if (!node->data) {
-          free(node);
+     self->data = malloc(data_size);
+     if (!self->data) {
+          free(self);
           return NULL;
      }
 
-     memcpy(node->data, data, data_size);
+     memcpy(self->data, data, data_size);
      
-     return node;
+     return self;
 }
 
-DS_Void DoublyLinkedListNode_Destroy(DoublyLinkedListNode node)
+DS_Void DoublyLinkedListNode_Destroy(DoublyLinkedListNode self)
 {
-     free(node->data);
-     free(node);
+     free(self->data);
+     free(self);
 }

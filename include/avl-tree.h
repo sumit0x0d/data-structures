@@ -7,39 +7,39 @@ typedef struct AvlTree * AvlTree;
 typedef struct AvlTreeNode * AvlTreeNode;
 
 DATA_STRUCTURES_API
-AvlTree AvlTree_Create(DS_Size data_size, DS_CallbackCompare compare_callback, DS_Generic compare_context);
+AvlTree AvlTree_Create(DS_Size data_size, DS_CompareCallback compare_callback);
 
 DATA_STRUCTURES_API
-DS_Void AvlTree_Destroy(AvlTree avl_tree);
+DS_Void AvlTree_Destroy(AvlTree self);
 
 DATA_STRUCTURES_API
-DS_Size AvlTree_GetSize(AvlTree avl_tree);
+DS_Size AvlTree_GetSize(AvlTree self);
 
 DATA_STRUCTURES_API
-DS_Size AvlTree_GetDataSize(AvlTree avl_tree);
+DS_Size AvlTree_GetDataSize(AvlTree self);
 
 DATA_STRUCTURES_API
 DS_Generic AvlTree_GetNodeData(AvlTreeNode node);
 
 DATA_STRUCTURES_API
-AvlTreeNode AvlTree_Search(AvlTree avl_tree, const DS_Generic data);
+AvlTreeNode AvlTree_Search(AvlTree self, const DS_Generic data);
 
 DATA_STRUCTURES_API
-DS_Void AvlTree_Insert(AvlTree avl_tree, const DS_Generic data);
+DS_Void AvlTree_Insert(AvlTree self, const DS_Generic data);
 
 DATA_STRUCTURES_API
-DS_Void AvlTree_Remove(AvlTree avl_tree, const DS_Generic data);
+DS_Void AvlTree_Remove(AvlTree self, const DS_Generic data);
 
 DATA_STRUCTURES_API
-DS_Void AvlTree_TraversePreorder(AvlTree avl_tree, DS_CallbackUnary unary_callback, DS_Generic unary_context);
+DS_Void AvlTree_TraversePreorder(AvlTree self, DS_UnaryCallback unary_callback);
 
 DATA_STRUCTURES_API
-DS_Void AvlTree_TraverseInorder(AvlTree avl_tree, DS_CallbackUnary unary_callback, DS_Generic unary_context);
+DS_Void AvlTree_TraverseInorder(AvlTree self, DS_UnaryCallback unary_callback);
 
 DATA_STRUCTURES_API
-DS_Void AvlTree_TraversePostorder(AvlTree avl_tree, DS_CallbackUnary unary_callback, DS_Generic unary_context);
+DS_Void AvlTree_TraversePostorder(AvlTree self, DS_UnaryCallback unary_callback);
 
 DATA_STRUCTURES_API
-DS_Void AvlTree_TraverseLevelorder(AvlTree avl_tree, DS_CallbackUnary unary_callback, DS_Generic unary_context);
+DS_Void AvlTree_TraverseLevelorder(AvlTree self, DS_UnaryCallback unary_callback);
 
 #endif

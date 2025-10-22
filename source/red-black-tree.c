@@ -11,43 +11,40 @@ struct RedBlackTree {
      RedBlackTreeNode root;
      DS_Size data_size;
      DS_Size size;
-     DS_CallbackCompare
-     compare_callback;
-     DS_Generic compare_context;
+     DS_CompareCallback compare_callback;
 };
 
-static DS_Void _RotateRight( RedBlackTree red_black_tree, RedBlackTreeNode node);
-static DS_Void _RotateLeftRight( RedBlackTree red_black_tree, RedBlackTreeNode node);
-static DS_Void _RotateLeft( RedBlackTree red_black_tree, RedBlackTreeNode node);
-static DS_Void _RotateRightLeft( RedBlackTree red_black_tree, RedBlackTreeNode node);
-static DS_Void _Rebalance( RedBlackTree red_black_tree, RedBlackTreeNode node);
+static DS_Void _RotateRight( RedBlackTree self, RedBlackTreeNode node);
+static DS_Void _RotateLeftRight( RedBlackTree self, RedBlackTreeNode node);
+static DS_Void _RotateLeft( RedBlackTree self, RedBlackTreeNode node);
+static DS_Void _RotateRightLeft( RedBlackTree self, RedBlackTreeNode node);
+static DS_Void _Rebalance( RedBlackTree self, RedBlackTreeNode node);
 
-RedBlackTree RedBlackTree_Create(DS_Size size, DS_CallbackCompare compare_callback, DS_Generic compare_context)
+RedBlackTree RedBlackTree_Create(DS_Size size, DS_CompareCallback compare_callback)
 {
-     RedBlackTree red_black_tree;
+     RedBlackTree self;
      
-     red_black_tree = (RedBlackTree)malloc(sizeof (struct RedBlackTree));
-     if (!red_black_tree) {
+     self = (RedBlackTree)malloc(sizeof (struct RedBlackTree));
+     if (!self) {
           return NULL;
      }
      
-     red_black_tree->root = NULL;
-     red_black_tree->data_size = size;
-     red_black_tree->size = 0;
-     red_black_tree->compare_callback = compare_callback;
-     red_black_tree->compare_context = compare_context;
+     self->root = NULL;
+     self->data_size = size;
+     self->size = 0;
+     self->compare_callback.function = compare_callback.function;
+     self->compare_callback.context = compare_callback.context;
      
-     return red_black_tree;
+     return self;
 }
 
-DS_Void RedBlackTree_Destroy(RedBlackTree red_black_tree)
+DS_Void RedBlackTree_Destroy(RedBlackTree self)
 {
      RedBlackTreeNode node;
      CircularBuffer circular_buffer;
 
-     node = red_black_tree->root;
-     circular_buffer = CircularBuffer_Create(
-          sizeof (struct RedBlackTreeNode), red_black_tree->size);
+     node = self->root;
+     circular_buffer = CircularBuffer_Create(sizeof (struct RedBlackTreeNode), self->size);
      free(node->data);
      CircularBuffer_PushBack(circular_buffer, node);
 
@@ -65,22 +62,22 @@ DS_Void RedBlackTree_Destroy(RedBlackTree red_black_tree)
      }
      
      CircularBuffer_Destroy(circular_buffer);
-     free(red_black_tree);
+     free(self);
 }
 
-DS_Size RedBlackTree_GetSize(RedBlackTree red_black_tree)
+DS_Size RedBlackTree_GetSize(RedBlackTree self)
 {
-     return red_black_tree->size;
+     return self->size;
 }
 
-RedBlackTreeNode RedBlackTree_Search(RedBlackTree red_black_tree, const DS_Generic data)
+RedBlackTreeNode RedBlackTree_Search(RedBlackTree self, const DS_Generic data)
 {
      RedBlackTreeNode node;
+     DS_Compare compare;
      
-     node = red_black_tree->root;
+     node = self->root;
      while (node) {
-          DS_Compare compare = red_black_tree->compare_callback(
-               data, node->data, red_black_tree->compare_context);
+          compare = self->compare_callback.function(data, node->data, self->compare_callback.context);
           if (compare == DS_COMPARE_EQUAL) {
                return node;
           } else if (compare == DS_COMPARE_LESS) {
@@ -93,27 +90,26 @@ RedBlackTreeNode RedBlackTree_Search(RedBlackTree red_black_tree, const DS_Gener
      return NULL;
 }
 
-DS_Void RedBlackTree_Insert(RedBlackTree red_black_tree, const DS_Generic data)
+DS_Void RedBlackTree_Insert(RedBlackTree self, const DS_Generic data)
 {
      RedBlackTreeNode node;
      RedBlackTreeNode parent;
-     DS_Compare compare;
+     DS_CompareCallback compare_callback;
 
-     if (!red_black_tree->root) {
-          red_black_tree->root = RedBlackTreeNode_Create(
-               data, red_black_tree->data_size);
-          red_black_tree->root->parent = NULL;
-          red_black_tree->root->color = 1;
-          red_black_tree->size++;
+     if (!self->root) {
+          self->root = RedBlackTreeNode_Create(
+               data, self->data_size);
+          self->root->parent = NULL;
+          self->root->color = 1;
+          self->size++;
           return;
      }
 
-     parent = red_black_tree->root->parent;
+     parent = self->root->parent;
 
-     node = red_black_tree->root;
+     node = self->root;
      while (node) {
-          compare = red_black_tree->compare_callback(data, node->data,
-               red_black_tree->compare_context);
+          compare = self->compare_callback.function(data, node->data, self->compare_callback.context);
           if (compare == 0) {
                return;
           }
@@ -125,27 +121,26 @@ DS_Void RedBlackTree_Insert(RedBlackTree red_black_tree, const DS_Generic data)
           }
      }
 
-     node = RedBlackTreeNode_Create(data, red_black_tree->data_size);
+     node = RedBlackTreeNode_Create(data, self->data_size);
      node->parent = parent;
      node->color = 0;
      
-     compare = red_black_tree->compare_callback(data,
-          parent->data, red_black_tree->compare_context);
+     compare = self->compare_callback.function(data, parent->data, self->compare_callback.context);
      if (compare < 0) {
           parent->left = node;
      } else {
           parent->right = node;
      }
      
-     _Rebalance(red_black_tree, parent);
-     red_black_tree->size++;
+     _Rebalance(self, parent);
+     self->size++;
 }
 
-// DS_Void red_black_tree_remove(RedBlackTree tree, int data)
+// DS_Void self_remove(RedBlackTree tree, int data)
 // {
 // }
 
-static DS_Void _RotateRight(RedBlackTree red_black_tree, RedBlackTreeNode node)
+static DS_Void _RotateRight(RedBlackTree self, RedBlackTreeNode node)
 {
      RedBlackTreeNode left;
 
@@ -164,14 +159,14 @@ static DS_Void _RotateRight(RedBlackTree red_black_tree, RedBlackTreeNode node)
                left->parent->right = left;
           }
      } else {
-          red_black_tree->root = left;
+          self->root = left;
      }
      
      node->parent = left;
      left->right = node;
 }
 
-static DS_Void _RotateLeftRight(RedBlackTree red_black_tree, RedBlackTreeNode node)
+static DS_Void _RotateLeftRight(RedBlackTree self, RedBlackTreeNode node)
 {
      RedBlackTreeNode left;
      RedBlackTreeNode left_right;
@@ -200,14 +195,14 @@ static DS_Void _RotateLeftRight(RedBlackTree red_black_tree, RedBlackTreeNode no
                left_right->parent->right = left_right;
           }
      } else {
-          red_black_tree->root = left_right;
+          self->root = left_right;
      }
      
      node->parent = left_right;
      left_right->right = node;
 }
 
-static DS_Void _RotateLeft(RedBlackTree red_black_tree, RedBlackTreeNode node)
+static DS_Void _RotateLeft(RedBlackTree self, RedBlackTreeNode node)
 {
      RedBlackTreeNode right;
      
@@ -226,14 +221,14 @@ static DS_Void _RotateLeft(RedBlackTree red_black_tree, RedBlackTreeNode node)
                right->parent->right = right;
           }
      } else {
-          red_black_tree->root = right;
+          self->root = right;
      }
      
      node->parent = right;
      right->left = node;
 }
 
-static DS_Void _RotateRightLeft(RedBlackTree red_black_tree, RedBlackTreeNode node)
+static DS_Void _RotateRightLeft(RedBlackTree self, RedBlackTreeNode node)
 {
      RedBlackTreeNode right;
      RedBlackTreeNode right_left;
@@ -262,20 +257,20 @@ static DS_Void _RotateRightLeft(RedBlackTree red_black_tree, RedBlackTreeNode no
                right_left->parent->right = right_left;
           }
      } else {
-          red_black_tree->root = right_left;
+          self->root = right_left;
      }
      
      node->parent = right_left;
      right_left->left = node;
 }
 
-static DS_Void _Rebalance(RedBlackTree red_black_tree, RedBlackTreeNode node)
+static DS_Void _Rebalance(RedBlackTree self, RedBlackTreeNode node)
 {
      while (node) {
           if (node->color == RED_BLACK_TREE_NODE_COLOR_RED) {
                if (node->parent->left == node) {
                     if (!node->parent->right || node->parent->right->color == 1) {
-                         _RotateRight(red_black_tree, node);
+                         _RotateRight(self, node);
                     } else if (node->parent->right || node->parent->right->color == 0) {
                     }
                }
@@ -289,15 +284,15 @@ static DS_Void _Rebalance(RedBlackTree red_black_tree, RedBlackTreeNode node)
                }
           } else {
                if (node->color == 0 && (!node->parent->left || node->parent->left->color == 1)) {
-                    _RotateLeft(red_black_tree, node);
-                    _RotateRightLeft(red_black_tree, node);
-                    _RotateLeftRight(red_black_tree, node);
-                    _RotateRight(red_black_tree, node);
+                    _RotateLeft(self, node);
+                    _RotateRightLeft(self, node);
+                    _RotateLeftRight(self, node);
+                    _RotateRight(self, node);
                }
                if (node->color == 0 && (node->parent->left && node->parent->left->color == 0)) {
                     node->parent->color = 1;
                }
           }
-          red_black_tree->root = node->parent;
+          self->root = node->parent;
      }
 }

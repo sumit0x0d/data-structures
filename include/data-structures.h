@@ -29,20 +29,30 @@ typedef void * DS_Generic;
 typedef DS_UInt64 DS_Size;
 #define DS_OFFSET(type, member) ((DS_Size) & (((type)0)->member))
 
+typedef struct {
+     DS_Void (*function)(DS_Generic data, DS_Generic context);
+     DS_Generic context;
+} DS_UnaryCallback;
+
+typedef struct {
+     DS_Void (*function)(DS_Generic data1, DS_Generic data2, DS_Generic context);
+     DS_Generic context;
+} DS_BinaryCallback;
+
 typedef enum {
      DS_COMPARE_LESS = -1,
      DS_COMPARE_EQUAL = 0,
      DS_COMPARE_GREATER = 1
 } DS_Compare;
 
-typedef void (*DS_CallbackUnary)(DS_Generic data, DS_Generic unary_context);
+typedef struct {
+     DS_Compare (*function)(const DS_Generic data1, const DS_Generic data2, DS_Generic context);
+     DS_Generic context;
+} DS_CompareCallback;
 
-typedef void (*DS_CallbackBinary)(DS_Generic data1, DS_Generic data2, DS_Generic binary_context);
-
-typedef DS_Compare (*DS_CallbackCompare)(const DS_Generic data1,
-                                         const DS_Generic data2,
-                                         DS_Generic compare_context);
-
-typedef DS_Size (*DS_CallbackHash)(const DS_Generic data, DS_Size size, DS_Generic hash_context);
+typedef struct {
+     DS_Size (*function)(const DS_Generic data, DS_Size size, DS_Generic context);
+     DS_Generic context;
+} DS_HashCallback;
 
 #endif

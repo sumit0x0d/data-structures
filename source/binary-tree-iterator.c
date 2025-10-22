@@ -8,14 +8,14 @@ DS_Void GenericBinaryTree_TraversePreorder(
      DS_Size data_offeset,
      DS_Size left_offset,
      DS_Size right_offset,
-     DS_CallbackUnary unary_callback,
-     DS_Generic unary_context
+     DS_CallbackUnary unary_callback.function,
+     DS_Generic unary_callback.context
 ) {
      Stack stack = Stack_Create(node_size, binary_tree_size);
      while (node || !Stack_IsEmpty(stack)) {
           if (node) {
                DS_Generic data = *(DS_Generic *)((DS_Int8 *)node + data_offeset);
-               unary_callback(data, unary_context);
+               unary_callback.function(data, unary_callback.context);
                Stack_Push(stack, node);
                node = *(DS_Generic *)((DS_Int8 *)node + left_offset);
           } else {
@@ -35,8 +35,8 @@ DS_Void GenericBinaryTree_TraverseInorder(
      DS_Size data_offeset,
      DS_Size left_offset,
      DS_Size right_offset,
-     DS_CallbackUnary unary_callback,
-     DS_Generic unary_context
+     DS_ unary_callback.function,
+     DS_Generic unary_callback.context
 ) {
      Stack stack = Stack_Create(node_size, binary_tree_size);
      while (node || !Stack_IsEmpty(stack)) {
@@ -57,8 +57,8 @@ DS_Void GenericBinaryTree_TraverseInorder(DS_Generic node, DS_Size node_size,
                                              DS_Size binary_tree_size,
                                              DS_Size data_offeset, DS_Size left_offset,
                                              DS_Size right_offset,
-                                             DS_CallbackUnary unary_callback,
-                                             DS_Generic unary_context)
+                                             DS_CallbackUnary unary_callback.function,
+                                             DS_Generic unary_callback.context)
 {
      Node node = tree->root;
      Stack stack = Stack_Create(sizeof (struct avl_tree_node), tree->size);
@@ -80,8 +80,8 @@ DS_Void GenericBinaryTree_TraverseLevelorder(DS_Generic node, DS_Size node_size,
                                              DS_Size binary_tree_size,
                                              DS_Size data_offeset, DS_Size left_offset,
                                              DS_Size right_offset,
-                                             DS_CallbackUnary unary_callback,
-                                             DS_Generic unary_context)
+                                             DS_CallbackUnary unary_callback.function,
+                                             DS_Generic unary_callback.context)
 {
      Node node = tree->root;
      CircularBuffer *buffer = CircularBuffer_Create(sizeof (struct avl_tree_node), tree->size);

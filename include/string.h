@@ -12,23 +12,15 @@ struct String {
 };
 
 DATA_STRUCTURES_API
-String String_Create(
-     const DS_UInt8 *string
-);
+String String_Create(const DS_UInt8 *string);
 
 DATA_STRUCTURES_API
-DS_Void String_Destroy(
-     String string
-);
+DS_Void String_Destroy(String string);
 
 DATA_STRUCTURES_API
-DS_Size String_GetLength(
-     const String string
-);
+DS_Size String_GetLength(const String string);
 
 DATA_STRUCTURES_API
-DS_Size String_GetCapacity(
-     const String string
-);
+DS_Size String_GetCapacity(const String string);
 
 #endif

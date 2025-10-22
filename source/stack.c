@@ -11,60 +11,60 @@ struct Stack {
 
 Stack Stack_Create(DS_Size data_size, DS_Size size)
 {
-     Stack stack;
-     
-     stack = (Stack)malloc(sizeof (struct Stack));
-     if (!stack) {
+     Stack self;
+
+     self = (Stack)malloc(sizeof (struct Stack));
+     if (!self) {
           return NULL;
      }
-     
-     stack->array = Array_Create(data_size, size);
-     if (!stack->array) {
-          free(stack);
+
+     self->array = Array_Create(data_size, size);
+     if (!self->array) {
+          free(self);
           return NULL;
      }
-     
-     stack->size = 0;
-     
-     return stack;
+
+     self->size = 0;
+
+     return self;
 }
 
-DS_Void Stack_Destroy(Stack stack)
+DS_Void Stack_Destroy(Stack self)
 {
-     Array_Destroy(stack->array);
-     free(stack);
+     Array_Destroy(self->array);
+     free(self);
 }
 
-DS_Bool Stack_IsEmpty(Stack stack)
+DS_Bool Stack_IsEmpty(Stack self)
 {
-     if (stack->size) {
+     if (self->size) {
           return DS_BOOL_TRUE;
      }
-     
+
      return DS_BOOL_FALSE;
 }
 
-DS_Bool Stack_IsFull(Stack stack)
+DS_Bool Stack_IsFull(Stack self)
 {
-     if (stack->size == Array_GetSize(stack->array)) {
+     if (self->size == Array_GetSize(self->array)) {
           return DS_BOOL_TRUE;
      }
-     
+
      return DS_BOOL_FALSE;
 }
 
-DS_Generic Stack_GetTop(Stack stack)
+DS_Generic Stack_GetTop(Stack self)
 {
-     return Array_GetData(stack->array, stack->size - 1);
+     return Array_GetData(self->array, self->size - 1);
 }
 
-DS_Void Stack_Push( Stack stack, const DS_Generic data)
+DS_Void Stack_Push( Stack self, const DS_Generic data)
 {
-     Array_SetData(stack->array, stack->size, data);
-     stack->size++;
+     Array_SetData(self->array, self->size, data);
+     self->size++;
 }
 
-DS_Void Stack_Pop(Stack stack)
+DS_Void Stack_Pop(Stack self)
 {
-     stack->size--;
+     self->size--;
 }

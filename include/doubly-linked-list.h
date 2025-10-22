@@ -11,46 +11,45 @@ DATA_STRUCTURES_API
 DoublyLinkedList DoublyLinkedList_Create(DS_Size data_size);
 
 DATA_STRUCTURES_API
-DS_Void DoublyLinkedList_Destroy(DoublyLinkedList doubly_linked_list);
+DS_Void DoublyLinkedList_Destroy(DoublyLinkedList self);
 
 DATA_STRUCTURES_API
-DS_Size DoublyLinkedList_GetSize(DoublyLinkedList doubly_linked_list);
+DS_Size DoublyLinkedList_GetSize(DoublyLinkedList self);
 
 DATA_STRUCTURES_API
-DS_Size DoublyLinkedList_GetDataSize(DoublyLinkedList doubly_linked_list);
+DS_Size DoublyLinkedList_GetDataSize(DoublyLinkedList self);
 
 DATA_STRUCTURES_API
-DoublyLinkedListNode DoublyLinkedList_GetHead(DoublyLinkedList doubly_linked_list);
+DoublyLinkedListNode DoublyLinkedList_GetHead(DoublyLinkedList self);
 
 DATA_STRUCTURES_API
-DoublyLinkedListNode DoublyLinkedList_GetTail(DoublyLinkedList doubly_linked_list);
+DoublyLinkedListNode DoublyLinkedList_GetTail(DoublyLinkedList self);
 
 DATA_STRUCTURES_API
 DS_Generic DoublyLinkedList_GetNodeData(DoublyLinkedListNode node);
 
 DATA_STRUCTURES_API
-DS_Void DoublyLinkedList_SetNodeData(DoublyLinkedList doubly_linked_list, DoublyLinkedListNode node, const DS_Generic data);
+DS_Void DoublyLinkedList_SetNodeData(DoublyLinkedList self, DoublyLinkedListNode node, const DS_Generic data);
 
 DATA_STRUCTURES_API
-DS_Void DoublyLinkedList_PushHead(DoublyLinkedList doubly_linked_list, const DS_Generic data);
+DS_Void DoublyLinkedList_PushHead(DoublyLinkedList self, const DS_Generic data);
 
 DATA_STRUCTURES_API
-DS_Void DoublyLinkedList_PushTail(DoublyLinkedList doubly_linked_list, const DS_Generic data);
+DS_Void DoublyLinkedList_PushTail(DoublyLinkedList self, const DS_Generic data);
 
 DATA_STRUCTURES_API
-DS_Void DoublyLinkedList_PopHead(DoublyLinkedList doubly_linked_list);
+DS_Void DoublyLinkedList_PopHead(DoublyLinkedList self);
 
 DATA_STRUCTURES_API
-DS_Void DoublyLinkedList_PopTail(DoublyLinkedList doubly_linked_list);
+DS_Void DoublyLinkedList_PopTail(DoublyLinkedList self);
 
 DATA_STRUCTURES_API
-DS_Void DoublyLinkedList_RemoveNode(DoublyLinkedList doubly_linked_list, DoublyLinkedListNode node);
+DS_Void DoublyLinkedList_RemoveNode(DoublyLinkedList self, DoublyLinkedListNode node);
 
 DATA_STRUCTURES_API
-DS_Void DoublyLinkedList_Traverse(DoublyLinkedList doubly_linked_list,
-     DS_CallbackUnary unary_callback, DS_Generic unary_context);
+DS_Void DoublyLinkedList_Traverse(DoublyLinkedList self, DS_UnaryCallback unary_callback);
 
 DATA_STRUCTURES_API
-DoublyLinkedListIterator DoublyLinkedList_CreateItreator(DoublyLinkedList doubly_linked_list);
+DoublyLinkedListIterator DoublyLinkedList_CreateItreator(DoublyLinkedList self);
 
 #endif

@@ -5,25 +5,25 @@
 
 XorLinkedListNode XorLinkedListNode_Create(const DS_Generic data, DS_Size data_size)
 {
-     XorLinkedListNode node;
+     XorLinkedListNode self;
      
-     node = (XorLinkedListNode)malloc(sizeof (struct XorLinkedListNode));
-     if (!node) {
+     self = (XorLinkedListNode)malloc(sizeof (struct XorLinkedListNode));
+     if (!self) {
           return NULL;
      }  
      
-     node->data = malloc(data_size);
-     if(!node->data) {
-          free(node);
+     self->data = malloc(data_size);
+     if(!self->data) {
+          free(self);
           return NULL;
      }
      
-     memcpy(node->data, data, data_size);
-     return node;
+     memcpy(self->data, data, data_size);
+     return self;
 }
 
-DS_Void XorLinkedListNode_Destroy(XorLinkedListNode node)
+DS_Void XorLinkedListNode_Destroy(XorLinkedListNode self)
 {
-     free(node->data);
-     free(node);
+     free(self->data);
+     free(self);
 }

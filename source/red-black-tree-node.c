@@ -5,28 +5,28 @@
 
 RedBlackTreeNode RedBlackTreeNode_Create(const DS_Generic data, DS_Size data_size)
 {
-     RedBlackTreeNode node;
+     RedBlackTreeNode self;
      
-     node = (RedBlackTreeNode)malloc(sizeof (RedBlackTreeNode));
-     if (!node) {
+     self = (RedBlackTreeNode)malloc(sizeof (RedBlackTreeNode));
+     if (!self) {
           return NULL;
      } 
      
-     node->data = malloc(data_size);
-     if (!node->data) {
-          free(node);
+     self->data = malloc(data_size);
+     if (!self->data) {
+          free(self);
           return NULL;
      }
      
-     memcpy(node->data, data, data_size);
-     node->left = NULL;
-     node->right = NULL; 
+     memcpy(self->data, data, data_size);
+     self->left = NULL;
+     self->right = NULL; 
      
-     return node;
+     return self;
 }
 
-DS_Void RedBlackTreeNode_Destroy(RedBlackTreeNode node)
+DS_Void RedBlackTreeNode_Destroy(RedBlackTreeNode self)
 {
-     free(node->data);
-     free(node);
+     free(self->data);
+     free(self);
 }
