@@ -33,7 +33,7 @@ BinarySearchTree BinarySearchTree_Create(DS_Size data_size, DS_CompareCallback c
      self->data_size = data_size;
      self->size = 0;
      self->compare_callback.function = compare_callback.function;
-     self->compare_callback.context = compare_callback.context;
+     self->compare_callback.user_data = compare_callback.user_data;
      
      return self;
 }
@@ -50,7 +50,7 @@ BinarySearchTreeNode BinarySearchTree_search(BinarySearchTree tree, const DS_Gen
      node = tree->root;
      while (node) {
           switch (tree->compare_callback.function(node->data,
-               data, tree->compare_callback.context)) {
+               data, tree->compare_callback.user_data)) {
           case -1:
                node = node->left;
                break;
@@ -79,7 +79,7 @@ DS_Void BinarySearchTree_insert(BinarySearchTree tree, const DS_Generic data)
      int compare = 0;
      while (node) {
           compare = tree->compare_callback.function(data,
-               node->data, tree->compare_callback.context);
+               node->data, tree->compare_callback.user_data);
           if (compare == 0) {
                return;
           }
@@ -94,7 +94,7 @@ DS_Void BinarySearchTree_insert(BinarySearchTree tree, const DS_Generic data)
           data, tree->data_size);
      node->parent = pnode;
      compare = tree->compare_callback.function(data,
-          pnode->data, tree->compare_callback.context);
+          pnode->data, tree->compare_callback.user_data);
      if (compare < 0) {
           pnode->left = node;
      } else {
@@ -109,7 +109,7 @@ DS_Void BinarySearchTree_remove(BinarySearchTree tree, const DS_Generic data)
      BinarySearchTreeNode pnode = tree->root->parent;
      while (node) {
           DS_Compare compare = tree->compare_callback.function(
-               data, node->data, tree->compare_callback.context);
+               data, node->data, tree->compare_callback.user_data);
           if (compare == 0) {
                break;
           }

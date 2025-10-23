@@ -58,7 +58,7 @@ DS_Generic Stack_GetTop(Stack self)
      return Array_GetData(self->array, self->size - 1);
 }
 
-DS_Void Stack_Push( Stack self, const DS_Generic data)
+DS_Void Stack_Push(Stack self, const DS_Generic data)
 {
      Array_SetData(self->array, self->size, data);
      self->size++;

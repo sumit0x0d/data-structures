@@ -6,7 +6,7 @@
 typedef struct Stack * Stack;
 
 DATA_STRUCTURES_API
-Stack Stack_Create( DS_Size data_size, DS_Size size);
+Stack Stack_Create(DS_Size data_size, DS_Size size);
 
 DATA_STRUCTURES_API
 DS_Void Stack_Destroy(Stack stack);

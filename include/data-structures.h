@@ -30,13 +30,13 @@ typedef DS_UInt64 DS_Size;
 #define DS_OFFSET(type, member) ((DS_Size) & (((type)0)->member))
 
 typedef struct {
-     DS_Void (*function)(DS_Generic data, DS_Generic context);
-     DS_Generic context;
+     DS_Void (*function)(DS_Generic data, DS_Generic user_data);
+     DS_Generic user_data;
 } DS_UnaryCallback;
 
 typedef struct {
-     DS_Void (*function)(DS_Generic data1, DS_Generic data2, DS_Generic context);
-     DS_Generic context;
+     DS_Void (*function)(DS_Generic data1, DS_Generic data2, DS_Generic user_data);
+     DS_Generic user_data;
 } DS_BinaryCallback;
 
 typedef enum {
@@ -46,13 +46,13 @@ typedef enum {
 } DS_Compare;
 
 typedef struct {
-     DS_Compare (*function)(const DS_Generic data1, const DS_Generic data2, DS_Generic context);
-     DS_Generic context;
+     DS_Compare (*function)(const DS_Generic data1, const DS_Generic data2, DS_Generic user_data);
+     DS_Generic user_data;
 } DS_CompareCallback;
 
 typedef struct {
-     DS_Size (*function)(const DS_Generic data, DS_Size size, DS_Generic context);
-     DS_Generic context;
+     DS_Size (*function)(const DS_Generic data, DS_Size size, DS_Generic user_data);
+     DS_Generic user_data;
 } DS_HashCallback;
 
 #endif

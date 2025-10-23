@@ -42,7 +42,7 @@ DS_Void BinaryTree_InsertRight(BinaryTree self, BinaryTreeNode node, const DS_Ge
      self->size++;
 }
 
-DS_Void BinaryTree_Remove( BinaryTree self, BinaryTreeNode node)
+DS_Void BinaryTree_Remove(BinaryTree self, BinaryTreeNode node)
 {
      if (node == node->parent->left) {
           node->parent->left = node->left;

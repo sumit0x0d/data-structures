@@ -35,9 +35,9 @@ HashTable HashTable_Create(DS_Size key_size, DS_Size value_size, DS_Size bucket_
      self->value_size = value_size;
      self->bucket_count = bucket_count;
      self->hash_callback.function = hash_callback.function;
-     self->hash_callback.context = hash_callback.context;
+     self->hash_callback.user_data = hash_callback.user_data;
      self->compare_callback.function = compare_callback.function;
-     self->compare_callback.context = compare_callback.context;
+     self->compare_callback.user_data = compare_callback.user_data;
      
      return self;
 }
@@ -71,7 +71,7 @@ DS_Void HashTable_Insert(HashTable self, const DS_Generic key, const DS_Generic 
      DS_Compare compare;
      HashTablePair pair;
      
-     index = self->hash_callback.function(key, self->bucket_count, self->hash_callback.context);
+     index = self->hash_callback.function(key, self->bucket_count, self->hash_callback.user_data);
      
      if (!self->pair[index]) {
           self->pair[index] = HashTablePair_Create(key, self->key_size, value, self->value_size);
@@ -81,7 +81,7 @@ DS_Void HashTable_Insert(HashTable self, const DS_Generic key, const DS_Generic 
      pair = self->pair[index];
 
      do {
-          compare = self->compare_callback.function(key, pair->key, self->compare_callback.context);
+          compare = self->compare_callback.function(key, pair->key, self->compare_callback.user_data);
           if (compare) {
                pair = pair->next;
           } else {
@@ -100,7 +100,7 @@ DS_Void HashTable_Remove(HashTable self, const DS_Generic key)
      HashTablePair previous;
      DS_Compare compare;
 
-     index = self->hash_callback.function(key, self->bucket_count, self->hash_callback.context);
+     index = self->hash_callback.function(key, self->bucket_count, self->hash_callback.user_data);
      
      if (!self->pair[index]) {
           return;
@@ -110,7 +110,7 @@ DS_Void HashTable_Remove(HashTable self, const DS_Generic key)
      previous = pair;
 
      do {
-          compare = self->compare_callback.function(key, pair->key, self->compare_callback.context);
+          compare = self->compare_callback.function(key, pair->key, self->compare_callback.user_data);
           switch (compare) {
           case DS_COMPARE_EQUAL:
                previous->next = pair->next;
@@ -132,7 +132,7 @@ HashTablePair HashTable_Search(HashTable self, const DS_Generic key)
      HashTablePair pair;
      DS_Compare compare;
      
-     index = self->hash_callback.function(key, self->bucket_count, self->hash_callback.context);
+     index = self->hash_callback.function(key, self->bucket_count, self->hash_callback.user_data);
 
      if (!self->pair[index]) {
           return NULL;
@@ -141,7 +141,7 @@ HashTablePair HashTable_Search(HashTable self, const DS_Generic key)
      pair = self->pair[index];
 
      do {
-          compare = self->compare_callback.function(key, pair->key, self->compare_callback.context);
+          compare = self->compare_callback.function(key, pair->key, self->compare_callback.user_data);
           switch (compare) {
           case DS_COMPARE_EQUAL:
                return pair;

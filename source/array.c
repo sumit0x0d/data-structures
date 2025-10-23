@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include <array.h>
 
@@ -10,7 +10,7 @@ struct Array {
      DS_Generic swap_buffer;
 };
 
-Array Array_Create( DS_Size data_size, DS_Size size)
+Array Array_Create(DS_Size data_size, DS_Size size)
 {
      Array self;
 
@@ -55,7 +55,7 @@ DS_Size Array_GetDataSize(const Array self)
      return self->data_size;
 }
 
-DS_Void Array_SetSize( Array self, DS_Size size)
+DS_Void Array_SetSize(Array self, DS_Size size)
 {
      DS_Generic base;
 
@@ -68,7 +68,7 @@ DS_Void Array_SetSize( Array self, DS_Size size)
      self->size = size;
 }
 
-DS_Generic Array_GetData( const Array self, DS_Size index)
+DS_Generic Array_GetData(const Array self, DS_Size index)
 {
      return (DS_Int8 *)self->base + (self->data_size * index);
 }
@@ -90,7 +90,7 @@ DS_Void Array_Traverse(Array self, DS_UnaryCallback unary_callback)
      DS_Size i;
 
      for (i = 0; i < self->size; i++) {
-          unary_callback.function(Array_GetData(self, i), unary_callback.context);
+          unary_callback.function(Array_GetData(self, i), unary_callback.user_data);
      }
 }
 
@@ -101,7 +101,7 @@ DS_Generic Array_SearchLinear(const Array self, const DS_Generic data, DS_Compar
 
      for (i = 0; i < self->size; i++) {
           current = Array_GetData(self, i);
-          if (compare_callback.function(current, data, compare_callback.context) == DS_COMPARE_EQUAL) {
+          if (compare_callback.function(current, data, compare_callback.user_data) == DS_COMPARE_EQUAL) {
                return current;
           }
      }
@@ -121,7 +121,7 @@ DS_Generic Array_SearchBinary(const Array self, const DS_Generic data, DS_Compar
      while (left < right) {
           middle = left + (right - left) / 2;
           current = Array_GetData(self, middle);
-          switch (compare_callback.function(current, data, compare_callback.context)) {
+          switch (compare_callback.function(current, data, compare_callback.user_data)) {
           case DS_COMPARE_LESS:
                left = middle + 1;
                break;
@@ -147,7 +147,7 @@ DS_Void Array_SortBubble(Array self, DS_CompareCallback compare_callback)
           for (j = 0; j < i; j++) {
                data1 = Array_GetData(self, j);
                data2 = Array_GetData(self, j + 1);
-               if (compare_callback.function(data1, data2, compare_callback.context) == DS_COMPARE_GREATER) {
+               if (compare_callback.function(data1, data2, compare_callback.user_data) == DS_COMPARE_GREATER) {
                     Array_SwapData(self, data1, data2);
                }
           }
@@ -166,7 +166,7 @@ DS_Void Array_SortInsertion(Array self, DS_CompareCallback compare_callback)
           do {
                data1 = Array_GetData(self, j - 1);
                data2 = Array_GetData(self, j);
-               if (compare_callback.function(data1, data2, compare_callback.context) == DS_COMPARE_GREATER) {
+               if (compare_callback.function(data1, data2, compare_callback.user_data) == DS_COMPARE_GREATER) {
                     Array_SwapData(self, data1, data2);
                }
                j--;
@@ -187,7 +187,7 @@ DS_Void Array_SortSelection(Array self, DS_CompareCallback compare_callback)
           for (j = minimum + 1; j < self->size; j++) {
                data1 = Array_GetData(self, minimum);
                data2 = Array_GetData(self, j);
-               if (compare_callback.function(data1, data2, compare_callback.context) == DS_COMPARE_GREATER) {
+               if (compare_callback.function(data1, data2, compare_callback.user_data) == DS_COMPARE_GREATER) {
                     Array_SwapData(self, data1, data2);
                }
           }
@@ -205,7 +205,7 @@ DS_Void Array_SortQuick(Array self, DS_CompareCallback compare_callback)
           for (j = i + 1; j < self->size - i; j++) {
                data1 = Array_GetData(self, i);
                data2 = Array_GetData(self, j);
-               if (compare_callback.function(data1, data2, compare_callback.context) == DS_COMPARE_GREATER) {
+               if (compare_callback.function(data1, data2, compare_callback.user_data) == DS_COMPARE_GREATER) {
                     Array_SwapData(self, data1, data2);
                }
           }
@@ -223,7 +223,7 @@ DS_Void Array_SortMerge(Array self, DS_CompareCallback compare_callback)
           for (j = i + 1; j < self->size - i; j++) {
                data1 = Array_GetData(self, i);
                data2 = Array_GetData(self, j);
-               if (compare_callback.function(data1, data2, compare_callback.context) ==  DS_COMPARE_GREATER) {
+               if (compare_callback.function(data1, data2, compare_callback.user_data) ==  DS_COMPARE_GREATER) {
                     Array_SwapData(self, data1, data2);
                }
           }

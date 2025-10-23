@@ -118,7 +118,7 @@ DS_Void SinglyLinkedList_Traverse(SinglyLinkedList self, DS_UnaryCallback unary_
 
      node = self->head;
      while (node) {
-          unary_callback.function(node->data, unary_callback.context);
+          unary_callback.function(node->data, unary_callback.user_data);
           node = node->next;
      }
 }
@@ -168,43 +168,43 @@ SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(SinglyLinkedList self)
      return tortoise;
 }
 
-SinglyLinkedList SinglyLinkedList_MergeSorted(SinglyLinkedList self1, SinglyLinkedList self2)
+SinglyLinkedList SinglyLinkedList_MergeSorted(SinglyLinkedList singly_linked_list1, SinglyLinkedList singly_linked_list2)
 {
      SinglyLinkedList self;
      SinglyLinkedListNode node;
 
-     self = SinglyLinkedList_Create(self1->data_size);
+     self = SinglyLinkedList_Create(singly_linked_list1->data_size);
 
-     if (self1->head->data <= self2->head->data) {
-          self->head = self1->head;
-          self1->head = self1->head->next;
+     if (singly_linked_list1->head->data <= singly_linked_list2->head->data) {
+          self->head = singly_linked_list1->head;
+          singly_linked_list1->head = singly_linked_list1->head->next;
      } else {
-          self->head = self2->head;
-          self2->head = self2->head->next;
+          self->head = singly_linked_list2->head;
+          singly_linked_list2->head = singly_linked_list2->head->next;
      }
 
-     if (self1->tail->data <= self2->tail->data) {
-          self->tail = self2->tail;
+     if (singly_linked_list1->tail->data <= singly_linked_list2->tail->data) {
+          self->tail = singly_linked_list2->tail;
      } else {
-          self->tail = self1->tail;
+          self->tail = singly_linked_list1->tail;
      }
 
      node = self->head;
 
-     while (self1->head && self2->head) {
-          if (self1->head->data <= self2->head->data) {
-               node->next = self1->head;
-               self1->head = self1->head->next;
+     while (singly_linked_list1->head && singly_linked_list2->head) {
+          if (singly_linked_list1->head->data <= singly_linked_list2->head->data) {
+               node->next = singly_linked_list1->head;
+               singly_linked_list1->head = singly_linked_list1->head->next;
           } else {
-               node->next = self2->head;
-               self2->head = self2->head->next;
+               node->next = singly_linked_list2->head;
+               singly_linked_list2->head = singly_linked_list2->head->next;
           }
           node = node->next;
      }
 
-     self->size = self1->size + self2->size;
-     SinglyLinkedList_Destroy(self1);
-     SinglyLinkedList_Destroy(self2);
+     self->size = singly_linked_list1->size + singly_linked_list2->size;
+     SinglyLinkedList_Destroy(singly_linked_list1);
+     SinglyLinkedList_Destroy(singly_linked_list2);
      
      return self;
 }

@@ -85,7 +85,7 @@ AvlTreeNode AvlTree_Search(AvlTree self, const DS_Generic data)
 
      current = self->root;
      while (current) {
-          compare = self->compare_callback.function(data, current->data, self->compare_callback.context);
+          compare = self->compare_callback.function(data, current->data, self->compare_callback.user_data);
           switch (compare) {
           case DS_COMPARE_LESS:
                current = current->left;
@@ -120,7 +120,7 @@ DS_Void AvlTree_Insert(AvlTree self, const DS_Generic data)
           
      current = self->root;
      while (current) {
-          compare = self->compare_callback.function(current->data, data, self->compare_callback.context);
+          compare = self->compare_callback.function(current->data, data, self->compare_callback.user_data);
           if (compare == DS_COMPARE_EQUAL) {
                CircularBuffer_Destroy(circular_buffer);
                return;
@@ -159,7 +159,7 @@ DS_Void AvlTree_Remove(AvlTree self, const DS_Generic data)
           
      current = self->root;
      while (current) {
-          compare = self->compare_callback.function(data, current->data, self->compare_callback.context);
+          compare = self->compare_callback.function(data, current->data, self->compare_callback.user_data);
           if (compare == 0) {
                break;
           }
@@ -213,22 +213,22 @@ DS_Void AvlTree_Remove(AvlTree self, const DS_Generic data)
 }
 
 // DS_Void AvlTree_TraversePreorder(AvlTree self, DS_CallbackUnary unary_callback.function,
-//     DS_Generic unary_callback.context)
+//     DS_Generic unary_callback.user_data)
 // {
 // }
 
 // DS_Void AvlTree_TraverseInorder(AvlTree self, DS_CallbackUnary unary_callback.function,
-//     DS_Generic unary_callback.context)
+//     DS_Generic unary_callback.user_data)
 // {
 // }
 
 // DS_Void AvlTree_TraversePostorder(AvlTree self, DS_CallbackUnary unary_callback.function,
-//     DS_Generic unary_callback.context)
+//     DS_Generic unary_callback.user_data)
 // {
 // }
 
 // DS_Void AvlTree_TraverseLevelorder(AvlTree self, DS_CallbackUnary unary_callback.function,
-//     DS_Generic unary_callback.context)
+//     DS_Generic unary_callback.user_data)
 // {
 // }
 

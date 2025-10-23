@@ -166,7 +166,7 @@ DS_Void DoublyLinkedList_Traverse(DoublyLinkedList self, DS_UnaryCallback unary_
 
      node = self->head;
      while (node) {
-          unary_callback.function(node->data, unary_callback.context);
+          unary_callback.function(node->data, unary_callback.user_data);
           node = node->next;
      }
 }

@@ -3,7 +3,7 @@
 
 #include "avl-tree-node.h"
 
-AvlTreeNode AvlTreeNode_Create( const DS_Generic data, DS_Size data_size)
+AvlTreeNode AvlTreeNode_Create(const DS_Generic data, DS_Size data_size)
 {
      AvlTreeNode self;
 

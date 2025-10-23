@@ -85,6 +85,6 @@ DS_Void DynamicArray_Traverse(DynamicArray self, DS_UnaryCallback unary_callback
      DS_Size i;
 
      for (i = 0; i < Array_GetSize(self->array); i++) {
-          unary_callback.function(DynamicArray_GetData(self, i), unary_callback.context);
+          unary_callback.function(DynamicArray_GetData(self, i), unary_callback.user_data);
      }
 }

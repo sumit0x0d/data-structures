@@ -78,25 +78,25 @@ Matrix Matrix_Transposition(Matrix self)
      return transpose;
 }
 
-Matrix Matrix_Multiplication(Matrix self1, Matrix self2, DS_BinaryCallback binary_callback)
+Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, DS_BinaryCallback binary_callback)
 {
      Matrix self;
      DS_Size i;
      DS_Size j;
      DS_Size k;
 
-     if (self1->column_count != self2->row_count) {
+     if (matrix1->column_count != matrix2->row_count) {
           return NULL;
      }
      
-     self = Matrix_Create(Array_GetDataSize(self1->array), self1->row_count, self2->column_count);
+     self = Matrix_Create(Array_GetDataSize(matrix1->array), matrix1->row_count, matrix2->column_count);
      
      for (i = 0; i < self->row_count; i++) {
           for (j = 0; j < self->column_count; j++) {
-               for (k = 0; k < self1->column_count; k++) {
-                    binary.function(Matrix_GetData(self, i, j),
-                         Matrix_GetData(self1, i, k), Matrix_GetData(self2, k, j));
-                    (void)binary.context;
+               for (k = 0; k < matrix1->column_count; k++) {
+                    binary_callback.function(Matrix_GetData(self, i, j),
+                         Matrix_GetData(matrix1, i, k), Matrix_GetData(matrix2, k, j));
+                    (void)binary_callback.user_data;
                }
           }
      }
@@ -104,26 +104,27 @@ Matrix Matrix_Multiplication(Matrix self1, Matrix self2, DS_BinaryCallback binar
      return self;
 }
 
-Matrix Matrix_Operation(Matrix self1, Matrix self2, DS_BinaryCallback binary_callback)
+Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, DS_BinaryCallback binary_callback)
 {
      Matrix self;
      DS_Size i;
      DS_Size j;
 
-     if (self1->row_count != self2->row_count ||
-         self1->column_count == self2->column_count) {
+     if (matrix1->row_count != matrix2->row_count ||
+         matrix1->column_count == matrix2->column_count) {
           return NULL;   
      }
      
-     self = Matrix_Create(Array_GetDataSize(self1->array), self1->row_count, self1->column_count);
+     self = Matrix_Create(Array_GetDataSize(matrix1->array), matrix1->row_count, matrix1->column_count);
      if (!self) {
           return NULL;
      }
      
-     for (i = 0; i < self1->row_count; i++) {
-          for (j = 0; j < self2->column_count; j++) {
-               binary.function(Matrix_GetData(self, i, j), Matrix_GetData(self1, i, j), Matrix_GetData(self2, i, j));
-               (void)binary.context;
+     for (i = 0; i < matrix1->row_count; i++) {
+          for (j = 0; j < matrix2->column_count; j++) {
+               binary_callback.function(Matrix_GetData(self, i, j),
+                    Matrix_GetData(matrix1, i, j), Matrix_GetData(matrix2, i, j));
+               (void)binary_callback.user_data;
           }
      }
 
@@ -157,7 +158,7 @@ DS_Void Matrix_Traverse(Matrix self, DS_UnaryCallback unary_callback)
 
      for (i = 0; i < self->row_count; i++) {
           for (j = 0; j < self->column_count; j++) {
-               unary_callback.function(Matrix_GetData(self, i, j), unary_callback.context);
+               unary_callback.function(Matrix_GetData(self, i, j), unary_callback.user_data);
           }
      }
 }

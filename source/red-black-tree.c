@@ -14,11 +14,11 @@ struct RedBlackTree {
      DS_CompareCallback compare_callback;
 };
 
-static DS_Void _RotateRight( RedBlackTree self, RedBlackTreeNode node);
-static DS_Void _RotateLeftRight( RedBlackTree self, RedBlackTreeNode node);
-static DS_Void _RotateLeft( RedBlackTree self, RedBlackTreeNode node);
-static DS_Void _RotateRightLeft( RedBlackTree self, RedBlackTreeNode node);
-static DS_Void _Rebalance( RedBlackTree self, RedBlackTreeNode node);
+static DS_Void _RotateRight(RedBlackTree self, RedBlackTreeNode node);
+static DS_Void _RotateLeftRight(RedBlackTree self, RedBlackTreeNode node);
+static DS_Void _RotateLeft(RedBlackTree self, RedBlackTreeNode node);
+static DS_Void _RotateRightLeft(RedBlackTree self, RedBlackTreeNode node);
+static DS_Void _Rebalance(RedBlackTree self, RedBlackTreeNode node);
 
 RedBlackTree RedBlackTree_Create(DS_Size size, DS_CompareCallback compare_callback)
 {
@@ -33,7 +33,7 @@ RedBlackTree RedBlackTree_Create(DS_Size size, DS_CompareCallback compare_callba
      self->data_size = size;
      self->size = 0;
      self->compare_callback.function = compare_callback.function;
-     self->compare_callback.context = compare_callback.context;
+     self->compare_callback.user_data = compare_callback.user_data;
      
      return self;
 }
@@ -77,7 +77,7 @@ RedBlackTreeNode RedBlackTree_Search(RedBlackTree self, const DS_Generic data)
      
      node = self->root;
      while (node) {
-          compare = self->compare_callback.function(data, node->data, self->compare_callback.context);
+          compare = self->compare_callback.function(data, node->data, self->compare_callback.user_data);
           if (compare == DS_COMPARE_EQUAL) {
                return node;
           } else if (compare == DS_COMPARE_LESS) {
@@ -94,11 +94,10 @@ DS_Void RedBlackTree_Insert(RedBlackTree self, const DS_Generic data)
 {
      RedBlackTreeNode node;
      RedBlackTreeNode parent;
-     DS_CompareCallback compare_callback;
+     DS_Compare compare;
 
      if (!self->root) {
-          self->root = RedBlackTreeNode_Create(
-               data, self->data_size);
+          self->root = RedBlackTreeNode_Create(data, self->data_size);
           self->root->parent = NULL;
           self->root->color = 1;
           self->size++;
@@ -109,7 +108,7 @@ DS_Void RedBlackTree_Insert(RedBlackTree self, const DS_Generic data)
 
      node = self->root;
      while (node) {
-          compare = self->compare_callback.function(data, node->data, self->compare_callback.context);
+          compare = self->compare_callback.function(data, node->data, self->compare_callback.user_data);
           if (compare == 0) {
                return;
           }
@@ -125,7 +124,7 @@ DS_Void RedBlackTree_Insert(RedBlackTree self, const DS_Generic data)
      node->parent = parent;
      node->color = 0;
      
-     compare = self->compare_callback.function(data, parent->data, self->compare_callback.context);
+     compare = self->compare_callback.function(data, parent->data, self->compare_callback.user_data);
      if (compare < 0) {
           parent->left = node;
      } else {

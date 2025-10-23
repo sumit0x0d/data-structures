@@ -39,7 +39,7 @@ DS_Generic BloomFilter_Search(BloomFilter self, const DS_Generic data)
 {
      DS_Size index;
 
-     index = self->hash_callback.function(data, Array_GetSize(self->array), self->hash_callback.context);
+     index = self->hash_callback.function(data, Array_GetSize(self->array), self->hash_callback.user_data);
 
      return Array_GetData(self->array, index);
 }
@@ -48,7 +48,7 @@ DS_Void BloomFilter_Insert(BloomFilter self, const DS_Generic data)
 {
      DS_Size index;
 
-     index = self->hash_callback.function(data, Array_GetSize(self->array), self->hash_callback.context);
+     index = self->hash_callback.function(data, Array_GetSize(self->array), self->hash_callback.user_data);
 
      Array_SetData(self->array, index, data);
 }

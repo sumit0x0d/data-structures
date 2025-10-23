@@ -4,20 +4,20 @@
 #include "data-structures.h"
 
 typedef struct Array * Array;
-typedef struct ArrayIterator * ArrayIterator;
+// typedef struct ArrayIterator * ArrayIterator;
 
-typedef enum {
-     ARRAY_SEARCH_LINEAR = 1,
-     ARRAY_SEARCH_BINARY = 2
-} ARRAY_SEARCH;
+// typedef enum {
+//      ARRAY_SEARCH_LINEAR = 1,
+//      ARRAY_SEARCH_BINARY = 2
+// } ARRAY_SEARCH;
 
-typedef enum {
-     ARRAY_SORT_BUBBLE    = 1,
-     ARRAY_SORT_SELECTION = 2,
-     ARRAY_SORT_INSERTION = 3,
-     ARRAY_SORT_QUICK     = 4,
-     ARRAY_SORT_MERGE     = 5,
-} ARRAY_SORT;
+// typedef enum {
+//      ARRAY_SORT_BUBBLE    = 1,
+//      ARRAY_SORT_SELECTION = 2,
+//      ARRAY_SORT_INSERTION = 3,
+//      ARRAY_SORT_QUICK     = 4,
+//      ARRAY_SORT_MERGE     = 5,
+// } ARRAY_SORT;
 
 DATA_STRUCTURES_API
 Array Array_Create(DS_Size data_size, DS_Size size);

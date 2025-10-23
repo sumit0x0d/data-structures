@@ -28,21 +28,21 @@ DS_Void BinaryTree_Remove(BinaryTree self, BinaryTreeNode self_nod);
 DATA_STRUCTURES_API
 DS_Void BinaryTree_TraversePreorder(BinaryTree self,
                                     DS_CallbackUnary unary_callback.function,
-                                    DS_Generic unary_callback.context);
+                                    DS_Generic unary_callback.user_data);
 
 DATA_STRUCTURES_API
 DS_Void BinaryTree_TraverseInorder(BinaryTree self,
                                    DS_CallbackUnary unary_callback.function,
-                                   DS_Generic unary_callback.context);
+                                   DS_Generic unary_callback.user_data);
 
 DATA_STRUCTURES_API
 DS_Void BinaryTree_TraversePostorder(BinaryTree self,
                                      DS_CallbackUnary unary_callback.function,
-                                     DS_Generic unary_callback.context);
+                                     DS_Generic unary_callback.user_data);
 
 DATA_STRUCTURES_API
 DS_Void BinaryTree_TraverseLevelorder(BinaryTree self,
                                       DS_CallbackUnary unary_callback.function,
-                                      DS_Generic unary_callback.context);
+                                      DS_Generic unary_callback.user_data);
 
 #endif
