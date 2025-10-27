@@ -7,8 +7,7 @@ typedef struct BinarySearchTree * BinarySearchTree;
 typedef struct BinarySearchTreeNode * BinarySearchTreeNode;
 
 DATA_STRUCTURES_API
-BinarySearchTree BinarySearchTree_Create(DS_Size data_size,
-     DS_CompareCallback compare_callback);
+BinarySearchTree BinarySearchTree_Create(DS_Size data_size, DS_CompareCallback compare_callback);
 
 DATA_STRUCTURES_API
 DS_Void BinarySearchTree_Destroy(BinarySearchTree self);
@@ -32,7 +31,6 @@ DATA_STRUCTURES_API
 DS_Void BinarySearchTree_TraversePostorder(BinarySearchTree self, DS_UnaryCallback unary_callback);
 
 DATA_STRUCTURES_API
-DS_Void BinarySearchTree_TraverseLevelorder(BinarySearchTree self,
-     DS_UnaryCallback unary_callback);
+DS_Void BinarySearchTree_TraverseLevelorder(BinarySearchTree self, DS_UnaryCallback unary_callback);
 
 #endif

@@ -68,13 +68,13 @@ Matrix Matrix_Transposition(Matrix self)
      if (!transpose) {
           return NULL;
      }
-     
+
      for (i = 0; i < transpose->row_count; i++) {
           for (j = 0; j < transpose->column_count; j++) {
                Matrix_SetData(transpose, i, j, Matrix_GetData(self, i, j));
           }
      }
-     
+
      return transpose;
 }
 
@@ -94,9 +94,9 @@ Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, DS_BinaryCallback b
      for (i = 0; i < self->row_count; i++) {
           for (j = 0; j < self->column_count; j++) {
                for (k = 0; k < matrix1->column_count; k++) {
-                    binary_callback.function(Matrix_GetData(self, i, j),
-                         Matrix_GetData(matrix1, i, k), Matrix_GetData(matrix2, k, j));
-                    (void)binary_callback.user_data;
+                    DS_Generic data = binary_callback.function(Matrix_GetData(self, i, j),
+                         Matrix_GetData(matrix1, i, k), binary_callback.user_data);
+                    Matrix_SetData(self, k, j, data);
                }
           }
      }
@@ -122,9 +122,9 @@ Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, DS_BinaryCallback binary
      
      for (i = 0; i < matrix1->row_count; i++) {
           for (j = 0; j < matrix2->column_count; j++) {
-               binary_callback.function(Matrix_GetData(self, i, j),
-                    Matrix_GetData(matrix1, i, j), Matrix_GetData(matrix2, i, j));
-               (void)binary_callback.user_data;
+               DS_Generic data = binary_callback.function(Matrix_GetData(self, i, j),
+                    Matrix_GetData(matrix1, i, j), binary_callback.user_data);
+               Matrix_SetData(self, i, j, data);
           }
      }
 

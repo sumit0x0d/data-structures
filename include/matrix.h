@@ -27,10 +27,10 @@ DATA_STRUCTURES_API
 Matrix Matrix_Transposition(Matrix self);
 
 DATA_STRUCTURES_API
-Matrix Matrix_Multiplication(Matrix self1, Matrix self2, DS_BinaryCallback binary_callback);
+Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, DS_BinaryCallback binary_callback);
 
 DATA_STRUCTURES_API
-Matrix Matrix_Operation(Matrix self1, Matrix self2, DS_BinaryCallback binary_callback);
+Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, DS_BinaryCallback binary_callback);
 
 DATA_STRUCTURES_API
 Matrix Matrix_ColumnVectorization(Matrix self);

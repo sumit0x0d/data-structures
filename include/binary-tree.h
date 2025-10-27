@@ -13,36 +13,24 @@ DATA_STRUCTURES_API
 DS_Void BinaryTree_Destroy(BinaryTree self);
 
 DATA_STRUCTURES_API
-DS_Void BinaryTree_InsertLeft(BinaryTree self,
-                              BinaryTreeNode self_node,
-                              const DS_Generic data);
+DS_Void BinaryTree_InsertLeft(BinaryTree self, BinaryTreeNode self_node, const DS_Generic data);
 
 DATA_STRUCTURES_API
-DS_Void BinaryTree_InsertRight(BinaryTree self,
-                               BinaryTreeNode self_node,
-                               const DS_Generic data);
+DS_Void BinaryTree_InsertRight(BinaryTree self, BinaryTreeNode self_node, const DS_Generic data);
 
 DATA_STRUCTURES_API
 DS_Void BinaryTree_Remove(BinaryTree self, BinaryTreeNode self_nod);
 
 DATA_STRUCTURES_API
-DS_Void BinaryTree_TraversePreorder(BinaryTree self,
-                                    DS_CallbackUnary unary_callback.function,
-                                    DS_Generic unary_callback.user_data);
+DS_Void BinaryTree_TraversePreorder(BinaryTree self, DS_UnaryCallback unary_callback);
 
 DATA_STRUCTURES_API
-DS_Void BinaryTree_TraverseInorder(BinaryTree self,
-                                   DS_CallbackUnary unary_callback.function,
-                                   DS_Generic unary_callback.user_data);
+DS_Void BinaryTree_TraverseInorder(BinaryTree self, DS_UnaryCallback unary_callback);
 
 DATA_STRUCTURES_API
-DS_Void BinaryTree_TraversePostorder(BinaryTree self,
-                                     DS_CallbackUnary unary_callback.function,
-                                     DS_Generic unary_callback.user_data);
+DS_Void BinaryTree_TraversePostorder(BinaryTree self, DS_UnaryCallback unary_callback);
 
 DATA_STRUCTURES_API
-DS_Void BinaryTree_TraverseLevelorder(BinaryTree self,
-                                      DS_CallbackUnary unary_callback.function,
-                                      DS_Generic unary_callback.user_data);
+DS_Void BinaryTree_TraverseLevelorder(BinaryTree self, DS_UnaryCallback unary_callback);
 
 #endif

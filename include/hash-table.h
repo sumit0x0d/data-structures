@@ -7,7 +7,8 @@ typedef struct HashTable * HashTable;
 typedef struct HashTablePair * HashTablePair;
 
 DATA_STRUCTURES_API
-HashTable HashTable_Create(DS_Size key_size, DS_Size value_size, DS_Size bucket_count, DS_HashCallback hash_callback, DS_CompareCallback compare_callback);
+HashTable HashTable_Create(DS_Size key_size, DS_Size value_size, DS_Size bucket_count,
+     DS_HashCallback hash_callback, DS_CompareCallback compare_callback);
 
 DATA_STRUCTURES_API
 DS_Void HashTable_Destroy(HashTable self);
