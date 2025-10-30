@@ -9,21 +9,21 @@ DATA_STRUCTURES_API
 Stack Stack_Create(DS_Size data_size, DS_Size size);
 
 DATA_STRUCTURES_API
-DS_Void Stack_Destroy(Stack self);
+DS_Void Stack_Destroy(Stack this);
 
 DATA_STRUCTURES_API
-DS_Bool Stack_IsEmpty(Stack self);
+DS_Bool Stack_IsEmpty(Stack this);
 
 DATA_STRUCTURES_API
-DS_Bool Stack_IsFull(Stack self);
+DS_Bool Stack_IsFull(Stack this);
 
 DATA_STRUCTURES_API
-DS_Generic Stack_GetTop(Stack self);
+DS_Generic Stack_GetTop(Stack this);
 
 DATA_STRUCTURES_API
-DS_Void Stack_Push(Stack self, const DS_Generic data);
+DS_Void Stack_Push(Stack this, const DS_Generic data);
 
 DATA_STRUCTURES_API
-DS_Void Stack_Pop(Stack self);
+DS_Void Stack_Pop(Stack this);
 
 #endif

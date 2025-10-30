@@ -10,6 +10,6 @@ DATA_STRUCTURES_API
 Rope Rope_Create(DS_Size data_size);
 
 DATA_STRUCTURES_API
-DS_Void Rope_Destroy(Rope self);
+DS_Void Rope_Destroy(Rope this);
 
 #endif

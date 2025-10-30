@@ -2,87 +2,90 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <array.h>
 #include <circular-buffer.h>
 
 struct CircularBuffer {
-     Array array;
+     DS_Generic base;
+     DS_Size data_size;
      DS_Size front;
      DS_Size back;
-     DS_Size size;
+     DS_Size capacity;
 };
 
-CircularBuffer CircularBuffer_Create(DS_Size data_size, DS_Size size)
+CircularBuffer CircularBuffer_Create(DS_Size data_size, DS_Size capacity)
 {
-     CircularBuffer self;
+     CircularBuffer this;
 
-     self = (CircularBuffer)malloc(sizeof (struct CircularBuffer));
-     if(!self) {
+     this = (CircularBuffer)malloc(sizeof (struct CircularBuffer));
+     if(!this) {
           return NULL;
      }
 
-     self->array = Array_Create(data_size, size);
-     if (!self->array) {
-          free(self);
+     this->base = (DS_Generic)malloc(data_size * capacity);
+     if (!this->base) {
+          free(this);
           return NULL;
-     }
+     };
 
-     self->front = 0;
-     self->back = 0;
+     this->data_size = data_size;
+     this->front = 0;
+     this->back = 0;
+     this->capacity = capacity;
 
-     return self;
+     return this;
 }
 
-DS_Void CircularBuffer_Destroy(CircularBuffer self)
+DS_Void CircularBuffer_Destroy(CircularBuffer this)
 {
-     Array_Destroy(self->array);
-     free(self);
+     free(this->base);
+     free(this);
 }
 
-DS_Bool CircularBuffer_IsEmpty(CircularBuffer self)
+DS_Bool CircularBuffer_IsEmpty(CircularBuffer this)
 {
-     if (self->size == 0) {
+     if (this->front == this->back) {
           return DS_BOOL_TRUE;
      }
      
      return DS_BOOL_FALSE;
 }
 
-DS_Bool CircularBuffer_IsFull(CircularBuffer self)
+DS_Bool CircularBuffer_IsFull(CircularBuffer this)
 {
-     if (self->size == Array_GetSize(
-          self->array)) {
-          return DS_BOOL_FALSE;
+     if (this->front == (this->back + 1) % this->capacity) {
+          return DS_BOOL_TRUE;
      }
      
-     return DS_BOOL_TRUE;
+     return DS_BOOL_FALSE;
 }
 
-DS_Generic CircularBuffer_GetFrontData(CircularBuffer self)
+DS_Generic CircularBuffer_GetFrontData(CircularBuffer this)
 {
-     return Array_GetData(self->array, self->front);
+     DS_Int8 *base;
+
+     base = (DS_Int8 *)this->base;
+
+     return (DS_Generic)base[this->data_size * this->front];
 }
 
-DS_Generic CircularBuffer_GetBackData(CircularBuffer self)
+DS_Generic CircularBuffer_GetBackData(CircularBuffer this)
 {
-     if (self->back == 0) {
-          return Array_GetData(self->array, Array_GetSize(self->array) - 1);
-     } else {
-          return Array_GetData(self->array, self->back - 1);
-     }
-     
-     return NULL;
+     if (this->front == this->back) {
+        return NULL;
+    }
+
+    DS_Size index = (this->back == 0) ? (this->capacity - 1) : (this->back - 1);
+
+    return (DS_Int8 *)this->base + (this->data_size * index);
 }
 
-DS_Void CircularBuffer_PushBack(CircularBuffer self, const DS_Generic data)
+DS_Void CircularBuffer_PushBack(CircularBuffer this, const DS_Generic data)
 {
-     Array_SetData(self->array, self->back, data);
-     self->back = (self->back + 1) % Array_GetSize(self->array);
-     self->size++;
+     memcpy((DS_Int8 *)this->base + this->data_size * this->back, data, this->data_size);
+     this->back = (this->back + 1) % this->capacity;
 }
 
-DS_Void CircularBuffer_PopFront(CircularBuffer self)
+DS_Void CircularBuffer_PopFront(CircularBuffer this)
 {
-     self->front = (self->front + 1) % Array_GetSize(self->array);
-     self->size--;
+     this->front = (this->front + 1) % this->capacity;
 }

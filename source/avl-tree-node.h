@@ -20,14 +20,14 @@ struct AvlTreeNode {
 
 AvlTreeNode AvlTreeNode_Create(const DS_Generic data, DS_Size data_size);
 
-DS_Void AvlTreeNode_Destroy(AvlTreeNode self);
+DS_Void AvlTreeNode_Destroy(AvlTreeNode this);
 
-DS_Size AvlTreeNode_GetHeight(AvlTreeNode self, CircularBuffer circular_buffer);
+DS_Size AvlTreeNode_GetHeight(AvlTreeNode this, CircularBuffer circular_buffer);
 
-DS_Void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode self, CircularBuffer circular_buffer);
+DS_Void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode this, CircularBuffer circular_buffer);
 
-AvlTreeNode AvlTreeNode_GetPredecessor(AvlTreeNode self);
+AvlTreeNode AvlTreeNode_GetPredecessor(AvlTreeNode this);
 
-AvlTreeNode AvlTreeNode_GetSuccessor(AvlTreeNode self);
+AvlTreeNode AvlTreeNode_GetSuccessor(AvlTreeNode this);
 
 #endif

@@ -5,48 +5,48 @@
 
 AvlTreeNode AvlTreeNode_Create(const DS_Generic data, DS_Size data_size)
 {
-     AvlTreeNode self;
+     AvlTreeNode this;
 
-     self = (AvlTreeNode)malloc(sizeof (struct AvlTreeNode));
-     if (!self) {
+     this = (AvlTreeNode)malloc(sizeof (struct AvlTreeNode));
+     if (!this) {
           return NULL;
      }
      
-     self->data = malloc(data_size);
-     if (!self->data){
-          free(self);
+     this->data = malloc(data_size);
+     if (!this->data){
+          free(this);
           return NULL;
      }
      
-     memcpy(self->data, data, data_size);
-     self->left = NULL;
-     self->right = NULL;
-     self->balance_factor = 0;
+     memcpy(this->data, data, data_size);
+     this->left = NULL;
+     this->right = NULL;
+     this->balance_factor = 0;
      
-     return self;
+     return this;
 }
 
-DS_Void AvlTreeNode_Destroy(AvlTreeNode self)
+DS_Void AvlTreeNode_Destroy(AvlTreeNode this)
 {
-     free(self->data);
-     free(self);
+     free(this->data);
+     free(this);
 }
 
-DS_Size AvlTreeNode_GetHeight(AvlTreeNode self, CircularBuffer circular_buffer)
+DS_Size AvlTreeNode_GetHeight(AvlTreeNode this, CircularBuffer circular_buffer)
 {
      DS_Size height;
      
      height = 0;
-     CircularBuffer_PushBack(circular_buffer, self);
+     CircularBuffer_PushBack(circular_buffer, this);
      
      while (!CircularBuffer_IsEmpty(circular_buffer)) {
-          self = CircularBuffer_GetFrontData(circular_buffer);
+          this = CircularBuffer_GetFrontData(circular_buffer);
           CircularBuffer_PopFront(circular_buffer);
-          if (self->left) {
-               CircularBuffer_PushBack(circular_buffer, self->left);
+          if (this->left) {
+               CircularBuffer_PushBack(circular_buffer, this->left);
           }
-          if (self->right) {
-               CircularBuffer_PushBack(circular_buffer, self->right);
+          if (this->right) {
+               CircularBuffer_PushBack(circular_buffer, this->right);
           }
           height++;
      }
@@ -54,78 +54,78 @@ DS_Size AvlTreeNode_GetHeight(AvlTreeNode self, CircularBuffer circular_buffer)
      return height;
 }
 
-DS_Void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode self, CircularBuffer circular_buffer)
+DS_Void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode this, CircularBuffer circular_buffer)
 {
      DS_Size left_height;
      DS_Size right_height;
      
-     if (self->left) {
-          left_height = AvlTreeNode_GetHeight(self->left, circular_buffer);
+     if (this->left) {
+          left_height = AvlTreeNode_GetHeight(this->left, circular_buffer);
      } else {
           left_height = 0;
      }
      
-     if (self->right) {
-          right_height = AvlTreeNode_GetHeight(self->right, circular_buffer);
+     if (this->right) {
+          right_height = AvlTreeNode_GetHeight(this->right, circular_buffer);
      } else {
           right_height = 0;
      }
 
-     self->balance_factor = (int)(left_height - right_height);
+     this->balance_factor = (int)(left_height - right_height);
 }
 
-AvlTreeNode AvlTreeNode_GetPredecessor(AvlTreeNode self)
+AvlTreeNode AvlTreeNode_GetPredecessor(AvlTreeNode this)
 {
      AvlTreeNode left;
      AvlTreeNode previous;
 
-     left = self->left;
-     previous = self;
-     free(self->data);
-     self = left;
+     left = this->left;
+     previous = this;
+     free(this->data);
+     this = left;
 
-     while (self->right) {
-          self = self->right;
+     while (this->right) {
+          this = this->right;
      }
      
-     previous->data = self->data;
-     left = self->left;
-     previous = self->parent;
+     previous->data = this->data;
+     left = this->left;
+     previous = this->parent;
      previous->right = left;
      
      if (left) {
           left->parent = previous;
      }
      
-     free(self);
+     free(this);
      
      return previous;
 }
 
-AvlTreeNode AvlTreeNode_GetSuccessor(AvlTreeNode self)
+AvlTreeNode AvlTreeNode_GetSuccessor(AvlTreeNode this)
 {
      AvlTreeNode right;
      AvlTreeNode previous;
 
-     right = self->right;
-     previous = self;
-     free(self->data);
-     self = right;
+     right = this->right;
+     previous = this;
+     free(this->data);
+     this = right;
 
-     while (self->left) {
-          self = self->left;
+     while (this->left) {
+          this = this->left;
      }
 
-     previous->data = self->data;
-     right = self->right;
-     previous = self->parent;
+     previous->data = this->data;
+     right = this->right;
+     previous = this->parent;
      previous->left = right;
 
      if (right) {
           right->parent = previous;
      }
 
-     free(self);
+     free(this);
 
      return previous;
 }

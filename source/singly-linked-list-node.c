@@ -5,26 +5,26 @@
 
 SinglyLinkedListNode SinglyLinkedListNode_Create(const DS_Generic data, DS_Size data_size)
 {
-     SinglyLinkedListNode self;
+     SinglyLinkedListNode this;
      
-     self = (SinglyLinkedListNode)malloc(sizeof (struct SinglyLinkedListNode));
-     if (!self) {
+     this = (SinglyLinkedListNode)malloc(sizeof (struct SinglyLinkedListNode));
+     if (!this) {
           return NULL;
      }
      
-     self->data = malloc(data_size);
-     if (!self->data) {
-          free(self);
+     this->data = malloc(data_size);
+     if (!this->data) {
+          free(this);
           return NULL;
      }
      
-     memcpy(self->data, data, data_size);
+     memcpy(this->data, data, data_size);
      
-     return self;
+     return this;
 }
 
-DS_Void SinglyLinkedListNode_Destroy(SinglyLinkedListNode self)
+DS_Void SinglyLinkedListNode_Destroy(SinglyLinkedListNode this)
 {
-     free(self->data);
-     free(self);
+     free(this->data);
+     free(this);
 }

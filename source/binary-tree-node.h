@@ -13,6 +13,6 @@ struct BinaryTreeNode {
 
 BinaryTreeNode BinaryTreeNode_Create(const DS_Generic data, DS_Size data_size);
 
-DS_Void BinaryTreeNode_Destroy(BinaryTreeNode self);
+DS_Void BinaryTreeNode_Destroy(BinaryTreeNode this);
 
 #endif

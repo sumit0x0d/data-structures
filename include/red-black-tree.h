@@ -10,21 +10,21 @@ DATA_STRUCTURES_API
 RedBlackTree RedBlackTree_Create(DS_Size data_size, DS_CompareCallback compare_callback);
 
 DATA_STRUCTURES_API
-DS_Void RedBlackTree_Destroy(RedBlackTree self);
+DS_Void RedBlackTree_Destroy(RedBlackTree this);
 
 DATA_STRUCTURES_API
-DS_Size RedBlackTree_GetSize(RedBlackTree self);
+DS_Size RedBlackTree_GetSize(RedBlackTree this);
 
 DATA_STRUCTURES_API
 DS_Generic RedBlackTree_GetNodeData(RedBlackTreeNode node);
 
 DATA_STRUCTURES_API
-DS_Void RedBlackTree_Insert(RedBlackTree self, const DS_Generic data);
+DS_Void RedBlackTree_Insert(RedBlackTree this, const DS_Generic data);
 
 DATA_STRUCTURES_API
-RedBlackTreeNode RedBlackTree_Search(RedBlackTree self, const DS_Generic data);
+RedBlackTreeNode RedBlackTree_Search(RedBlackTree this, const DS_Generic data);
 
 DATA_STRUCTURES_API
-DS_Void RedBlackTree_Remove(RedBlackTree self, const DS_Generic data);
+DS_Void RedBlackTree_Remove(RedBlackTree this, const DS_Generic data);
 
 #endif

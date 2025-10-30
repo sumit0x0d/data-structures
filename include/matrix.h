@@ -9,22 +9,22 @@ DATA_STRUCTURES_API
 Matrix Matrix_Create(DS_Size data_size, DS_Size row_count, DS_Size column_count);
 
 DATA_STRUCTURES_API
-DS_Void Matrix_Destroy(Matrix self);
+DS_Void Matrix_Destroy(Matrix this);
 
 DATA_STRUCTURES_API
-DS_Generic Matrix_GetData(const Matrix self, DS_Size row, DS_Size column);
+DS_Generic Matrix_GetData(const Matrix this, DS_Size row, DS_Size column);
 
 DATA_STRUCTURES_API
-DS_Size Matrix_GetRowCount(const Matrix self);
+DS_Size Matrix_GetRowCount(const Matrix this);
 
 DATA_STRUCTURES_API
-DS_Size Matrix_GetColumnCount(const Matrix self);
+DS_Size Matrix_GetColumnCount(const Matrix this);
 
 DATA_STRUCTURES_API
-DS_Void Matrix_SetData(Matrix self, DS_Size row, DS_Size column, const DS_Generic data);
+DS_Void Matrix_SetData(Matrix this, DS_Size row, DS_Size column, const DS_Generic data);
 
 DATA_STRUCTURES_API
-Matrix Matrix_Transposition(Matrix self);
+Matrix Matrix_Transposition(Matrix this);
 
 DATA_STRUCTURES_API
 Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, DS_BinaryCallback binary_callback);
@@ -33,9 +33,9 @@ DATA_STRUCTURES_API
 Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, DS_BinaryCallback binary_callback);
 
 DATA_STRUCTURES_API
-Matrix Matrix_ColumnVectorization(Matrix self);
+Matrix Matrix_ColumnVectorization(Matrix this);
 
 DATA_STRUCTURES_API
-DS_Void Matrix_Traverse(Matrix self, DS_UnaryCallback unary_callback);
+DS_Void Matrix_Traverse(Matrix this, DS_UnaryCallback unary_callback);
 
 #endif

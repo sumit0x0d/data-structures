@@ -15,53 +15,53 @@ struct DoublyLinkedList {
 
 DoublyLinkedList DoublyLinkedList_Create(DS_Size data_size)
 {
-     DoublyLinkedList self;
+     DoublyLinkedList this;
 
-     self = (DoublyLinkedList)malloc(sizeof (struct DoublyLinkedList));
-     if (!self) {
+     this = (DoublyLinkedList)malloc(sizeof (struct DoublyLinkedList));
+     if (!this) {
           return NULL;
      }
 
-     self->head = NULL;
-     self->tail = NULL;
-     self->data_size = data_size;
-     self->size = 0;
+     this->head = NULL;
+     this->tail = NULL;
+     this->data_size = data_size;
+     this->size = 0;
      
-     return self;
+     return this;
 }
 
-DS_Void DoublyLinkedList_Destroy(DoublyLinkedList self)
+DS_Void DoublyLinkedList_Destroy(DoublyLinkedList this)
 {
      DoublyLinkedListNode node;
      
-     node = self->head;
+     node = this->head;
      while (node) {
           DoublyLinkedListNode next = node->next;
           DoublyLinkedListNode_Destroy(node);
           node = next;
      }
      
-     free(self);
+     free(this);
 }
 
-DS_Size DoublyLinkedList_GetSize(DoublyLinkedList self)
+DS_Size DoublyLinkedList_GetSize(DoublyLinkedList this)
 {
-     return self->size;
+     return this->size;
 }
 
-DS_Size DoublyLinkedList_GetDataSize(DoublyLinkedList self)
+DS_Size DoublyLinkedList_GetDataSize(DoublyLinkedList this)
 {
-     return self->data_size;
+     return this->data_size;
 }
 
-DoublyLinkedListNode DoublyLinkedList_GetHead(DoublyLinkedList self)
+DoublyLinkedListNode DoublyLinkedList_GetHead(DoublyLinkedList this)
 {
-     return self->head;
+     return this->head;
 }
 
-DoublyLinkedListNode DoublyLinkedList_GetTail(DoublyLinkedList self)
+DoublyLinkedListNode DoublyLinkedList_GetTail(DoublyLinkedList this)
 {
-     return self->tail;
+     return this->tail;
 }
 
 DS_Generic DoublyLinkedList_GetNodeData(DoublyLinkedListNode node)
@@ -69,102 +69,102 @@ DS_Generic DoublyLinkedList_GetNodeData(DoublyLinkedListNode node)
      return node->data;
 }
 
-DS_Void DoublyLinkedList_SetNodeData(DoublyLinkedList self, DoublyLinkedListNode node, const DS_Generic data)
+DS_Void DoublyLinkedList_SetNodeData(DoublyLinkedList this, DoublyLinkedListNode node, const DS_Generic data)
 {
-     memcpy(node->data, data, self->data_size);
+     memcpy(node->data, data, this->data_size);
 }
 
-DS_Void DoublyLinkedList_PushHead(DoublyLinkedList self, const DS_Generic data)
+DS_Void DoublyLinkedList_PushHead(DoublyLinkedList this, const DS_Generic data)
 {
      DoublyLinkedListNode node;
      
-     node = DoublyLinkedListNode_Create(data, self->data_size);
+     node = DoublyLinkedListNode_Create(data, this->data_size);
      node->previous = NULL;
 
-     if (self->size) {
-          self->head->previous = node;
-          node->next = self->head;
+     if (this->size) {
+          this->head->previous = node;
+          node->next = this->head;
      } else {
-          self->tail = node;
+          this->tail = node;
           node->next = NULL;
      }
 
-     self->head = node;
-     self->size++;
+     this->head = node;
+     this->size++;
 }
 
-DS_Void DoublyLinkedList_PushTail(DoublyLinkedList self, const DS_Generic data)
+DS_Void DoublyLinkedList_PushTail(DoublyLinkedList this, const DS_Generic data)
 {
      DoublyLinkedListNode node;
      
-     node = DoublyLinkedListNode_Create(data, self->data_size);
+     node = DoublyLinkedListNode_Create(data, this->data_size);
      node->next = NULL;
      
-     if (self->size) {
-          self->tail->next = node;
-          node->previous = self->tail;
+     if (this->size) {
+          this->tail->next = node;
+          node->previous = this->tail;
      } else {
-          self->head = node;
+          this->head = node;
           node->previous = NULL;
      }
      
-     self->tail = node;
-     self->size++;
+     this->tail = node;
+     this->size++;
 }
 
-DS_Void DoublyLinkedList_PopHead(DoublyLinkedList self)
+DS_Void DoublyLinkedList_PopHead(DoublyLinkedList this)
 {
      DoublyLinkedListNode node;
 
-     node = self->head;
+     node = this->head;
      
-     self->head = self->head->next;
-     if (!self->head) {
-          self->tail = NULL;
+     this->head = this->head->next;
+     if (!this->head) {
+          this->tail = NULL;
      }
      
      DoublyLinkedListNode_Destroy(node);
-     self->size--;
+     this->size--;
 }
 
-DS_Void DoublyLinkedList_PopTail(DoublyLinkedList self)
+DS_Void DoublyLinkedList_PopTail(DoublyLinkedList this)
 {
      DoublyLinkedListNode node;
 
-     node = self->tail;
+     node = this->tail;
 
-     self->tail = self->tail->previous;
-     if (self->tail) {
-          self->tail->next = NULL;
+     this->tail = this->tail->previous;
+     if (this->tail) {
+          this->tail->next = NULL;
      }
 
      DoublyLinkedListNode_Destroy(node);
-     self->size--;
+     this->size--;
 }
 
-DS_Void DoublyLinkedList_Remove(DoublyLinkedList self, DoublyLinkedListNode node)
+DS_Void DoublyLinkedList_Remove(DoublyLinkedList this, DoublyLinkedListNode node)
 {
      if (node->previous && node->previous->next == (DoublyLinkedListNode)node) {
           node->previous->next = node->next;
      } else {
-          self->head = self->head->next;
+          this->head = this->head->next;
      }
 
      if (node->next && node->next->previous == node) {
           node->next->previous = node->previous;
      } else {
-          self->tail = self->tail->previous;
+          this->tail = this->tail->previous;
      }
 
      DoublyLinkedListNode_Destroy(node);
-     self->size--;
+     this->size--;
 }
 
-DS_Void DoublyLinkedList_Traverse(DoublyLinkedList self, DS_UnaryCallback unary_callback)
+DS_Void DoublyLinkedList_Traverse(DoublyLinkedList this, DS_UnaryCallback unary_callback)
 {
      DoublyLinkedListNode node;
 
-     node = self->head;
+     node = this->head;
      while (node) {
           unary_callback.function(node->data, unary_callback.user_data);
           node = node->next;

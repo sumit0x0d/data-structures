@@ -25,22 +25,22 @@ static DS_Void BinarySearchTreeNode_Destroy(BinarySearchTreeNode node);
 
 BinarySearchTree BinarySearchTree_Create(DS_Size data_size, DS_CompareCallback compare_callback)
 {
-     BinarySearchTree self;
-     self = (BinarySearchTree)malloc(sizeof (struct BinarySearchTree));
-     assert(self);
+     BinarySearchTree this;
+     this = (BinarySearchTree)malloc(sizeof (struct BinarySearchTree));
+     assert(this);
      
-     self->root = NULL;
-     self->data_size = data_size;
-     self->size = 0;
-     self->compare_callback.function = compare_callback.function;
-     self->compare_callback.user_data = compare_callback.user_data;
+     this->root = NULL;
+     this->data_size = data_size;
+     this->size = 0;
+     this->compare_callback.function = compare_callback.function;
+     this->compare_callback.user_data = compare_callback.user_data;
      
-     return self;
+     return this;
 }
 
-DS_Void BinarySearchTree_Destroy(BinarySearchTree *self)
+DS_Void BinarySearchTree_Destroy(BinarySearchTree *this)
 {
-    free(self);
+    free(this);
 }
 
 BinarySearchTreeNode BinarySearchTree_search(BinarySearchTree tree, const DS_Generic data)

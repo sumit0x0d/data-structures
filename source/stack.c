@@ -1,70 +1,71 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include <array.h>
 #include <stack.h>
 
 struct Stack {
-     Array array;
+     DS_Generic base;
+     DS_Size data_size;
+     DS_Size capacity;
      DS_Size size;
 };
 
-Stack Stack_Create(DS_Size data_size, DS_Size size)
+Stack Stack_Create(DS_Size data_size, DS_Size capacity)
 {
-     Stack self;
+     Stack this;
 
-     self = (Stack)malloc(sizeof (struct Stack));
-     if (!self) {
+     this = (Stack)malloc(sizeof (struct Stack));
+     if (!this) {
           return NULL;
      }
 
-     self->array = Array_Create(data_size, size);
-     if (!self->array) {
-          free(self);
+     this->base = (DS_Generic)malloc(data_size * capacity);
+     if (!this->base) {
+          free(this);
           return NULL;
-     }
+     };
 
-     self->size = 0;
+     this->size = 0;
 
-     return self;
+     return this;
 }
 
-DS_Void Stack_Destroy(Stack self)
+DS_Void Stack_Destroy(Stack this)
 {
-     Array_Destroy(self->array);
-     free(self);
+     free(this->base);
+     free(this);
 }
 
-DS_Bool Stack_IsEmpty(Stack self)
+DS_Bool Stack_IsEmpty(Stack this)
 {
-     if (self->size) {
+     if (this->size) {
           return DS_BOOL_TRUE;
      }
 
      return DS_BOOL_FALSE;
 }
 
-DS_Bool Stack_IsFull(Stack self)
+DS_Bool Stack_IsFull(Stack this)
 {
-     if (self->size == Array_GetSize(self->array)) {
+     if (this->size == this->capacity) {
           return DS_BOOL_TRUE;
      }
 
      return DS_BOOL_FALSE;
 }
 
-DS_Generic Stack_GetTop(Stack self)
+DS_Generic Stack_GetTop(Stack this)
 {
-     return Array_GetData(self->array, self->size - 1);
+     return (DS_Int8 *)this->base + (this->data_size * this->size - 1);
 }
 
-DS_Void Stack_Push(Stack self, const DS_Generic data)
+DS_Void Stack_Push(Stack this, const DS_Generic data)
 {
-     Array_SetData(self->array, self->size, data);
-     self->size++;
+     memcpy(Stack_GetTop(this), data, this->data_size);
+     this->size++;
 }
 
-DS_Void Stack_Pop(Stack self)
+DS_Void Stack_Pop(Stack this)
 {
-     self->size--;
+     this->size--;
 }

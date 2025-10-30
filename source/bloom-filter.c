@@ -1,54 +1,54 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include <array.h>
 #include <bloom-filter.h>
 
 struct BloomFilter {
-     Array array;
+     DS_Generic base;
+     DS_Size data_size;
+     DS_Size capacity;
      DS_HashCallback hash_callback;
 };
 
-BloomFilter BloomFilter_Create(DS_Size data_size, DS_Size bucket_count, DS_HashCallback hash_callback)
+BloomFilter BloomFilter_Create(DS_Size data_size, DS_Size capacity, DS_HashCallback hash_callback)
 {
-     BloomFilter self;
+     BloomFilter this;
 
-     self = (BloomFilter)malloc(sizeof (struct BloomFilter));
-     if (!self) {
+     this = (BloomFilter)malloc(sizeof (struct BloomFilter));
+     if (!this) {
           return NULL;
      }
      
-     self->array = Array_Create(data_size, bucket_count);
-     if (!self->array) {
-          free(self);
+     this->base = (DS_Generic)malloc(data_size * capacity);
+     if (!this->base) {
+          free(this);
           return NULL;
-     }
+     };
      
-     self->hash_callback = hash_callback;
+     this->hash_callback = hash_callback;
      
-     return self;
+     return this;
 }
 
-DS_Void BloomFilter_Destroy(BloomFilter self)
+DS_Void BloomFilter_Destroy(BloomFilter this)
 {
-     Array_Destroy(self->array);
-     free(self);
+     free(this->base);
+     free(this);
 }
 
-DS_Generic BloomFilter_Search(BloomFilter self, const DS_Generic data)
+DS_Generic BloomFilter_Search(BloomFilter this, const DS_Generic data)
 {
      DS_Size index;
 
-     index = self->hash_callback.function(data, Array_GetSize(self->array), self->hash_callback.user_data);
+     index = this->hash_callback.function(data, this->capacity, this->hash_callback.user_data);
 
-     return Array_GetData(self->array, index);
+     return (DS_Int8 *)this->base + (this->data_size * index);
 }
 
-DS_Void BloomFilter_Insert(BloomFilter self, const DS_Generic data)
+DS_Void BloomFilter_Insert(BloomFilter this, const DS_Generic data)
 {
      DS_Size index;
 
-     index = self->hash_callback.function(data, Array_GetSize(self->array), self->hash_callback.user_data);
-
-     Array_SetData(self->array, index, data);
+     index = this->hash_callback.function(data, this->capacity, this->hash_callback.user_data);
+     memcpy((DS_Int8 *)this->base + (this->data_size * index), data, this->data_size);
 }

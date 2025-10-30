@@ -17,20 +17,20 @@ struct Rope {
 
 Rope Rope_Create(DS_Size size)
 {
-     Rope self;
+     Rope this;
 
-     self = (Rope)malloc(sizeof(struct Rope));
-     if (!self) {
+     this = (Rope)malloc(sizeof(struct Rope));
+     if (!this) {
           return NULL;
      }
 
-     self->data_size = size;
-     self->size = 0;    
+     this->data_size = size;
+     this->size = 0;    
      
-     return self;
+     return this;
 }
 
-DS_Void Rope_Destroy(Rope self)
+DS_Void Rope_Destroy(Rope this)
 {
-     free(self);
+     free(this);
 }

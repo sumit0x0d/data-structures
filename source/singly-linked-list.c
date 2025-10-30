@@ -15,108 +15,108 @@ struct SinglyLinkedList {
 
 SinglyLinkedList SinglyLinkedList_Create(DS_Size data_size)
 {
-     SinglyLinkedList self;
+     SinglyLinkedList this;
 
-     self = (SinglyLinkedList)malloc(sizeof (struct SinglyLinkedList));
-     if (!self) {
+     this = (SinglyLinkedList)malloc(sizeof (struct SinglyLinkedList));
+     if (!this) {
           return NULL;
      }
      
-     self->head = NULL;
-     self->tail = NULL;
-     self->data_size = data_size;
-     self->size = 0;
+     this->head = NULL;
+     this->tail = NULL;
+     this->data_size = data_size;
+     this->size = 0;
      
-     return self;
+     return this;
 }
 
-DS_Void SinglyLinkedList_Destroy(SinglyLinkedList self)
+DS_Void SinglyLinkedList_Destroy(SinglyLinkedList this)
 {
-     free(self->head);
-     free(self);
+     free(this->head);
+     free(this);
 }
 
-DS_Void SinglyLinkedList_PushHead(SinglyLinkedList self, const DS_Generic data)
+DS_Void SinglyLinkedList_PushHead(SinglyLinkedList this, const DS_Generic data)
 {
      SinglyLinkedListNode node;
      
-     node = SinglyLinkedListNode_Create(data, self->data_size);
+     node = SinglyLinkedListNode_Create(data, this->data_size);
      
-     if (self->size) {
-          node->next = self->head;
+     if (this->size) {
+          node->next = this->head;
      } else {
           node->next = NULL;
-          self->tail = node;
+          this->tail = node;
      }
      
-     self->head = node;
-     self->size++;
+     this->head = node;
+     this->size++;
 }
 
-DS_Void SinglyLinkedList_PushTail(SinglyLinkedList self, const DS_Generic data)
+DS_Void SinglyLinkedList_PushTail(SinglyLinkedList this, const DS_Generic data)
 {
      SinglyLinkedListNode node;
 
-     node = SinglyLinkedListNode_Create(data, self->data_size);
+     node = SinglyLinkedListNode_Create(data, this->data_size);
      node->next = NULL;
 
-     if (self->size) {
-          self->tail->next = node;
+     if (this->size) {
+          this->tail->next = node;
      } else {
-          self->head = node;
+          this->head = node;
      }
 
-     self->tail = node;
-     self->size++;
+     this->tail = node;
+     this->size++;
 }
 
-DS_Void SinglyLinkedList_PopHead(SinglyLinkedList self)
+DS_Void SinglyLinkedList_PopHead(SinglyLinkedList this)
 {
      SinglyLinkedListNode node;
 
-     node = self->head;
+     node = this->head;
      
-     self->head = self->head->next;
-     if (!self->head) {
-          self->tail = NULL;
+     this->head = this->head->next;
+     if (!this->head) {
+          this->tail = NULL;
      }
      
      SinglyLinkedListNode_Destroy(node);
-     self->size--;
+     this->size--;
 }
 
-DS_Void SinglyLinkedList_PopTail(SinglyLinkedList self)
+DS_Void SinglyLinkedList_PopTail(SinglyLinkedList this)
 {
      SinglyLinkedListNode node;
      
-     if (self->size == 0) {
+     if (this->size == 0) {
           return;
      }
      
-     if (self->head == self->tail) {
-          free(self->head);
-          self->head = NULL;
-          self->tail = NULL;
+     if (this->head == this->tail) {
+          free(this->head);
+          this->head = NULL;
+          this->tail = NULL;
           return;
      }
      
-     node = self->head;
+     node = this->head;
      
-     while (node->next != self->tail) {
+     while (node->next != this->tail) {
           node = node->next;
      }
      
      node->next = NULL;
-     free(self->tail);
-     self->tail = node;
-     self->size--;
+     free(this->tail);
+     this->tail = node;
+     this->size--;
 }
 
-DS_Void SinglyLinkedList_Traverse(SinglyLinkedList self, DS_UnaryCallback unary_callback)
+DS_Void SinglyLinkedList_Traverse(SinglyLinkedList this, DS_UnaryCallback unary_callback)
 {
      SinglyLinkedListNode node;
 
-     node = self->head;
+     node = this->head;
      while (node) {
           unary_callback.function(node->data, unary_callback.user_data);
           node = node->next;
@@ -128,19 +128,19 @@ DS_Generic SinglyLinkedListNode_GetData(SinglyLinkedListNode node)
      return node->data;
 }
 
-DS_Void SinglyLinkedList_SetData(SinglyLinkedList self, SinglyLinkedListNode node, const DS_Generic data)
+DS_Void SinglyLinkedList_SetData(SinglyLinkedList this, SinglyLinkedListNode node, const DS_Generic data)
 {
-     memcpy(node->data, data, self->data_size);
+     memcpy(node->data, data, this->data_size);
 }
 
-SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList self)
+SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList this)
 {
      SinglyLinkedListNode tortoise;
      SinglyLinkedListNode hare;
 
-     tortoise = self->head;
+     tortoise = this->head;
      
-     hare = self->head;
+     hare = this->head;
      while (hare && hare->next) {
           if (tortoise == hare) {
                return tortoise;
@@ -152,14 +152,14 @@ SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList self)
      return NULL;
 }
 
-SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(SinglyLinkedList self)
+SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(SinglyLinkedList this)
 {
      SinglyLinkedListNode tortoise;
      SinglyLinkedListNode hare;
 
-     tortoise = self->head;
+     tortoise = this->head;
      
-     hare = self->head;
+     hare = this->head;
      while (hare && hare->next) {
           tortoise = tortoise->next;
           hare = hare->next->next;
@@ -170,26 +170,26 @@ SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(SinglyLinkedList self)
 
 SinglyLinkedList SinglyLinkedList_MergeSorted(SinglyLinkedList singly_linked_list1, SinglyLinkedList singly_linked_list2)
 {
-     SinglyLinkedList self;
+     SinglyLinkedList this;
      SinglyLinkedListNode node;
 
-     self = SinglyLinkedList_Create(singly_linked_list1->data_size);
+     this = SinglyLinkedList_Create(singly_linked_list1->data_size);
 
      if (singly_linked_list1->head->data <= singly_linked_list2->head->data) {
-          self->head = singly_linked_list1->head;
+          this->head = singly_linked_list1->head;
           singly_linked_list1->head = singly_linked_list1->head->next;
      } else {
-          self->head = singly_linked_list2->head;
+          this->head = singly_linked_list2->head;
           singly_linked_list2->head = singly_linked_list2->head->next;
      }
 
      if (singly_linked_list1->tail->data <= singly_linked_list2->tail->data) {
-          self->tail = singly_linked_list2->tail;
+          this->tail = singly_linked_list2->tail;
      } else {
-          self->tail = singly_linked_list1->tail;
+          this->tail = singly_linked_list1->tail;
      }
 
-     node = self->head;
+     node = this->head;
 
      while (singly_linked_list1->head && singly_linked_list2->head) {
           if (singly_linked_list1->head->data <= singly_linked_list2->head->data) {
@@ -202,9 +202,9 @@ SinglyLinkedList SinglyLinkedList_MergeSorted(SinglyLinkedList singly_linked_lis
           node = node->next;
      }
 
-     self->size = singly_linked_list1->size + singly_linked_list2->size;
+     this->size = singly_linked_list1->size + singly_linked_list2->size;
      SinglyLinkedList_Destroy(singly_linked_list1);
      SinglyLinkedList_Destroy(singly_linked_list2);
      
-     return self;
+     return this;
 }

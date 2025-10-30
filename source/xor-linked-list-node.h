@@ -10,6 +10,6 @@ struct XorLinkedListNode {
 
 XorLinkedListNode XorLinkedListNode_Create(const DS_Generic data, DS_Size data_size);
 
-DS_Void XorLinkedListNode_Destroy(XorLinkedListNode self);
+DS_Void XorLinkedListNode_Destroy(XorLinkedListNode this);
 
 #endif

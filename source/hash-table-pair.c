@@ -5,36 +5,36 @@
 
 HashTablePair HashTablePair_Create(const DS_Generic key, DS_Size key_size, const DS_Generic value, DS_Size value_size)
 {
-     HashTablePair self;
+     HashTablePair this;
      
-     self = (HashTablePair)malloc(sizeof (struct HashTablePair));
-     if (!self) {
+     this = (HashTablePair)malloc(sizeof (struct HashTablePair));
+     if (!this) {
           return NULL;
      }
 
-     self->key = malloc(key_size);
-     if (!self->key) {
-          free(self);
+     this->key = malloc(key_size);
+     if (!this->key) {
+          free(this);
           return NULL;
      }
 
-     self->value = malloc(value_size);
-     if (!self->value) {
-          free(self->key);
-          free(self);
+     this->value = malloc(value_size);
+     if (!this->value) {
+          free(this->key);
+          free(this);
           return NULL;
      }
 
-     memcpy(self->key, key, key_size);
-     memcpy(self->value, value, value_size);
-     self->next = NULL;
+     memcpy(this->key, key, key_size);
+     memcpy(this->value, value, value_size);
+     this->next = NULL;
 
-     return self;
+     return this;
 }
 
-DS_Void HashTablePair_Destroy(HashTablePair self)
+DS_Void HashTablePair_Destroy(HashTablePair this)
 {
-     free(self->key);
-     free(self->value);
-     free(self);
+     free(this->key);
+     free(this->value);
+     free(this);
 }

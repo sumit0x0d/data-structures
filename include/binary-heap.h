@@ -10,9 +10,9 @@ DATA_STRUCTURES_API
 BinaryHeap BinaryHeap_Create(DS_Size data_size, DS_CompareCallback compare_callback);
 
 DATA_STRUCTURES_API
-DS_Void BinaryHeap_Destroy(BinaryHeap self);
+DS_Void BinaryHeap_Destroy(BinaryHeap this);
 
 DATA_STRUCTURES_API
-DS_Void BinaryHeap_Traverse(BinaryHeap self, DS_UnaryCallback unary_callback);
+DS_Void BinaryHeap_Traverse(BinaryHeap this, DS_UnaryCallback unary_callback);
 
 #endif
