@@ -19,37 +19,37 @@ HashTable HashTable_Create(DS_Size key_size, DS_Size value_size, DS_Size bucket_
      DS_HashCallback hash_callback, DS_CompareCallback compare_callback)
 {
      HashTable this;
-     
+
      this = (HashTable)malloc(sizeof (struct HashTable));
      if (!this) {
           return NULL;
      }
-     
+
      this->pair = (HashTablePair *)calloc(bucket_count, sizeof (struct HashTablePair));
      if (!this->pair) {
           free(this);
           return NULL;
      }
-     
+
      this->key_size = key_size;
      this->value_size = value_size;
      this->bucket_count = bucket_count;
      this->hash_callback = hash_callback;
      this->compare_callback = compare_callback;
-     
+
      return this;
 }
 
 DS_Void HashTable_Destroy(HashTable this)
 {
      DS_Size i;
-     
+
      for (i = 0; i < this->bucket_count; i++) {
           if (this->pair[i]) {
                HashTablePair_Destroy(this->pair[i]);
           }
      }
-     
+
      free(this);
 }
 
@@ -68,9 +68,9 @@ DS_Void HashTable_Insert(HashTable this, const DS_Generic key, const DS_Generic 
      DS_Size index;
      DS_Compare compare;
      HashTablePair pair;
-     
+
      index = this->hash_callback.function(key, this->bucket_count, this->hash_callback.user_data);
-     
+
      if (!this->pair[index]) {
           this->pair[index] = HashTablePair_Create(key, this->key_size, value, this->value_size);
           return;
@@ -99,7 +99,7 @@ DS_Void HashTable_Remove(HashTable this, const DS_Generic key)
      DS_Compare compare;
 
      index = this->hash_callback.function(key, this->bucket_count, this->hash_callback.user_data);
-     
+
      if (!this->pair[index]) {
           return;
      };
@@ -129,7 +129,7 @@ HashTablePair HashTable_Search(HashTable this, const DS_Generic key)
      DS_Size index;
      HashTablePair pair;
      DS_Compare compare;
-     
+
      index = this->hash_callback.function(key, this->bucket_count, this->hash_callback.user_data);
 
      if (!this->pair[index]) {

@@ -2,6 +2,9 @@
 #include <string.h>
 
 #include "avl-tree-node.h"
+#include "avl-tree-node-queue.h"
+
+static DS_Size _GetHeight(AvlTreeNode this, AvlTreeNodeQueue queue);
 
 AvlTreeNode AvlTreeNode_Create(const DS_Generic data, DS_Size data_size)
 {
@@ -32,46 +35,26 @@ DS_Void AvlTreeNode_Destroy(AvlTreeNode this)
      free(this);
 }
 
-DS_Size AvlTreeNode_GetHeight(AvlTreeNode this, CircularBuffer circular_buffer)
+DS_Void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode this, DS_Size queue_capacity)
 {
-     DS_Size height;
-     
-     height = 0;
-     CircularBuffer_PushBack(circular_buffer, this);
-     
-     while (!CircularBuffer_IsEmpty(circular_buffer)) {
-          this = CircularBuffer_GetFrontData(circular_buffer);
-          CircularBuffer_PopFront(circular_buffer);
-          if (this->left) {
-               CircularBuffer_PushBack(circular_buffer, this->left);
-          }
-          if (this->right) {
-               CircularBuffer_PushBack(circular_buffer, this->right);
-          }
-          height++;
-     }
+     AvlTreeNodeQueue queue;
 
-     return height;
-}
+     queue = AvlTreeNodeQueue_Create(queue_capacity);
 
-DS_Void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode this, CircularBuffer circular_buffer)
-{
-     DS_Size left_height;
-     DS_Size right_height;
-     
      if (this->left) {
-          left_height = AvlTreeNode_GetHeight(this->left, circular_buffer);
+          this->left->height = _GetHeight(this->left, queue);
      } else {
-          left_height = 0;
+          this->left->height = 0;
      }
      
      if (this->right) {
-          right_height = AvlTreeNode_GetHeight(this->right, circular_buffer);
+          this->right->height = _GetHeight(this->right, queue);
      } else {
-          right_height = 0;
+          this->right->height = 0;
      }
 
-     this->balance_factor = (int)(left_height - right_height);
+     this->balance_factor = (AvlTreeNodeBalanceFactor)(this->left->height - this->right->height);
+     AvlTreeNodeQueue_Destroy(queue);
 }
 
 AvlTreeNode AvlTreeNode_GetPredecessor(AvlTreeNode this)
@@ -128,4 +111,26 @@ AvlTreeNode AvlTreeNode_GetSuccessor(AvlTreeNode this)
      free(this);
 
      return previous;
+}
+
+static DS_Size _GetHeight(AvlTreeNode this, AvlTreeNodeQueue queue)
+{
+     DS_Size height;
+     
+     height = 0;
+     AvlTreeNodeQueue_Enqueue(queue, this);
+     
+     while (!AvlTreeNodeQueue_IsEmpty(queue)) {
+          this = queue->base[queue->front];
+          AvlTreeNodeQueue_Dequeue(queue);
+          if (this->left) {
+               AvlTreeNodeQueue_Enqueue(queue, this->left);
+          }
+          if (this->right) {
+               AvlTreeNodeQueue_Enqueue(queue, this->right);
+          }
+          height++;
+     }
+
+     return height;
 }

@@ -2,11 +2,12 @@
 #include <string.h>
 #include <stdio.h>
 
-#include <array.h>
 #include <matrix.h>
 
 struct Matrix {
-     Array array;
+     DS_Generic base;
+     DS_Size data_size;
+     DS_Size capacity;
      DS_Size row_count;
      DS_Size column_count;
 };
@@ -20,12 +21,15 @@ Matrix Matrix_Create(DS_Size data_size, DS_Size row_count, DS_Size column_count)
           return NULL;
      };
      
-     this->array = Array_Create(data_size, row_count * column_count);
-     if (!this->array) {
+     this->capacity = row_count * column_count;
+
+     this->base = (DS_Generic)malloc(data_size * this->capacity);
+     if (!this->base) {
           free(this);
           return NULL;
      };
-     
+
+     this->data_size = data_size;
      this->row_count = row_count;
      this->column_count = column_count;
      
@@ -34,13 +38,13 @@ Matrix Matrix_Create(DS_Size data_size, DS_Size row_count, DS_Size column_count)
 
 DS_Void Matrix_Destroy(Matrix this)
 {
-     Array_Destroy(this->array);
+     free(this->base);
      free(this);
 }
 
 DS_Generic Matrix_GetData(const Matrix this, DS_Size row, DS_Size column)
 {
-     return Array_GetData(this->array, (row * this->column_count) + column);
+     return (DS_Int8 *)this->base + (this->data_size * (row * this->column_count) + column);
 }
 
 DS_Size Matrix_GetRowCount(const Matrix this)
@@ -55,7 +59,7 @@ DS_Size Matrix_GetColumnCount(const Matrix this)
 
 DS_Void Matrix_SetData(Matrix this, DS_Size row, DS_Size column, const DS_Generic data)
 {
-     Array_SetData(this->array, (row * this->column_count) + column, data);
+     memcpy(Matrix_GetData(this, row, column), data, this->data_size);
 }
 
 Matrix Matrix_Transposition(Matrix this)
@@ -64,7 +68,7 @@ Matrix Matrix_Transposition(Matrix this)
      DS_Size i;
      DS_Size j;
 
-     transpose = Matrix_Create(Array_GetDataSize(this->array), this->column_count, this->row_count);
+     transpose = Matrix_Create(this->data_size, this->column_count, this->row_count);
      if (!transpose) {
           return NULL;
      }
@@ -89,7 +93,7 @@ Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, DS_BinaryCallback b
           return NULL;
      }
      
-     this = Matrix_Create(Array_GetDataSize(matrix1->array), matrix1->row_count, matrix2->column_count);
+     this = Matrix_Create(matrix1->data_size, matrix1->row_count, matrix2->column_count);
      
      for (i = 0; i < this->row_count; i++) {
           for (j = 0; j < this->column_count; j++) {
@@ -115,7 +119,7 @@ Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, DS_BinaryCallback binary
           return NULL;   
      }
      
-     this = Matrix_Create(Array_GetDataSize(matrix1->array), matrix1->row_count, matrix1->column_count);
+     this = Matrix_Create(matrix1->data_size, matrix1->row_count, matrix1->column_count);
      if (!this) {
           return NULL;
      }
@@ -137,7 +141,7 @@ Matrix Matrix_ColumnVectorization(Matrix this)
      DS_Size i;
      DS_Size j;
 
-     vectorize = Matrix_Create(Array_GetDataSize(this->array), this->row_count * this->column_count, 1);
+     vectorize = Matrix_Create(this->data_size, this->row_count * this->column_count, 1);
      if (!vectorize) {
           return NULL;
      }
