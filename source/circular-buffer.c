@@ -61,11 +61,7 @@ DS_Bool CircularBuffer_IsFull(CircularBuffer this)
 
 DS_Generic CircularBuffer_GetFrontData(CircularBuffer this)
 {
-     DS_Int8 *base;
-
-     base = (DS_Int8 *)this->base;
-
-     return (DS_Generic)base[this->data_size * this->front];
+     return (DS_Int8 *)this->base + (this->data_size * this->front);
 }
 
 DS_Generic CircularBuffer_GetBackData(CircularBuffer this)
