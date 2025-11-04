@@ -4,7 +4,7 @@
 
 #include <doubly-linked-list.h>
 
-#include "doubly-linked-list-node.h"
+#include "doubly-linked-list/node.h"
 
 struct DoublyLinkedList {
      DoublyLinkedListNode head;

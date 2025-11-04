@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "xor-linked-list-node.h"
+#include "xor-linked-list/node.h"
 
 struct XorLinkedList {
      XorLinkedListNode head;

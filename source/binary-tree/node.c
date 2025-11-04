@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include <binary-tree-node.h>
+#include "node.h"
 
 struct BinaryTreeNode {
      DS_Generic data;

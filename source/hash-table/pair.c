@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "hash-table-pair.h"
+#include "pair.h"
 
 HashTablePair HashTablePair_Create(const DS_Generic key, DS_Size key_size, const DS_Generic value, DS_Size value_size)
 {

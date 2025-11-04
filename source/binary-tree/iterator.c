@@ -1,4 +1,4 @@
-#include <binary-tree-iterator.h>
+#include "iterator.h"
 #include <stack.h>
 
 DS_Void GenericBinaryTree_TraversePreorder(
@@ -8,8 +8,7 @@ DS_Void GenericBinaryTree_TraversePreorder(
      DS_Size data_offeset,
      DS_Size left_offset,
      DS_Size right_offset,
-     DS_CallbackUnary unary_callback.function,
-     DS_Generic unary_callback.user_data
+     DS_UnaryCallback unary_callback;
 ) {
      Stack stack = Stack_Create(node_size, binary_tree_size);
      while (node || !Stack_IsEmpty(stack)) {

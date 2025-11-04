@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "xor-linked-list-node.h"
+#include "node.h"
 
 XorLinkedListNode XorLinkedListNode_Create(const DS_Generic data, DS_Size data_size)
 {

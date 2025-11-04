@@ -102,7 +102,7 @@ DS_Generic Array_SearchBinary(const Array this, const DS_Generic data, DS_Compar
      DS_Size right;
      DS_Size middle;
      DS_Generic current;
-     
+
      left = 0;
      right = this->capacity - 1;
      while (left < right) {

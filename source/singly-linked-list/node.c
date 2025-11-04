@@ -1,16 +1,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "red-black-tree-node.h"
+#include "node.h"
 
-RedBlackTreeNode RedBlackTreeNode_Create(const DS_Generic data, DS_Size data_size)
+SinglyLinkedListNode SinglyLinkedListNode_Create(const DS_Generic data, DS_Size data_size)
 {
-     RedBlackTreeNode this;
+     SinglyLinkedListNode this;
      
-     this = (RedBlackTreeNode)malloc(sizeof (RedBlackTreeNode));
+     this = (SinglyLinkedListNode)malloc(sizeof (struct SinglyLinkedListNode));
      if (!this) {
           return NULL;
-     } 
+     }
      
      this->data = malloc(data_size);
      if (!this->data) {
@@ -19,13 +19,11 @@ RedBlackTreeNode RedBlackTreeNode_Create(const DS_Generic data, DS_Size data_siz
      }
      
      memcpy(this->data, data, data_size);
-     this->left = NULL;
-     this->right = NULL; 
      
      return this;
 }
 
-DS_Void RedBlackTreeNode_Destroy(RedBlackTreeNode this)
+DS_Void SinglyLinkedListNode_Destroy(SinglyLinkedListNode this)
 {
      free(this->data);
      free(this);

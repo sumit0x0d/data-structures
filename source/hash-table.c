@@ -4,7 +4,7 @@
 
 #include <hash-table.h>
 
-#include "hash-table-pair.h"
+#include "hash-table/pair.h"
 
 struct HashTable {
      HashTablePair *pair;

@@ -5,8 +5,8 @@
 #include <avl-tree.h>
 #include <stack.h>
 
-#include "avl-tree-node.h"
-#include "avl-tree-node-queue.h"
+#include "avl-tree/node.h"
+#include "avl-tree/node-queue.h"
 
 // #include "binary-tree-i.h"
 

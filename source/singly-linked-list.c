@@ -4,7 +4,7 @@
 
 #include <singly-linked-list.h>
 
-#include "singly-linked-list-node.h"
+#include "singly-linked-list/node.h"
 
 struct SinglyLinkedList {
      SinglyLinkedListNode head;

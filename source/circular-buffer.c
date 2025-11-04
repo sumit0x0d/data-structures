@@ -66,13 +66,15 @@ DS_Generic CircularBuffer_GetFrontData(CircularBuffer this)
 
 DS_Generic CircularBuffer_GetBackData(CircularBuffer this)
 {
+     DS_Size index;
+
      if (this->front == this->back) {
-        return NULL;
-    }
+          return NULL;
+     }
 
-    DS_Size index = (this->back == 0) ? (this->capacity - 1) : (this->back - 1);
+     index = (this->back == 0) ? (this->capacity - 1) : (this->back - 1);
 
-    return (DS_Int8 *)this->base + (this->data_size * index);
+     return (DS_Int8 *)this->base + (this->data_size * index);
 }
 
 DS_Void CircularBuffer_PushBack(CircularBuffer this, const DS_Generic data)

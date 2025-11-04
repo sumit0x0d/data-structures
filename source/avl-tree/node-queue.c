@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <avl-tree-node-queue.h>
+#include <node-queue.h>
 
 AvlTreeNodeQueue AvlTreeNodeQueue_Create(DS_Size capacity)
 {

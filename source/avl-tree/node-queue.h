@@ -1,7 +1,7 @@
 #ifndef DATA_STRUCTURES_AVL_TREE_NODE_QUEUE_H
 #define DATA_STRUCTURES_AVL_TREE_NODE_QUEUE_H
 
-#include "avl-tree-node.h"
+#include "node.h"
 
 typedef struct AvlTreeNodeQueue {
      AvlTreeNode *base;

@@ -5,7 +5,7 @@
 #include <array.h>
 #include <circular-buffer.h>
 
-#include "red-black-tree-node.h"
+#include "red-black-tree/node.h"
 
 struct RedBlackTree {
      RedBlackTreeNode root;
