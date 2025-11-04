@@ -8,15 +8,15 @@
 
 struct HashTable {
      HashTablePair *pair;
-     DS_Size key_size;
-     DS_Size value_size;
-     DS_Size bucket_count;
-     DS_HashCallback hash_callback;
-     DS_CompareCallback compare_callback;
+     size_t key_size;
+     size_t value_size;
+     size_t bucket_count;
+     HashTableHashCallback hash_callback;
+     HashTableCompareCallback compare_callback;
 };
 
-HashTable HashTable_Create(DS_Size key_size, DS_Size value_size, DS_Size bucket_count,
-     DS_HashCallback hash_callback, DS_CompareCallback compare_callback)
+HashTable HashTable_Create(size_t key_size, size_t value_size, size_t bucket_count,
+     HashTableHashCallback hash_callback, HashTableCompareCallback compare_callback)
 {
      HashTable this;
 
@@ -40,9 +40,9 @@ HashTable HashTable_Create(DS_Size key_size, DS_Size value_size, DS_Size bucket_
      return this;
 }
 
-DS_Void HashTable_Destroy(HashTable this)
+void HashTable_Destroy(HashTable this)
 {
-     DS_Size i;
+     size_t i;
 
      for (i = 0; i < this->bucket_count; i++) {
           if (this->pair[i]) {
@@ -53,20 +53,20 @@ DS_Void HashTable_Destroy(HashTable this)
      free(this);
 }
 
-DS_Generic HashTable_GetKey(HashTablePair pair)
+void *HashTable_GetKey(HashTablePair pair)
 {
      return pair->key;
 }
 
-DS_Generic HashTable_GetValue(HashTablePair pair)
+void *HashTable_GetValue(HashTablePair pair)
 {
      return pair->value;
 }
 
-DS_Void HashTable_Insert(HashTable this, const DS_Generic key, const DS_Generic value)
+void HashTable_Insert(HashTable this, const void *key, const void *value)
 {
-     DS_Size index;
-     DS_Compare compare;
+     size_t index;
+     HashTableCompare compare;
      HashTablePair pair;
 
      index = this->hash_callback.function(key, this->bucket_count, this->hash_callback.user_data);
@@ -91,12 +91,12 @@ DS_Void HashTable_Insert(HashTable this, const DS_Generic key, const DS_Generic 
      pair->next = HashTablePair_Create(key, this->key_size, value, this->value_size);
 }
 
-DS_Void HashTable_Remove(HashTable this, const DS_Generic key)
+void HashTable_Remove(HashTable this, const void *key)
 {
-     DS_Size index;
+     size_t index;
      HashTablePair pair;
      HashTablePair previous;
-     DS_Compare compare;
+     HashTableCompare compare;
 
      index = this->hash_callback.function(key, this->bucket_count, this->hash_callback.user_data);
 
@@ -110,13 +110,13 @@ DS_Void HashTable_Remove(HashTable this, const DS_Generic key)
      do {
           compare = this->compare_callback.function(key, pair->key, this->compare_callback.user_data);
           switch (compare) {
-          case DS_COMPARE_EQUAL:
+          case HASH_TABLE_COMPARE_EQUAL:
                previous->next = pair->next;
                HashTablePair_Destroy(pair->next);
                pair = NULL;
                break;
-          case DS_COMPARE_LESS:
-          case DS_COMPARE_GREATER:
+          case HASH_TABLE_COMPARE_LESS:
+          case HASH_TABLE_COMPARE_GREATER:
                previous = pair;
                pair = pair->next;
                break;
@@ -124,11 +124,11 @@ DS_Void HashTable_Remove(HashTable this, const DS_Generic key)
      } while (compare && pair->next);
 }
 
-HashTablePair HashTable_Search(HashTable this, const DS_Generic key)
+HashTablePair HashTable_Search(HashTable this, const void *key)
 {
-     DS_Size index;
+     size_t index;
      HashTablePair pair;
-     DS_Compare compare;
+     HashTableCompare compare;
 
      index = this->hash_callback.function(key, this->bucket_count, this->hash_callback.user_data);
 
@@ -140,10 +140,10 @@ HashTablePair HashTable_Search(HashTable this, const DS_Generic key)
      do {
           compare = this->compare_callback.function(key, pair->key, this->compare_callback.user_data);
           switch (compare) {
-          case DS_COMPARE_EQUAL:
+          case HASH_TABLE_COMPARE_EQUAL:
                return pair;
-          case DS_COMPARE_LESS:
-          case DS_COMPARE_GREATER:
+          case HASH_TABLE_COMPARE_LESS:
+          case HASH_TABLE_COMPARE_GREATER:
                pair = pair->next;
                break;
           }

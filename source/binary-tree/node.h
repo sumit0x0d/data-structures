@@ -5,14 +5,14 @@
 #include <stack.h>
 
 struct BinaryTreeNode {
-     DS_Generic data;
+     void *data;
      BinaryTreeNode parent;
      BinaryTreeNode left;
      BinaryTreeNode right;
 };
 
-BinaryTreeNode BinaryTreeNode_Create(const DS_Generic data, DS_Size data_size);
+BinaryTreeNode BinaryTreeNode_Create(const void *data, size_t data_size);
 
-DS_Void BinaryTreeNode_Destroy(BinaryTreeNode this);
+void BinaryTreeNode_Destroy(BinaryTreeNode this);
 
 #endif

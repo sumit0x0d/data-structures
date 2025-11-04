@@ -3,7 +3,7 @@
 
 #include "node.h"
 
-XorLinkedListNode XorLinkedListNode_Create(const DS_Generic data, DS_Size data_size)
+XorLinkedListNode XorLinkedListNode_Create(const void *data, size_t data_size)
 {
      XorLinkedListNode this;
      
@@ -22,7 +22,7 @@ XorLinkedListNode XorLinkedListNode_Create(const DS_Generic data, DS_Size data_s
      return this;
 }
 
-DS_Void XorLinkedListNode_Destroy(XorLinkedListNode this)
+void XorLinkedListNode_Destroy(XorLinkedListNode this)
 {
      free(this->data);
      free(this);

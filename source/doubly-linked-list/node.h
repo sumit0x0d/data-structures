@@ -4,13 +4,12 @@
 #include <doubly-linked-list.h>
 
 struct DoublyLinkedListNode {
-     DS_Generic data;
+     void *data;
      DoublyLinkedListNode previous;
      DoublyLinkedListNode next;
 };
 
-DoublyLinkedListNode DoublyLinkedListNode_Create(const DS_Generic data, DS_Size data_size);
-
-DS_Void DoublyLinkedListNode_Destroy(DoublyLinkedListNode this);
+DoublyLinkedListNode DoublyLinkedListNode_Create(const void *data, size_t data_size);
+void DoublyLinkedListNode_Destroy(DoublyLinkedListNode this);
 
 #endif

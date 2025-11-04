@@ -1,32 +1,35 @@
 #ifndef DATA_STRUCTURES_DYNAMIC_ARRAY_H
 #define DATA_STRUCTURES_DYNAMIC_ARRAY_H
 
-#include <data-structures.h>
+typedef struct {
+     void (*function)(void *data, void *user_data);
+     void *user_data;
+} DynamicArrayUnaryCallback;
 
 typedef struct DynamicArray * DynamicArray;
 
-DATA_STRUCTURES_API
-DynamicArray DynamicArray_Create(DS_Size data_size, DS_Size capacity, DS_Float64 growth_factor);
+__attribute__((visibility("default")))
+DynamicArray DynamicArray_Create(size_t data_size, size_t capacity, double growth_factor);
 
-DATA_STRUCTURES_API
-DS_Void DynamicArray_Destroy(DynamicArray this);
+__attribute__((visibility("default")))
+void DynamicArray_Destroy(DynamicArray this);
 
-DATA_STRUCTURES_API
-DS_Size DynamicArray_GetCapacity(DynamicArray this);
+__attribute__((visibility("default")))
+size_t DynamicArray_GetCapacity(DynamicArray this);
 
-DATA_STRUCTURES_API
-DS_Generic DynamicArray_GetData(DynamicArray this, DS_Size index);
+__attribute__((visibility("default")))
+void *DynamicArray_GetData(DynamicArray this, size_t index);
 
-DATA_STRUCTURES_API
-DS_Generic DynamicArray_GetBackData(DynamicArray this);
+__attribute__((visibility("default")))
+void *DynamicArray_GetBackData(DynamicArray this);
 
-DATA_STRUCTURES_API
-DS_Void DynamicArray_PushBack(DynamicArray this, const DS_Generic data);
+__attribute__((visibility("default")))
+void DynamicArray_PushBack(DynamicArray this, const void *data);
 
-DATA_STRUCTURES_API
-DS_Void DynamicArray_PopBack(DynamicArray this);
+__attribute__((visibility("default")))
+void DynamicArray_PopBack(DynamicArray this);
 
-DATA_STRUCTURES_API
-DS_Void DynamicArray_Traverse(DynamicArray this, DS_UnaryCallback unary_callback);
+__attribute__((visibility("default")))
+void DynamicArray_Traverse(DynamicArray this, DynamicArrayUnaryCallback unary_callback);
 
 #endif

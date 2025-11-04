@@ -4,13 +4,13 @@
 #include <array.h>
 
 struct Array {
-     DS_Generic base;
-     DS_Size data_size;
-     DS_Size capacity;
-     DS_Generic swap_buffer;
+     void *base;
+     size_t data_size;
+     size_t capacity;
+     void *swap_buffer;
 };
 
-Array Array_Create(DS_Size data_size, DS_Size capacity)
+Array Array_Create(size_t data_size, size_t capacity)
 {
      Array this;
 
@@ -19,13 +19,13 @@ Array Array_Create(DS_Size data_size, DS_Size capacity)
           return NULL;
      }
 
-     this->base = (DS_Generic)malloc(data_size * capacity);
+     this->base = malloc(data_size * capacity);
      if (!this->base) {
           free(this);
           return NULL;
      };
 
-     this->swap_buffer = (DS_Generic)malloc(data_size);
+     this->swap_buffer = malloc(data_size);
      if (!this->swap_buffer) {
           free(this->base);
           free(this);
@@ -38,57 +38,57 @@ Array Array_Create(DS_Size data_size, DS_Size capacity)
      return this;
 }
 
-DS_Void Array_Destroy(Array this)
+void Array_Destroy(Array this)
 {
      free(this->swap_buffer);
      free(this->base);
      free(this);
 }
 
-DS_Size Array_GetCapacity(const Array this)
+size_t Array_GetCapacity(const Array this)
 {
      return this->capacity;
 }
 
-DS_Size Array_GetDataSize(const Array this)
+size_t Array_GetDataSize(const Array this)
 {
      return this->data_size;
 }
 
-DS_Generic Array_GetData(const Array this, DS_Size index)
+void *Array_GetData(const Array this, size_t index)
 {
-     return (DS_Int8 *)this->base + (this->data_size * index);
+     return (char *)this->base + (this->data_size * index);
 }
 
-DS_Void Array_SetData(Array this, DS_Size index, const DS_Generic data)
+void Array_SetData(Array this, size_t index, const void *data)
 {
      memcpy(Array_GetData(this, index), data, this->data_size);
 }
 
-DS_Void Array_SwapData(Array this, DS_Generic data1, DS_Generic data2)
+void Array_SwapData(Array this, void *data1, void *data2)
 {
      memcpy(this->swap_buffer, data1, this->data_size);
      memcpy(data1, data2, this->data_size);
      memcpy(data2, this->swap_buffer, this->data_size);
 }
 
-DS_Void Array_Traverse(Array this, DS_UnaryCallback unary_callback)
+void Array_Traverse(Array this, ArrayUnaryCallback unary_callback)
 {
-     DS_Size i;
+     size_t i;
 
      for (i = 0; i < this->capacity; i++) {
           unary_callback.function(Array_GetData(this, i), unary_callback.user_data);
      }
 }
 
-DS_Generic Array_SearchLinear(const Array this, const DS_Generic data, DS_CompareCallback compare_callback)
+void *Array_SearchLinear(const Array this, const void *data, ArrayCompareCallback compare_callback)
 {
-     DS_Size i;
-     DS_Generic current;
+     size_t i;
+     void *current;
 
      for (i = 0; i < this->capacity; i++) {
           current = Array_GetData(this, i);
-          if (compare_callback.function(current, data, compare_callback.user_data) == DS_COMPARE_EQUAL) {
+          if (compare_callback.function(current, data, compare_callback.user_data) == ARRAY_COMPARE_EQUAL) {
                return current;
           }
      }
@@ -96,12 +96,12 @@ DS_Generic Array_SearchLinear(const Array this, const DS_Generic data, DS_Compar
     return NULL;
 }
 
-DS_Generic Array_SearchBinary(const Array this, const DS_Generic data, DS_CompareCallback compare_callback)
+void *Array_SearchBinary(const Array this, const void *data, ArrayCompareCallback compare_callback)
 {
-     DS_Size left;
-     DS_Size right;
-     DS_Size middle;
-     DS_Generic current;
+     size_t left;
+     size_t right;
+     size_t middle;
+     void *current;
 
      left = 0;
      right = this->capacity - 1;
@@ -109,12 +109,12 @@ DS_Generic Array_SearchBinary(const Array this, const DS_Generic data, DS_Compar
           middle = left + (right - left) / 2;
           current = Array_GetData(this, middle);
           switch (compare_callback.function(current, data, compare_callback.user_data)) {
-          case DS_COMPARE_LESS:
+          case ARRAY_COMPARE_LESS:
                left = middle + 1;
                break;
-          case DS_COMPARE_EQUAL:
+          case ARRAY_COMPARE_EQUAL:
                return current;
-          case DS_COMPARE_GREATER:
+          case ARRAY_COMPARE_GREATER:
                right = middle;
                break;
           }
@@ -123,37 +123,37 @@ DS_Generic Array_SearchBinary(const Array this, const DS_Generic data, DS_Compar
      return NULL;
 }
 
-DS_Void Array_SortBubble(Array this, DS_CompareCallback compare_callback)
+void Array_SortBubble(Array this, ArrayCompareCallback compare_callback)
 {
-     DS_Size i;
-     DS_Size j;
-     DS_Generic data1;
-     DS_Generic data2;
+     size_t i;
+     size_t j;
+     void *data1;
+     void *data2;
 
      for (i = this->capacity - 1; i > 0; i--) {
           for (j = 0; j < i; j++) {
                data1 = Array_GetData(this, j);
                data2 = Array_GetData(this, j + 1);
-               if (compare_callback.function(data1, data2, compare_callback.user_data) == DS_COMPARE_GREATER) {
+               if (compare_callback.function(data1, data2, compare_callback.user_data) == ARRAY_COMPARE_GREATER) {
                     Array_SwapData(this, data1, data2);
                }
           }
      }
 }
 
-DS_Void Array_SortInsertion(Array this, DS_CompareCallback compare_callback)
+void Array_SortInsertion(Array this, ArrayCompareCallback compare_callback)
 {
-     DS_Size i;
-     DS_Size j;
-     DS_Generic data1;
-     DS_Generic data2;
+     size_t i;
+     size_t j;
+     void *data1;
+     void *data2;
 
      for (i = 1; i < this->capacity; i++) {
           j = i;
           do {
                data1 = Array_GetData(this, j - 1);
                data2 = Array_GetData(this, j);
-               if (compare_callback.function(data1, data2, compare_callback.user_data) == DS_COMPARE_GREATER) {
+               if (compare_callback.function(data1, data2, compare_callback.user_data) == ARRAY_COMPARE_GREATER) {
                     Array_SwapData(this, data1, data2);
                }
                j--;
@@ -161,68 +161,68 @@ DS_Void Array_SortInsertion(Array this, DS_CompareCallback compare_callback)
      }
 }
 
-DS_Void Array_SortSelection(Array this, DS_CompareCallback compare_callback)
+void Array_SortSelection(Array this, ArrayCompareCallback compare_callback)
 {
-     DS_Size i;
-     DS_Size minimum;
-     DS_Size j;
-     DS_Generic data1;
-     DS_Generic data2;
+     size_t i;
+     size_t minimum;
+     size_t j;
+     void *data1;
+     void *data2;
 
      for (i = 0; i < this->capacity - 1; i++) {
           minimum = i;
           for (j = minimum + 1; j < this->capacity; j++) {
                data1 = Array_GetData(this, minimum);
                data2 = Array_GetData(this, j);
-               if (compare_callback.function(data1, data2, compare_callback.user_data) == DS_COMPARE_GREATER) {
+               if (compare_callback.function(data1, data2, compare_callback.user_data) == ARRAY_COMPARE_GREATER) {
                     Array_SwapData(this, data1, data2);
                }
           }
      }
 }
 
-DS_Void Array_SortQuick(Array this, DS_CompareCallback compare_callback)
+void Array_SortQuick(Array this, ArrayCompareCallback compare_callback)
 {
-     DS_Size i;
-     DS_Size j;
-     DS_Generic data1;
-     DS_Generic data2;
+     size_t i;
+     size_t j;
+     void *data1;
+     void *data2;
 
      for (i = 0; i < this->capacity - 1; i++) {
           for (j = i + 1; j < this->capacity - i; j++) {
                data1 = Array_GetData(this, i);
                data2 = Array_GetData(this, j);
-               if (compare_callback.function(data1, data2, compare_callback.user_data) == DS_COMPARE_GREATER) {
+               if (compare_callback.function(data1, data2, compare_callback.user_data) == ARRAY_COMPARE_GREATER) {
                     Array_SwapData(this, data1, data2);
                }
           }
      }
 }
 
-DS_Void Array_SortMerge(Array this, DS_CompareCallback compare_callback)
+void Array_SortMerge(Array this, ArrayCompareCallback compare_callback)
 {
-     DS_Size i;
-     DS_Size j;
-     DS_Generic data1;
-     DS_Generic data2;
+     size_t i;
+     size_t j;
+     void *data1;
+     void *data2;
 
      for (i = 0; i < this->capacity - 1; i++) {
           for (j = i + 1; j < this->capacity - i; j++) {
                data1 = Array_GetData(this, i);
                data2 = Array_GetData(this, j);
-               if (compare_callback.function(data1, data2, compare_callback.user_data) ==  DS_COMPARE_GREATER) {
+               if (compare_callback.function(data1, data2, compare_callback.user_data) ==  ARRAY_COMPARE_GREATER) {
                     Array_SwapData(this, data1, data2);
                }
           }
      }
 }
 
-DS_Generic Array_PatternSearchRabinKarp(const Array this, const DS_Generic pattern,
-     DS_Size pattern_size, DS_HashCallback hash_callback)
+void *Array_PatternSearchRabinKarp(const Array this, const void *pattern,
+     size_t pattern_size, ArrayHashCallback hash_callback)
 {
-     (DS_Void)this;
-     (DS_Void)pattern;
-     (DS_Void)pattern_size;
-     (DS_Void)hash_callback;
+     (void)this;
+     (void)pattern;
+     (void)pattern_size;
+     (void)hash_callback;
      return NULL;
 }

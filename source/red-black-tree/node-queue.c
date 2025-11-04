@@ -1,18 +1,19 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "node-queue.h"
 
-AvlTreeNodeQueue AvlTreeNodeQueue_Create(size_t capacity)
+RedBlackTreeNodeQueue RedBlackTreeNodeQueue_Create(size_t capacity)
 {
-     AvlTreeNodeQueue queue;
+     RedBlackTreeNodeQueue queue;
 
-     queue = (AvlTreeNodeQueue)malloc(sizeof (struct AvlTreeNodeQueue));
+     queue = (RedBlackTreeNodeQueue)malloc(sizeof (struct RedBlackTreeNodeQueue));
      if (!queue) {
           return NULL;
      }
 
-     queue->base = (AvlTreeNode *)malloc(sizeof (struct AvlTreeNode) * capacity);
+     queue->base = (RedBlackTreeNode *)malloc(sizeof (struct RedBlackTreeNode) * capacity);
      if (!queue->base) {
           free(queue);
           return NULL;
@@ -25,13 +26,13 @@ AvlTreeNodeQueue AvlTreeNodeQueue_Create(size_t capacity)
      return queue;
 }
 
-void AvlTreeNodeQueue_Destroy(AvlTreeNodeQueue queue)
+void RedBlackTreeNodeQueue_Destroy(RedBlackTreeNodeQueue queue)
 {
      free(queue->base);
      free(queue);
 }
 
-bool AvlTreeNodeQueue_IsEmpty(AvlTreeNodeQueue this)
+bool RedBlackTreeNodeQueue_IsEmpty(RedBlackTreeNodeQueue this)
 {
      if (this->front == this->back) {
           return true;
@@ -40,13 +41,13 @@ bool AvlTreeNodeQueue_IsEmpty(AvlTreeNodeQueue this)
      return false;
 }
 
-void AvlTreeNodeQueue_Enqueue(AvlTreeNodeQueue this, AvlTreeNode node)
+void RedBlackTreeNodeQueue_Enqueue(RedBlackTreeNodeQueue this, RedBlackTreeNode node)
 {
      this->base[this->back] = node;
      this->back = (this->back + 1) % this->capacity;
 }
 
-void AvlTreeNodeQueue_Dequeue(AvlTreeNodeQueue this)
+void RedBlackTreeNodeQueue_Dequeue(RedBlackTreeNodeQueue this)
 {
      this->front = (this->front + 1) % this->capacity;
 }

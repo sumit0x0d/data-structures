@@ -1,20 +1,23 @@
 #ifndef DATA_STRUCTURES_BLOOM_FILTER_H
 #define DATA_STRUCTURES_BLOOM_FILTER_H
 
-#include <data-structures.h>
-
 typedef struct BloomFilter * BloomFilter;
 
-DATA_STRUCTURES_API
-BloomFilter BloomFilter_Create(DS_Size data_size, DS_Size bucket_count, DS_HashCallback hash_callback);
+typedef struct {
+     size_t (*function)(const void *data, size_t size, void *user_data);
+     void *user_data;
+} BloomFilterHashCallback;
 
-DATA_STRUCTURES_API
-DS_Void BloomFilter_Destroy(BloomFilter this);
+__attribute__((visibility("default")))
+BloomFilter BloomFilter_Create(size_t data_size, size_t bucket_count, BloomFilterHashCallback hash_callback);
 
-DATA_STRUCTURES_API
-DS_Generic BloomFilter_Search(BloomFilter this, const DS_Generic data);
+__attribute__((visibility("default")))
+void BloomFilter_Destroy(BloomFilter this);
 
-DATA_STRUCTURES_API
-DS_Void BloomFilter_Insert(BloomFilter this, const DS_Generic data);
+__attribute__((visibility("default")))
+void *BloomFilter_Search(BloomFilter this, const void *data);
+
+__attribute__((visibility("default")))
+void BloomFilter_Insert(BloomFilter this, const void *data);
 
 #endif

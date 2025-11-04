@@ -4,18 +4,18 @@
 #include <rope.h>
 
 struct RopeNode {
-     DS_Generic data;
+     void *data;
      RopeNode parent;
      RopeNode left;
      RopeNode right;    
 };
 
 struct Rope {
-     DS_Size data_size;
-     DS_Size size;
+     size_t data_size;
+     size_t size;
 };
 
-Rope Rope_Create(DS_Size size)
+Rope Rope_Create(size_t size)
 {
      Rope this;
 
@@ -30,7 +30,7 @@ Rope Rope_Create(DS_Size size)
      return this;
 }
 
-DS_Void Rope_Destroy(Rope this)
+void Rope_Destroy(Rope this)
 {
      free(this);
 }

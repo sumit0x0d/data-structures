@@ -8,8 +8,8 @@
 
 #define SIZE 300
 
-static DS_Compare _CompareInt(const DS_Generic data1, const DS_Generic data2, DS_Generic user_data);
-static DS_Void _UnaryPrint(DS_Generic data, DS_Generic user_data);
+static ArrayCompare _CompareInt(const void *data1, const void *data2, void *user_data);
+static void _UnaryPrint(void *data, void *user_data);
 
 int main(void)
 {
@@ -33,12 +33,12 @@ int main(void)
      printf("Array_set_data() passed\n");
      
      
-     DS_CompareCallback compare_callback = {
+     ArrayCompareCallback compare_callback = {
           .function = _CompareInt,
           .user_data = NULL
      };
 
-     DS_UnaryCallback unary_callback = {
+     ArrayUnaryCallback unary_callback = {
           .function = _UnaryPrint,
           .user_data = NULL
      };
@@ -57,9 +57,9 @@ int main(void)
      return 0;
 }
 
-static DS_Compare _CompareInt(const DS_Generic data1, const DS_Generic data2, DS_Generic user_data)
+static ArrayCompare _CompareInt(const void *data1, const void *data2, void *user_data)
 {
-     (DS_Void)user_data;
+     (void)user_data;
      
      if (*(int *)data1 < *(int *)data2) {
           return -1;
@@ -72,14 +72,14 @@ static DS_Compare _CompareInt(const DS_Generic data1, const DS_Generic data2, DS
      return 0;
 }
 
-// static DS_Size _CallbackHashInt(const DS_Generic data, DS_Size aSize, DS_Generic hash_callback.user_data)
+// static size_t _CallbackHashInt(const void *data, size_t aSize, void *hash_callback.user_data)
 // {
-//     (DS_Void)hash_callback.user_data;
+//     (void)hash_callback.user_data;
 //     return (*(int *)data) % aSize;
 // }
 
-static DS_Void _UnaryPrint(DS_Generic data, DS_Generic user_data)
+static void _UnaryPrint(void *data, void *user_data)
 {
-     (DS_Void)user_data;
+     (void)user_data;
      printf("%d ", *(int *)data);
 }

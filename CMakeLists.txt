@@ -12,24 +12,60 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 # add_compile_options(-Wall -Wextra -g -Werror)
 # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pg")
 
-add_library(array SHARED source/array.c)
-add_library(avl-tree SHARED source/avl-tree.c source/avl-tree/*)
-add_library(binary-heap SHARED source/binary-heap.c)
-add_library(bloom-filter SHARED source/bloom-filter.c)
-add_library(circular-buffer SHARED source/circular-buffer.c)
-add_library(doubly-linked-list SHARED source/doubly-linked-list.c source/doubly-linked-list/*)
-add_library(dynamic-array SHARED source/dynamic-array.c)
-add_library(hash-table SHARED source/hash-table.c source/hash-table/*)
-add_library(singly-linked-list SHARED source/singly-linked-list.c source/singly-linked-list/*)
-add_library(matrix SHARED source/matrix.c)
-add_library(red-black-tree SHARED source/red-black-tree.c source/red-black-tree/*)
-add_library(stack SHARED source/stack.c)
-# add_library(trie SHARED source/trie.c)
-add_library(xor-linked-list SHARED source/xor-linked-list.c source/xor-linked-list/*)
+# Collect sources into named variables
+file(GLOB ARRAY_SOURCE
+     "${CMAKE_SOURCE_DIR}/source/array.c")
+file(GLOB AVL_TREE_SOURCE
+     "${CMAKE_SOURCE_DIR}/source/avl-tree.c"
+     "${CMAKE_SOURCE_DIR}/source/avl-tree/*.c")
+# file(GLOB BINARY_HEAP_SOURCE
+#      "${CMAKE_SOURCE_DIR}/source/binary-heap.c")
+file(GLOB BLOOM_FILTER_SOURCE
+     "${CMAKE_SOURCE_DIR}/source/bloom-filter.c")
+file(GLOB CIRCULAR_BUF_SOURCE
+     "${CMAKE_SOURCE_DIR}/source/circular-buffer.c")
+file(GLOB DOUBLY_LL_SOURCE
+     "${CMAKE_SOURCE_DIR}/source/doubly-linked-list.c" 
+     "${CMAKE_SOURCE_DIR}/source/doubly-linked-list/*.c")
+file(GLOB DYNAMIC_ARRAY_SOURCE
+     "${CMAKE_SOURCE_DIR}/source/dynamic-array.c")
+file(GLOB HASH_TABLE_SOURCE
+     "${CMAKE_SOURCE_DIR}/source/hash-table.c"
+     "${CMAKE_SOURCE_DIR}/source/hash-table/*.c")
+file(GLOB SINGLY_LL_SOURCE
+     "${CMAKE_SOURCE_DIR}/source/singly-linked-list.c"
+     "${CMAKE_SOURCE_DIR}/source/singly-linked-list/*.c")
+file(GLOB MATRIX_SOURCE
+     "${CMAKE_SOURCE_DIR}/source/matrix.c")
+file(GLOB RED_BLACK_SOURCE
+     "${CMAKE_SOURCE_DIR}/source/red-black-tree.c"
+     "${CMAKE_SOURCE_DIR}/source/red-black-tree/*.c")
+file(GLOB STACK_SOURCE
+     "${CMAKE_SOURCE_DIR}/source/stack.c")
+# file(GLOB TRIE_SOURCE
+#    "${CMAKE_SOURCE_DIR}/source/trie.c")
+file(GLOB XOR_LL_SOURCE
+     "${CMAKE_SOURCE_DIR}/source/xor-linked-list.c"
+     "${CMAKE_SOURCE_DIR}/source/xor-linked-list/*.c")
+
+add_library(array SHARED ${ARRAY_SOURCE})
+add_library(avl-tree SHARED ${AVL_TREE_SOURCE})
+# add_library(binary-heap SHARED ${BINARY_HEAP_SOURCE})
+add_library(bloom-filter SHARED ${BLOOM_FILTER_SOURCE})
+add_library(circular-buffer SHARED ${CIRCULAR_BUF_SOURCE})
+add_library(doubly-linked-list SHARED ${DOUBLY_LL_SOURCE})
+add_library(dynamic-array SHARED ${DYNAMIC_ARRAY_SOURCE})
+add_library(hash-table SHARED ${HASH_TABLE_SOURCE})
+add_library(singly-linked-list SHARED ${SINGLY_LL_SOURCE})
+add_library(matrix SHARED ${MATRIX_SOURCE})
+add_library(red-black-tree SHARED ${RED_BLACK_SOURCE})
+add_library(stack SHARED ${STACK_SOURCE})
+# add_library(trie SHARED ${TRIE_SOURCE})
+add_library(xor-linked-list SHARED ${XOR_LL_SOURCE})
 
 target_include_directories(array PUBLIC include)
 target_include_directories(avl-tree PUBLIC include)
-target_include_directories(binary-heap PUBLIC include)
+# target_include_directories(binary-heap PUBLIC include)
 target_include_directories(bloom-filter PUBLIC include)
 target_include_directories(circular-buffer PUBLIC include)
 target_include_directories(doubly-linked-list PUBLIC include)

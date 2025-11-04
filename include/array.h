@@ -1,7 +1,7 @@
 #ifndef DATA_STRUCTURES_ARRAY_H
 #define DATA_STRUCTURES_ARRAY_H
 
-#include "data-structures.h"
+#include <stddef.h>
 
 typedef struct Array * Array;
 // typedef struct ArrayIterator * ArrayIterator;
@@ -12,66 +12,87 @@ typedef struct Array * Array;
 // } ARRAY_SEARCH;
 
 // typedef enum {
-//      ARRAY_SORT_BUBBLE    = 1,
+//      ARRAY_SORT_BUBBLE = 1,
 //      ARRAY_SORT_SELECTION = 2,
 //      ARRAY_SORT_INSERTION = 3,
-//      ARRAY_SORT_QUICK     = 4,
-//      ARRAY_SORT_MERGE     = 5,
+//      ARRAY_SORT_QUICK = 4,
+//      ARRAY_SORT_MERGE = 5,
 // } ARRAY_SORT;
 
-DATA_STRUCTURES_API
-Array Array_Create(DS_Size data_size, DS_Size capacity);
+typedef enum {
+     ARRAY_COMPARE_LESS = -1,
+     ARRAY_COMPARE_EQUAL = 0,
+     ARRAY_COMPARE_GREATER = 1
+} ArrayCompare;
 
-DATA_STRUCTURES_API
-DS_Void Array_Destroy(Array this);
+typedef struct {
+     ArrayCompare (*function)(const void *data1, const void *data2, void *user_data);
+     void *user_data;
+} ArrayCompareCallback;
 
-DATA_STRUCTURES_API
-DS_Size Array_GetCapacity(const Array this);
+typedef struct {
+     void (*function)(void *data, void *user_data);
+     void *user_data;
+} ArrayUnaryCallback;
 
-DATA_STRUCTURES_API
-DS_Size Array_GetDataSize(const Array this);
+typedef struct {
+     size_t (*function)(const void *data, size_t size, void *user_data);
+     void *user_data;
+} ArrayHashCallback;
 
-DATA_STRUCTURES_API
-DS_Generic Array_GetData(const Array this, DS_Size index);
+__attribute__((visibility("default")))
+Array Array_Create(size_t data_size, size_t capacity);
 
-DATA_STRUCTURES_API
-DS_Void Array_SetData(Array this, DS_Size index, const DS_Generic data);
+__attribute__((visibility("default")))
+void Array_Destroy(Array this);
 
-DATA_STRUCTURES_API
-DS_Void Array_SwapData(Array this, DS_Generic data1, DS_Generic data2);
+__attribute__((visibility("default")))
+size_t Array_GetCapacity(const Array this);
 
-DATA_STRUCTURES_API
-DS_Void Array_Traverse(Array this, DS_UnaryCallback unary_callback);
+__attribute__((visibility("default")))
+size_t Array_GetDataSize(const Array this);
 
-DATA_STRUCTURES_API
-DS_Generic Array_SearchLinear(const Array this, const DS_Generic data, DS_CompareCallback compare_callback);
+__attribute__((visibility("default")))
+void *Array_GetData(const Array this, size_t index);
 
-DATA_STRUCTURES_API
-DS_Generic Array_SearchBinary(const Array this, const DS_Generic data, DS_CompareCallback compare_callback);
+__attribute__((visibility("default")))
+void Array_SetData(Array this, size_t index, const void *data);
 
-DATA_STRUCTURES_API
-DS_Void Array_SortBubble(Array this, DS_CompareCallback compare_callback);
+__attribute__((visibility("default")))
+void Array_SwapData(Array this, void *data1, void *data2);
 
-DATA_STRUCTURES_API
-DS_Void Array_SortInsertion(Array this, DS_CompareCallback compare_callback);
+__attribute__((visibility("default")))
+void Array_Traverse(Array this, ArrayUnaryCallback unary_callback);
 
-DATA_STRUCTURES_API
-DS_Void Array_SortSelection(Array this, DS_CompareCallback compare_callback);
+__attribute__((visibility("default")))
+void *Array_SearchLinear(const Array this, const void *data, ArrayCompareCallback compare_callback);
 
-DATA_STRUCTURES_API
-DS_Void Array_SortQuick(Array this, DS_CompareCallback compare_callback);
+__attribute__((visibility("default")))
+void *Array_SearchBinary(const Array this, const void *data, ArrayCompareCallback compare_callback);
 
-DATA_STRUCTURES_API
-DS_Void Array_SortMerge(Array this, DS_CompareCallback compare_callback);
+__attribute__((visibility("default")))
+void Array_SortBubble(Array this, ArrayCompareCallback compare_callback);
 
-DATA_STRUCTURES_API
-DS_Generic Array_PatternSearchNaive(const Array this, const DS_Generic pattern, DS_Size pattern_size);
+__attribute__((visibility("default")))
+void Array_SortInsertion(Array this, ArrayCompareCallback compare_callback);
 
-DATA_STRUCTURES_API
-DS_Generic Array_PatternSearchRabinKarp(const Array this, const DS_Generic pattern,
-     DS_Size pattern_size, DS_HashCallback hash_callback);
+__attribute__((visibility("default")))
+void Array_SortSelection(Array this, ArrayCompareCallback compare_callback);
 
-DATA_STRUCTURES_API
-DS_Generic Array_PatternSearchKmp(const Array this, const DS_Generic pattern, DS_Size pattern_size);
+__attribute__((visibility("default")))
+void Array_SortQuick(Array this, ArrayCompareCallback compare_callback);
+
+__attribute__((visibility("default")))
+void Array_SortMerge(Array this, ArrayCompareCallback compare_callback);
+
+__attribute__((visibility("default")))
+void *Array_PatternSearchNaive(const Array this, const void *pattern, size_t pattern_size);
+
+__attribute__((visibility("default")))
+void *Array_PatternSearchRabinKarp(const Array this, const void *pattern,
+     size_t pattern_size, ArrayHashCallback hash_callback);
+
+__attribute__((visibility("default")))
+void *Array_PatternSearchKmp(const Array this, const void *pattern, size_t pattern_size);
 
 #endif

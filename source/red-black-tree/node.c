@@ -3,7 +3,7 @@
 
 #include "node.h"
 
-RedBlackTreeNode RedBlackTreeNode_Create(const DS_Generic data, DS_Size data_size)
+RedBlackTreeNode RedBlackTreeNode_Create(const void *data, size_t data_size)
 {
      RedBlackTreeNode this;
      
@@ -25,7 +25,7 @@ RedBlackTreeNode RedBlackTreeNode_Create(const DS_Generic data, DS_Size data_siz
      return this;
 }
 
-DS_Void RedBlackTreeNode_Destroy(RedBlackTreeNode this)
+void RedBlackTreeNode_Destroy(RedBlackTreeNode this)
 {
      free(this->data);
      free(this);

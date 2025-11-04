@@ -3,24 +3,24 @@
 
 #include <red-black-tree.h>
 #include <array.h>
-#include <circular-buffer.h>
 
 #include "red-black-tree/node.h"
+#include "red-black-tree/node-queue.h"
 
 struct RedBlackTree {
      RedBlackTreeNode root;
-     DS_Size data_size;
-     DS_Size size;
-     DS_CompareCallback compare_callback;
+     size_t data_size;
+     size_t size;
+     RedBlackTreeCompareCallback compare_callback;
 };
 
-static DS_Void _RotateRight(RedBlackTree this, RedBlackTreeNode node);
-static DS_Void _RotateLeftRight(RedBlackTree this, RedBlackTreeNode node);
-static DS_Void _RotateLeft(RedBlackTree this, RedBlackTreeNode node);
-static DS_Void _RotateRightLeft(RedBlackTree this, RedBlackTreeNode node);
-static DS_Void _Rebalance(RedBlackTree this, RedBlackTreeNode node);
+static void _RotateRight(RedBlackTree this, RedBlackTreeNode node);
+static void _RotateLeftRight(RedBlackTree this, RedBlackTreeNode node);
+static void _RotateLeft(RedBlackTree this, RedBlackTreeNode node);
+static void _RotateRightLeft(RedBlackTree this, RedBlackTreeNode node);
+static void _Rebalance(RedBlackTree this, RedBlackTreeNode node);
 
-RedBlackTree RedBlackTree_Create(DS_Size size, DS_CompareCallback compare_callback)
+RedBlackTree RedBlackTree_Create(size_t size, RedBlackTreeCompareCallback compare_callback)
 {
      RedBlackTree this;
      
@@ -32,55 +32,54 @@ RedBlackTree RedBlackTree_Create(DS_Size size, DS_CompareCallback compare_callba
      this->root = NULL;
      this->data_size = size;
      this->size = 0;
-     this->compare_callback.function = compare_callback.function;
-     this->compare_callback.user_data = compare_callback.user_data;
+     this->compare_callback = compare_callback;
      
      return this;
 }
 
-DS_Void RedBlackTree_Destroy(RedBlackTree this)
+void RedBlackTree_Destroy(RedBlackTree this)
 {
      RedBlackTreeNode node;
-     CircularBuffer circular_buffer;
+     RedBlackTreeNodeQueue node_queue;
 
      node = this->root;
-     circular_buffer = CircularBuffer_Create(sizeof (struct RedBlackTreeNode), this->size);
+     node_queue = RedBlackTreeNodeQueue_Create(this->size);
      free(node->data);
-     CircularBuffer_PushBack(circular_buffer, node);
+     RedBlackTreeNodeQueue_Enqueue(node_queue, node);
 
-     while (!CircularBuffer_IsEmpty(circular_buffer)) {
-          node = (RedBlackTreeNode)CircularBuffer_GetFrontData(circular_buffer);
-          CircularBuffer_PopFront(circular_buffer);
+     while (!RedBlackTreeNodeQueue_IsEmpty(node_queue)) {
+          node = node_queue->base[node_queue->front];
+          RedBlackTreeNodeQueue_Dequeue(node_queue);
           if (node->left) {
                RedBlackTreeNode_Destroy(node);
-               // CircularBuffer_PushBack(circular_buffer, node->left);
+               // RedBlackTreeNodeQueue_Enqueue(node_queue, node->left);
           }
           if (node->right) {
                RedBlackTreeNode_Destroy(node);
-               // CircularBuffer_PushBack(circular_buffer, node->right);
+               // RedBlackTreeNodeQueue_Enqueue(node_queue, node->right);
           }
      }
      
-     CircularBuffer_Destroy(circular_buffer);
+     RedBlackTreeNodeQueue_Destroy(node_queue);
      free(this);
 }
 
-DS_Size RedBlackTree_GetSize(RedBlackTree this)
+size_t RedBlackTree_GetSize(RedBlackTree this)
 {
      return this->size;
 }
 
-RedBlackTreeNode RedBlackTree_Search(RedBlackTree this, const DS_Generic data)
+RedBlackTreeNode RedBlackTree_Search(RedBlackTree this, const void *data)
 {
      RedBlackTreeNode node;
-     DS_Compare compare;
+     RedBlackTreeCompare compare;
      
      node = this->root;
      while (node) {
           compare = this->compare_callback.function(data, node->data, this->compare_callback.user_data);
-          if (compare == DS_COMPARE_EQUAL) {
+          if (compare == RED_BLACK_TREE_COMPARE_EQUAL) {
                return node;
-          } else if (compare == DS_COMPARE_LESS) {
+          } else if (compare == RED_BLACK_TREE_COMPARE_LESS) {
                node = node->left;
           } else {
                node = node->right;
@@ -90,11 +89,11 @@ RedBlackTreeNode RedBlackTree_Search(RedBlackTree this, const DS_Generic data)
      return NULL;
 }
 
-DS_Void RedBlackTree_Insert(RedBlackTree this, const DS_Generic data)
+void RedBlackTree_Insert(RedBlackTree this, const void *data)
 {
      RedBlackTreeNode node;
      RedBlackTreeNode parent;
-     DS_Compare compare;
+     RedBlackTreeCompare compare;
 
      if (!this->root) {
           this->root = RedBlackTreeNode_Create(data, this->data_size);
@@ -135,11 +134,11 @@ DS_Void RedBlackTree_Insert(RedBlackTree this, const DS_Generic data)
      this->size++;
 }
 
-// DS_Void this_remove(RedBlackTree tree, int data)
+// void this_remove(RedBlackTree tree, int data)
 // {
 // }
 
-static DS_Void _RotateRight(RedBlackTree this, RedBlackTreeNode node)
+static void _RotateRight(RedBlackTree this, RedBlackTreeNode node)
 {
      RedBlackTreeNode left;
 
@@ -165,7 +164,7 @@ static DS_Void _RotateRight(RedBlackTree this, RedBlackTreeNode node)
      left->right = node;
 }
 
-static DS_Void _RotateLeftRight(RedBlackTree this, RedBlackTreeNode node)
+static void _RotateLeftRight(RedBlackTree this, RedBlackTreeNode node)
 {
      RedBlackTreeNode left;
      RedBlackTreeNode left_right;
@@ -201,7 +200,7 @@ static DS_Void _RotateLeftRight(RedBlackTree this, RedBlackTreeNode node)
      left_right->right = node;
 }
 
-static DS_Void _RotateLeft(RedBlackTree this, RedBlackTreeNode node)
+static void _RotateLeft(RedBlackTree this, RedBlackTreeNode node)
 {
      RedBlackTreeNode right;
      
@@ -227,7 +226,7 @@ static DS_Void _RotateLeft(RedBlackTree this, RedBlackTreeNode node)
      right->left = node;
 }
 
-static DS_Void _RotateRightLeft(RedBlackTree this, RedBlackTreeNode node)
+static void _RotateRightLeft(RedBlackTree this, RedBlackTreeNode node)
 {
      RedBlackTreeNode right;
      RedBlackTreeNode right_left;
@@ -263,7 +262,7 @@ static DS_Void _RotateRightLeft(RedBlackTree this, RedBlackTreeNode node)
      right_left->left = node;
 }
 
-static DS_Void _Rebalance(RedBlackTree this, RedBlackTreeNode node)
+static void _Rebalance(RedBlackTree this, RedBlackTreeNode node)
 {
      while (node) {
           if (node->color == RED_BLACK_TREE_NODE_COLOR_RED) {

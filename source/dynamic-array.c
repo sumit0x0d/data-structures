@@ -1,18 +1,17 @@
-#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include <dynamic-array.h>
 
 struct DynamicArray {
-     DS_Generic base;
-     DS_Size data_size;
-     DS_Size size;
-     DS_Size capacity;
-     DS_Float64 growth_factor;
+     void *base;
+     size_t data_size;
+     size_t size;
+     size_t capacity;
+     double growth_factor;
 };
 
-DynamicArray DynamicArray_Create(DS_Size data_size, DS_Size capacity, DS_Float64 growth_factor)
+DynamicArray DynamicArray_Create(size_t data_size, size_t capacity, double growth_factor)
 {
      DynamicArray this;
 
@@ -25,7 +24,7 @@ DynamicArray DynamicArray_Create(DS_Size data_size, DS_Size capacity, DS_Float64
           return NULL;
      }
      
-     this->base = (DS_Generic)malloc(data_size * capacity);
+     this->base = malloc(data_size * capacity);
      if (!this->base) {
           free(this);
           return NULL;
@@ -38,37 +37,37 @@ DynamicArray DynamicArray_Create(DS_Size data_size, DS_Size capacity, DS_Float64
      return this;
 }
 
-DS_Void DynamicArray_Destroy(DynamicArray this)
+void DynamicArray_Destroy(DynamicArray this)
 {
      free(this->base);
      free(this);
 }
 
-DS_Size DynamicArray_GetSize(DynamicArray this)
+size_t DynamicArray_GetSize(DynamicArray this)
 {
      return this->size;
 }
 
-DS_Size DynamicArray_GetCapacity(DynamicArray this)
+size_t DynamicArray_GetCapacity(DynamicArray this)
 {
      return this->capacity;
 }
 
-DS_Generic DynamicArray_GetData(DynamicArray this, DS_Size index)
+void *DynamicArray_GetData(DynamicArray this, size_t index)
 {
-	return (DS_Int8 *)this->base + (this->data_size * index);
+	return (char *)this->base + (this->data_size * index);
 }
 
-DS_Generic DynamicArray_GetBackData(DynamicArray this)
+void *DynamicArray_GetBackData(DynamicArray this)
 {
-     return (DS_Int8 *)this->base + (this->data_size * this->size);
+     return (char *)this->base + (this->data_size * this->size);
 }
 
-DS_Void DynamicArray_PushBack(DynamicArray this, const DS_Generic data)
+void DynamicArray_PushBack(DynamicArray this, const void *data)
 {
-     DS_Generic base;
+     void *base;
 
-     if (this->size = this->capacity) {
+     if (this->size == this->capacity) {
           this->capacity = this->capacity * this->growth_factor;
           base = realloc(this->base, this->data_size * this->capacity);
           if (!base) {
@@ -77,15 +76,15 @@ DS_Void DynamicArray_PushBack(DynamicArray this, const DS_Generic data)
           this->base = base;
      }
      
-     memcpy(DynamicArray_GetData(this, index), data, this->data_size);
+     memcpy(DynamicArray_GetData(this, this->size), data, this->data_size);
      this->size++;
 }
 
-DS_Void DynamicArray_PopBack(DynamicArray this)
+void DynamicArray_PopBack(DynamicArray this)
 {
-     DS_Generic base;
+     void *base;
      
-     if (this->size = this->capacity) {
+     if (this->size == this->capacity) {
           this->capacity = this->capacity / this->growth_factor;
           base = realloc(this->base, this->data_size * this->capacity);
           if (!base) {
@@ -97,9 +96,9 @@ DS_Void DynamicArray_PopBack(DynamicArray this)
      this->size--;
 }
 
-DS_Void DynamicArray_Traverse(DynamicArray this, DS_UnaryCallback unary_callback)
+void DynamicArray_Traverse(DynamicArray this, DynamicArrayUnaryCallback unary_callback)
 {
-     DS_Size i;
+     size_t i;
 
      for (i = 0; i < this->size; i++) {
           unary_callback.function(DynamicArray_GetData(this, i), unary_callback.user_data);

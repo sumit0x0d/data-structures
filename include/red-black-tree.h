@@ -1,30 +1,39 @@
 #ifndef DATA_STRUCTURES_RED_BLACK_TREE_H
 #define DATA_STRUCTURES_RED_BLACK_TREE_H
 
-#include <data-structures.h>
+typedef enum {
+     RED_BLACK_TREE_COMPARE_LESS = -1,
+     RED_BLACK_TREE_COMPARE_EQUAL = 0,
+     RED_BLACK_TREE_COMPARE_GREATER = 1
+} RedBlackTreeCompare;
+
+typedef struct {
+     RedBlackTreeCompare (*function)(const void *data1, const void *data2, void *user_data);
+     void *user_data;
+} RedBlackTreeCompareCallback;
 
 typedef struct RedBlackTree * RedBlackTree;
 typedef struct RedBlackTreeNode * RedBlackTreeNode;
 
-DATA_STRUCTURES_API
-RedBlackTree RedBlackTree_Create(DS_Size data_size, DS_CompareCallback compare_callback);
+__attribute__((visibility("default")))
+RedBlackTree RedBlackTree_Create(size_t data_size, RedBlackTreeCompareCallback compare_callback);
 
-DATA_STRUCTURES_API
-DS_Void RedBlackTree_Destroy(RedBlackTree this);
+__attribute__((visibility("default")))
+void RedBlackTree_Destroy(RedBlackTree this);
 
-DATA_STRUCTURES_API
-DS_Size RedBlackTree_GetSize(RedBlackTree this);
+__attribute__((visibility("default")))
+size_t RedBlackTree_GetSize(RedBlackTree this);
 
-DATA_STRUCTURES_API
-DS_Generic RedBlackTree_GetNodeData(RedBlackTreeNode node);
+__attribute__((visibility("default")))
+void *RedBlackTree_GetNodeData(RedBlackTreeNode node);
 
-DATA_STRUCTURES_API
-DS_Void RedBlackTree_Insert(RedBlackTree this, const DS_Generic data);
+__attribute__((visibility("default")))
+void RedBlackTree_Insert(RedBlackTree this, const void *data);
 
-DATA_STRUCTURES_API
-RedBlackTreeNode RedBlackTree_Search(RedBlackTree this, const DS_Generic data);
+__attribute__((visibility("default")))
+RedBlackTreeNode RedBlackTree_Search(RedBlackTree this, const void *data);
 
-DATA_STRUCTURES_API
-DS_Void RedBlackTree_Remove(RedBlackTree this, const DS_Generic data);
+__attribute__((visibility("default")))
+void RedBlackTree_Remove(RedBlackTree this, const void *data);
 
 #endif

@@ -1,41 +1,51 @@
 #ifndef DATA_STRUCTURES_MATRIX_H
 #define DATA_STRUCTURES_MATRIX_H
 
-#include <data-structures.h>
+#include <stddef.h>
 
 typedef struct Matrix * Matrix;
 
-DATA_STRUCTURES_API
-Matrix Matrix_Create(DS_Size data_size, DS_Size row_count, DS_Size column_count);
+typedef struct {
+     void (*function)(void *data, void *user_data);
+     void *user_data;
+} MatrixUnaryCallback;
 
-DATA_STRUCTURES_API
-DS_Void Matrix_Destroy(Matrix this);
+typedef struct {
+     void (*function)(const void *data1, const void *data2, void *data, void *user_data);
+     void *user_data;
+} MatrixBinaryCallback;
 
-DATA_STRUCTURES_API
-DS_Generic Matrix_GetData(const Matrix this, DS_Size row, DS_Size column);
+__attribute__((visibility("default")))
+Matrix Matrix_Create(size_t data_size, size_t row_count, size_t column_count);
 
-DATA_STRUCTURES_API
-DS_Size Matrix_GetRowCount(const Matrix this);
+__attribute__((visibility("default")))
+void Matrix_Destroy(Matrix this);
 
-DATA_STRUCTURES_API
-DS_Size Matrix_GetColumnCount(const Matrix this);
+__attribute__((visibility("default")))
+void *Matrix_GetData(const Matrix this, size_t row, size_t column);
 
-DATA_STRUCTURES_API
-DS_Void Matrix_SetData(Matrix this, DS_Size row, DS_Size column, const DS_Generic data);
+__attribute__((visibility("default")))
+size_t Matrix_GetRowCount(const Matrix this);
 
-DATA_STRUCTURES_API
+__attribute__((visibility("default")))
+size_t Matrix_GetColumnCount(const Matrix this);
+
+__attribute__((visibility("default")))
+void Matrix_SetData(Matrix this, size_t row, size_t column, const void *data);
+
+__attribute__((visibility("default")))
 Matrix Matrix_Transposition(Matrix this);
 
-DATA_STRUCTURES_API
-Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, DS_BinaryCallback binary_callback);
+__attribute__((visibility("default")))
+Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, MatrixBinaryCallback binary_callback);
 
-DATA_STRUCTURES_API
-Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, DS_BinaryCallback binary_callback);
+__attribute__((visibility("default")))
+Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, MatrixBinaryCallback binary_callback);
 
-DATA_STRUCTURES_API
+__attribute__((visibility("default")))
 Matrix Matrix_ColumnVectorization(Matrix this);
 
-DATA_STRUCTURES_API
-DS_Void Matrix_Traverse(Matrix this, DS_UnaryCallback unary_callback);
+__attribute__((visibility("default")))
+void Matrix_Traverse(Matrix this, MatrixUnaryCallback unary_callback);
 
 #endif

@@ -12,18 +12,18 @@ typedef enum {
 } AvlTreeNodeBalanceFactor;
 
 struct AvlTreeNode {
-     DS_Generic data;
+     void *data;
      AvlTreeNode parent;
      AvlTreeNode left;
      AvlTreeNode right;
-     DS_Size height;
+     size_t height;
      AvlTreeNodeBalanceFactor balance_factor;
 };
 
-AvlTreeNode AvlTreeNode_Create(const DS_Generic data, DS_Size data_size);
-DS_Void AvlTreeNode_Destroy(AvlTreeNode this);
+AvlTreeNode AvlTreeNode_Create(const void *data, size_t data_size);
+void AvlTreeNode_Destroy(AvlTreeNode this);
 
-DS_Void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode this, DS_Size queue_capacity);
+void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode this, size_t queue_capacity);
 AvlTreeNode AvlTreeNode_GetPredecessor(AvlTreeNode this);
 AvlTreeNode AvlTreeNode_GetSuccessor(AvlTreeNode this);
 

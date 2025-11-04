@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <node-stack.h>
+#include "node-stack.h"
 
-AvlTreeNodeStack AvlTreeNodeStack_Create(DS_Size capacity)
+AvlTreeNodeStack AvlTreeNodeStack_Create(size_t capacity)
 {
      AvlTreeNodeStack stack;
 
@@ -24,28 +24,28 @@ AvlTreeNodeStack AvlTreeNodeStack_Create(DS_Size capacity)
      return stack;
 }
 
-DS_Void AvlTreeNodeStack_Destroy(AvlTreeNodeStack stack)
+void AvlTreeNodeStack_Destroy(AvlTreeNodeStack stack)
 {
      free(stack->base);
      free(stack);
 }
 
-DS_Bool AvlTreeNodeStack_IsEmpty(AvlTreeNodeStack this)
+bool AvlTreeNodeStack_IsEmpty(AvlTreeNodeStack this)
 {
      if (this->size == 0) {
-          return DS_BOOL_TRUE;
+          return true;
      }
 
-     return DS_BOOL_FALSE;
+     return true;
 }
 
-DS_Void AvlTreeNodeStack_Push(AvlTreeNodeStack this, AvlTreeNode node)
+void AvlTreeNodeStack_Push(AvlTreeNodeStack this, AvlTreeNode node)
 {
      this->base[this->size] = node;
      this->size++;
 }
 
-DS_Void AvlTreeNodeStack_Pop(AvlTreeNodeStack this)
+void AvlTreeNodeStack_Pop(AvlTreeNodeStack this)
 {
      this->size--;
 }

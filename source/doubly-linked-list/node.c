@@ -3,7 +3,7 @@
 
 #include "node.h"
 
-DoublyLinkedListNode DoublyLinkedListNode_Create(const DS_Generic data, DS_Size data_size)
+DoublyLinkedListNode DoublyLinkedListNode_Create(const void *data, size_t data_size)
 {
      DoublyLinkedListNode this;
 
@@ -23,7 +23,7 @@ DoublyLinkedListNode DoublyLinkedListNode_Create(const DS_Generic data, DS_Size 
      return this;
 }
 
-DS_Void DoublyLinkedListNode_Destroy(DoublyLinkedListNode this)
+void DoublyLinkedListNode_Destroy(DoublyLinkedListNode this)
 {
      free(this->data);
      free(this);

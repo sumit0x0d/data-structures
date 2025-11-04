@@ -1,16 +1,16 @@
-#include <assert.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <bloom-filter.h>
 
 struct BloomFilter {
-     DS_Generic base;
-     DS_Size data_size;
-     DS_Size capacity;
-     DS_HashCallback hash_callback;
+     void *base;
+     size_t data_size;
+     size_t capacity;
+     BloomFilterHashCallback hash_callback;
 };
 
-BloomFilter BloomFilter_Create(DS_Size data_size, DS_Size capacity, DS_HashCallback hash_callback)
+BloomFilter BloomFilter_Create(size_t data_size, size_t capacity, BloomFilterHashCallback hash_callback)
 {
      BloomFilter this;
 
@@ -19,7 +19,7 @@ BloomFilter BloomFilter_Create(DS_Size data_size, DS_Size capacity, DS_HashCallb
           return NULL;
      }
      
-     this->base = (DS_Generic)malloc(data_size * capacity);
+     this->base = malloc(data_size * capacity);
      if (!this->base) {
           free(this);
           return NULL;
@@ -30,25 +30,25 @@ BloomFilter BloomFilter_Create(DS_Size data_size, DS_Size capacity, DS_HashCallb
      return this;
 }
 
-DS_Void BloomFilter_Destroy(BloomFilter this)
+void BloomFilter_Destroy(BloomFilter this)
 {
      free(this->base);
      free(this);
 }
 
-DS_Generic BloomFilter_Search(BloomFilter this, const DS_Generic data)
+void *BloomFilter_Search(BloomFilter this, const void *data)
 {
-     DS_Size index;
+     size_t index;
 
      index = this->hash_callback.function(data, this->capacity, this->hash_callback.user_data);
 
-     return (DS_Int8 *)this->base + (this->data_size * index);
+     return (char *)this->base + (this->data_size * index);
 }
 
-DS_Void BloomFilter_Insert(BloomFilter this, const DS_Generic data)
+void BloomFilter_Insert(BloomFilter this, const void *data)
 {
-     DS_Size index;
+     size_t index;
 
      index = this->hash_callback.function(data, this->capacity, this->hash_callback.user_data);
-     memcpy((DS_Int8 *)this->base + (this->data_size * index), data, this->data_size);
+     memcpy((char *)this->base + (this->data_size * index), data, this->data_size);
 }

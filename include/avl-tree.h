@@ -1,45 +1,61 @@
 #ifndef DATA_STRUCTURES_AVL_TREE_H
 #define DATA_STRUCTURES_AVL_TREE_H
 
-#include <data-structures.h>
+#include "stddef.h"
 
 typedef struct AvlTree * AvlTree;
 typedef struct AvlTreeNode * AvlTreeNode;
 
-DATA_STRUCTURES_API
-AvlTree AvlTree_Create(DS_Size data_size, DS_CompareCallback compare_callback);
+typedef enum {
+     AVL_TREE_COMPARE_LESS = -1,
+     AVL_TREE_COMPARE_EQUAL = 0,
+     AVL_TREE_COMPARE_GREATER = 1
+} AvlTreeCompare;
 
-DATA_STRUCTURES_API
-DS_Void AvlTree_Destroy(AvlTree this);
+typedef struct {
+     AvlTreeCompare (*function)(const void *data1, const void *data2, void *user_data);
+     void *user_data;
+} AvlTreeCompareCallback;
 
-DATA_STRUCTURES_API
-DS_Size AvlTree_GetSize(AvlTree this);
+typedef struct {
+     void (*function)(void *data, void *user_data);
+     void *user_data;
+} AvlTreeUnaryCallback;
 
-DATA_STRUCTURES_API
-DS_Size AvlTree_GetDataSize(AvlTree this);
+__attribute__((visibility("default")))
+AvlTree AvlTree_Create(size_t data_size, AvlTreeCompareCallback compare_callback);
 
-DATA_STRUCTURES_API
-DS_Generic AvlTree_GetNodeData(AvlTreeNode node);
+__attribute__((visibility("default")))
+void AvlTree_Destroy(AvlTree this);
 
-DATA_STRUCTURES_API
-AvlTreeNode AvlTree_Search(AvlTree this, const DS_Generic data);
+__attribute__((visibility("default")))
+size_t AvlTree_GetSize(AvlTree this);
 
-DATA_STRUCTURES_API
-DS_Void AvlTree_Insert(AvlTree this, const DS_Generic data);
+__attribute__((visibility("default")))
+size_t AvlTree_GetDataSize(AvlTree this);
 
-DATA_STRUCTURES_API
-DS_Void AvlTree_Remove(AvlTree this, const DS_Generic data);
+__attribute__((visibility("default")))
+void *AvlTree_GetNodeData(AvlTreeNode node);
 
-DATA_STRUCTURES_API
-DS_Void AvlTree_TraversePreorder(AvlTree this, DS_UnaryCallback unary_callback);
+__attribute__((visibility("default")))
+AvlTreeNode AvlTree_Search(AvlTree this, const void *data);
 
-DATA_STRUCTURES_API
-DS_Void AvlTree_TraverseInorder(AvlTree this, DS_UnaryCallback unary_callback);
+__attribute__((visibility("default")))
+void AvlTree_Insert(AvlTree this, const void *data);
 
-DATA_STRUCTURES_API
-DS_Void AvlTree_TraversePostorder(AvlTree this, DS_UnaryCallback unary_callback);
+__attribute__((visibility("default")))
+void AvlTree_Remove(AvlTree this, const void *data);
 
-DATA_STRUCTURES_API
-DS_Void AvlTree_TraverseLevelorder(AvlTree this, DS_UnaryCallback unary_callback);
+__attribute__((visibility("default")))
+void AvlTree_TraversePreorder(AvlTree this, AvlTreeUnaryCallback unary_callback);
+
+__attribute__((visibility("default")))
+void AvlTree_TraverseInorder(AvlTree this, AvlTreeUnaryCallback unary_callback);
+
+__attribute__((visibility("default")))
+void AvlTree_TraversePostorder(AvlTree this, AvlTreeUnaryCallback unary_callback);
+
+__attribute__((visibility("default")))
+void AvlTree_TraverseLevelorder(AvlTree this, AvlTreeUnaryCallback unary_callback);
 
 #endif

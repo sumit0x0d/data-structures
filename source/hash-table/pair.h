@@ -4,12 +4,12 @@
 #include <hash-table.h>
 
 struct HashTablePair {
-     DS_Generic key;
-     DS_Generic value;
+     void *key;
+     void *value;
      HashTablePair next;
 };
 
-HashTablePair HashTablePair_Create(const DS_Generic key, DS_Size key_size, const DS_Generic value, DS_Size value_size);
-DS_Void HashTablePair_Destroy(HashTablePair this);
+HashTablePair HashTablePair_Create(const void *key, size_t key_size, const void *value, size_t value_size);
+void HashTablePair_Destroy(HashTablePair this);
 
 #endif

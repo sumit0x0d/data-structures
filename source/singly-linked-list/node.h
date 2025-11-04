@@ -4,11 +4,11 @@
 #include <singly-linked-list.h>
 
 struct SinglyLinkedListNode {
-     DS_Generic data;
+     void *data;
      SinglyLinkedListNode next;
 };
 
-SinglyLinkedListNode SinglyLinkedListNode_Create(const DS_Generic data,DS_Size data_size);
-DS_Void SinglyLinkedListNode_Destroy(SinglyLinkedListNode this);
+SinglyLinkedListNode SinglyLinkedListNode_Create(const void *data,size_t data_size);
+void SinglyLinkedListNode_Destroy(SinglyLinkedListNode this);
 
 #endif

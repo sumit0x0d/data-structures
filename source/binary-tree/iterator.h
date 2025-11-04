@@ -1,18 +1,18 @@
 #ifndef DATA_STRUCTURES_BINARY_TREE_TRAVERSE_H
 #define DATA_STRUCTURES_BINARY_TREE_TRAVERSE_H
 
-#include <data-structures.h>
 
-DS_Void GenericBinaryTree_TraversePreorder(DS_Generic node, DS_Size node_size, DS_Size binary_tree_size,
-     DS_Size data_offeset, DS_Size left_offset, DS_Size right_offset, DS_UnaryCallback unary_callback);
 
-DS_Void GenericBinaryTree_TraverseInorder(DS_Generic node, DS_Size node_size, DS_Size binary_tree_size,
-     DS_Size data_offeset, DS_Size left_offset, DS_Size right_offset, DS_UnaryCallback unary_callback);
+void GenericBinaryTree_TraversePreorder(void *node, size_t node_size, size_t binary_tree_size,
+     size_t data_offeset, size_t left_offset, size_t right_offset, DS_UnaryCallback unary_callback);
 
-DS_Void GenericBinaryTree_TraversePostorder(DS_Generic node, DS_Size node_size, DS_Size binary_tree_size,
-     DS_Size data_offeset, DS_Size left_offset, DS_Size right_offset, DS_UnaryCallback unary_callback);
+void GenericBinaryTree_TraverseInorder(void *node, size_t node_size, size_t binary_tree_size,
+     size_t data_offeset, size_t left_offset, size_t right_offset, DS_UnaryCallback unary_callback);
 
-DS_Void GenericBinaryTree_TraverseLevelorder(DS_Generic node, DS_Size node_size, DS_Size binary_tree_size,
-     DS_Size data_offeset, DS_Size left_offset, DS_Size right_offset, DS_UnaryCallback unary_callback);
+void GenericBinaryTree_TraversePostorder(void *node, size_t node_size, size_t binary_tree_size,
+     size_t data_offeset, size_t left_offset, size_t right_offset, DS_UnaryCallback unary_callback);
+
+void GenericBinaryTree_TraverseLevelorder(void *node, size_t node_size, size_t binary_tree_size,
+     size_t data_offeset, size_t left_offset, size_t right_offset, DS_UnaryCallback unary_callback);
 
 #endif

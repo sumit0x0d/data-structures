@@ -9,15 +9,15 @@ typedef enum RedBlackTreeNodeColor {
 } RedBlackTreeNodeColor;
 
 struct RedBlackTreeNode {
-     DS_Generic data;
+     void *data;
      RedBlackTreeNode parent;
      RedBlackTreeNode left;
      RedBlackTreeNode right;
      RedBlackTreeNodeColor color;
 };
 
-RedBlackTreeNode RedBlackTreeNode_Create(const DS_Generic data, DS_Size data_size);
+RedBlackTreeNode RedBlackTreeNode_Create(const void *data, size_t data_size);
 
-DS_Void RedBlackTreeNode_Destroy(RedBlackTreeNode this);
+void RedBlackTreeNode_Destroy(RedBlackTreeNode this);
 
 #endif

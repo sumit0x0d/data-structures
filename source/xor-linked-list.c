@@ -7,11 +7,11 @@
 struct XorLinkedList {
      XorLinkedListNode head;
      XorLinkedListNode tail;
-     DS_Size data_size;
-     DS_Size size;
+     size_t data_size;
+     size_t size;
 };
 
-XorLinkedList XorLinkedList_Create(DS_Size size)
+XorLinkedList XorLinkedList_Create(size_t size)
 {
      XorLinkedList this;
      
@@ -28,18 +28,18 @@ XorLinkedList XorLinkedList_Create(DS_Size size)
      return this;
 }
 
-DS_Void XorLinkedList_Destroy(XorLinkedList this)
+void XorLinkedList_Destroy(XorLinkedList this)
 {
      XorLinkedListNode_Destroy(this->head);
      free(this);
 }
 
-DS_Void XorLinkedList_PushHead(XorLinkedList this, const DS_Generic data)
+void XorLinkedList_PushHead(XorLinkedList this, const void *data)
 {
      XorLinkedListNode node;
      
      node = XorLinkedListNode_Create(data, this->data_size);
-     node->xor = 0 ^ (DS_Size)this->head;
+     node->xor = 0 ^ (size_t)this->head;
      this->head = node;
      
      if (!this->size) {
@@ -49,12 +49,12 @@ DS_Void XorLinkedList_PushHead(XorLinkedList this, const DS_Generic data)
      this->size++;
 }
 
-DS_Void XorLinkedList_PushTail(XorLinkedList this, const DS_Generic data)
+void XorLinkedList_PushTail(XorLinkedList this, const void *data)
 {
      XorLinkedListNode node;
      
      node = XorLinkedListNode_Create(data, this->data_size);
-     node->xor = (DS_Size)this->tail ^ 0;
+     node->xor = (size_t)this->tail ^ 0;
      this->tail = node;
      
      if (!this->size) {

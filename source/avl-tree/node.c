@@ -4,9 +4,9 @@
 #include "node.h"
 #include "node-queue.h"
 
-static DS_Size _GetHeight(AvlTreeNode this, AvlTreeNodeQueue queue);
+static size_t _GetHeight(AvlTreeNode this, AvlTreeNodeQueue queue);
 
-AvlTreeNode AvlTreeNode_Create(const DS_Generic data, DS_Size data_size)
+AvlTreeNode AvlTreeNode_Create(const void *data, size_t data_size)
 {
      AvlTreeNode this;
 
@@ -15,7 +15,7 @@ AvlTreeNode AvlTreeNode_Create(const DS_Generic data, DS_Size data_size)
           return NULL;
      }
 
-     this->data = (DS_Generic)malloc(data_size);
+     this->data = malloc(data_size);
      if (!this->data){
           free(this);
           return NULL;
@@ -29,13 +29,13 @@ AvlTreeNode AvlTreeNode_Create(const DS_Generic data, DS_Size data_size)
      return this;
 }
 
-DS_Void AvlTreeNode_Destroy(AvlTreeNode this)
+void AvlTreeNode_Destroy(AvlTreeNode this)
 {
      free(this->data);
      free(this);
 }
 
-DS_Void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode this, DS_Size queue_capacity)
+void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode this, size_t queue_capacity)
 {
      AvlTreeNodeQueue queue;
 
@@ -113,9 +113,9 @@ AvlTreeNode AvlTreeNode_GetSuccessor(AvlTreeNode this)
      return previous;
 }
 
-static DS_Size _GetHeight(AvlTreeNode this, AvlTreeNodeQueue queue)
+static size_t _GetHeight(AvlTreeNode this, AvlTreeNodeQueue queue)
 {
-     DS_Size height;
+     size_t height;
 
      height = 0;
      AvlTreeNodeQueue_Enqueue(queue, this);

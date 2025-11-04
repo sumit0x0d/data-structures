@@ -9,11 +9,11 @@
 struct SinglyLinkedList {
      SinglyLinkedListNode head;
      SinglyLinkedListNode tail;
-     DS_Size data_size;
-     DS_Size size;
+     size_t data_size;
+     size_t size;
 };
 
-SinglyLinkedList SinglyLinkedList_Create(DS_Size data_size)
+SinglyLinkedList SinglyLinkedList_Create(size_t data_size)
 {
      SinglyLinkedList this;
 
@@ -30,13 +30,13 @@ SinglyLinkedList SinglyLinkedList_Create(DS_Size data_size)
      return this;
 }
 
-DS_Void SinglyLinkedList_Destroy(SinglyLinkedList this)
+void SinglyLinkedList_Destroy(SinglyLinkedList this)
 {
      free(this->head);
      free(this);
 }
 
-DS_Void SinglyLinkedList_PushHead(SinglyLinkedList this, const DS_Generic data)
+void SinglyLinkedList_PushHead(SinglyLinkedList this, const void *data)
 {
      SinglyLinkedListNode node;
      
@@ -53,7 +53,7 @@ DS_Void SinglyLinkedList_PushHead(SinglyLinkedList this, const DS_Generic data)
      this->size++;
 }
 
-DS_Void SinglyLinkedList_PushTail(SinglyLinkedList this, const DS_Generic data)
+void SinglyLinkedList_PushTail(SinglyLinkedList this, const void *data)
 {
      SinglyLinkedListNode node;
 
@@ -70,7 +70,7 @@ DS_Void SinglyLinkedList_PushTail(SinglyLinkedList this, const DS_Generic data)
      this->size++;
 }
 
-DS_Void SinglyLinkedList_PopHead(SinglyLinkedList this)
+void SinglyLinkedList_PopHead(SinglyLinkedList this)
 {
      SinglyLinkedListNode node;
 
@@ -85,7 +85,7 @@ DS_Void SinglyLinkedList_PopHead(SinglyLinkedList this)
      this->size--;
 }
 
-DS_Void SinglyLinkedList_PopTail(SinglyLinkedList this)
+void SinglyLinkedList_PopTail(SinglyLinkedList this)
 {
      SinglyLinkedListNode node;
      
@@ -112,7 +112,7 @@ DS_Void SinglyLinkedList_PopTail(SinglyLinkedList this)
      this->size--;
 }
 
-DS_Void SinglyLinkedList_Traverse(SinglyLinkedList this, DS_UnaryCallback unary_callback)
+void SinglyLinkedList_Traverse(SinglyLinkedList this, SinglyLinkedListUnaryCallback unary_callback)
 {
      SinglyLinkedListNode node;
 
@@ -123,12 +123,12 @@ DS_Void SinglyLinkedList_Traverse(SinglyLinkedList this, DS_UnaryCallback unary_
      }
 }
 
-DS_Generic SinglyLinkedListNode_GetData(SinglyLinkedListNode node)
+void *SinglyLinkedListNode_GetData(SinglyLinkedListNode node)
 {
      return node->data;
 }
 
-DS_Void SinglyLinkedList_SetData(SinglyLinkedList this, SinglyLinkedListNode node, const DS_Generic data)
+void SinglyLinkedList_SetData(SinglyLinkedList this, SinglyLinkedListNode node, const void *data)
 {
      memcpy(node->data, data, this->data_size);
 }

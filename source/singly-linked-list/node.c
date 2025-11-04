@@ -3,7 +3,7 @@
 
 #include "node.h"
 
-SinglyLinkedListNode SinglyLinkedListNode_Create(const DS_Generic data, DS_Size data_size)
+SinglyLinkedListNode SinglyLinkedListNode_Create(const void *data, size_t data_size)
 {
      SinglyLinkedListNode this;
      
@@ -23,7 +23,7 @@ SinglyLinkedListNode SinglyLinkedListNode_Create(const DS_Generic data, DS_Size 
      return this;
 }
 
-DS_Void SinglyLinkedListNode_Destroy(SinglyLinkedListNode this)
+void SinglyLinkedListNode_Destroy(SinglyLinkedListNode this)
 {
      free(this->data);
      free(this);

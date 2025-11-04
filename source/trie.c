@@ -11,18 +11,18 @@ struct TrieNode {
 
 struct Trie {
      TrieNode *root;
-     DS_Size  size;
+     size_t  size;
 };
 
 static TrieNode *_TrieNode_Create();
-// static DS_Void _TrieNode_Destroy();
+// static void _TrieNode_Destroy();
 
-Trie *node_Create(DS_Void)
+Trie *node_Create(void)
 {
      return NULL;
 }
 
-Trie *Trie_Create(DS_Void)
+Trie *Trie_Create(void)
 {
      Trie trie = (Trie *)malloc(sizeof (struct Trie));
      assert(trie);
@@ -31,7 +31,7 @@ Trie *Trie_Create(DS_Void)
      return trie;
 }
 
-DS_Void Trie_Destroy(Trie *trie)
+void Trie_Destroy(Trie *trie)
 {
      free(trie);
 }
@@ -52,16 +52,16 @@ bool Trie_Insert(Trie *trie, char* string)
      }
      Node *node = trie->root; 
      while (*string != '\0') {
-          if (node->children[(DS_Size)*string] == NULL) {
-               node->children[(DS_Size)*string] = _TrieNode_Create();
+          if (node->children[(size_t)*string] == NULL) {
+               node->children[(size_t)*string] = _TrieNode_Create();
           }
-          node = node->children[(DS_Size)*string];
+          node = node->children[(size_t)*string];
           string++;
      }
-     // DS_Size length = strlen(string);
-     // for (DS_Size i = 0; i < length; i++) {
+     // size_t length = strlen(string);
+     // for (size_t i = 0; i < length; i++) {
      //     if (node->children[(int)string[i]] == 0)
-     //         node->children[(DS_Size)string[i]] = node_Create(string[i]);
+     //         node->children[(size_t)string[i]] = node_Create(string[i]);
      // }
      if (node->terminal) {
           return false;
@@ -72,7 +72,7 @@ bool Trie_Insert(Trie *trie, char* string)
      return true;
 }
 
-// DS_Void
+// void
 // node_Destroy(Trie *T, char character)
 // {
 //     Node* node = T->root;

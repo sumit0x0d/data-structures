@@ -1,15 +1,15 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include <binary-tree-node.h>
+#include "binary-tree/node.h"
 
 struct BinaryTree {
      BinaryTreeNode root;
-     DS_Size data_size;
-     DS_Size size;
+     size_t data_size;
+     size_t size;
 };
 
-BinaryTree BinaryTree_Create(DS_Size data_size)
+BinaryTree BinaryTree_Create(size_t data_size)
 {
      BinaryTree this;
 
@@ -25,24 +25,24 @@ BinaryTree BinaryTree_Create(DS_Size data_size)
      return this;
 }
 
-DS_Void BinaryTree_Destroy(BinaryTree tree)
+void BinaryTree_Destroy(BinaryTree tree)
 {
      free(tree);
 }
 
-DS_Void BinaryTree_InsertLeft(BinaryTree this, BinaryTreeNode node, const DS_Generic data)
+void BinaryTree_InsertLeft(BinaryTree this, BinaryTreeNode node, const void *data)
 {
      node->left = BinaryTreeNode_Create(data, this->data_size);
      this->size++;
 }
 
-DS_Void BinaryTree_InsertRight(BinaryTree this, BinaryTreeNode node, const DS_Generic data)
+void BinaryTree_InsertRight(BinaryTree this, BinaryTreeNode node, const void *data)
 {
      node->right = BinaryTreeNode_Create(data, this->data_size);
      this->size++;
 }
 
-DS_Void BinaryTree_Remove(BinaryTree this, BinaryTreeNode node)
+void BinaryTree_Remove(BinaryTree this, BinaryTreeNode node)
 {
      if (node == node->parent->left) {
           node->parent->left = node->left;

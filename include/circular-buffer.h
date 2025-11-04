@@ -1,32 +1,32 @@
 #ifndef DATA_STRUCTURES_CIRCULAR_BUFFER_H
 #define DATA_STRUCTURES_CIRCULAR_BUFFER_H
 
-#include <data-structures.h>
+#include <stdbool.h>
 
 typedef struct CircularBuffer * CircularBuffer;
 
-DATA_STRUCTURES_API
-CircularBuffer CircularBuffer_Create(DS_Size data_size, DS_Size capacity);
+__attribute__((visibility("default")))
+CircularBuffer CircularBuffer_Create(size_t data_size, size_t capacity);
 
-DATA_STRUCTURES_API
-DS_Void CircularBuffer_Destroy(CircularBuffer this);
+__attribute__((visibility("default")))
+void CircularBuffer_Destroy(CircularBuffer this);
 
-DATA_STRUCTURES_API
-DS_Bool CircularBuffer_IsEmpty(CircularBuffer this);
+__attribute__((visibility("default")))
+bool CircularBuffer_IsEmpty(CircularBuffer this);
 
-DATA_STRUCTURES_API
-DS_Bool CircularBuffer_IsFull(CircularBuffer this);
+__attribute__((visibility("default")))
+bool CircularBuffer_IsFull(CircularBuffer this);
 
-DATA_STRUCTURES_API
-DS_Generic CircularBuffer_GetFrontData(CircularBuffer this);
+__attribute__((visibility("default")))
+void *CircularBuffer_GetFrontData(CircularBuffer this);
 
-DATA_STRUCTURES_API
-DS_Generic CircularBuffer_GetBackData(CircularBuffer this);
+__attribute__((visibility("default")))
+void *CircularBuffer_GetBackData(CircularBuffer this);
 
-DATA_STRUCTURES_API
-DS_Void CircularBuffer_PushBack(CircularBuffer this, const DS_Generic data);
+__attribute__((visibility("default")))
+void CircularBuffer_PushBack(CircularBuffer this, const void *data);
 
-DATA_STRUCTURES_API
-DS_Void CircularBuffer_PopFront(CircularBuffer this);
+__attribute__((visibility("default")))
+void CircularBuffer_PopFront(CircularBuffer this);
 
 #endif

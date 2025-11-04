@@ -1,57 +1,62 @@
 #ifndef DATA_STRUCTURES_SINGLY_LINKED_LIST_H
 #define DATA_STRUCTURES_SINGLY_LINKED_LIST_H
 
-#include <data-structures.h>
+#include <stddef.h>
 
 typedef struct SinglyLinkedList * SinglyLinkedList;
 typedef struct SinglyLinkedListNode * SinglyLinkedListNode;
 
-DATA_STRUCTURES_API
-SinglyLinkedList SinglyLinkedList_Create(DS_Size data_size);
+typedef struct {
+     void (*function)(void *data, void *user_data);
+     void *user_data;
+} SinglyLinkedListUnaryCallback;
 
-DATA_STRUCTURES_API
-DS_Void SinglyLinkedList_Destroy(SinglyLinkedList this);
+__attribute__((visibility("default")))
+SinglyLinkedList SinglyLinkedList_Create(size_t data_size);
 
-DATA_STRUCTURES_API
-DS_Size SinglyLinkedList_GetSize(SinglyLinkedList this);
+__attribute__((visibility("default")))
+void SinglyLinkedList_Destroy(SinglyLinkedList this);
 
-DATA_STRUCTURES_API
-DS_Size SinglyLinkedList_GetDataSize(SinglyLinkedList this);
+__attribute__((visibility("default")))
+size_t SinglyLinkedList_GetSize(SinglyLinkedList this);
 
-DATA_STRUCTURES_API
+__attribute__((visibility("default")))
+size_t SinglyLinkedList_GetDataSize(SinglyLinkedList this);
+
+__attribute__((visibility("default")))
 SinglyLinkedListNode SinglyLinkedList_GetHead(SinglyLinkedList this);
 
-DATA_STRUCTURES_API
+__attribute__((visibility("default")))
 SinglyLinkedListNode SinglyLinkedList_GetTail(SinglyLinkedList this);
 
-DATA_STRUCTURES_API
-DS_Void SinglyLinkedList_SetData(SinglyLinkedList this, SinglyLinkedListNode node, const DS_Generic data);
+__attribute__((visibility("default")))
+void SinglyLinkedList_SetData(SinglyLinkedList this, SinglyLinkedListNode node, const void *data);
 
-DATA_STRUCTURES_API
-DS_Generic SinglyLinkedList_GetNodeData(SinglyLinkedListNode node);
+__attribute__((visibility("default")))
+void *SinglyLinkedList_GetNodeData(SinglyLinkedListNode node);
 
-DATA_STRUCTURES_API
-DS_Void SinglyLinkedList_PushHead(SinglyLinkedList this, const DS_Generic data);
+__attribute__((visibility("default")))
+void SinglyLinkedList_PushHead(SinglyLinkedList this, const void *data);
 
-DATA_STRUCTURES_API
-DS_Void SinglyLinkedList_PushTail(SinglyLinkedList this, const DS_Generic data);
+__attribute__((visibility("default")))
+void SinglyLinkedList_PushTail(SinglyLinkedList this, const void *data);
 
-DATA_STRUCTURES_API
-DS_Void SinglyLinkedList_PopHead(SinglyLinkedList this);
+__attribute__((visibility("default")))
+void SinglyLinkedList_PopHead(SinglyLinkedList this);
 
-DATA_STRUCTURES_API
-DS_Void SinglyLinkedList_PopTail(SinglyLinkedList this);
+__attribute__((visibility("default")))
+void SinglyLinkedList_PopTail(SinglyLinkedList this);
 
-DATA_STRUCTURES_API
-DS_Void SinglyLinkedList_Traverse(SinglyLinkedList this, DS_UnaryCallback unary_callback);
+__attribute__((visibility("default")))
+void SinglyLinkedList_Traverse(SinglyLinkedList this, SinglyLinkedListUnaryCallback unary_callback);
 
-DATA_STRUCTURES_API
+__attribute__((visibility("default")))
 SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList this);
 
-DATA_STRUCTURES_API
+__attribute__((visibility("default")))
 SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(SinglyLinkedList this);
 
-DATA_STRUCTURES_API
+__attribute__((visibility("default")))
 SinglyLinkedList SinglyLinkedList_MergeSorted(SinglyLinkedList this1, SinglyLinkedList this2);
 
 #endif

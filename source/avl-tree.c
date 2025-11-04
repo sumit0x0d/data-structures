@@ -3,27 +3,24 @@
 #include <string.h>
 
 #include <avl-tree.h>
-#include <stack.h>
 
 #include "avl-tree/node.h"
 #include "avl-tree/node-queue.h"
 
-// #include "binary-tree-i.h"
-
 struct AvlTree {
      AvlTreeNode root;
-     DS_Size data_size;
-     DS_Size size;
-     DS_CompareCallback compare_callback;
+     size_t data_size;
+     size_t size;
+     AvlTreeCompareCallback compare_callback;
 };
 
-static DS_Void _Rebalance(AvlTree this, AvlTreeNode node);
-static DS_Void _RotateRight(AvlTree this, AvlTreeNode node);
-static DS_Void _RotateLeftRight(AvlTree this, AvlTreeNode node);
-static DS_Void _RotateLeft(AvlTree this, AvlTreeNode node);
-static DS_Void _RotateRightLeft(AvlTree this, AvlTreeNode node);
+static void _Rebalance(AvlTree this, AvlTreeNode node);
+static void _RotateRight(AvlTree this, AvlTreeNode node);
+static void _RotateLeftRight(AvlTree this, AvlTreeNode node);
+static void _RotateLeft(AvlTree this, AvlTreeNode node);
+static void _RotateRightLeft(AvlTree this, AvlTreeNode node);
 
-AvlTree AvlTree_Create(DS_Size data_size, DS_CompareCallback compare_callback)
+AvlTree AvlTree_Create(size_t data_size, AvlTreeCompareCallback compare_callback)
 {
      AvlTree this;
 
@@ -40,7 +37,7 @@ AvlTree AvlTree_Create(DS_Size data_size, DS_CompareCallback compare_callback)
      return this;
 }
 
-DS_Void AvlTree_Destroy(AvlTree this)
+void AvlTree_Destroy(AvlTree this)
 {
      AvlTreeNode node ;
      AvlTreeNodeQueue queue;
@@ -68,31 +65,36 @@ DS_Void AvlTree_Destroy(AvlTree this)
      free(this);
 }
 
-DS_Size AvlTree_GetSize(AvlTree this)
+size_t AvlTree_GetSize(AvlTree this)
 {
      return this->size;
 }
 
-DS_Size AvlTree_GetDataSize(AvlTree this)
+size_t AvlTree_GetDataSize(AvlTree this)
 {
      return this->data_size;
 }
 
-AvlTreeNode AvlTree_Search(AvlTree this, const DS_Generic data)
+void *AvlTree_GetNodeData(AvlTreeNode node)
+{
+     return node->data;
+}
+
+AvlTreeNode AvlTree_Search(AvlTree this, const void *data)
 {
      AvlTreeNode current;
-     DS_Compare compare;
+     AvlTreeCompare compare;
 
      current = this->root;
      while (current) {
           compare = this->compare_callback.function(data, current->data, this->compare_callback.user_data);
           switch (compare) {
-          case DS_COMPARE_LESS:
+          case AVL_TREE_COMPARE_LESS:
                current = current->left;
                break;
-          case DS_COMPARE_EQUAL:
+          case AVL_TREE_COMPARE_EQUAL:
                return current;
-          case DS_COMPARE_GREATER:
+          case AVL_TREE_COMPARE_GREATER:
                current = current->right;
                break;
           }
@@ -101,11 +103,11 @@ AvlTreeNode AvlTree_Search(AvlTree this, const DS_Generic data)
      return NULL;
 }
 
-DS_Void AvlTree_Insert(AvlTree this, const DS_Generic data)
+void AvlTree_Insert(AvlTree this, const void *data)
 {
      AvlTreeNode current;
      AvlTreeNode parent;
-     DS_Compare compare;
+     AvlTreeCompare compare;
 
      if (!this->root) {
           this->root = AvlTreeNode_Create(data, this->data_size);
@@ -119,11 +121,11 @@ DS_Void AvlTree_Insert(AvlTree this, const DS_Generic data)
      current = this->root;
      while (current) {
           compare = this->compare_callback.function(current->data, data, this->compare_callback.user_data);
-          if (compare == DS_COMPARE_EQUAL) {
+          if (compare == AVL_TREE_COMPARE_EQUAL) {
                return;
           }
           parent = current;
-          if (compare < DS_COMPARE_EQUAL) {
+          if (compare < AVL_TREE_COMPARE_EQUAL) {
                current = current->left;
           } else {
                current = current->right;
@@ -143,11 +145,11 @@ DS_Void AvlTree_Insert(AvlTree this, const DS_Generic data)
      this->size++;
 }
 
-DS_Void AvlTree_Remove(AvlTree this, const DS_Generic data)
+void AvlTree_Remove(AvlTree this, const void *data)
 {
      AvlTreeNode current;
      AvlTreeNode parent;
-     DS_Compare compare;
+     AvlTreeCompare compare;
 
      parent = this->root->parent;
 
@@ -205,28 +207,28 @@ DS_Void AvlTree_Remove(AvlTree this, const DS_Generic data)
      this->size--;
 }
 
-// DS_Void AvlTree_TraversePreorder(AvlTree this, DS_CallbackUnary unary_callback.function,
-//     DS_Generic unary_callback.user_data)
+// void AvlTree_TraversePreorder(AvlTree this, AVL_TREE_CallbackUnary unary_callback.function,
+//     void *unary_callback.user_data)
 // {
 // }
 
-// DS_Void AvlTree_TraverseInorder(AvlTree this, DS_CallbackUnary unary_callback.function,
-//     DS_Generic unary_callback.user_data)
+// void AvlTree_TraverseInorder(AvlTree this, AVL_TREE_CallbackUnary unary_callback.function,
+//     void *unary_callback.user_data)
 // {
 // }
 
-// DS_Void AvlTree_TraversePostorder(AvlTree this, DS_CallbackUnary unary_callback.function,
-//     DS_Generic unary_callback.user_data)
+// void AvlTree_TraversePostorder(AvlTree this, AVL_TREE_CallbackUnary unary_callback.function,
+//     void *unary_callback.user_data)
 // {
 // }
 
-// DS_Void AvlTree_TraverseLevelorder(AvlTree this, DS_CallbackUnary unary_callback.function,
-//     DS_Generic unary_callback.user_data)
+// void AvlTree_TraverseLevelorder(AvlTree this, AVL_TREE_CallbackUnary unary_callback.function,
+//     void *unary_callback.user_data)
 // {
 // }
 
 
-static DS_Void _RotateRight(AvlTree this, AvlTreeNode node)
+static void _RotateRight(AvlTree this, AvlTreeNode node)
 {
      AvlTreeNode left;
 
@@ -252,7 +254,7 @@ static DS_Void _RotateRight(AvlTree this, AvlTreeNode node)
      left->right = node;
 }
 
-static DS_Void _RotateLeftRight(AvlTree this, AvlTreeNode node)
+static void _RotateLeftRight(AvlTree this, AvlTreeNode node)
 {
      AvlTreeNode left;
      AvlTreeNode left_right;
@@ -288,7 +290,7 @@ static DS_Void _RotateLeftRight(AvlTree this, AvlTreeNode node)
      left_right->right = node;
 }
 
-static DS_Void _RotateLeft(AvlTree this, AvlTreeNode node)
+static void _RotateLeft(AvlTree this, AvlTreeNode node)
 {
      AvlTreeNode right;
 
@@ -314,7 +316,7 @@ static DS_Void _RotateLeft(AvlTree this, AvlTreeNode node)
      right->left = node;
 }
 
-static DS_Void _RotateRightLeft(AvlTree this, AvlTreeNode node)
+static void _RotateRightLeft(AvlTree this, AvlTreeNode node)
 {
      AvlTreeNode right;
      AvlTreeNode right_left;
@@ -350,9 +352,9 @@ static DS_Void _RotateRightLeft(AvlTree this, AvlTreeNode node)
      right_left->left = node;
 }
 
-static DS_Void _Rebalance(AvlTree this, AvlTreeNode node)
+static void _Rebalance(AvlTree this, AvlTreeNode node)
 {
-     DS_Size queue_capacity = (this->size + 2) / 2;
+     size_t queue_capacity = (this->size + 2) / 2;
 
      while (node) {
           AvlTreeNode_UpdateBalanceFactor(node, queue_capacity);

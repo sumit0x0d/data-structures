@@ -1,19 +1,21 @@
 #ifndef DATA_STRUCTURES_AVL_TREE_NODE_STACK_H
 #define DATA_STRUCTURES_AVL_TREE_NODE_STACK_H
 
+#include <stdbool.h>
+
 #include "node.h"
 
 typedef struct AvlTreeNodeStack {
      AvlTreeNode *base;
-     DS_Size capacity;
-     DS_Size size;
+     size_t capacity;
+     size_t size;
 } * AvlTreeNodeStack;
 
-AvlTreeNodeStack AvlTreeNodeStack_Create(DS_Size capacity);
-DS_Void AvlTreeNodeStack_Destroy(AvlTreeNodeStack this);
+AvlTreeNodeStack AvlTreeNodeStack_Create(size_t capacity);
+void AvlTreeNodeStack_Destroy(AvlTreeNodeStack this);
 
-DS_Bool AvlTreeNodeStack_IsEmpty(AvlTreeNodeStack this);
-DS_Void AvlTreeNodeStack_Push(AvlTreeNodeStack this, AvlTreeNode node);
-DS_Void AvlTreeNodeStack_pop(AvlTreeNodeStack this);
+bool AvlTreeNodeStack_IsEmpty(AvlTreeNodeStack this);
+void AvlTreeNodeStack_Push(AvlTreeNodeStack this, AvlTreeNode node);
+void AvlTreeNodeStack_pop(AvlTreeNodeStack this);
 
 #endif
