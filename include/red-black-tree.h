@@ -1,6 +1,8 @@
 #ifndef DATA_STRUCTURES_RED_BLACK_TREE_H
 #define DATA_STRUCTURES_RED_BLACK_TREE_H
 
+#include <stddef.h>
+
 typedef enum {
      RED_BLACK_TREE_COMPARE_LESS = -1,
      RED_BLACK_TREE_COMPARE_EQUAL = 0,

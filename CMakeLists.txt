@@ -18,8 +18,8 @@ file(GLOB ARRAY_SOURCE
 file(GLOB AVL_TREE_SOURCE
      "${CMAKE_SOURCE_DIR}/source/avl-tree.c"
      "${CMAKE_SOURCE_DIR}/source/avl-tree/*.c")
-# file(GLOB BINARY_HEAP_SOURCE
-#      "${CMAKE_SOURCE_DIR}/source/binary-heap.c")
+file(GLOB BINARY_HEAP_SOURCE
+     "${CMAKE_SOURCE_DIR}/source/binary-heap.c")
 file(GLOB BLOOM_FILTER_SOURCE
      "${CMAKE_SOURCE_DIR}/source/bloom-filter.c")
 file(GLOB CIRCULAR_BUF_SOURCE
@@ -50,7 +50,7 @@ file(GLOB XOR_LL_SOURCE
 
 add_library(array SHARED ${ARRAY_SOURCE})
 add_library(avl-tree SHARED ${AVL_TREE_SOURCE})
-# add_library(binary-heap SHARED ${BINARY_HEAP_SOURCE})
+add_library(binary-heap SHARED ${BINARY_HEAP_SOURCE})
 add_library(bloom-filter SHARED ${BLOOM_FILTER_SOURCE})
 add_library(circular-buffer SHARED ${CIRCULAR_BUF_SOURCE})
 add_library(doubly-linked-list SHARED ${DOUBLY_LL_SOURCE})
@@ -65,7 +65,7 @@ add_library(xor-linked-list SHARED ${XOR_LL_SOURCE})
 
 target_include_directories(array PUBLIC include)
 target_include_directories(avl-tree PUBLIC include)
-# target_include_directories(binary-heap PUBLIC include)
+target_include_directories(binary-heap PUBLIC include)
 target_include_directories(bloom-filter PUBLIC include)
 target_include_directories(circular-buffer PUBLIC include)
 target_include_directories(doubly-linked-list PUBLIC include)
@@ -82,6 +82,6 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     enable_testing()
     add_executable(data-structures-test test/data-structures-test.c)
     add_test(NAME data-structures-test COMMAND data-structures-test)
-    # set_target_properties(array-test PROPERTIES OUTPUT_NAME array)
+#     set_target_properties(array-test PROPERTIES OUTPUT_NAME array)
     target_link_libraries(data-structures-test PUBLIC array)
 endif()

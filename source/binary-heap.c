@@ -10,5 +10,5 @@ struct BinaryHeap {
      BinaryHeapNode tail;
      size_t data_size;
      size_t size;
-     DS_CompareCallback compare_callback;
+     BinaryHeapCompareCallback compare_callback;
 };
