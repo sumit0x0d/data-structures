@@ -5,10 +5,10 @@
 
 struct SinglyLinkedListNode {
      void *data;
-     SinglyLinkedListNode next;
+     SinglyLinkedListNode *next;
 };
 
-SinglyLinkedListNode SinglyLinkedListNode_Create(const void *data,size_t data_size);
-void SinglyLinkedListNode_Destroy(SinglyLinkedListNode this);
+SinglyLinkedListNode *SinglyLinkedListNode_Create(const void *data,size_t data_size);
+void SinglyLinkedListNode_Destroy(SinglyLinkedListNode *this);
 
 #endif

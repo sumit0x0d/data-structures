@@ -12,11 +12,11 @@ struct Matrix {
      size_t column_count;
 };
 
-Matrix Matrix_Create(size_t data_size, size_t row_count, size_t column_count)
+Matrix *Matrix_Create(size_t data_size, size_t row_count, size_t column_count)
 {
-     Matrix this;
+     Matrix *this;
 
-     this = (Matrix)malloc(sizeof (struct Matrix));
+     this = (Matrix *)malloc(sizeof (Matrix));
      if (!this) {
           return NULL;
      };
@@ -36,35 +36,35 @@ Matrix Matrix_Create(size_t data_size, size_t row_count, size_t column_count)
      return this;
 };
 
-void Matrix_Destroy(Matrix this)
+void Matrix_Destroy(Matrix *this)
 {
      free(this->base);
      free(this);
 }
 
-void *Matrix_GetData(const Matrix this, size_t row, size_t column)
+void *Matrix_GetData(const Matrix *this, size_t row, size_t column)
 {
      return (char *)this->base + (this->data_size * (row * this->column_count) + column);
 }
 
-size_t Matrix_GetRowCount(const Matrix this)
+size_t Matrix_GetRowCount(const Matrix *this)
 {
      return this->row_count;
 }
 
-size_t Matrix_GetColumnCount(const Matrix this)
+size_t Matrix_GetColumnCount(const Matrix *this)
 {
      return this->column_count;
 }
 
-void Matrix_SetData(Matrix this, size_t row, size_t column, const void *data)
+void Matrix_SetData(Matrix *this, size_t row, size_t column, const void *data)
 {
      memcpy(Matrix_GetData(this, row, column), data, this->data_size);
 }
 
-Matrix Matrix_Transposition(Matrix this)
+Matrix *Matrix_Transposition(Matrix *this)
 {
-     Matrix transpose;
+     Matrix *transpose;
      size_t i;
      size_t j;
 
@@ -82,9 +82,9 @@ Matrix Matrix_Transposition(Matrix this)
      return transpose;
 }
 
-Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, MatrixBinaryCallback binary_callback)
+Matrix *Matrix_Multiplication(Matrix *matrix1, Matrix *matrix2, MatrixBinaryCallback binary_callback)
 {
-     Matrix this;
+     Matrix *this;
      size_t i;
      size_t j;
      size_t k;
@@ -108,9 +108,9 @@ Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, MatrixBinaryCallbac
      return this;
 }
 
-Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, MatrixBinaryCallback binary_callback)
+Matrix *Matrix_Operation(Matrix *matrix1, Matrix *matrix2, MatrixBinaryCallback binary_callback)
 {
-     Matrix this;
+     Matrix *this;
      size_t i;
      size_t j;
 
@@ -135,9 +135,9 @@ Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, MatrixBinaryCallback bin
      return this;
 }
 
-Matrix Matrix_ColumnVectorization(Matrix this)
+Matrix *Matrix_ColumnVectorization(Matrix *this)
 {
-     Matrix vectorize;
+     Matrix *vectorize;
      size_t i;
      size_t j;
 
@@ -155,7 +155,7 @@ Matrix Matrix_ColumnVectorization(Matrix this)
      return vectorize;
 }
 
-void Matrix_Traverse(Matrix this, MatrixUnaryCallback unary_callback)
+void Matrix_Traverse(Matrix *this, MatrixUnaryCallback unary_callback)
 {
      size_t i;
      size_t j;

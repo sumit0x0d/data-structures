@@ -3,8 +3,8 @@
 
 #include <stddef.h>
 
-typedef struct HashTable * HashTable;
-typedef struct HashTablePair * HashTablePair;
+typedef struct HashTable HashTable;
+typedef struct HashTablePair HashTablePair;
 
 typedef enum {
      HASH_TABLE_COMPARE_LESS = -1,
@@ -23,25 +23,25 @@ typedef struct {
 } HashTableHashCallback;
 
 __attribute__((visibility("default")))
-HashTable HashTable_Create(size_t key_size, size_t value_size, size_t bucket_count,
+HashTable *HashTable_Create(size_t key_size, size_t value_size, size_t bucket_count,
      HashTableHashCallback hash_callback, HashTableCompareCallback compare_callback);
 
 __attribute__((visibility("default")))
-void HashTable_Destroy(HashTable this);
+void HashTable_Destroy(HashTable *this);
 
 __attribute__((visibility("default")))
-void *HashTable_GetKey(HashTablePair pair);
+void *HashTable_GetKey(HashTablePair *pair);
 
 __attribute__((visibility("default")))
-void *HashTable_GetValue(HashTablePair pair);
+void *HashTable_GetValue(HashTablePair *pair);
 
 __attribute__((visibility("default")))
-void HashTable_Insert(HashTable this, const void *key, const void *value);
+void HashTable_Insert(HashTable *this, const void *key, const void *value);
 
 __attribute__((visibility("default")))
-void HashTable_Remove(HashTable this, const void *key);
+void HashTable_Remove(HashTable *this, const void *key);
 
 __attribute__((visibility("default")))
-HashTablePair HashTable_Search(HashTable this, const void *key);
+HashTablePair *HashTable_Search(HashTable *this, const void *key);
 
 #endif

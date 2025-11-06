@@ -6,17 +6,17 @@
 #include "node.h"
 
 typedef struct AvlTreeNodeQueue {
-     AvlTreeNode *base;
+     AvlTreeNode **base;
      size_t front;
      size_t back;
      size_t capacity;
-} * AvlTreeNodeQueue;
+} AvlTreeNodeQueue;
 
-AvlTreeNodeQueue AvlTreeNodeQueue_Create(size_t capacity);
-void AvlTreeNodeQueue_Destroy(AvlTreeNodeQueue this);
+AvlTreeNodeQueue *AvlTreeNodeQueue_Create(size_t capacity);
+void AvlTreeNodeQueue_Destroy(AvlTreeNodeQueue *this);
 
-bool AvlTreeNodeQueue_IsEmpty(AvlTreeNodeQueue this);
-void AvlTreeNodeQueue_Enqueue(AvlTreeNodeQueue this, AvlTreeNode node);
-void AvlTreeNodeQueue_Dequeue(AvlTreeNodeQueue this);
+bool AvlTreeNodeQueue_IsEmpty(AvlTreeNodeQueue *this);
+void AvlTreeNodeQueue_Enqueue(AvlTreeNodeQueue *this, AvlTreeNode *node);
+void AvlTreeNodeQueue_Dequeue(AvlTreeNodeQueue *this);
 
 #endif

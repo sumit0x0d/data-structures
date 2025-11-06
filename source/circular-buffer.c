@@ -12,11 +12,11 @@ struct CircularBuffer {
      size_t capacity;
 };
 
-CircularBuffer CircularBuffer_Create(size_t data_size, size_t capacity)
+CircularBuffer *CircularBuffer_Create(size_t data_size, size_t capacity)
 {
-     CircularBuffer this;
+     CircularBuffer *this;
 
-     this = (CircularBuffer)malloc(sizeof (struct CircularBuffer));
+     this = (CircularBuffer *)malloc(sizeof (CircularBuffer));
      if(!this) {
           return NULL;
      }
@@ -35,13 +35,13 @@ CircularBuffer CircularBuffer_Create(size_t data_size, size_t capacity)
      return this;
 }
 
-void CircularBuffer_Destroy(CircularBuffer this)
+void CircularBuffer_Destroy(CircularBuffer *this)
 {
      free(this->base);
      free(this);
 }
 
-bool CircularBuffer_IsEmpty(CircularBuffer this)
+bool CircularBuffer_IsEmpty(CircularBuffer *this)
 {
      if (this->front == this->back) {
           return true;
@@ -50,7 +50,7 @@ bool CircularBuffer_IsEmpty(CircularBuffer this)
      return false;
 }
 
-bool CircularBuffer_IsFull(CircularBuffer this)
+bool CircularBuffer_IsFull(CircularBuffer *this)
 {
      if (this->front == (this->back + 1) % this->capacity) {
           return true;
@@ -59,12 +59,12 @@ bool CircularBuffer_IsFull(CircularBuffer this)
      return false;
 }
 
-void *CircularBuffer_GetFrontData(CircularBuffer this)
+void *CircularBuffer_GetFrontData(CircularBuffer *this)
 {
      return (char *)this->base + (this->data_size * this->front);
 }
 
-void *CircularBuffer_GetBackData(CircularBuffer this)
+void *CircularBuffer_GetBackData(CircularBuffer *this)
 {
      size_t index;
 
@@ -77,13 +77,13 @@ void *CircularBuffer_GetBackData(CircularBuffer this)
      return (char *)this->base + (this->data_size * index);
 }
 
-void CircularBuffer_PushBack(CircularBuffer this, const void *data)
+void CircularBuffer_PushBack(CircularBuffer *this, const void *data)
 {
      memcpy((char *)this->base + this->data_size * this->back, data, this->data_size);
      this->back = (this->back + 1) % this->capacity;
 }
 
-void CircularBuffer_PopFront(CircularBuffer this)
+void CircularBuffer_PopFront(CircularBuffer *this)
 {
      this->front = (this->front + 1) % this->capacity;
 }

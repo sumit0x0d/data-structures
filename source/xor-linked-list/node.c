@@ -3,11 +3,11 @@
 
 #include "node.h"
 
-XorLinkedListNode XorLinkedListNode_Create(const void *data, size_t data_size)
+XorLinkedListNode *XorLinkedListNode_Create(const void *data, size_t data_size)
 {
-     XorLinkedListNode this;
+     XorLinkedListNode *this;
      
-     this = (XorLinkedListNode)malloc(sizeof (struct XorLinkedListNode));
+     this = (XorLinkedListNode *)malloc(sizeof (XorLinkedListNode));
      if (!this) {
           return NULL;
      }  
@@ -22,7 +22,7 @@ XorLinkedListNode XorLinkedListNode_Create(const void *data, size_t data_size)
      return this;
 }
 
-void XorLinkedListNode_Destroy(XorLinkedListNode this)
+void XorLinkedListNode_Destroy(XorLinkedListNode *this)
 {
      free(this->data);
      free(this);

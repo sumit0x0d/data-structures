@@ -3,11 +3,11 @@
 
 #include "node.h"
 
-RedBlackTreeNode RedBlackTreeNode_Create(const void *data, size_t data_size)
+RedBlackTreeNode *RedBlackTreeNode_Create(const void *data, size_t data_size)
 {
-     RedBlackTreeNode this;
+     RedBlackTreeNode *this;
      
-     this = (RedBlackTreeNode)malloc(sizeof (RedBlackTreeNode));
+     this = (RedBlackTreeNode *)malloc(sizeof (RedBlackTreeNode));
      if (!this) {
           return NULL;
      } 
@@ -25,7 +25,7 @@ RedBlackTreeNode RedBlackTreeNode_Create(const void *data, size_t data_size)
      return this;
 }
 
-void RedBlackTreeNode_Destroy(RedBlackTreeNode this)
+void RedBlackTreeNode_Destroy(RedBlackTreeNode *this)
 {
      free(this->data);
      free(this);

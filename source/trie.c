@@ -24,7 +24,7 @@ Trie *node_Create(void)
 
 Trie *Trie_Create(void)
 {
-     Trie trie = (Trie *)malloc(sizeof (struct Trie));
+     Trie *trie = (Trie *)malloc(sizeof (struct Trie));
      assert(trie);
      trie->root = NULL;
      trie->size = 0;
@@ -50,7 +50,7 @@ bool Trie_Insert(Trie *trie, char* string)
                return false;
           }
      }
-     Node *node = trie->root; 
+     TrieNode *node = trie->root; 
      while (*string != '\0') {
           if (node->children[(size_t)*string] == NULL) {
                node->children[(size_t)*string] = _TrieNode_Create();
@@ -79,9 +79,9 @@ bool Trie_Insert(Trie *trie, char* string)
 //     free(node);
 // }
 
-static Node *_TrieNode_Create()
+static TrieNode *_TrieNode_Create()
 {
-     Node *node = (Node *)malloc(sizeof (Node));
+     TrieNode *node = (TrieNode *)malloc(sizeof (TrieNode));
      assert(node);
      node->terminal = 0;
      for (int i = 0; i < 128; i++) {

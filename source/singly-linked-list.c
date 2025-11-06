@@ -7,17 +7,17 @@
 #include "singly-linked-list/node.h"
 
 struct SinglyLinkedList {
-     SinglyLinkedListNode head;
-     SinglyLinkedListNode tail;
+     SinglyLinkedListNode *head;
+     SinglyLinkedListNode *tail;
      size_t data_size;
      size_t size;
 };
 
-SinglyLinkedList SinglyLinkedList_Create(size_t data_size)
+SinglyLinkedList *SinglyLinkedList_Create(size_t data_size)
 {
-     SinglyLinkedList this;
+     SinglyLinkedList *this;
 
-     this = (SinglyLinkedList)malloc(sizeof (struct SinglyLinkedList));
+     this = (SinglyLinkedList *)malloc(sizeof (SinglyLinkedList));
      if (!this) {
           return NULL;
      }
@@ -30,15 +30,15 @@ SinglyLinkedList SinglyLinkedList_Create(size_t data_size)
      return this;
 }
 
-void SinglyLinkedList_Destroy(SinglyLinkedList this)
+void SinglyLinkedList_Destroy(SinglyLinkedList *this)
 {
      free(this->head);
      free(this);
 }
 
-void SinglyLinkedList_PushHead(SinglyLinkedList this, const void *data)
+void SinglyLinkedList_PushHead(SinglyLinkedList *this, const void *data)
 {
-     SinglyLinkedListNode node;
+     SinglyLinkedListNode *node;
      
      node = SinglyLinkedListNode_Create(data, this->data_size);
      
@@ -53,9 +53,9 @@ void SinglyLinkedList_PushHead(SinglyLinkedList this, const void *data)
      this->size++;
 }
 
-void SinglyLinkedList_PushTail(SinglyLinkedList this, const void *data)
+void SinglyLinkedList_PushTail(SinglyLinkedList *this, const void *data)
 {
-     SinglyLinkedListNode node;
+     SinglyLinkedListNode *node;
 
      node = SinglyLinkedListNode_Create(data, this->data_size);
      node->next = NULL;
@@ -70,9 +70,9 @@ void SinglyLinkedList_PushTail(SinglyLinkedList this, const void *data)
      this->size++;
 }
 
-void SinglyLinkedList_PopHead(SinglyLinkedList this)
+void SinglyLinkedList_PopHead(SinglyLinkedList *this)
 {
-     SinglyLinkedListNode node;
+     SinglyLinkedListNode *node;
 
      node = this->head;
      
@@ -85,9 +85,9 @@ void SinglyLinkedList_PopHead(SinglyLinkedList this)
      this->size--;
 }
 
-void SinglyLinkedList_PopTail(SinglyLinkedList this)
+void SinglyLinkedList_PopTail(SinglyLinkedList *this)
 {
-     SinglyLinkedListNode node;
+     SinglyLinkedListNode *node;
      
      if (this->size == 0) {
           return;
@@ -112,9 +112,9 @@ void SinglyLinkedList_PopTail(SinglyLinkedList this)
      this->size--;
 }
 
-void SinglyLinkedList_Traverse(SinglyLinkedList this, SinglyLinkedListUnaryCallback unary_callback)
+void SinglyLinkedList_Traverse(SinglyLinkedList *this, SinglyLinkedListUnaryCallback unary_callback)
 {
-     SinglyLinkedListNode node;
+     SinglyLinkedListNode *node;
 
      node = this->head;
      while (node) {
@@ -123,20 +123,20 @@ void SinglyLinkedList_Traverse(SinglyLinkedList this, SinglyLinkedListUnaryCallb
      }
 }
 
-void *SinglyLinkedListNode_GetData(SinglyLinkedListNode node)
+void *SinglyLinkedListNode_GetData(SinglyLinkedListNode *node)
 {
      return node->data;
 }
 
-void SinglyLinkedList_SetData(SinglyLinkedList this, SinglyLinkedListNode node, const void *data)
+void SinglyLinkedList_SetData(SinglyLinkedList *this, SinglyLinkedListNode *node, const void *data)
 {
      memcpy(node->data, data, this->data_size);
 }
 
-SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList this)
+SinglyLinkedListNode *SinglyLinkedList_DetectCycle(SinglyLinkedList *this)
 {
-     SinglyLinkedListNode tortoise;
-     SinglyLinkedListNode hare;
+     SinglyLinkedListNode *tortoise;
+     SinglyLinkedListNode *hare;
 
      tortoise = this->head;
      
@@ -152,10 +152,10 @@ SinglyLinkedListNode SinglyLinkedList_DetectCycle(SinglyLinkedList this)
      return NULL;
 }
 
-SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(SinglyLinkedList this)
+SinglyLinkedListNode *SinglyLinkedList_GetMiddleNode(SinglyLinkedList *this)
 {
-     SinglyLinkedListNode tortoise;
-     SinglyLinkedListNode hare;
+     SinglyLinkedListNode *tortoise;
+     SinglyLinkedListNode *hare;
 
      tortoise = this->head;
      
@@ -168,10 +168,10 @@ SinglyLinkedListNode SinglyLinkedList_GetMiddleNode(SinglyLinkedList this)
      return tortoise;
 }
 
-SinglyLinkedList SinglyLinkedList_MergeSorted(SinglyLinkedList singly_linked_list1, SinglyLinkedList singly_linked_list2)
+SinglyLinkedList *SinglyLinkedList_MergeSorted(SinglyLinkedList *singly_linked_list1, SinglyLinkedList *singly_linked_list2)
 {
-     SinglyLinkedList this;
-     SinglyLinkedListNode node;
+     SinglyLinkedList *this;
+     SinglyLinkedListNode *node;
 
      this = SinglyLinkedList_Create(singly_linked_list1->data_size);
 

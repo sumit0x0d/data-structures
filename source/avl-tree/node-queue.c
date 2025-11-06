@@ -3,11 +3,11 @@
 
 #include "node-queue.h"
 
-AvlTreeNodeQueue AvlTreeNodeQueue_Create(size_t capacity)
+AvlTreeNodeQueue *AvlTreeNodeQueue_Create(size_t capacity)
 {
-     AvlTreeNodeQueue queue;
+     AvlTreeNodeQueue *queue;
 
-     queue = (AvlTreeNodeQueue)malloc(sizeof (struct AvlTreeNodeQueue));
+     queue = (AvlTreeNodeQueue *)malloc(sizeof (AvlTreeNodeQueue));
      if (!queue) {
           return NULL;
      }
@@ -25,13 +25,13 @@ AvlTreeNodeQueue AvlTreeNodeQueue_Create(size_t capacity)
      return queue;
 }
 
-void AvlTreeNodeQueue_Destroy(AvlTreeNodeQueue queue)
+void AvlTreeNodeQueue_Destroy(AvlTreeNodeQueue *this)
 {
-     free(queue->base);
-     free(queue);
+     free(this->base);
+     free(this);
 }
 
-bool AvlTreeNodeQueue_IsEmpty(AvlTreeNodeQueue this)
+bool AvlTreeNodeQueue_IsEmpty(AvlTreeNodeQueue *this)
 {
      if (this->front == this->back) {
           return true;
@@ -40,13 +40,13 @@ bool AvlTreeNodeQueue_IsEmpty(AvlTreeNodeQueue this)
      return false;
 }
 
-void AvlTreeNodeQueue_Enqueue(AvlTreeNodeQueue this, AvlTreeNode node)
+void AvlTreeNodeQueue_Enqueue(AvlTreeNodeQueue *this, AvlTreeNode *node)
 {
      this->base[this->back] = node;
      this->back = (this->back + 1) % this->capacity;
 }
 
-void AvlTreeNodeQueue_Dequeue(AvlTreeNodeQueue this)
+void AvlTreeNodeQueue_Dequeue(AvlTreeNodeQueue *this)
 {
      this->front = (this->front + 1) % this->capacity;
 }

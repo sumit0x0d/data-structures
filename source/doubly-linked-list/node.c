@@ -3,11 +3,11 @@
 
 #include "node.h"
 
-DoublyLinkedListNode DoublyLinkedListNode_Create(const void *data, size_t data_size)
+DoublyLinkedListNode *DoublyLinkedListNode_Create(const void *data, size_t data_size)
 {
-     DoublyLinkedListNode this;
+     DoublyLinkedListNode *this;
 
-     this = (DoublyLinkedListNode)malloc(sizeof (struct DoublyLinkedListNode));
+     this = (DoublyLinkedListNode *)malloc(sizeof (DoublyLinkedListNode));
      if (!this) {
           return NULL;
      }
@@ -23,7 +23,7 @@ DoublyLinkedListNode DoublyLinkedListNode_Create(const void *data, size_t data_s
      return this;
 }
 
-void DoublyLinkedListNode_Destroy(DoublyLinkedListNode this)
+void DoublyLinkedListNode_Destroy(DoublyLinkedListNode *this)
 {
      free(this->data);
      free(this);

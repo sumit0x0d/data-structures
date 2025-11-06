@@ -8,8 +8,8 @@ struct XorLinkedListNode {
      size_t xor;
 };
 
-XorLinkedListNode XorLinkedListNode_Create(const void *data, size_t data_size);
+XorLinkedListNode *XorLinkedListNode_Create(const void *data, size_t data_size);
 
-void XorLinkedListNode_Destroy(XorLinkedListNode this);
+void XorLinkedListNode_Destroy(XorLinkedListNode *this);
 
 #endif

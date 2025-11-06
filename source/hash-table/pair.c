@@ -3,11 +3,11 @@
 
 #include "pair.h"
 
-HashTablePair HashTablePair_Create(const void *key, size_t key_size, const void *value, size_t value_size)
+HashTablePair *HashTablePair_Create(const void *key, size_t key_size, const void *value, size_t value_size)
 {
-     HashTablePair this;
+     HashTablePair *this;
      
-     this = (HashTablePair)malloc(sizeof (struct HashTablePair));
+     this = (HashTablePair *)malloc(sizeof (HashTablePair));
      if (!this) {
           return NULL;
      }
@@ -32,7 +32,7 @@ HashTablePair HashTablePair_Create(const void *key, size_t key_size, const void 
      return this;
 }
 
-void HashTablePair_Destroy(HashTablePair this)
+void HashTablePair_Destroy(HashTablePair *this)
 {
      free(this->key);
      free(this->value);

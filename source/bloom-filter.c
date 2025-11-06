@@ -10,11 +10,11 @@ struct BloomFilter {
      BloomFilterHashCallback hash_callback;
 };
 
-BloomFilter BloomFilter_Create(size_t data_size, size_t capacity, BloomFilterHashCallback hash_callback)
+BloomFilter *BloomFilter_Create(size_t data_size, size_t capacity, BloomFilterHashCallback hash_callback)
 {
-     BloomFilter this;
+     BloomFilter *this;
 
-     this = (BloomFilter)malloc(sizeof (struct BloomFilter));
+     this = (BloomFilter *)malloc(sizeof (BloomFilter));
      if (!this) {
           return NULL;
      }
@@ -30,13 +30,13 @@ BloomFilter BloomFilter_Create(size_t data_size, size_t capacity, BloomFilterHas
      return this;
 }
 
-void BloomFilter_Destroy(BloomFilter this)
+void BloomFilter_Destroy(BloomFilter *this)
 {
      free(this->base);
      free(this);
 }
 
-void *BloomFilter_Search(BloomFilter this, const void *data)
+void *BloomFilter_Search(BloomFilter *this, const void *data)
 {
      size_t index;
 
@@ -45,7 +45,7 @@ void *BloomFilter_Search(BloomFilter this, const void *data)
      return (char *)this->base + (this->data_size * index);
 }
 
-void BloomFilter_Insert(BloomFilter this, const void *data)
+void BloomFilter_Insert(BloomFilter *this, const void *data)
 {
      size_t index;
 

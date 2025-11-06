@@ -3,7 +3,7 @@
 
 #include <stddef.h>
 
-typedef struct Matrix * Matrix;
+typedef struct Matrix Matrix;
 
 typedef struct {
      void (*function)(void *data, void *user_data);
@@ -16,36 +16,36 @@ typedef struct {
 } MatrixBinaryCallback;
 
 __attribute__((visibility("default")))
-Matrix Matrix_Create(size_t data_size, size_t row_count, size_t column_count);
+Matrix *Matrix_Create(size_t data_size, size_t row_count, size_t column_count);
 
 __attribute__((visibility("default")))
-void Matrix_Destroy(Matrix this);
+void Matrix_Destroy(Matrix *this);
 
 __attribute__((visibility("default")))
-void *Matrix_GetData(const Matrix this, size_t row, size_t column);
+void *Matrix_GetData(const Matrix *this, size_t row, size_t column);
 
 __attribute__((visibility("default")))
-size_t Matrix_GetRowCount(const Matrix this);
+size_t Matrix_GetRowCount(const Matrix *this);
 
 __attribute__((visibility("default")))
-size_t Matrix_GetColumnCount(const Matrix this);
+size_t Matrix_GetColumnCount(const Matrix *this);
 
 __attribute__((visibility("default")))
-void Matrix_SetData(Matrix this, size_t row, size_t column, const void *data);
+void Matrix_SetData(Matrix *this, size_t row, size_t column, const void *data);
 
 __attribute__((visibility("default")))
-Matrix Matrix_Transposition(Matrix this);
+Matrix *Matrix_Transposition(Matrix *this);
 
 __attribute__((visibility("default")))
-Matrix Matrix_Multiplication(Matrix matrix1, Matrix matrix2, MatrixBinaryCallback binary_callback);
+Matrix *Matrix_Multiplication(Matrix *matrix1, Matrix *matrix2, MatrixBinaryCallback binary_callback);
 
 __attribute__((visibility("default")))
-Matrix Matrix_Operation(Matrix matrix1, Matrix matrix2, MatrixBinaryCallback binary_callback);
+Matrix *Matrix_Operation(Matrix *matrix1, Matrix *matrix2, MatrixBinaryCallback binary_callback);
 
 __attribute__((visibility("default")))
-Matrix Matrix_ColumnVectorization(Matrix this);
+Matrix *Matrix_ColumnVectorization(Matrix *this);
 
 __attribute__((visibility("default")))
-void Matrix_Traverse(Matrix this, MatrixUnaryCallback unary_callback);
+void Matrix_Traverse(Matrix *this, MatrixUnaryCallback unary_callback);
 
 #endif

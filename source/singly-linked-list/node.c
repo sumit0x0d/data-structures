@@ -3,11 +3,11 @@
 
 #include "node.h"
 
-SinglyLinkedListNode SinglyLinkedListNode_Create(const void *data, size_t data_size)
+SinglyLinkedListNode *SinglyLinkedListNode_Create(const void *data, size_t data_size)
 {
-     SinglyLinkedListNode this;
+     SinglyLinkedListNode *this;
      
-     this = (SinglyLinkedListNode)malloc(sizeof (struct SinglyLinkedListNode));
+     this = (SinglyLinkedListNode *)malloc(sizeof (SinglyLinkedListNode));
      if (!this) {
           return NULL;
      }
@@ -23,7 +23,7 @@ SinglyLinkedListNode SinglyLinkedListNode_Create(const void *data, size_t data_s
      return this;
 }
 
-void SinglyLinkedListNode_Destroy(SinglyLinkedListNode this)
+void SinglyLinkedListNode_Destroy(SinglyLinkedListNode *this)
 {
      free(this->data);
      free(this);

@@ -10,11 +10,11 @@ struct Stack {
      size_t size;
 };
 
-Stack Stack_Create(size_t data_size, size_t capacity)
+Stack *Stack_Create(size_t data_size, size_t capacity)
 {
-     Stack this;
+     Stack *this;
 
-     this = (Stack)malloc(sizeof (struct Stack));
+     this = (Stack *)malloc(sizeof (Stack));
      if (!this) {
           return NULL;
      }
@@ -30,13 +30,13 @@ Stack Stack_Create(size_t data_size, size_t capacity)
      return this;
 }
 
-void Stack_Destroy(Stack this)
+void Stack_Destroy(Stack *this)
 {
      free(this->base);
      free(this);
 }
 
-bool Stack_IsEmpty(Stack this)
+bool Stack_IsEmpty(Stack *this)
 {
      if (this->size) {
           return true;
@@ -45,7 +45,7 @@ bool Stack_IsEmpty(Stack this)
      return false;
 }
 
-bool Stack_IsFull(Stack this)
+bool Stack_IsFull(Stack *this)
 {
      if (this->size == this->capacity) {
           return true;
@@ -54,18 +54,18 @@ bool Stack_IsFull(Stack this)
      return false;
 }
 
-void *Stack_GetTop(Stack this)
+void *Stack_GetTop(Stack *this)
 {
      return (char *)this->base + (this->data_size * this->size - 1);
 }
 
-void Stack_Push(Stack this, const void *data)
+void Stack_Push(Stack *this, const void *data)
 {
      memcpy(Stack_GetTop(this), data, this->data_size);
      this->size++;
 }
 
-void Stack_Pop(Stack this)
+void Stack_Pop(Stack *this)
 {
      this->size--;
 }

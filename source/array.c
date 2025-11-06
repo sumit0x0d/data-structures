@@ -10,11 +10,11 @@ struct Array {
      void *swap_buffer;
 };
 
-Array Array_Create(size_t data_size, size_t capacity)
+Array *Array_Create(size_t data_size, size_t capacity)
 {
-     Array this;
+     Array *this;
 
-     this = (Array)malloc(sizeof (struct Array));
+     this = (Array *)malloc(sizeof (Array));
      if (!this) {
           return NULL;
      }
@@ -38,41 +38,41 @@ Array Array_Create(size_t data_size, size_t capacity)
      return this;
 }
 
-void Array_Destroy(Array this)
+void Array_Destroy(Array *this)
 {
      free(this->swap_buffer);
      free(this->base);
      free(this);
 }
 
-size_t Array_GetCapacity(const Array this)
+size_t Array_GetCapacity(const Array *this)
 {
      return this->capacity;
 }
 
-size_t Array_GetDataSize(const Array this)
+size_t Array_GetDataSize(const Array *this)
 {
      return this->data_size;
 }
 
-void *Array_GetData(const Array this, size_t index)
+void *Array_GetData(const Array *this, size_t index)
 {
      return (char *)this->base + (this->data_size * index);
 }
 
-void Array_SetData(Array this, size_t index, const void *data)
+void Array_SetData(Array *this, size_t index, const void *data)
 {
      memcpy(Array_GetData(this, index), data, this->data_size);
 }
 
-void Array_SwapData(Array this, void *data1, void *data2)
+void Array_SwapData(Array *this, void *data1, void *data2)
 {
      memcpy(this->swap_buffer, data1, this->data_size);
      memcpy(data1, data2, this->data_size);
      memcpy(data2, this->swap_buffer, this->data_size);
 }
 
-void Array_Traverse(Array this, ArrayUnaryCallback unary_callback)
+void Array_Traverse(Array *this, ArrayUnaryCallback unary_callback)
 {
      size_t i;
 
@@ -81,7 +81,7 @@ void Array_Traverse(Array this, ArrayUnaryCallback unary_callback)
      }
 }
 
-void *Array_SearchLinear(const Array this, const void *data, ArrayCompareCallback compare_callback)
+void *Array_SearchLinear(const Array *this, const void *data, ArrayCompareCallback compare_callback)
 {
      size_t i;
      void *current;
@@ -96,7 +96,7 @@ void *Array_SearchLinear(const Array this, const void *data, ArrayCompareCallbac
     return NULL;
 }
 
-void *Array_SearchBinary(const Array this, const void *data, ArrayCompareCallback compare_callback)
+void *Array_SearchBinary(const Array *this, const void *data, ArrayCompareCallback compare_callback)
 {
      size_t left;
      size_t right;
@@ -123,7 +123,7 @@ void *Array_SearchBinary(const Array this, const void *data, ArrayCompareCallbac
      return NULL;
 }
 
-void Array_SortBubble(Array this, ArrayCompareCallback compare_callback)
+void Array_SortBubble(Array *this, ArrayCompareCallback compare_callback)
 {
      size_t i;
      size_t j;
@@ -141,7 +141,7 @@ void Array_SortBubble(Array this, ArrayCompareCallback compare_callback)
      }
 }
 
-void Array_SortInsertion(Array this, ArrayCompareCallback compare_callback)
+void Array_SortInsertion(Array *this, ArrayCompareCallback compare_callback)
 {
      size_t i;
      size_t j;
@@ -161,7 +161,7 @@ void Array_SortInsertion(Array this, ArrayCompareCallback compare_callback)
      }
 }
 
-void Array_SortSelection(Array this, ArrayCompareCallback compare_callback)
+void Array_SortSelection(Array *this, ArrayCompareCallback compare_callback)
 {
      size_t i;
      size_t minimum;
@@ -181,7 +181,7 @@ void Array_SortSelection(Array this, ArrayCompareCallback compare_callback)
      }
 }
 
-void Array_SortQuick(Array this, ArrayCompareCallback compare_callback)
+void Array_SortQuick(Array *this, ArrayCompareCallback compare_callback)
 {
      size_t i;
      size_t j;
@@ -199,7 +199,7 @@ void Array_SortQuick(Array this, ArrayCompareCallback compare_callback)
      }
 }
 
-void Array_SortMerge(Array this, ArrayCompareCallback compare_callback)
+void Array_SortMerge(Array *this, ArrayCompareCallback compare_callback)
 {
      size_t i;
      size_t j;
@@ -217,7 +217,7 @@ void Array_SortMerge(Array this, ArrayCompareCallback compare_callback)
      }
 }
 
-void *Array_PatternSearchRabinKarp(const Array this, const void *pattern,
+void *Array_PatternSearchRabinKarp(const Array *this, const void *pattern,
      size_t pattern_size, ArrayHashCallback hash_callback)
 {
      (void)this;

@@ -3,7 +3,7 @@
 
 #include <stddef.h>
 
-typedef struct Array * Array;
+typedef struct Array Array;
 // typedef struct ArrayIterator * ArrayIterator;
 
 // typedef enum {
@@ -41,58 +41,58 @@ typedef struct {
 } ArrayHashCallback;
 
 __attribute__((visibility("default")))
-Array Array_Create(size_t data_size, size_t capacity);
+Array *Array_Create(size_t data_size, size_t capacity);
 
 __attribute__((visibility("default")))
-void Array_Destroy(Array this);
+void Array_Destroy(Array *this);
 
 __attribute__((visibility("default")))
-size_t Array_GetCapacity(const Array this);
+size_t Array_GetCapacity(const Array *this);
 
 __attribute__((visibility("default")))
-size_t Array_GetDataSize(const Array this);
+size_t Array_GetDataSize(const Array *this);
 
 __attribute__((visibility("default")))
-void *Array_GetData(const Array this, size_t index);
+void *Array_GetData(const Array *this, size_t index);
 
 __attribute__((visibility("default")))
-void Array_SetData(Array this, size_t index, const void *data);
+void Array_SetData(Array *this, size_t index, const void *data);
 
 __attribute__((visibility("default")))
-void Array_SwapData(Array this, void *data1, void *data2);
+void Array_SwapData(Array *this, void *data1, void *data2);
 
 __attribute__((visibility("default")))
-void Array_Traverse(Array this, ArrayUnaryCallback unary_callback);
+void Array_Traverse(Array *this, ArrayUnaryCallback unary_callback);
 
 __attribute__((visibility("default")))
-void *Array_SearchLinear(const Array this, const void *data, ArrayCompareCallback compare_callback);
+void *Array_SearchLinear(const Array *this, const void *data, ArrayCompareCallback compare_callback);
 
 __attribute__((visibility("default")))
-void *Array_SearchBinary(const Array this, const void *data, ArrayCompareCallback compare_callback);
+void *Array_SearchBinary(const Array *this, const void *data, ArrayCompareCallback compare_callback);
 
 __attribute__((visibility("default")))
-void Array_SortBubble(Array this, ArrayCompareCallback compare_callback);
+void Array_SortBubble(Array *this, ArrayCompareCallback compare_callback);
 
 __attribute__((visibility("default")))
-void Array_SortInsertion(Array this, ArrayCompareCallback compare_callback);
+void Array_SortInsertion(Array *this, ArrayCompareCallback compare_callback);
 
 __attribute__((visibility("default")))
-void Array_SortSelection(Array this, ArrayCompareCallback compare_callback);
+void Array_SortSelection(Array *this, ArrayCompareCallback compare_callback);
 
 __attribute__((visibility("default")))
-void Array_SortQuick(Array this, ArrayCompareCallback compare_callback);
+void Array_SortQuick(Array *this, ArrayCompareCallback compare_callback);
 
 __attribute__((visibility("default")))
-void Array_SortMerge(Array this, ArrayCompareCallback compare_callback);
+void Array_SortMerge(Array *this, ArrayCompareCallback compare_callback);
 
 __attribute__((visibility("default")))
-void *Array_PatternSearchNaive(const Array this, const void *pattern, size_t pattern_size);
+void *Array_PatternSearchNaive(const Array *this, const void *pattern, size_t pattern_size);
 
 __attribute__((visibility("default")))
-void *Array_PatternSearchRabinKarp(const Array this, const void *pattern,
+void *Array_PatternSearchRabinKarp(const Array *this, const void *pattern,
      size_t pattern_size, ArrayHashCallback hash_callback);
 
 __attribute__((visibility("default")))
-void *Array_PatternSearchKmp(const Array this, const void *pattern, size_t pattern_size);
+void *Array_PatternSearchKmp(const Array *this, const void *pattern, size_t pattern_size);
 
 #endif

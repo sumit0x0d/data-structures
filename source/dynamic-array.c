@@ -11,15 +11,15 @@ struct DynamicArray {
      double growth_factor;
 };
 
-DynamicArray DynamicArray_Create(size_t data_size, size_t capacity, double growth_factor)
+DynamicArray *DynamicArray_Create(size_t data_size, size_t capacity, double growth_factor)
 {
-     DynamicArray this;
+     DynamicArray *this;
 
      if (growth_factor > 1) {
           return NULL;
      }
      
-     this = (DynamicArray)malloc(sizeof (struct DynamicArray));
+     this = (DynamicArray *)malloc(sizeof (DynamicArray));
      if (!this) {
           return NULL;
      }
@@ -37,33 +37,33 @@ DynamicArray DynamicArray_Create(size_t data_size, size_t capacity, double growt
      return this;
 }
 
-void DynamicArray_Destroy(DynamicArray this)
+void DynamicArray_Destroy(DynamicArray *this)
 {
      free(this->base);
      free(this);
 }
 
-size_t DynamicArray_GetSize(DynamicArray this)
+size_t DynamicArray_GetSize(DynamicArray *this)
 {
      return this->size;
 }
 
-size_t DynamicArray_GetCapacity(DynamicArray this)
+size_t DynamicArray_GetCapacity(DynamicArray *this)
 {
      return this->capacity;
 }
 
-void *DynamicArray_GetData(DynamicArray this, size_t index)
+void *DynamicArray_GetData(DynamicArray *this, size_t index)
 {
 	return (char *)this->base + (this->data_size * index);
 }
 
-void *DynamicArray_GetBackData(DynamicArray this)
+void *DynamicArray_GetBackData(DynamicArray *this)
 {
      return (char *)this->base + (this->data_size * this->size);
 }
 
-void DynamicArray_PushBack(DynamicArray this, const void *data)
+void DynamicArray_PushBack(DynamicArray *this, const void *data)
 {
      void *base;
 
@@ -80,7 +80,7 @@ void DynamicArray_PushBack(DynamicArray this, const void *data)
      this->size++;
 }
 
-void DynamicArray_PopBack(DynamicArray this)
+void DynamicArray_PopBack(DynamicArray *this)
 {
      void *base;
      
@@ -96,7 +96,7 @@ void DynamicArray_PopBack(DynamicArray this)
      this->size--;
 }
 
-void DynamicArray_Traverse(DynamicArray this, DynamicArrayUnaryCallback unary_callback)
+void DynamicArray_Traverse(DynamicArray *this, DynamicArrayUnaryCallback unary_callback)
 {
      size_t i;
 

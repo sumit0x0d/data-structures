@@ -3,8 +3,8 @@
 
 #include "stddef.h"
 
-typedef struct AvlTree * AvlTree;
-typedef struct AvlTreeNode * AvlTreeNode;
+typedef struct AvlTree AvlTree;
+typedef struct AvlTreeNode AvlTreeNode;
 
 typedef enum {
      AVL_TREE_COMPARE_LESS = -1,
@@ -23,39 +23,39 @@ typedef struct {
 } AvlTreeUnaryCallback;
 
 __attribute__((visibility("default")))
-AvlTree AvlTree_Create(size_t data_size, AvlTreeCompareCallback compare_callback);
+AvlTree *AvlTree_Create(size_t data_size, AvlTreeCompareCallback compare_callback);
 
 __attribute__((visibility("default")))
-void AvlTree_Destroy(AvlTree this);
+void AvlTree_Destroy(AvlTree *this);
 
 __attribute__((visibility("default")))
-size_t AvlTree_GetSize(AvlTree this);
+size_t AvlTree_GetSize(AvlTree *this);
 
 __attribute__((visibility("default")))
-size_t AvlTree_GetDataSize(AvlTree this);
+size_t AvlTree_GetDataSize(AvlTree *this);
 
 __attribute__((visibility("default")))
 void *AvlTree_GetNodeData(AvlTreeNode node);
 
 __attribute__((visibility("default")))
-AvlTreeNode AvlTree_Search(AvlTree this, const void *data);
+AvlTreeNode *AvlTree_Search(AvlTree *this, const void *data);
 
 __attribute__((visibility("default")))
-void AvlTree_Insert(AvlTree this, const void *data);
+void AvlTree_Insert(AvlTree *this, const void *data);
 
 __attribute__((visibility("default")))
-void AvlTree_Remove(AvlTree this, const void *data);
+void AvlTree_Remove(AvlTree *this, const void *data);
 
 __attribute__((visibility("default")))
-void AvlTree_TraversePreorder(AvlTree this, AvlTreeUnaryCallback unary_callback);
+void AvlTree_TraversePreorder(AvlTree *this, AvlTreeUnaryCallback unary_callback);
 
 __attribute__((visibility("default")))
-void AvlTree_TraverseInorder(AvlTree this, AvlTreeUnaryCallback unary_callback);
+void AvlTree_TraverseInorder(AvlTree *this, AvlTreeUnaryCallback unary_callback);
 
 __attribute__((visibility("default")))
-void AvlTree_TraversePostorder(AvlTree this, AvlTreeUnaryCallback unary_callback);
+void AvlTree_TraversePostorder(AvlTree *this, AvlTreeUnaryCallback unary_callback);
 
 __attribute__((visibility("default")))
-void AvlTree_TraverseLevelorder(AvlTree this, AvlTreeUnaryCallback unary_callback);
+void AvlTree_TraverseLevelorder(AvlTree *this, AvlTreeUnaryCallback unary_callback);
 
 #endif

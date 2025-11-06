@@ -20,11 +20,11 @@ struct AvlTreeNode {
      AvlTreeNodeBalanceFactor balance_factor;
 };
 
-AvlTreeNode AvlTreeNode_Create(const void *data, size_t data_size);
-void AvlTreeNode_Destroy(AvlTreeNode this);
+AvlTreeNode *AvlTreeNode_Create(const void *data, size_t data_size);
+void AvlTreeNode_Destroy(AvlTreeNode *this);
 
-void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode this, size_t queue_capacity);
-AvlTreeNode AvlTreeNode_GetPredecessor(AvlTreeNode this);
-AvlTreeNode AvlTreeNode_GetSuccessor(AvlTreeNode this);
+void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode *this, size_t queue_capacity);
+AvlTreeNode *AvlTreeNode_GetPredecessor(AvlTreeNode *this);
+AvlTreeNode *AvlTreeNode_GetSuccessor(AvlTreeNode *this);
 
 #endif

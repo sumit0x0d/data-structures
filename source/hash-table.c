@@ -7,7 +7,7 @@
 #include "hash-table/pair.h"
 
 struct HashTable {
-     HashTablePair *pair;
+     HashTablePair **pair;
      size_t key_size;
      size_t value_size;
      size_t bucket_count;
@@ -15,17 +15,17 @@ struct HashTable {
      HashTableCompareCallback compare_callback;
 };
 
-HashTable HashTable_Create(size_t key_size, size_t value_size, size_t bucket_count,
+HashTable *HashTable_Create(size_t key_size, size_t value_size, size_t bucket_count,
      HashTableHashCallback hash_callback, HashTableCompareCallback compare_callback)
 {
-     HashTable this;
+     HashTable *this;
 
-     this = (HashTable)malloc(sizeof (struct HashTable));
+     this = (HashTable *)malloc(sizeof (HashTable));
      if (!this) {
           return NULL;
      }
 
-     this->pair = (HashTablePair *)calloc(bucket_count, sizeof (struct HashTablePair));
+     this->pair = (HashTablePair **)calloc(bucket_count, sizeof (HashTablePair));
      if (!this->pair) {
           free(this);
           return NULL;
@@ -40,7 +40,7 @@ HashTable HashTable_Create(size_t key_size, size_t value_size, size_t bucket_cou
      return this;
 }
 
-void HashTable_Destroy(HashTable this)
+void HashTable_Destroy(HashTable *this)
 {
      size_t i;
 
@@ -53,21 +53,21 @@ void HashTable_Destroy(HashTable this)
      free(this);
 }
 
-void *HashTable_GetKey(HashTablePair pair)
+void *HashTable_GetKey(HashTablePair *pair)
 {
      return pair->key;
 }
 
-void *HashTable_GetValue(HashTablePair pair)
+void *HashTable_GetValue(HashTablePair *pair)
 {
      return pair->value;
 }
 
-void HashTable_Insert(HashTable this, const void *key, const void *value)
+void HashTable_Insert(HashTable *this, const void *key, const void *value)
 {
      size_t index;
      HashTableCompare compare;
-     HashTablePair pair;
+     HashTablePair *pair;
 
      index = this->hash_callback.function(key, this->bucket_count, this->hash_callback.user_data);
 
@@ -91,11 +91,11 @@ void HashTable_Insert(HashTable this, const void *key, const void *value)
      pair->next = HashTablePair_Create(key, this->key_size, value, this->value_size);
 }
 
-void HashTable_Remove(HashTable this, const void *key)
+void HashTable_Remove(HashTable *this, const void *key)
 {
      size_t index;
-     HashTablePair pair;
-     HashTablePair previous;
+     HashTablePair *pair;
+     HashTablePair *previous;
      HashTableCompare compare;
 
      index = this->hash_callback.function(key, this->bucket_count, this->hash_callback.user_data);
@@ -124,10 +124,10 @@ void HashTable_Remove(HashTable this, const void *key)
      } while (compare && pair->next);
 }
 
-HashTablePair HashTable_Search(HashTable this, const void *key)
+HashTablePair *HashTable_Search(HashTable *this, const void *key)
 {
      size_t index;
-     HashTablePair pair;
+     HashTablePair *pair;
      HashTableCompare compare;
 
      index = this->hash_callback.function(key, this->bucket_count, this->hash_callback.user_data);

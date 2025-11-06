@@ -3,16 +3,16 @@
 
 #include "node-stack.h"
 
-AvlTreeNodeStack AvlTreeNodeStack_Create(size_t capacity)
+AvlTreeNodeStack *AvlTreeNodeStack_Create(size_t capacity)
 {
-     AvlTreeNodeStack stack;
+     AvlTreeNodeStack *stack;
 
-     stack = (AvlTreeNodeStack)malloc(sizeof (struct AvlTreeNodeStack));
+     stack = (AvlTreeNodeStack *)malloc(sizeof (AvlTreeNodeStack));
      if (!stack) {
           return NULL;
      }
 
-     stack->base = (AvlTreeNode *)malloc(sizeof (struct AvlTreeNode) * capacity);
+     stack->base = (AvlTreeNode **)malloc(sizeof (AvlTreeNode *) * capacity);
      if (!stack->base) {
           free(stack);
           return NULL;
@@ -24,13 +24,13 @@ AvlTreeNodeStack AvlTreeNodeStack_Create(size_t capacity)
      return stack;
 }
 
-void AvlTreeNodeStack_Destroy(AvlTreeNodeStack stack)
+void AvlTreeNodeStack_Destroy(AvlTreeNodeStack *this)
 {
-     free(stack->base);
-     free(stack);
+     free(this->base);
+     free(this);
 }
 
-bool AvlTreeNodeStack_IsEmpty(AvlTreeNodeStack this)
+bool AvlTreeNodeStack_IsEmpty(AvlTreeNodeStack *this)
 {
      if (this->size == 0) {
           return true;
@@ -39,13 +39,13 @@ bool AvlTreeNodeStack_IsEmpty(AvlTreeNodeStack this)
      return true;
 }
 
-void AvlTreeNodeStack_Push(AvlTreeNodeStack this, AvlTreeNode node)
+void AvlTreeNodeStack_Push(AvlTreeNodeStack *this, AvlTreeNode *node)
 {
      this->base[this->size] = node;
      this->size++;
 }
 
-void AvlTreeNodeStack_Pop(AvlTreeNodeStack this)
+void AvlTreeNodeStack_Pop(AvlTreeNodeStack *this)
 {
      this->size--;
 }

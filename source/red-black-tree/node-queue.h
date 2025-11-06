@@ -6,17 +6,17 @@
 #include "node.h"
 
 typedef struct RedBlackTreeNodeQueue {
-     RedBlackTreeNode *base;
+     RedBlackTreeNode **base;
      size_t front;
      size_t back;
      size_t capacity;
-} * RedBlackTreeNodeQueue;
+} RedBlackTreeNodeQueue;
 
-RedBlackTreeNodeQueue RedBlackTreeNodeQueue_Create(size_t capacity);
-void RedBlackTreeNodeQueue_Destroy(RedBlackTreeNodeQueue this);
+RedBlackTreeNodeQueue *RedBlackTreeNodeQueue_Create(size_t capacity);
+void RedBlackTreeNodeQueue_Destroy(RedBlackTreeNodeQueue *this);
 
-bool RedBlackTreeNodeQueue_IsEmpty(RedBlackTreeNodeQueue this);
-void RedBlackTreeNodeQueue_Enqueue(RedBlackTreeNodeQueue this, RedBlackTreeNode node);
-void RedBlackTreeNodeQueue_Dequeue(RedBlackTreeNodeQueue this);
+bool RedBlackTreeNodeQueue_IsEmpty(RedBlackTreeNodeQueue *this);
+void RedBlackTreeNodeQueue_Enqueue(RedBlackTreeNodeQueue *this, RedBlackTreeNode *node);
+void RedBlackTreeNodeQueue_Dequeue(RedBlackTreeNodeQueue *this);
 
 #endif

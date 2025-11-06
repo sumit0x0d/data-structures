@@ -4,13 +4,13 @@
 #include "node.h"
 #include "node-queue.h"
 
-static size_t _GetHeight(AvlTreeNode this, AvlTreeNodeQueue queue);
+static size_t _GetHeight(AvlTreeNode *this, AvlTreeNodeQueue *queue);
 
-AvlTreeNode AvlTreeNode_Create(const void *data, size_t data_size)
+AvlTreeNode *AvlTreeNode_Create(const void *data, size_t data_size)
 {
-     AvlTreeNode this;
+     AvlTreeNode *this;
 
-     this = (AvlTreeNode)malloc(sizeof (struct AvlTreeNode));
+     this = (AvlTreeNode *)malloc(sizeof (AvlTreeNode));
      if (!this) {
           return NULL;
      }
@@ -29,15 +29,15 @@ AvlTreeNode AvlTreeNode_Create(const void *data, size_t data_size)
      return this;
 }
 
-void AvlTreeNode_Destroy(AvlTreeNode this)
+void AvlTreeNode_Destroy(AvlTreeNode *this)
 {
      free(this->data);
      free(this);
 }
 
-void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode this, size_t queue_capacity)
+void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode *this, size_t queue_capacity)
 {
-     AvlTreeNodeQueue queue;
+     AvlTreeNodeQueue *queue;
 
      queue = AvlTreeNodeQueue_Create(queue_capacity);
 
@@ -57,10 +57,10 @@ void AvlTreeNode_UpdateBalanceFactor(AvlTreeNode this, size_t queue_capacity)
      AvlTreeNodeQueue_Destroy(queue);
 }
 
-AvlTreeNode AvlTreeNode_GetPredecessor(AvlTreeNode this)
+AvlTreeNode *AvlTreeNode_GetPredecessor(AvlTreeNode *this)
 {
-     AvlTreeNode left;
-     AvlTreeNode previous;
+     AvlTreeNode *left;
+     AvlTreeNode *previous;
 
      left = this->left;
      previous = this;
@@ -85,10 +85,10 @@ AvlTreeNode AvlTreeNode_GetPredecessor(AvlTreeNode this)
      return previous;
 }
 
-AvlTreeNode AvlTreeNode_GetSuccessor(AvlTreeNode this)
+AvlTreeNode *AvlTreeNode_GetSuccessor(AvlTreeNode *this)
 {
-     AvlTreeNode right;
-     AvlTreeNode previous;
+     AvlTreeNode *right;
+     AvlTreeNode *previous;
 
      right = this->right;
      previous = this;
@@ -113,7 +113,7 @@ AvlTreeNode AvlTreeNode_GetSuccessor(AvlTreeNode this)
      return previous;
 }
 
-static size_t _GetHeight(AvlTreeNode this, AvlTreeNodeQueue queue)
+static size_t _GetHeight(AvlTreeNode *this, AvlTreeNodeQueue *queue)
 {
      size_t height;
 

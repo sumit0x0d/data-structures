@@ -5,9 +5,9 @@
 
 struct RopeNode {
      void *data;
-     RopeNode parent;
-     RopeNode left;
-     RopeNode right;    
+     RopeNode *parent;
+     RopeNode *left;
+     RopeNode *right;    
 };
 
 struct Rope {
@@ -15,11 +15,11 @@ struct Rope {
      size_t size;
 };
 
-Rope Rope_Create(size_t size)
+Rope *Rope_Create(size_t size)
 {
-     Rope this;
+     Rope *this;
 
-     this = (Rope)malloc(sizeof(struct Rope));
+     this = (Rope *)malloc(sizeof(Rope));
      if (!this) {
           return NULL;
      }
@@ -30,7 +30,7 @@ Rope Rope_Create(size_t size)
      return this;
 }
 
-void Rope_Destroy(Rope this)
+void Rope_Destroy(Rope *this)
 {
      free(this);
 }

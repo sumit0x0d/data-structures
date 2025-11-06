@@ -9,7 +9,7 @@ struct DoublyLinkedListNode {
      DoublyLinkedListNode next;
 };
 
-DoublyLinkedListNode DoublyLinkedListNode_Create(const void *data, size_t data_size);
-void DoublyLinkedListNode_Destroy(DoublyLinkedListNode this);
+DoublyLinkedListNode *DoublyLinkedListNode_Create(const void *data, size_t data_size);
+void DoublyLinkedListNode_Destroy(DoublyLinkedListNode *this);
 
 #endif

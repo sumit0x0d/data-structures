@@ -8,23 +8,23 @@
 #include "avl-tree/node-queue.h"
 
 struct AvlTree {
-     AvlTreeNode root;
+     AvlTreeNode *root;
      size_t data_size;
      size_t size;
      AvlTreeCompareCallback compare_callback;
 };
 
-static void _Rebalance(AvlTree this, AvlTreeNode node);
-static void _RotateRight(AvlTree this, AvlTreeNode node);
-static void _RotateLeftRight(AvlTree this, AvlTreeNode node);
-static void _RotateLeft(AvlTree this, AvlTreeNode node);
-static void _RotateRightLeft(AvlTree this, AvlTreeNode node);
+static void _Rebalance(AvlTree *this, AvlTreeNode *node);
+static void _RotateRight(AvlTree *this, AvlTreeNode *node);
+static void _RotateLeftRight(AvlTree *this, AvlTreeNode *node);
+static void _RotateLeft(AvlTree *this, AvlTreeNode *node);
+static void _RotateRightLeft(AvlTree *this, AvlTreeNode *node);
 
-AvlTree AvlTree_Create(size_t data_size, AvlTreeCompareCallback compare_callback)
+AvlTree *AvlTree_Create(size_t data_size, AvlTreeCompareCallback compare_callback)
 {
-     AvlTree this;
+     AvlTree *this;
 
-     this = (AvlTree)malloc(sizeof (struct AvlTree));
+     this = (AvlTree *)malloc(sizeof (AvlTree));
      if (!this) {
           return NULL;
      }
@@ -37,10 +37,10 @@ AvlTree AvlTree_Create(size_t data_size, AvlTreeCompareCallback compare_callback
      return this;
 }
 
-void AvlTree_Destroy(AvlTree this)
+void AvlTree_Destroy(AvlTree *this)
 {
-     AvlTreeNode node ;
-     AvlTreeNodeQueue queue;
+     AvlTreeNode *node ;
+     AvlTreeNodeQueue *queue;
 
      node = this->root;
      queue = AvlTreeNodeQueue_Create(this->size);
@@ -65,24 +65,24 @@ void AvlTree_Destroy(AvlTree this)
      free(this);
 }
 
-size_t AvlTree_GetSize(AvlTree this)
+size_t AvlTree_GetSize(AvlTree *this)
 {
      return this->size;
 }
 
-size_t AvlTree_GetDataSize(AvlTree this)
+size_t AvlTree_GetDataSize(AvlTree *this)
 {
      return this->data_size;
 }
 
-void *AvlTree_GetNodeData(AvlTreeNode node)
+void *AvlTree_GetNodeData(AvlTreeNode *node)
 {
      return node->data;
 }
 
-AvlTreeNode AvlTree_Search(AvlTree this, const void *data)
+AvlTreeNode *AvlTree_Search(AvlTree *this, const void *data)
 {
-     AvlTreeNode current;
+     AvlTreeNode *current;
      AvlTreeCompare compare;
 
      current = this->root;
@@ -103,10 +103,10 @@ AvlTreeNode AvlTree_Search(AvlTree this, const void *data)
      return NULL;
 }
 
-void AvlTree_Insert(AvlTree this, const void *data)
+void AvlTree_Insert(AvlTree *this, const void *data)
 {
-     AvlTreeNode current;
-     AvlTreeNode parent;
+     AvlTreeNode *current;
+     AvlTreeNode *parent;
      AvlTreeCompare compare;
 
      if (!this->root) {
@@ -145,10 +145,10 @@ void AvlTree_Insert(AvlTree this, const void *data)
      this->size++;
 }
 
-void AvlTree_Remove(AvlTree this, const void *data)
+void AvlTree_Remove(AvlTree *this, const void *data)
 {
-     AvlTreeNode current;
-     AvlTreeNode parent;
+     AvlTreeNode *current;
+     AvlTreeNode *parent;
      AvlTreeCompare compare;
 
      parent = this->root->parent;
@@ -207,30 +207,30 @@ void AvlTree_Remove(AvlTree this, const void *data)
      this->size--;
 }
 
-// void AvlTree_TraversePreorder(AvlTree this, AVL_TREE_CallbackUnary unary_callback.function,
+// void AvlTree_TraversePreorder(AvlTree *this, AVL_TREE_CallbackUnary unary_callback.function,
 //     void *unary_callback.user_data)
 // {
 // }
 
-// void AvlTree_TraverseInorder(AvlTree this, AVL_TREE_CallbackUnary unary_callback.function,
+// void AvlTree_TraverseInorder(AvlTree *this, AVL_TREE_CallbackUnary unary_callback.function,
 //     void *unary_callback.user_data)
 // {
 // }
 
-// void AvlTree_TraversePostorder(AvlTree this, AVL_TREE_CallbackUnary unary_callback.function,
+// void AvlTree_TraversePostorder(AvlTree *this, AVL_TREE_CallbackUnary unary_callback.function,
 //     void *unary_callback.user_data)
 // {
 // }
 
-// void AvlTree_TraverseLevelorder(AvlTree this, AVL_TREE_CallbackUnary unary_callback.function,
+// void AvlTree_TraverseLevelorder(AvlTree *this, AVL_TREE_CallbackUnary unary_callback.function,
 //     void *unary_callback.user_data)
 // {
 // }
 
 
-static void _RotateRight(AvlTree this, AvlTreeNode node)
+static void _RotateRight(AvlTree *this, AvlTreeNode *node)
 {
-     AvlTreeNode left;
+     AvlTreeNode *left;
 
      left = node->left;
 
@@ -254,10 +254,10 @@ static void _RotateRight(AvlTree this, AvlTreeNode node)
      left->right = node;
 }
 
-static void _RotateLeftRight(AvlTree this, AvlTreeNode node)
+static void _RotateLeftRight(AvlTree *this, AvlTreeNode *node)
 {
-     AvlTreeNode left;
-     AvlTreeNode left_right;
+     AvlTreeNode *left;
+     AvlTreeNode *left_right;
 
      left = node->left;
      left_right = node->left->right;
@@ -290,9 +290,9 @@ static void _RotateLeftRight(AvlTree this, AvlTreeNode node)
      left_right->right = node;
 }
 
-static void _RotateLeft(AvlTree this, AvlTreeNode node)
+static void _RotateLeft(AvlTree *this, AvlTreeNode *node)
 {
-     AvlTreeNode right;
+     AvlTreeNode *right;
 
      right = node->right;
 
@@ -316,10 +316,10 @@ static void _RotateLeft(AvlTree this, AvlTreeNode node)
      right->left = node;
 }
 
-static void _RotateRightLeft(AvlTree this, AvlTreeNode node)
+static void _RotateRightLeft(AvlTree *this, AvlTreeNode *node)
 {
-     AvlTreeNode right;
-     AvlTreeNode right_left;
+     AvlTreeNode *right;
+     AvlTreeNode *right_left;
 
      right = node->right;
      right_left = node->right->left;
@@ -352,7 +352,7 @@ static void _RotateRightLeft(AvlTree this, AvlTreeNode node)
      right_left->left = node;
 }
 
-static void _Rebalance(AvlTree this, AvlTreeNode node)
+static void _Rebalance(AvlTree *this, AvlTreeNode *node)
 {
      size_t queue_capacity = (this->size + 2) / 2;
 

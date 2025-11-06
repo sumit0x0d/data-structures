@@ -3,8 +3,8 @@
 
 #include <stddef.h>
 
-typedef struct BinaryHeap * BinaryHeap;
-typedef struct BinaryHeapNode * BinaryHeapNode;
+typedef struct BinaryHeap BinaryHeap;
+typedef struct BinaryHeapNode BinaryHeapNode;
 
 typedef enum {
      BINARY_HEAP_COMPARE_LESS = -1,
@@ -23,12 +23,12 @@ typedef struct {
 } BinaryHeapUnaryCallback;
 
 __attribute__((visibility("default")))
-BinaryHeap BinaryHeap_Create(size_t data_size, BinaryHeapCompareCallback compare_callback);
+BinaryHeap *BinaryHeap_Create(size_t data_size, BinaryHeapCompareCallback compare_callback);
 
 __attribute__((visibility("default")))
-void BinaryHeap_Destroy(BinaryHeap this);
+void BinaryHeap_Destroy(BinaryHeap *this);
 
 __attribute__((visibility("default")))
-void BinaryHeap_Traverse(BinaryHeap this, BinaryHeapUnaryCallback unary_callback);
+void BinaryHeap_Traverse(BinaryHeap *this, BinaryHeapUnaryCallback unary_callback);
 
 #endif

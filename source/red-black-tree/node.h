@@ -10,14 +10,14 @@ typedef enum RedBlackTreeNodeColor {
 
 struct RedBlackTreeNode {
      void *data;
-     RedBlackTreeNode parent;
-     RedBlackTreeNode left;
-     RedBlackTreeNode right;
+     RedBlackTreeNode *parent;
+     RedBlackTreeNode *left;
+     RedBlackTreeNode *right;
      RedBlackTreeNodeColor color;
 };
 
-RedBlackTreeNode RedBlackTreeNode_Create(const void *data, size_t data_size);
+RedBlackTreeNode *RedBlackTreeNode_Create(const void *data, size_t data_size);
 
-void RedBlackTreeNode_Destroy(RedBlackTreeNode this);
+void RedBlackTreeNode_Destroy(RedBlackTreeNode *this);
 
 #endif

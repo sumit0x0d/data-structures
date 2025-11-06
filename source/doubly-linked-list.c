@@ -7,17 +7,17 @@
 #include "doubly-linked-list/node.h"
 
 struct DoublyLinkedList {
-     DoublyLinkedListNode head;
-     DoublyLinkedListNode tail;
+     DoublyLinkedListNode *head;
+     DoublyLinkedListNode *tail;
      size_t data_size;
      size_t size;
 };
 
-DoublyLinkedList DoublyLinkedList_Create(size_t data_size)
+DoublyLinkedList *DoublyLinkedList_Create(size_t data_size)
 {
-     DoublyLinkedList this;
+     DoublyLinkedList *this;
 
-     this = (DoublyLinkedList)malloc(sizeof (struct DoublyLinkedList));
+     this = (DoublyLinkedList *)malloc(sizeof (DoublyLinkedList));
      if (!this) {
           return NULL;
      }
@@ -30,13 +30,13 @@ DoublyLinkedList DoublyLinkedList_Create(size_t data_size)
      return this;
 }
 
-void DoublyLinkedList_Destroy(DoublyLinkedList this)
+void DoublyLinkedList_Destroy(DoublyLinkedList *this)
 {
-     DoublyLinkedListNode node;
+     DoublyLinkedListNode *node;
      
      node = this->head;
      while (node) {
-          DoublyLinkedListNode next = node->next;
+          DoublyLinkedListNode **next = node->next;
           DoublyLinkedListNode_Destroy(node);
           node = next;
      }
@@ -44,39 +44,39 @@ void DoublyLinkedList_Destroy(DoublyLinkedList this)
      free(this);
 }
 
-size_t DoublyLinkedList_GetSize(DoublyLinkedList this)
+size_t DoublyLinkedList_GetSize(DoublyLinkedList *this)
 {
      return this->size;
 }
 
-size_t DoublyLinkedList_GetDataSize(DoublyLinkedList this)
+size_t DoublyLinkedList_GetDataSize(DoublyLinkedList *this)
 {
      return this->data_size;
 }
 
-DoublyLinkedListNode DoublyLinkedList_GetHead(DoublyLinkedList this)
+DoublyLinkedListNode *DoublyLinkedList_GetHead(DoublyLinkedList *this)
 {
      return this->head;
 }
 
-DoublyLinkedListNode DoublyLinkedList_GetTail(DoublyLinkedList this)
+DoublyLinkedListNode *DoublyLinkedList_GetTail(DoublyLinkedList *this)
 {
      return this->tail;
 }
 
-void *DoublyLinkedList_GetNodeData(DoublyLinkedListNode node)
+void *DoublyLinkedList_GetNodeData(DoublyLinkedListNode *node)
 {
      return node->data;
 }
 
-void DoublyLinkedList_SetNodeData(DoublyLinkedList this, DoublyLinkedListNode node, const void *data)
+void DoublyLinkedList_SetNodeData(DoublyLinkedList *this, DoublyLinkedListNode *node, const void *data)
 {
      memcpy(node->data, data, this->data_size);
 }
 
-void DoublyLinkedList_PushHead(DoublyLinkedList this, const void *data)
+void DoublyLinkedList_PushHead(DoublyLinkedList *this, const void *data)
 {
-     DoublyLinkedListNode node;
+     DoublyLinkedListNode *node;
      
      node = DoublyLinkedListNode_Create(data, this->data_size);
      node->previous = NULL;
@@ -93,9 +93,9 @@ void DoublyLinkedList_PushHead(DoublyLinkedList this, const void *data)
      this->size++;
 }
 
-void DoublyLinkedList_PushTail(DoublyLinkedList this, const void *data)
+void DoublyLinkedList_PushTail(DoublyLinkedList *this, const void *data)
 {
-     DoublyLinkedListNode node;
+     DoublyLinkedListNode *node;
      
      node = DoublyLinkedListNode_Create(data, this->data_size);
      node->next = NULL;
@@ -112,9 +112,9 @@ void DoublyLinkedList_PushTail(DoublyLinkedList this, const void *data)
      this->size++;
 }
 
-void DoublyLinkedList_PopHead(DoublyLinkedList this)
+void DoublyLinkedList_PopHead(DoublyLinkedList *this)
 {
-     DoublyLinkedListNode node;
+     DoublyLinkedListNode *node;
 
      node = this->head;
      
@@ -127,9 +127,9 @@ void DoublyLinkedList_PopHead(DoublyLinkedList this)
      this->size--;
 }
 
-void DoublyLinkedList_PopTail(DoublyLinkedList this)
+void DoublyLinkedList_PopTail(DoublyLinkedList *this)
 {
-     DoublyLinkedListNode node;
+     DoublyLinkedListNode *node;
 
      node = this->tail;
 
@@ -142,9 +142,9 @@ void DoublyLinkedList_PopTail(DoublyLinkedList this)
      this->size--;
 }
 
-void DoublyLinkedList_Remove(DoublyLinkedList this, DoublyLinkedListNode node)
+void DoublyLinkedList_Remove(DoublyLinkedList *this, DoublyLinkedListNode *node)
 {
-     if (node->previous && node->previous->next == (DoublyLinkedListNode)node) {
+     if (node->previous && node->previous->next == (DoublyLinkedListNode *)node) {
           node->previous->next = node->next;
      } else {
           this->head = this->head->next;
@@ -160,9 +160,9 @@ void DoublyLinkedList_Remove(DoublyLinkedList this, DoublyLinkedListNode node)
      this->size--;
 }
 
-void DoublyLinkedList_Traverse(DoublyLinkedList this, DoublyLinkedListUnaryCallback unary_callback)
+void DoublyLinkedList_Traverse(DoublyLinkedList *this, DoublyLinkedListUnaryCallback unary_callback)
 {
-     DoublyLinkedListNode node;
+     DoublyLinkedListNode *node;
 
      node = this->head;
      while (node) {
