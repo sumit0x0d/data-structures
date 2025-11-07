@@ -25,7 +25,7 @@ HashTable *HashTable_Create(size_t key_size, size_t value_size, size_t bucket_co
           return NULL;
      }
 
-     this->pair = (HashTablePair **)calloc(bucket_count, sizeof (HashTablePair));
+     this->pair = (HashTablePair **)calloc(bucket_count, sizeof (HashTablePair *));
      if (!this->pair) {
           free(this);
           return NULL;
