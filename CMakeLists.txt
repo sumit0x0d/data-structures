@@ -12,41 +12,39 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 # add_compile_options(-Wall -Wextra -g -Werror)
 # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pg")
 
-# Collect sources into named variables
 file(GLOB ARRAY_SOURCE
-     "${CMAKE_SOURCE_DIR}/source/array.c")
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/array.c")
 file(GLOB AVL_TREE_SOURCE
-     "${CMAKE_SOURCE_DIR}/source/avl-tree.c"
-     "${CMAKE_SOURCE_DIR}/source/avl-tree/*.c")
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/avl-tree.c"
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/avl-tree/*.c")
 file(GLOB BINARY_HEAP_SOURCE
-     "${CMAKE_SOURCE_DIR}/source/binary-heap.c")
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/binary-heap.c")
 file(GLOB BLOOM_FILTER_SOURCE
-     "${CMAKE_SOURCE_DIR}/source/bloom-filter.c")
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/bloom-filter.c")
 file(GLOB CIRCULAR_BUF_SOURCE
-     "${CMAKE_SOURCE_DIR}/source/circular-buffer.c")
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/circular-buffer.c")
 file(GLOB DOUBLY_LL_SOURCE
-     "${CMAKE_SOURCE_DIR}/source/doubly-linked-list.c" 
-     "${CMAKE_SOURCE_DIR}/source/doubly-linked-list/*.c")
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/doubly-linked-list.c" 
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/doubly-linked-list/*.c")
 file(GLOB DYNAMIC_ARRAY_SOURCE
-     "${CMAKE_SOURCE_DIR}/source/dynamic-array.c")
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/dynamic-array.c")
 file(GLOB HASH_TABLE_SOURCE
-     "${CMAKE_SOURCE_DIR}/source/hash-table.c"
-     "${CMAKE_SOURCE_DIR}/source/hash-table/*.c")
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/hash-table.c"
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/hash-table/*.c")
 file(GLOB SINGLY_LL_SOURCE
-     "${CMAKE_SOURCE_DIR}/source/singly-linked-list.c"
-     "${CMAKE_SOURCE_DIR}/source/singly-linked-list/*.c")
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/singly-linked-list.c"
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/singly-linked-list/*.c")
 file(GLOB MATRIX_SOURCE
-     "${CMAKE_SOURCE_DIR}/source/matrix.c")
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/matrix.c")
 file(GLOB RED_BLACK_SOURCE
-     "${CMAKE_SOURCE_DIR}/source/red-black-tree.c"
-     "${CMAKE_SOURCE_DIR}/source/red-black-tree/*.c")
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/red-black-tree.c"
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/red-black-tree/*.c")
 file(GLOB STACK_SOURCE
-     "${CMAKE_SOURCE_DIR}/source/stack.c")
-# file(GLOB TRIE_SOURCE
-#    "${CMAKE_SOURCE_DIR}/source/trie.c")
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/stack.c")
 file(GLOB XOR_LL_SOURCE
-     "${CMAKE_SOURCE_DIR}/source/xor-linked-list.c"
-     "${CMAKE_SOURCE_DIR}/source/xor-linked-list/*.c")
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/xor-linked-list.c"
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/xor-linked-list/*.c")
+
 
 add_library(array SHARED ${ARRAY_SOURCE})
 add_library(avl-tree SHARED ${AVL_TREE_SOURCE})

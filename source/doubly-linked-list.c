@@ -33,14 +33,14 @@ DoublyLinkedList *DoublyLinkedList_Create(size_t data_size)
 void DoublyLinkedList_Destroy(DoublyLinkedList *this)
 {
      DoublyLinkedListNode *node;
-     
+
      node = this->head;
      while (node) {
-          DoublyLinkedListNode **next = node->next;
+          DoublyLinkedListNode *next = node->next;
           DoublyLinkedListNode_Destroy(node);
           node = next;
      }
-     
+
      free(this);
 }
 
@@ -142,7 +142,7 @@ void DoublyLinkedList_PopTail(DoublyLinkedList *this)
      this->size--;
 }
 
-void DoublyLinkedList_Remove(DoublyLinkedList *this, DoublyLinkedListNode *node)
+void DoublyLinkedList_RemoveNode(DoublyLinkedList *this, DoublyLinkedListNode *node)
 {
      if (node->previous && node->previous->next == (DoublyLinkedListNode *)node) {
           node->previous->next = node->next;

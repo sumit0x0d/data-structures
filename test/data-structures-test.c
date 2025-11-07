@@ -13,7 +13,7 @@ static void _UnaryPrint(void *data, void *user_data);
 
 int main(void)
 {
-     Array array;
+     Array *array;
      
      srand((int)time(NULL));
 

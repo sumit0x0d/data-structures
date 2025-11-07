@@ -6,7 +6,7 @@
 struct HashTablePair {
      void *key;
      void *value;
-     HashTablePair next;
+     HashTablePair *next;
 };
 
 HashTablePair *HashTablePair_Create(const void *key, size_t key_size, const void *value, size_t value_size);

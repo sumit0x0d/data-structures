@@ -2,12 +2,12 @@
 
 struct BinaryHeapNode {
      void *data;
-     BinaryHeapNode next;
+     BinaryHeapNode *next;
 };
 
 struct BinaryHeap {
-     BinaryHeapNode head;
-     BinaryHeapNode tail;
+     BinaryHeapNode *head;
+     BinaryHeapNode *tail;
      size_t data_size;
      size_t size;
      BinaryHeapCompareCallback compare_callback;

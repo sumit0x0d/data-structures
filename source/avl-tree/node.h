@@ -13,9 +13,9 @@ typedef enum {
 
 struct AvlTreeNode {
      void *data;
-     AvlTreeNode parent;
-     AvlTreeNode left;
-     AvlTreeNode right;
+     AvlTreeNode *parent;
+     AvlTreeNode *left;
+     AvlTreeNode *right;
      size_t height;
      AvlTreeNodeBalanceFactor balance_factor;
 };

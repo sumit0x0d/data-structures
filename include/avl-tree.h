@@ -35,7 +35,7 @@ __attribute__((visibility("default")))
 size_t AvlTree_GetDataSize(AvlTree *this);
 
 __attribute__((visibility("default")))
-void *AvlTree_GetNodeData(AvlTreeNode node);
+void *AvlTree_GetNodeData(AvlTreeNode *node);
 
 __attribute__((visibility("default")))
 AvlTreeNode *AvlTree_Search(AvlTree *this, const void *data);

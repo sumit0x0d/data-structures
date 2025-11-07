@@ -41,7 +41,7 @@ bool RedBlackTreeNodeQueue_IsEmpty(RedBlackTreeNodeQueue *this)
      return false;
 }
 
-void RedBlackTreeNodeQueue_Enqueue(RedBlackTreeNodeQueue *this, RedBlackTreeNode node)
+void RedBlackTreeNodeQueue_Enqueue(RedBlackTreeNodeQueue *this, RedBlackTreeNode *node)
 {
      this->base[this->back] = node;
      this->back = (this->back + 1) % this->capacity;
