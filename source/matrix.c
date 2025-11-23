@@ -20,7 +20,7 @@ Matrix *Matrix_Create(size_t data_size, size_t row_count, size_t column_count)
      if (!this) {
           return NULL;
      };
-     
+
      this->capacity = row_count * column_count;
 
      this->base = malloc(data_size * this->capacity);
@@ -32,7 +32,7 @@ Matrix *Matrix_Create(size_t data_size, size_t row_count, size_t column_count)
      this->data_size = data_size;
      this->row_count = row_count;
      this->column_count = column_count;
-     
+
      return this;
 };
 
@@ -92,15 +92,16 @@ Matrix *Matrix_Multiplication(Matrix *matrix1, Matrix *matrix2, MatrixBinaryCall
      if (matrix1->column_count != matrix2->row_count) {
           return NULL;
      }
-     
+
      this = Matrix_Create(matrix1->data_size, matrix1->row_count, matrix2->column_count);
-     
+
      for (i = 0; i < this->row_count; i++) {
           for (j = 0; j < this->column_count; j++) {
                for (k = 0; k < matrix1->column_count; k++) {
-                    binary_callback.function(Matrix_GetData(this, i, j), Matrix_GetData(matrix1, i, k),
-                         Matrix_GetData(this, k, j), binary_callback.user_data);
-                    ;
+                    binary_callback.function(Matrix_GetData(this, i, j),
+                         Matrix_GetData(matrix1, i, k),
+                         Matrix_GetData(this, k, j),
+                         binary_callback.user_data);
                }
           }
      }
@@ -118,16 +119,18 @@ Matrix *Matrix_Operation(Matrix *matrix1, Matrix *matrix2, MatrixBinaryCallback 
          matrix1->column_count == matrix2->column_count) {
           return NULL;   
      }
-     
+
      this = Matrix_Create(matrix1->data_size, matrix1->row_count, matrix1->column_count);
      if (!this) {
           return NULL;
      }
-     
+
      for (i = 0; i < matrix1->row_count; i++) {
           for (j = 0; j < matrix2->column_count; j++) {
-               binary_callback.function(Matrix_GetData(this, i, j), Matrix_GetData(matrix1, i, j),
-                    Matrix_GetData(this, i, j), binary_callback.user_data);
+               binary_callback.function(Matrix_GetData(this, i, j),
+                    Matrix_GetData(matrix1, i, j),
+                    Matrix_GetData(this, i, j),
+                    binary_callback.user_data);
                ;
           }
      }
@@ -145,7 +148,7 @@ Matrix *Matrix_ColumnVectorization(Matrix *this)
      if (!vectorize) {
           return NULL;
      }
-     
+
      for (i = 0; i < this->row_count; i++) {
           for (j = 0; j < this->column_count; j++) {
                Matrix_SetData(vectorize, (i * this->column_count) + j, 0, Matrix_GetData(this, i, j));

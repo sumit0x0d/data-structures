@@ -12,16 +12,16 @@ __attribute__((visibility("default")))
 void CircularBuffer_Destroy(CircularBuffer *this);
 
 __attribute__((visibility("default")))
-bool CircularBuffer_IsEmpty(CircularBuffer *this);
+bool CircularBuffer_IsEmpty(const CircularBuffer *this);
 
 __attribute__((visibility("default")))
-bool CircularBuffer_IsFull(CircularBuffer *this);
+bool CircularBuffer_IsFull(const CircularBuffer *this);
 
 __attribute__((visibility("default")))
-void *CircularBuffer_GetFrontData(CircularBuffer *this);
+void *CircularBuffer_GetFrontData(const CircularBuffer *this);
 
 __attribute__((visibility("default")))
-void *CircularBuffer_GetBackData(CircularBuffer *this);
+void *CircularBuffer_GetBackData(const CircularBuffer *this);
 
 __attribute__((visibility("default")))
 void CircularBuffer_PushBack(CircularBuffer *this, const void *data);

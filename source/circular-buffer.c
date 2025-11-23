@@ -41,7 +41,7 @@ void CircularBuffer_Destroy(CircularBuffer *this)
      free(this);
 }
 
-bool CircularBuffer_IsEmpty(CircularBuffer *this)
+bool CircularBuffer_IsEmpty(const CircularBuffer *this)
 {
      if (this->front == this->back) {
           return true;
@@ -50,7 +50,7 @@ bool CircularBuffer_IsEmpty(CircularBuffer *this)
      return false;
 }
 
-bool CircularBuffer_IsFull(CircularBuffer *this)
+bool CircularBuffer_IsFull(const CircularBuffer *this)
 {
      if (this->front == (this->back + 1) % this->capacity) {
           return true;
@@ -59,12 +59,12 @@ bool CircularBuffer_IsFull(CircularBuffer *this)
      return false;
 }
 
-void *CircularBuffer_GetFrontData(CircularBuffer *this)
+void *CircularBuffer_GetFrontData(const CircularBuffer *this)
 {
      return (char *)this->base + (this->data_size * this->front);
 }
 
-void *CircularBuffer_GetBackData(CircularBuffer *this)
+void *CircularBuffer_GetBackData(const CircularBuffer *this)
 {
      size_t index;
 

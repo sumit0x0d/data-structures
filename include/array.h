@@ -89,8 +89,10 @@ __attribute__((visibility("default")))
 void *Array_PatternSearchNaive(const Array *this, const void *pattern, size_t pattern_size);
 
 __attribute__((visibility("default")))
-void *Array_PatternSearchRabinKarp(const Array *this, const void *pattern,
-     size_t pattern_size, ArrayHashCallback hash_callback);
+void *Array_PatternSearchRabinKarp(const Array *this,
+     const void *pattern,
+     size_t pattern_size,
+     ArrayHashCallback hash_callback);
 
 __attribute__((visibility("default")))
 void *Array_PatternSearchKmp(const Array *this, const void *pattern, size_t pattern_size);

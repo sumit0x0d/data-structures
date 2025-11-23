@@ -4,7 +4,7 @@
 #include <red-black-tree.h>
 
 typedef enum RedBlackTreeNodeColor {
-     RED_BLACK_TREE_NODE_COLOR_RED   = 1,
+     RED_BLACK_TREE_NODE_COLOR_RED = 1,
      RED_BLACK_TREE_NODE_COLOR_BLACK = 2
 } RedBlackTreeNodeColor;
 

@@ -217,8 +217,10 @@ void Array_SortMerge(Array *this, ArrayCompareCallback compare_callback)
      }
 }
 
-void *Array_PatternSearchRabinKarp(const Array *this, const void *pattern,
-     size_t pattern_size, ArrayHashCallback hash_callback)
+void *Array_PatternSearchRabinKarp(const Array *this,
+     const void *pattern,
+     size_t pattern_size,
+     ArrayHashCallback hash_callback)
 {
      (void)this;
      (void)pattern;

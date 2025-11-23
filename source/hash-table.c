@@ -15,8 +15,11 @@ struct HashTable {
      HashTableCompareCallback compare_callback;
 };
 
-HashTable *HashTable_Create(size_t key_size, size_t value_size, size_t bucket_count,
-     HashTableHashCallback hash_callback, HashTableCompareCallback compare_callback)
+HashTable *HashTable_Create(size_t key_size,
+     size_t value_size,
+     size_t bucket_count,
+     HashTableHashCallback hash_callback,
+     HashTableCompareCallback compare_callback)
 {
      HashTable *this;
 

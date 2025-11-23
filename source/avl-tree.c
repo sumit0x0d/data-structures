@@ -115,7 +115,7 @@ void AvlTree_Insert(AvlTree *this, const void *data)
           this->size++;
           return;
      }
-     
+
      parent = this->root->parent;
 
      current = this->root;

@@ -13,7 +13,9 @@ typedef enum {
 } BinaryHeapCompare;
 
 typedef struct {
-     BinaryHeapCompare (*function)(const void *data1, const void *data2, void *user_data);
+     BinaryHeapCompare (*function)(const void *data1,
+          const void *data2,
+          void *user_data);
      void *user_data;
 } BinaryHeapCompareCallback;
 
