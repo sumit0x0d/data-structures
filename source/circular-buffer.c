@@ -46,7 +46,7 @@ bool CircularBuffer_IsEmpty(const CircularBuffer *this)
      if (this->front == this->back) {
           return true;
      }
-     
+
      return false;
 }
 
@@ -55,7 +55,7 @@ bool CircularBuffer_IsFull(const CircularBuffer *this)
      if (this->front == (this->back + 1) % this->capacity) {
           return true;
      }
-     
+
      return false;
 }
 

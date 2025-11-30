@@ -21,12 +21,12 @@ SinglyLinkedList *SinglyLinkedList_Create(size_t data_size)
      if (!this) {
           return NULL;
      }
-     
+
      this->head = NULL;
      this->tail = NULL;
      this->data_size = data_size;
      this->size = 0;
-     
+
      return this;
 }
 
@@ -39,16 +39,16 @@ void SinglyLinkedList_Destroy(SinglyLinkedList *this)
 void SinglyLinkedList_PushHead(SinglyLinkedList *this, const void *data)
 {
      SinglyLinkedListNode *node;
-     
+
      node = SinglyLinkedListNode_Create(data, this->data_size);
-     
+
      if (this->size) {
           node->next = this->head;
      } else {
           node->next = NULL;
           this->tail = node;
      }
-     
+
      this->head = node;
      this->size++;
 }
@@ -75,12 +75,12 @@ void SinglyLinkedList_PopHead(SinglyLinkedList *this)
      SinglyLinkedListNode *node;
 
      node = this->head;
-     
+
      this->head = this->head->next;
      if (!this->head) {
           this->tail = NULL;
      }
-     
+
      SinglyLinkedListNode_Destroy(node);
      this->size--;
 }
@@ -88,24 +88,24 @@ void SinglyLinkedList_PopHead(SinglyLinkedList *this)
 void SinglyLinkedList_PopTail(SinglyLinkedList *this)
 {
      SinglyLinkedListNode *node;
-     
+
      if (this->size == 0) {
           return;
      }
-     
+
      if (this->head == this->tail) {
           free(this->head);
           this->head = NULL;
           this->tail = NULL;
           return;
      }
-     
+
      node = this->head;
-     
+
      while (node->next != this->tail) {
           node = node->next;
      }
-     
+
      node->next = NULL;
      free(this->tail);
      this->tail = node;
@@ -139,7 +139,7 @@ SinglyLinkedListNode *SinglyLinkedList_DetectCycle(SinglyLinkedList *this)
      SinglyLinkedListNode *hare;
 
      tortoise = this->head;
-     
+
      hare = this->head;
      while (hare && hare->next) {
           if (tortoise == hare) {
@@ -148,7 +148,7 @@ SinglyLinkedListNode *SinglyLinkedList_DetectCycle(SinglyLinkedList *this)
           tortoise = tortoise->next;
           hare = hare->next->next;
      }
-     
+
      return NULL;
 }
 
@@ -158,7 +158,7 @@ SinglyLinkedListNode *SinglyLinkedList_GetMiddleNode(SinglyLinkedList *this)
      SinglyLinkedListNode *hare;
 
      tortoise = this->head;
-     
+
      hare = this->head;
      while (hare && hare->next) {
           tortoise = tortoise->next;
@@ -205,6 +205,6 @@ SinglyLinkedList *SinglyLinkedList_MergeSorted(SinglyLinkedList *singly_linked_l
      this->size = singly_linked_list1->size + singly_linked_list2->size;
      SinglyLinkedList_Destroy(singly_linked_list1);
      SinglyLinkedList_Destroy(singly_linked_list2);
-     
+
      return this;
 }

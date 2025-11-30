@@ -18,15 +18,15 @@ BloomFilter *BloomFilter_Create(size_t data_size, size_t capacity, BloomFilterHa
      if (!this) {
           return NULL;
      }
-     
+
      this->base = malloc(data_size * capacity);
      if (!this->base) {
           free(this);
           return NULL;
      };
-     
+
      this->hash_callback = hash_callback;
-     
+
      return this;
 }
 

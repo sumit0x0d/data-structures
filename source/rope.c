@@ -7,7 +7,7 @@ struct RopeNode {
      void *data;
      RopeNode *parent;
      RopeNode *left;
-     RopeNode *right;    
+     RopeNode *right;
 };
 
 struct Rope {
@@ -25,8 +25,8 @@ Rope *Rope_Create(size_t size)
      }
 
      this->data_size = size;
-     this->size = 0;    
-     
+     this->size = 0;
+
      return this;
 }
 

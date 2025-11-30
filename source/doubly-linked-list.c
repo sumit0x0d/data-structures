@@ -26,7 +26,7 @@ DoublyLinkedList *DoublyLinkedList_Create(size_t data_size)
      this->tail = NULL;
      this->data_size = data_size;
      this->size = 0;
-     
+
      return this;
 }
 
@@ -77,7 +77,7 @@ void DoublyLinkedList_SetNodeData(DoublyLinkedList *this, DoublyLinkedListNode *
 void DoublyLinkedList_PushHead(DoublyLinkedList *this, const void *data)
 {
      DoublyLinkedListNode *node;
-     
+
      node = DoublyLinkedListNode_Create(data, this->data_size);
      node->previous = NULL;
 
@@ -96,10 +96,10 @@ void DoublyLinkedList_PushHead(DoublyLinkedList *this, const void *data)
 void DoublyLinkedList_PushTail(DoublyLinkedList *this, const void *data)
 {
      DoublyLinkedListNode *node;
-     
+
      node = DoublyLinkedListNode_Create(data, this->data_size);
      node->next = NULL;
-     
+
      if (this->size) {
           this->tail->next = node;
           node->previous = this->tail;
@@ -107,7 +107,7 @@ void DoublyLinkedList_PushTail(DoublyLinkedList *this, const void *data)
           this->head = node;
           node->previous = NULL;
      }
-     
+
      this->tail = node;
      this->size++;
 }
@@ -117,12 +117,12 @@ void DoublyLinkedList_PopHead(DoublyLinkedList *this)
      DoublyLinkedListNode *node;
 
      node = this->head;
-     
+
      this->head = this->head->next;
      if (!this->head) {
           this->tail = NULL;
      }
-     
+
      DoublyLinkedListNode_Destroy(node);
      this->size--;
 }

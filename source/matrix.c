@@ -115,8 +115,7 @@ Matrix *Matrix_Operation(Matrix *matrix1, Matrix *matrix2, MatrixBinaryCallback 
      size_t i;
      size_t j;
 
-     if (matrix1->row_count != matrix2->row_count ||
-         matrix1->column_count == matrix2->column_count) {
+     if (matrix1->row_count != matrix2->row_count || matrix1->column_count == matrix2->column_count) {
           return NULL;   
      }
 

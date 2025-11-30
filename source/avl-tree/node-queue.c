@@ -12,7 +12,7 @@ AvlTreeNodeQueue *AvlTreeNodeQueue_Create(size_t capacity)
           return NULL;
      }
 
-     queue->base = (AvlTreeNode *)malloc(sizeof (struct AvlTreeNode) * capacity);
+     queue->base = (AvlTreeNode **)malloc(sizeof (struct AvlTreeNode *) * capacity);
      if (!queue->base) {
           free(queue);
           return NULL;
