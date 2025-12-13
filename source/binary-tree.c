@@ -21,7 +21,7 @@ BinaryTree BinaryTree_Create(size_t data_size)
      this->root = NULL;
      this->data_size = data_size;
      this->size = 0;
-     
+
      return this;
 }
 
@@ -47,10 +47,10 @@ void BinaryTree_Remove(BinaryTree this, BinaryTreeNode node)
      if (node == node->parent->left) {
           node->parent->left = node->left;
      }
-     
+
      if (node == node->parent->right) {
 
      }
-     
+
      BinaryTreeNode_Destroy(node);
 }

@@ -14,7 +14,7 @@ static void _UnaryPrint(void *data, void *user_data);
 int main(void)
 {
      Array *array;
-     
+
      srand((int)time(NULL));
 
      array = Array_Create(sizeof(int), SIZE);
@@ -22,17 +22,17 @@ int main(void)
           fprintf(stderr, "Array_Create() failed\n");
           return 1;
      }
-     
+
      printf("Array_Create() passed\n");
-     
+
      for (int i = 0; i < SIZE; i++) {
           int value = rand() % 100;
           Array_SetData(array, i, &value);
      }
-     
+
      printf("Array_set_data() passed\n");
-     
-     
+
+
      ArrayCompareCallback compare_callback = {
           .function = _CompareInt,
           .user_data = NULL
@@ -49,26 +49,26 @@ int main(void)
      Array_SortSelection(array, compare_callback);
      Array_Traverse(array, unary_callback);
      printf("\nArray_traverse() passed\n");
-     
+
      Array_Destroy(array);
      printf("Array_Destroy() passed\n");
      printf("All array tests passed!\n");
-     
+
      return 0;
 }
 
 static ArrayCompare _CompareInt(const void *data1, const void *data2, void *user_data)
 {
      (void)user_data;
-     
+
      if (*(int *)data1 < *(int *)data2) {
           return -1;
      }
-     
+
      if (*(int *)data1 > *(int *)data2) {
           return 1;
      }
-     
+
      return 0;
 }
 

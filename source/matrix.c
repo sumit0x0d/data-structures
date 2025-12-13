@@ -116,7 +116,7 @@ Matrix *Matrix_Operation(Matrix *matrix1, Matrix *matrix2, MatrixBinaryCallback 
      size_t j;
 
      if (matrix1->row_count != matrix2->row_count || matrix1->column_count == matrix2->column_count) {
-          return NULL;   
+          return NULL;
      }
 
      this = Matrix_Create(matrix1->data_size, matrix1->row_count, matrix1->column_count);
@@ -130,7 +130,6 @@ Matrix *Matrix_Operation(Matrix *matrix1, Matrix *matrix2, MatrixBinaryCallback 
                     Matrix_GetData(matrix1, i, j),
                     Matrix_GetData(this, i, j),
                     binary_callback.user_data);
-               ;
           }
      }
 

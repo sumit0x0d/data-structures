@@ -6,18 +6,18 @@
 XorLinkedListNode *XorLinkedListNode_Create(const void *data, size_t data_size)
 {
      XorLinkedListNode *this;
-     
+
      this = (XorLinkedListNode *)malloc(sizeof (XorLinkedListNode));
      if (!this) {
           return NULL;
-     }  
-     
+     }
+
      this->data = malloc(data_size);
      if(!this->data) {
           free(this);
           return NULL;
      }
-     
+
      memcpy(this->data, data, data_size);
      return this;
 }
