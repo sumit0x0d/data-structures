@@ -204,7 +204,7 @@ static void _RotateLeft(RedBlackTree *this, RedBlackTreeNode *node)
 {
      RedBlackTreeNode *right;
 
-     right = node->right; 
+     right = node->right;
 
      node->right = right->left;
      if (node->right) {

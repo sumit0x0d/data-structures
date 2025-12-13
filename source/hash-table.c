@@ -16,8 +16,7 @@ struct HashTable {
 };
 
 HashTable *HashTable_Create(size_t key_size,
-     size_t value_size,
-     size_t bucket_count,
+     size_t value_size, size_t bucket_count,
      HashTableHashCallback hash_callback,
      HashTableCompareCallback compare_callback)
 {
@@ -88,7 +87,7 @@ void HashTable_Insert(HashTable *this, const void *key, const void *value)
           } else {
                memcpy(pair->value, value, this->value_size);
                return;
-          } 
+          }
      } while (compare && pair->next);
 
      pair->next = HashTablePair_Create(key, this->key_size, value, this->value_size);
