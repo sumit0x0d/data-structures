@@ -4,12 +4,11 @@
 #include <xor-linked-list.h>
 
 struct XorLinkedListNode {
-     void *data;
-     size_t xor;
+   void *data;
+   size_t xor;
 };
 
 XorLinkedListNode *XorLinkedListNode_Create(const void *data, size_t data_size);
-
 void XorLinkedListNode_Destroy(XorLinkedListNode *this);
 
 #endif

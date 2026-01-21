@@ -6,13 +6,13 @@
 typedef struct Matrix Matrix;
 
 typedef struct {
-     void (*function)(void *data, void *user_data);
-     void *user_data;
+   void (*function)(void *data, void *user_data);
+   void *user_data;
 } MatrixUnaryCallback;
 
 typedef struct {
-     void (*function)(const void *data1, const void *data2, void *data, void *user_data);
-     void *user_data;
+   void (*function)(const void *data1, const void *data2, void *data, void *user_data);
+   void *user_data;
 } MatrixBinaryCallback;
 
 __attribute__((visibility("default")))
@@ -37,10 +37,14 @@ __attribute__((visibility("default")))
 Matrix *Matrix_Transposition(Matrix *this);
 
 __attribute__((visibility("default")))
-Matrix *Matrix_Multiplication(Matrix *matrix1, Matrix *matrix2, MatrixBinaryCallback binary_callback);
+Matrix *Matrix_Multiplication(Matrix *matrix1,
+   Matrix *matrix2,
+   MatrixBinaryCallback binary_callback);
 
 __attribute__((visibility("default")))
-Matrix *Matrix_Operation(Matrix *matrix1, Matrix *matrix2, MatrixBinaryCallback binary_callback);
+Matrix *Matrix_Operation(Matrix *matrix1,
+   Matrix *matrix2,
+   MatrixBinaryCallback binary_callback);
 
 __attribute__((visibility("default")))
 Matrix *Matrix_ColumnVectorization(Matrix *this);

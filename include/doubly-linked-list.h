@@ -8,8 +8,8 @@ typedef struct DoublyLinkedListNode DoublyLinkedListNode;
 typedef struct DoublyLinkedListIterator DoublyLinkedListIterator;
 
 typedef struct {
-     void (*function)(void *data, void *user_data);
-     void *user_data;
+   void (*function)(void *data, void *user_data);
+   void *user_data;
 } DoublyLinkedListUnaryCallback;
 
 __attribute__((visibility("default")))
@@ -34,7 +34,8 @@ __attribute__((visibility("default")))
 void *DoublyLinkedList_GetNodeData(DoublyLinkedListNode *node);
 
 __attribute__((visibility("default")))
-void DoublyLinkedList_SetNodeData(DoublyLinkedList *this, DoublyLinkedListNode *node, const void *data);
+void DoublyLinkedList_SetNodeData(DoublyLinkedList *this,
+   DoublyLinkedListNode *node, const void *data);
 
 __attribute__((visibility("default")))
 void DoublyLinkedList_PushHead(DoublyLinkedList *this, const void *data);
@@ -52,7 +53,8 @@ __attribute__((visibility("default")))
 void DoublyLinkedList_RemoveNode(DoublyLinkedList *this, DoublyLinkedListNode *node);
 
 __attribute__((visibility("default")))
-void DoublyLinkedList_Traverse(DoublyLinkedList *this, DoublyLinkedListUnaryCallback unary_callback);
+void DoublyLinkedList_Traverse(DoublyLinkedList *this,
+   DoublyLinkedListUnaryCallback unary_callback);
 
 __attribute__((visibility("default")))
 DoublyLinkedListIterator *DoublyLinkedList_CreateItreator(DoublyLinkedList *this);

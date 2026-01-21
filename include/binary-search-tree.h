@@ -16,8 +16,8 @@ typedef struct {
 } BinarySearchTreeCompareCallback;
 
 typedef struct {
-     void (*function)(void *data, void *user_data);
-     void *user_data;
+   void (*function)(void *data, void *user_data);
+   void *user_data;
 } BinarySearchTreeUnaryCallback;
 
 __attribute__((visibility("default")))

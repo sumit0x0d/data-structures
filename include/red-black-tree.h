@@ -7,18 +7,20 @@ typedef struct RedBlackTree RedBlackTree;
 typedef struct RedBlackTreeNode RedBlackTreeNode;
 
 typedef enum RedBlackTreeCompare {
-     RED_BLACK_TREE_COMPARE_LESS = -1,
-     RED_BLACK_TREE_COMPARE_EQUAL = 0,
-     RED_BLACK_TREE_COMPARE_GREATER = 1
+   RED_BLACK_TREE_COMPARE_LESS = -1,
+   RED_BLACK_TREE_COMPARE_EQUAL = 0,
+   RED_BLACK_TREE_COMPARE_GREATER = 1
 } RedBlackTreeCompare;
 
 typedef struct RedBlackTreeCompareCallback {
-     RedBlackTreeCompare (*function)(const void *data1, const void *data2, void *user_data);
-     void *user_data;
+   RedBlackTreeCompare (*function)(const void *data1,
+      const void *data2, void *user_data);
+   void *user_data;
 } RedBlackTreeCompareCallback;
 
 __attribute__((visibility("default")))
-RedBlackTree *RedBlackTree_Create(size_t data_size, RedBlackTreeCompareCallback compare_callback);
+RedBlackTree *RedBlackTree_Create(size_t data_size,
+   RedBlackTreeCompareCallback compare_callback);
 
 __attribute__((visibility("default")))
 void RedBlackTree_Destroy(RedBlackTree *this);

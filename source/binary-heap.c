@@ -1,14 +1,14 @@
 #include <binary-heap.h>
 
 struct BinaryHeapNode {
-     void *data;
-     BinaryHeapNode *next;
+   void *data;
+   BinaryHeapNode *next;
 };
 
 struct BinaryHeap {
-     BinaryHeapNode *head;
-     BinaryHeapNode *tail;
-     size_t data_size;
-     size_t size;
-     BinaryHeapCompareCallback compare_callback;
+   BinaryHeapNode *head;
+   BinaryHeapNode *tail;
+   size_t data_size;
+   size_t size;
+   BinaryHeapCompareCallback compare_callback;
 };

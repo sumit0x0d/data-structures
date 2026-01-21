@@ -4,12 +4,14 @@
 typedef struct BloomFilter BloomFilter;
 
 typedef struct {
-     size_t (*function)(const void *data, size_t size, void *user_data);
-     void *user_data;
+   size_t (*function)(const void *data, size_t size, void *user_data);
+   void *user_data;
 } BloomFilterHashCallback;
 
 __attribute__((visibility("default")))
-BloomFilter *BloomFilter_Create(size_t data_size, size_t bucket_count, BloomFilterHashCallback hash_callback);
+BloomFilter *BloomFilter_Create(size_t data_size,
+   size_t bucket_count,
+   BloomFilterHashCallback hash_callback);
 
 __attribute__((visibility("default")))
 void BloomFilter_Destroy(BloomFilter *this);

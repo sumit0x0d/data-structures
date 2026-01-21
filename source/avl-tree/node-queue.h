@@ -6,10 +6,10 @@
 #include "node.h"
 
 typedef struct AvlTreeNodeQueue {
-     AvlTreeNode **base;
-     size_t front;
-     size_t back;
-     size_t capacity;
+   AvlTreeNode **base;
+   size_t front;
+   size_t back;
+   size_t capacity;
 } AvlTreeNodeQueue;
 
 AvlTreeNodeQueue *AvlTreeNodeQueue_Create(size_t capacity);

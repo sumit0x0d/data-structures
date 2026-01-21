@@ -6,9 +6,9 @@
 #include "node.h"
 
 typedef struct AvlTreeNodeStack {
-     AvlTreeNode **base;
-     size_t capacity;
-     size_t size;
+   AvlTreeNode **base;
+   size_t capacity;
+   size_t size;
 } AvlTreeNodeStack;
 
 AvlTreeNodeStack *AvlTreeNodeStack_Create(size_t capacity);

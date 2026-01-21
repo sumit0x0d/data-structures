@@ -4,51 +4,57 @@
 #include <bloom-filter.h>
 
 struct BloomFilter {
-     void *base;
-     size_t data_size;
-     size_t capacity;
-     BloomFilterHashCallback hash_callback;
+   void *base;
+   size_t data_size;
+   size_t capacity;
+   BloomFilterHashCallback hash_callback;
 };
 
-BloomFilter *BloomFilter_Create(size_t data_size, size_t capacity, BloomFilterHashCallback hash_callback)
+BloomFilter *BloomFilter_Create(size_t data_size,
+   size_t capacity,
+   BloomFilterHashCallback hash_callback)
 {
-     BloomFilter *this;
+   BloomFilter *this;
 
-     this = (BloomFilter *)malloc(sizeof (BloomFilter));
-     if (!this) {
-          return NULL;
-     }
+   this = (BloomFilter *)malloc(sizeof (BloomFilter));
+   if (!this) {
+      return NULL;
+   }
 
-     this->base = malloc(data_size * capacity);
-     if (!this->base) {
-          free(this);
-          return NULL;
-     };
+   this->base = malloc(data_size * capacity);
+   if (!this->base) {
+      free(this);
+      return NULL;
+   };
 
-     this->hash_callback = hash_callback;
+   this->hash_callback = hash_callback;
 
-     return this;
+   return this;
 }
 
 void BloomFilter_Destroy(BloomFilter *this)
 {
-     free(this->base);
-     free(this);
+   free(this->base);
+   free(this);
 }
 
 void *BloomFilter_Search(BloomFilter *this, const void *data)
 {
-     size_t index;
+   size_t index;
 
-     index = this->hash_callback.function(data, this->capacity, this->hash_callback.user_data);
+   index = this->hash_callback.function(data,
+      this->capacity,
+      this->hash_callback.user_data);
 
-     return (char *)this->base + (this->data_size * index);
+   return (char *)this->base + (this->data_size * index);
 }
 
 void BloomFilter_Insert(BloomFilter *this, const void *data)
 {
-     size_t index;
+   size_t index;
 
-     index = this->hash_callback.function(data, this->capacity, this->hash_callback.user_data);
-     memcpy((char *)this->base + (this->data_size * index), data, this->data_size);
+   index = this->hash_callback.function(data,
+      this->capacity,
+      this->hash_callback.user_data);
+   memcpy((char *)this->base + (this->data_size * index), data, this->data_size);
 }

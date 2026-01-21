@@ -8,7 +8,8 @@ typedef struct {
 } DynamicArrayUnaryCallback;
 
 __attribute__((visibility("default")))
-DynamicArray *DynamicArray_Create(size_t data_size, size_t capacity, double growth_factor);
+DynamicArray *DynamicArray_Create(size_t data_size,
+   size_t capacity, double growth_factor);
 
 __attribute__((visibility("default")))
 void DynamicArray_Destroy(DynamicArray *this);
@@ -29,6 +30,7 @@ __attribute__((visibility("default")))
 void DynamicArray_PopBack(DynamicArray *this);
 
 __attribute__((visibility("default")))
-void DynamicArray_Traverse(DynamicArray *this, DynamicArrayUnaryCallback unary_callback);
+void DynamicArray_Traverse(DynamicArray *this,
+   DynamicArrayUnaryCallback unary_callback);
 
 #endif

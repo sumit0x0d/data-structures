@@ -7,166 +7,168 @@
 #include "doubly-linked-list/node.h"
 
 struct DoublyLinkedList {
-     DoublyLinkedListNode *head;
-     DoublyLinkedListNode *tail;
-     size_t data_size;
-     size_t size;
+   DoublyLinkedListNode *head;
+   DoublyLinkedListNode *tail;
+   size_t data_size;
+   size_t size;
 };
 
 DoublyLinkedList *DoublyLinkedList_Create(size_t data_size)
 {
-     DoublyLinkedList *this;
+   DoublyLinkedList *this;
 
-     this = (DoublyLinkedList *)malloc(sizeof (DoublyLinkedList));
-     if (!this) {
-          return NULL;
-     }
+   this = (DoublyLinkedList *)malloc(sizeof (DoublyLinkedList));
+   if (!this) {
+      return NULL;
+   }
 
-     this->head = NULL;
-     this->tail = NULL;
-     this->data_size = data_size;
-     this->size = 0;
+   this->head = NULL;
+   this->tail = NULL;
+   this->data_size = data_size;
+   this->size = 0;
 
-     return this;
+   return this;
 }
 
 void DoublyLinkedList_Destroy(DoublyLinkedList *this)
 {
-     DoublyLinkedListNode *node;
+   DoublyLinkedListNode *node;
 
-     node = this->head;
-     while (node) {
-          DoublyLinkedListNode *next = node->next;
-          DoublyLinkedListNode_Destroy(node);
-          node = next;
-     }
+   node = this->head;
+   while (node) {
+      DoublyLinkedListNode *next = node->next;
+      DoublyLinkedListNode_Destroy(node);
+      node = next;
+   }
 
-     free(this);
+   free(this);
 }
 
 size_t DoublyLinkedList_GetSize(DoublyLinkedList *this)
 {
-     return this->size;
+   return this->size;
 }
 
 size_t DoublyLinkedList_GetDataSize(DoublyLinkedList *this)
 {
-     return this->data_size;
+   return this->data_size;
 }
 
 DoublyLinkedListNode *DoublyLinkedList_GetHead(DoublyLinkedList *this)
 {
-     return this->head;
+   return this->head;
 }
 
 DoublyLinkedListNode *DoublyLinkedList_GetTail(DoublyLinkedList *this)
 {
-     return this->tail;
+   return this->tail;
 }
 
 void *DoublyLinkedList_GetNodeData(DoublyLinkedListNode *node)
 {
-     return node->data;
+   return node->data;
 }
 
-void DoublyLinkedList_SetNodeData(DoublyLinkedList *this, DoublyLinkedListNode *node, const void *data)
+void DoublyLinkedList_SetNodeData(DoublyLinkedList *this,
+   DoublyLinkedListNode *node, const void *data)
 {
-     memcpy(node->data, data, this->data_size);
+   memcpy(node->data, data, this->data_size);
 }
 
 void DoublyLinkedList_PushHead(DoublyLinkedList *this, const void *data)
 {
-     DoublyLinkedListNode *node;
+   DoublyLinkedListNode *node;
 
-     node = DoublyLinkedListNode_Create(data, this->data_size);
-     node->previous = NULL;
+   node = DoublyLinkedListNode_Create(data, this->data_size);
+   node->previous = NULL;
 
-     if (this->size) {
-          this->head->previous = node;
-          node->next = this->head;
-     } else {
-          this->tail = node;
-          node->next = NULL;
-     }
+   if (this->size) {
+      this->head->previous = node;
+      node->next = this->head;
+   } else {
+      this->tail = node;
+      node->next = NULL;
+   }
 
-     this->head = node;
-     this->size++;
+   this->head = node;
+   this->size++;
 }
 
 void DoublyLinkedList_PushTail(DoublyLinkedList *this, const void *data)
 {
-     DoublyLinkedListNode *node;
+   DoublyLinkedListNode *node;
 
-     node = DoublyLinkedListNode_Create(data, this->data_size);
-     node->next = NULL;
+   node = DoublyLinkedListNode_Create(data, this->data_size);
+   node->next = NULL;
 
-     if (this->size) {
-          this->tail->next = node;
-          node->previous = this->tail;
-     } else {
-          this->head = node;
-          node->previous = NULL;
-     }
+   if (this->size) {
+      this->tail->next = node;
+      node->previous = this->tail;
+   } else {
+      this->head = node;
+      node->previous = NULL;
+   }
 
-     this->tail = node;
-     this->size++;
+   this->tail = node;
+   this->size++;
 }
 
 void DoublyLinkedList_PopHead(DoublyLinkedList *this)
 {
-     DoublyLinkedListNode *node;
+   DoublyLinkedListNode *node;
 
-     node = this->head;
+   node = this->head;
 
-     this->head = this->head->next;
-     if (!this->head) {
-          this->tail = NULL;
-     }
+   this->head = this->head->next;
+   if (!this->head) {
+      this->tail = NULL;
+   }
 
-     DoublyLinkedListNode_Destroy(node);
-     this->size--;
+   DoublyLinkedListNode_Destroy(node);
+   this->size--;
 }
 
 void DoublyLinkedList_PopTail(DoublyLinkedList *this)
 {
-     DoublyLinkedListNode *node;
+   DoublyLinkedListNode *node;
 
-     node = this->tail;
+   node = this->tail;
 
-     this->tail = this->tail->previous;
-     if (this->tail) {
-          this->tail->next = NULL;
-     }
+   this->tail = this->tail->previous;
+   if (this->tail) {
+      this->tail->next = NULL;
+   }
 
-     DoublyLinkedListNode_Destroy(node);
-     this->size--;
+   DoublyLinkedListNode_Destroy(node);
+   this->size--;
 }
 
 void DoublyLinkedList_RemoveNode(DoublyLinkedList *this, DoublyLinkedListNode *node)
 {
-     if (node->previous && node->previous->next == (DoublyLinkedListNode *)node) {
-          node->previous->next = node->next;
-     } else {
-          this->head = this->head->next;
-     }
+   if (node->previous && node->previous->next == (DoublyLinkedListNode *)node) {
+      node->previous->next = node->next;
+   } else {
+      this->head = this->head->next;
+   }
 
-     if (node->next && node->next->previous == node) {
-          node->next->previous = node->previous;
-     } else {
-          this->tail = this->tail->previous;
-     }
+   if (node->next && node->next->previous == node) {
+      node->next->previous = node->previous;
+   } else {
+      this->tail = this->tail->previous;
+   }
 
-     DoublyLinkedListNode_Destroy(node);
-     this->size--;
+   DoublyLinkedListNode_Destroy(node);
+   this->size--;
 }
 
-void DoublyLinkedList_Traverse(DoublyLinkedList *this, DoublyLinkedListUnaryCallback unary_callback)
+void DoublyLinkedList_Traverse(DoublyLinkedList *this,
+   DoublyLinkedListUnaryCallback unary_callback)
 {
-     DoublyLinkedListNode *node;
+   DoublyLinkedListNode *node;
 
-     node = this->head;
-     while (node) {
-          unary_callback.function(node->data, unary_callback.user_data);
-          node = node->next;
-     }
+   node = this->head;
+   while (node) {
+      unary_callback.function(node->data, unary_callback.user_data);
+      node = node->next;
+   }
 }

@@ -7,19 +7,19 @@ typedef struct AvlTree AvlTree;
 typedef struct AvlTreeNode AvlTreeNode;
 
 typedef enum {
-     AVL_TREE_COMPARE_LESS = -1,
-     AVL_TREE_COMPARE_EQUAL = 0,
-     AVL_TREE_COMPARE_GREATER = 1
+   AVL_TREE_COMPARE_LESS = -1,
+   AVL_TREE_COMPARE_EQUAL = 0,
+   AVL_TREE_COMPARE_GREATER = 1
 } AvlTreeCompare;
 
 typedef struct {
-     AvlTreeCompare (*function)(const void *data1, const void *data2, void *user_data);
-     void *user_data;
+   AvlTreeCompare (*function)(const void *data1, const void *data2, void *user_data);
+   void *user_data;
 } AvlTreeCompareCallback;
 
 typedef struct {
-     void (*function)(void *data, void *user_data);
-     void *user_data;
+   void (*function)(void *data, void *user_data);
+   void *user_data;
 } AvlTreeUnaryCallback;
 
 __attribute__((visibility("default")))

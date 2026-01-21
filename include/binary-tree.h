@@ -7,8 +7,8 @@ typedef struct BinaryTree BinaryTree;
 typedef struct BinaryTreeNode BinaryTreeNode;
 
 typedef struct {
-     void (*function)(void *data, void *user_data);
-     void *user_data;
+   void (*function)(void *data, void *user_data);
+   void *user_data;
 } BinaryTreeUnaryCallback;
 
 __attribute__((visibility("default")))

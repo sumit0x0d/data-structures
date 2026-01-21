@@ -4,20 +4,20 @@
 #include <avl-tree.h>
 
 typedef enum {
-     AVL_TREE_NODE_BALANCE_FACTOR_LEFT_HEAVY_2 = -2,
-     AVL_TREE_NODE_BALANCE_FACTOR_LEFT_HEAVY_1 = -1,
-     AVL_TREE_NODE_BALANCE_FACTOR_BALANCED = 0,
-     AVL_TREE_NODE_BALANCE_FACTOR_RIGHT_HEAVY_1 = +1,
-     AVL_TREE_NODE_BALANCE_FACTOR_RIGHT_HEAVY_2 = +2
+   AVL_TREE_NODE_BALANCE_FACTOR_LEFT_HEAVY_2 = -2,
+   AVL_TREE_NODE_BALANCE_FACTOR_LEFT_HEAVY_1 = -1,
+   AVL_TREE_NODE_BALANCE_FACTOR_BALANCED = 0,
+   AVL_TREE_NODE_BALANCE_FACTOR_RIGHT_HEAVY_1 = +1,
+   AVL_TREE_NODE_BALANCE_FACTOR_RIGHT_HEAVY_2 = +2
 } AvlTreeNodeBalanceFactor;
 
 struct AvlTreeNode {
-     void *data;
-     AvlTreeNode *parent;
-     AvlTreeNode *left;
-     AvlTreeNode *right;
-     size_t height;
-     AvlTreeNodeBalanceFactor balance_factor;
+   void *data;
+   AvlTreeNode *parent;
+   AvlTreeNode *left;
+   AvlTreeNode *right;
+   size_t height;
+   AvlTreeNodeBalanceFactor balance_factor;
 };
 
 AvlTreeNode *AvlTreeNode_Create(const void *data, size_t data_size);

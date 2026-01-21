@@ -6,10 +6,10 @@
 #include "node.h"
 
 typedef struct RedBlackTreeNodeQueue {
-     RedBlackTreeNode **base;
-     size_t front;
-     size_t back;
-     size_t capacity;
+   RedBlackTreeNode **base;
+   size_t front;
+   size_t back;
+   size_t capacity;
 } RedBlackTreeNodeQueue;
 
 RedBlackTreeNodeQueue *RedBlackTreeNodeQueue_Create(size_t capacity);
