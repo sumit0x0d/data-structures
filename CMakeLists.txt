@@ -2,9 +2,6 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(data-structures)
 
-set(CMAKE_C_STANDARD 90)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_SHARED_LIBRARY_PREFIX "")
