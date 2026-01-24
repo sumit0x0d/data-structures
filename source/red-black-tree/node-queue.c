@@ -32,13 +32,13 @@ void RedBlackTreeNodeQueue_Destroy(RedBlackTreeNodeQueue *this)
    free(this);
 }
 
-bool RedBlackTreeNodeQueue_IsEmpty(RedBlackTreeNodeQueue *this)
+RedBlackTreeNodeQueueBool RedBlackTreeNodeQueue_IsEmpty(RedBlackTreeNodeQueue *this)
 {
    if (this->front == this->back) {
-      return true;
+      return RED_BLACK_TREE_NODE_QUEUE_BOOL_TRUE;
    }
 
-   return false;
+   return RED_BLACK_TREE_NODE_QUEUE_BOOL_FALSE;
 }
 
 void RedBlackTreeNodeQueue_Enqueue(RedBlackTreeNodeQueue *this, RedBlackTreeNode *node)

@@ -212,6 +212,8 @@ void AvlTree_Remove(AvlTree *this, const void *data)
    this->size--;
 }
 
+/*
+
 // void AvlTree_TraversePreorder(AvlTree *this, AVL_TREE_CallbackUnary unary_callback.function,
 //   void *unary_callback.user_data)
 // {
@@ -231,7 +233,7 @@ void AvlTree_Remove(AvlTree *this, const void *data)
 //   void *unary_callback.user_data)
 // {
 // }
-
+*/
 
 static void _RotateRight(AvlTree *this, AvlTreeNode *node)
 {

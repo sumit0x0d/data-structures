@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(data-structures)
 
+set(CMAKE_C_STANDARD 90)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_SHARED_LIBRARY_PREFIX "")
@@ -9,41 +12,42 @@ set(CMAKE_C_VISIBILITY_PRESET hidden)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
-# add_compile_options(-Wall -Wextra -g -Werror)
+# Strict C89 compilation flags
+add_compile_options(-Wall -Wextra -Werror -pedantic -std=c89)
 # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pg")
 
 file(GLOB ARRAY_SOURCE
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/array.c")
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/array.c")
 file(GLOB AVL_TREE_SOURCE
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/avl-tree.c"
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/avl-tree/*.c")
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/avl-tree.c"
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/avl-tree/*.c")
 file(GLOB BINARY_HEAP_SOURCE
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/binary-heap.c")
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/binary-heap.c")
 file(GLOB BLOOM_FILTER_SOURCE
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/bloom-filter.c")
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/bloom-filter.c")
 file(GLOB CIRCULAR_BUF_SOURCE
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/circular-buffer.c")
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/circular-buffer.c")
 file(GLOB DOUBLY_LL_SOURCE
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/doubly-linked-list.c" 
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/doubly-linked-list/*.c")
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/doubly-linked-list.c" 
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/doubly-linked-list/*.c")
 file(GLOB DYNAMIC_ARRAY_SOURCE
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/dynamic-array.c")
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/dynamic-array.c")
 file(GLOB HASH_TABLE_SOURCE
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/hash-table.c"
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/hash-table/*.c")
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/hash-table.c"
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/hash-table/*.c")
 file(GLOB SINGLY_LL_SOURCE
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/singly-linked-list.c"
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/singly-linked-list/*.c")
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/singly-linked-list.c"
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/singly-linked-list/*.c")
 file(GLOB MATRIX_SOURCE
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/matrix.c")
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/matrix.c")
 file(GLOB RED_BLACK_SOURCE
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/red-black-tree.c"
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/red-black-tree/*.c")
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/red-black-tree.c"
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/red-black-tree/*.c")
 file(GLOB STACK_SOURCE
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/stack.c")
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/stack.c")
 file(GLOB XOR_LL_SOURCE
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/xor-linked-list.c"
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/xor-linked-list/*.c")
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/xor-linked-list.c"
+   "${CMAKE_CURRENT_SOURCE_DIR}/source/xor-linked-list/*.c")
 
 
 add_library(array SHARED ${ARRAY_SOURCE})
@@ -77,9 +81,9 @@ target_include_directories(stack PUBLIC include)
 target_include_directories(xor-linked-list PUBLIC include)
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
-    enable_testing()
-    add_executable(data-structures-test test/data-structures-test.c)
-    add_test(NAME data-structures-test COMMAND data-structures-test)
-#     set_target_properties(array-test PROPERTIES OUTPUT_NAME array)
-    target_link_libraries(data-structures-test PUBLIC array)
+   enable_testing()
+   add_executable(data-structures-test test/data-structures-test.c)
+   add_test(NAME data-structures-test COMMAND data-structures-test)
+#  set_target_properties(array-test PROPERTIES OUTPUT_NAME array)
+   target_link_libraries(data-structures-test PUBLIC array)
 endif()

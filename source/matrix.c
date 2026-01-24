@@ -34,7 +34,7 @@ Matrix *Matrix_Create(size_t data_size, size_t row_count, size_t column_count)
    this->column_count = column_count;
 
    return this;
-};
+}
 
 void Matrix_Destroy(Matrix *this)
 {

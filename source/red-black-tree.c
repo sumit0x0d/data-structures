@@ -53,11 +53,11 @@ void RedBlackTree_Destroy(RedBlackTree *this)
       RedBlackTreeNodeQueue_Dequeue(node_queue);
       if (node->left) {
          RedBlackTreeNode_Destroy(node);
-         // RedBlackTreeNodeQueue_Enqueue(node_queue, node->left);
+         /* RedBlackTreeNodeQueue_Enqueue(node_queue, node->left); */
       }
       if (node->right) {
          RedBlackTreeNode_Destroy(node);
-         // RedBlackTreeNodeQueue_Enqueue(node_queue, node->right);
+         /* RedBlackTreeNodeQueue_Enqueue(node_queue, node->right); */
       }
    }
 
@@ -140,10 +140,6 @@ void RedBlackTree_Insert(RedBlackTree *this, const void *data)
    _Rebalance(this, parent);
    this->size++;
 }
-
-// void this_remove(RedBlackTree tree, int data)
-// {
-// }
 
 static void _RotateRight(RedBlackTree *this, RedBlackTreeNode *node)
 {

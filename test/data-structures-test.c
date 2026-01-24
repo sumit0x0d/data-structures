@@ -14,6 +14,9 @@ static void _UnaryPrint(void *data, void *user_data);
 int main(void)
 {
    Array *array;
+   int i;
+   ArrayCompareCallback compare_callback;
+   ArrayUnaryCallback unary_callback;
 
    srand((int)time(NULL));
 
@@ -25,26 +28,19 @@ int main(void)
 
    printf("Array_Create() passed\n");
 
-   for (int i = 0; i < SIZE; i++) {
+   for (i = 0; i < SIZE; i++) {
       int value = rand() % 100;
       Array_SetData(array, i, &value);
    }
 
    printf("Array_set_data() passed\n");
 
-
-   ArrayCompareCallback compare_callback = {
-      .function = _CompareInt,
-      .user_data = NULL
-   };
-
-   ArrayUnaryCallback unary_callback = {
-      .function = _UnaryPrint,
-      .user_data = NULL
-   };
+   compare_callback.function = _CompareInt;
+   compare_callback.user_data = NULL;
+   unary_callback.function = _UnaryPrint;
+   unary_callback.user_data = NULL;
    Array_Traverse(array, unary_callback);
    printf("\nArray_traverse() passed\n");
-   // Array_SortBubble(array, _compare_int, NULL);
    Array_SortInsertion(array, compare_callback);
    Array_SortSelection(array, compare_callback);
    Array_Traverse(array, unary_callback);
@@ -72,11 +68,13 @@ static ArrayCompare _CompareInt(const void *data1, const void *data2, void *user
    return 0;
 }
 
+/*
 // static size_t _CallbackHashInt(const void *data, size_t aSize, void *hash_callback.user_data)
 // {
 //   (void)hash_callback.user_data;
 //   return (*(int *)data) % aSize;
 // }
+*/
 
 static void _UnaryPrint(void *data, void *user_data)
 {

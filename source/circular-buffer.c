@@ -41,22 +41,22 @@ void CircularBuffer_Destroy(CircularBuffer *this)
    free(this);
 }
 
-bool CircularBuffer_IsEmpty(const CircularBuffer *this)
+CircularBufferBool CircularBuffer_IsEmpty(const CircularBuffer *this)
 {
    if (this->front == this->back) {
-      return true;
+      return CIRCULAR_BUFFER_BOOL_TRUE;
    }
 
-   return false;
+   return CIRCULAR_BUFFER_BOOL_FALSE;
 }
 
-bool CircularBuffer_IsFull(const CircularBuffer *this)
+CircularBufferBool CircularBuffer_IsFull(const CircularBuffer *this)
 {
    if (this->front == (this->back + 1) % this->capacity) {
-    return true;
+      return CIRCULAR_BUFFER_BOOL_TRUE;
    }
 
-   return false;
+   return CIRCULAR_BUFFER_BOOL_FALSE;
 }
 
 void *CircularBuffer_GetFrontData(const CircularBuffer *this)

@@ -31,13 +31,13 @@ void AvlTreeNodeQueue_Destroy(AvlTreeNodeQueue *this)
    free(this);
 }
 
-bool AvlTreeNodeQueue_IsEmpty(AvlTreeNodeQueue *this)
+AvlTreeNodeQueueBool AvlTreeNodeQueue_IsEmpty(AvlTreeNodeQueue *this)
 {
    if (this->front == this->back) {
-      return true;
+      return AVL_TREE_NODE_QUEUE_BOOL_TRUE;
    }
 
-   return false;
+   return AVL_TREE_NODE_QUEUE_BOOL_FALSE;
 }
 
 void AvlTreeNodeQueue_Enqueue(AvlTreeNodeQueue *this, AvlTreeNode *node)

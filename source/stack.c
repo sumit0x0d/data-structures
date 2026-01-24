@@ -36,22 +36,22 @@ void Stack_Destroy(Stack *this)
    free(this);
 }
 
-bool Stack_IsEmpty(Stack *this)
+StackBool Stack_IsEmpty(Stack *this)
 {
    if (this->size) {
-      return true;
+      return STACK_BOOL_TRUE;
    }
 
-   return false;
+   return STACK_BOOL_FALSE;
 }
 
-bool Stack_IsFull(Stack *this)
+StackBool Stack_IsFull(Stack *this)
 {
    if (this->size == this->capacity) {
-      return true;
+      return STACK_BOOL_TRUE;
    }
 
-   return false;
+   return STACK_BOOL_FALSE;
 }
 
 void *Stack_GetTop(Stack *this)

@@ -1,8 +1,6 @@
 #ifndef DATA_STRUCTURES_AVL_TREE_NODE_QUEUE_H
 #define DATA_STRUCTURES_AVL_TREE_NODE_QUEUE_H
 
-#include <stdbool.h>
-
 #include "node.h"
 
 typedef struct AvlTreeNodeQueue {
@@ -12,10 +10,15 @@ typedef struct AvlTreeNodeQueue {
    size_t capacity;
 } AvlTreeNodeQueue;
 
+typedef enum {
+   AVL_TREE_NODE_QUEUE_BOOL_FALSE = 0,
+   AVL_TREE_NODE_QUEUE_BOOL_TRUE = 1
+} AvlTreeNodeQueueBool;
+
 AvlTreeNodeQueue *AvlTreeNodeQueue_Create(size_t capacity);
 void AvlTreeNodeQueue_Destroy(AvlTreeNodeQueue *this);
 
-bool AvlTreeNodeQueue_IsEmpty(AvlTreeNodeQueue *this);
+AvlTreeNodeQueueBool AvlTreeNodeQueue_IsEmpty(AvlTreeNodeQueue *this);
 void AvlTreeNodeQueue_Enqueue(AvlTreeNodeQueue *this, AvlTreeNode *node);
 void AvlTreeNodeQueue_Dequeue(AvlTreeNodeQueue *this);
 

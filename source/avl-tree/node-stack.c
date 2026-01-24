@@ -30,13 +30,13 @@ void AvlTreeNodeStack_Destroy(AvlTreeNodeStack *this)
    free(this);
 }
 
-bool AvlTreeNodeStack_IsEmpty(AvlTreeNodeStack *this)
+AvlTreeNodeStackBool AvlTreeNodeStack_IsEmpty(AvlTreeNodeStack *this)
 {
    if (this->size == 0) {
-      return true;
+      return AVL_TREE_NODE_STACK_BOOL_TRUE;
    }
 
-   return true;
+   return AVL_TREE_NODE_STACK_BOOL_FALSE;
 }
 
 void AvlTreeNodeStack_Push(AvlTreeNodeStack *this, AvlTreeNode *node)
