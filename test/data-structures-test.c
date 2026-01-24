@@ -34,7 +34,6 @@ int main(void)
    }
 
    printf("Array_set_data() passed\n");
-
    compare_callback.function = _CompareInt;
    compare_callback.user_data = NULL;
    unary_callback.function = _UnaryPrint;
@@ -45,7 +44,6 @@ int main(void)
    Array_SortSelection(array, compare_callback);
    Array_Traverse(array, unary_callback);
    printf("\nArray_traverse() passed\n");
-
    Array_Destroy(array);
    printf("Array_Destroy() passed\n");
    printf("All array tests passed!\n");
