@@ -16,7 +16,7 @@ DynamicArray *DynamicArray_Create(size_t data_size,
 {
    DynamicArray *this;
 
-   if (growth_factor > 1) {
+   if (growth_factor <= 1) {
       return NULL;
    }
 
@@ -32,6 +32,7 @@ DynamicArray *DynamicArray_Create(size_t data_size,
    };
 
    this->data_size = data_size;
+   this->size = 0;
    this->growth_factor = growth_factor;
    this->capacity = capacity;
 
@@ -56,12 +57,12 @@ size_t DynamicArray_GetCapacity(DynamicArray *this)
 
 void *DynamicArray_GetData(DynamicArray *this, size_t index)
 {
-	return (char *)this->base + (this->data_size * index);
+   return (char *)this->base + (this->data_size * index);
 }
 
 void *DynamicArray_GetBackData(DynamicArray *this)
 {
-   return (char *)this->base + (this->data_size * this->size);
+   return (char *)this->base + (this->data_size * (this->size - 1));
 }
 
 void DynamicArray_PushBack(DynamicArray *this, const void *data)
@@ -69,7 +70,7 @@ void DynamicArray_PushBack(DynamicArray *this, const void *data)
    void *base;
 
    if (this->size == this->capacity) {
-      this->capacity = this->capacity * this->growth_factor;
+      this->capacity = (size_t)(this->capacity * this->growth_factor);
       base = realloc(this->base, this->data_size * this->capacity);
       if (!base) {
          return;
@@ -86,7 +87,7 @@ void DynamicArray_PopBack(DynamicArray *this)
    void *base;
 
    if (this->size == this->capacity) {
-      this->capacity = this->capacity / this->growth_factor;
+      this->capacity = (size_t)(this->capacity / this->growth_factor);
       base = realloc(this->base, this->data_size * this->capacity);
       if (!base) {
          return;
