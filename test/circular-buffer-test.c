@@ -4,20 +4,16 @@
 
 #include <circular-buffer.h>
 
-static void _UnaryPrint(void *data, void *user_data);
-
 int main(void)
 {
-   CircularBuffer *obj;
+   CircularBuffer *circular_buffer;
    int i, value;
-   CircularBufferUnaryCallback unary_callback;
+   int *front_data;
 
    srand((int)time(NULL));
-   unary_callback.function = _UnaryPrint;
-   unary_callback.user_data = NULL;
 
-   obj = CircularBuffer_Create(sizeof(int), 100);
-   if (!obj) {
+   circular_buffer = CircularBuffer_Create(sizeof(int), 100);
+   if (!circular_buffer) {
       fprintf(stderr, "CircularBuffer_Create() failed\n");
       return 1;
    }
@@ -25,20 +21,19 @@ int main(void)
 
    for (i = 0; i < 10; i++) {
       value = rand() % 100;
-      CircularBuffer_PushBack(cbuf, &value);
+      CircularBuffer_PushBack(circular_buffer, &value);
    }
-   printf("CircularBuffer_Insert() passed\n");
-   CircularBuffer_Traverse(cbuf, unary_callback);
-   printf("\nCircularBuffer_Traverse() passed\n");
-   CircularBuffer_Destroy(cbuf);
+   printf("CircularBuffer_PushBack() passed\n");
+
+   while (!CircularBuffer_IsEmpty(circular_buffer)) {
+      front_data = CircularBuffer_GetFrontData(circular_buffer);
+      printf("%d ", *front_data);
+      CircularBuffer_PopFront(circular_buffer);
+   }
+   printf("\nCircularBuffer_PopFront() passed\n");
+   CircularBuffer_Destroy(circular_buffer);
    printf("CircularBuffer_Destroy() passed\n");
    printf("All circular-buffer tests passed!\n");
 
    return 0;
-}
-
-static void _UnaryPrint(void *data, void *user_data)
-{
-   (void)user_data;
-   printf("%d ", *(int *)data);
 }

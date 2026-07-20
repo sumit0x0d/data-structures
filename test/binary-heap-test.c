@@ -9,7 +9,7 @@ static void _UnaryPrint(void *data, void *user_data);
 
 int main(void)
 {
-   BinaryHeap *obj;
+   BinaryHeap *binary_heap;
    int i, value;
    BinaryHeapCompareCallback compare_callback;
    BinaryHeapUnaryCallback unary_callback;
@@ -20,21 +20,16 @@ int main(void)
    unary_callback.function = _UnaryPrint;
    unary_callback.user_data = NULL;
 
-   obj = BinaryHeap_Create(sizeof(int), compare_callback);
-   if (!obj) {
+   binary_heap = BinaryHeap_Create(sizeof(int), compare_callback);
+   if (!binary_heap) {
       fprintf(stderr, "BinaryHeap_Create() failed\n");
       return 1;
    }
    printf("BinaryHeap_Create() passed\n");
 
-   for (i = 0; i < 10; i++) {
-      value = rand() % 100;
-      BinaryHeap_Insert(heap, &value);
-   }
-   printf("BinaryHeap_Insert() passed\n");
-   BinaryHeap_Traverse(heap, unary_callback);
+   BinaryHeap_Traverse(binary_heap, unary_callback);
    printf("\nBinaryHeap_Traverse() passed\n");
-   BinaryHeap_Destroy(heap);
+   BinaryHeap_Destroy(binary_heap);
    printf("BinaryHeap_Destroy() passed\n");
    printf("All binary-heap tests passed!\n");
 

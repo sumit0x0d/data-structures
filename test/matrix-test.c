@@ -8,7 +8,7 @@ static void _UnaryPrint(void *data, void *user_data);
 
 int main(void)
 {
-   Matrix *obj;
+   Matrix *matrix;
    int i, value;
    MatrixUnaryCallback unary_callback;
 
@@ -16,8 +16,8 @@ int main(void)
    unary_callback.function = _UnaryPrint;
    unary_callback.user_data = NULL;
 
-   obj = Matrix_Create(sizeof(int), 10, 10);
-   if (!obj) {
+   matrix = Matrix_Create(sizeof(int), 10, 10);
+   if (!matrix) {
       fprintf(stderr, "Matrix_Create() failed\n");
       return 1;
    }

@@ -9,10 +9,11 @@ static void _UnaryPrint(void *data, void *user_data);
 
 int main(void)
 {
-   RedBlackTree *obj;
+   RedBlackTree *red_black_tree;
    int i, value;
    RedBlackTreeCompareCallback compare_callback;
    RedBlackTreeUnaryCallback unary_callback;
+   RedBlackTreeNode *node;
 
    srand((int)time(NULL));
    compare_callback.function = _CompareInt;
@@ -20,8 +21,8 @@ int main(void)
    unary_callback.function = _UnaryPrint;
    unary_callback.user_data = NULL;
 
-   obj = RedBlackTree_Create(sizeof(int), compare_callback);
-   if (!obj) {
+   red_black_tree = RedBlackTree_Create(sizeof(int), compare_callback);
+   if (!red_black_tree) {
       fprintf(stderr, "RedBlackTree_Create() failed\n");
       return 1;
    }
@@ -29,12 +30,20 @@ int main(void)
 
    for (i = 0; i < 10; i++) {
       value = rand() % 100;
-      RedBlackTree_Insert(rbtree, &value);
+      RedBlackTree_Insert(red_black_tree, &value);
    }
    printf("RedBlackTree_Insert() passed\n");
-   RedBlackTree_Traverse(rbtree, unary_callback);
-   printf("\nRedBlackTree_Traverse() passed\n");
-   RedBlackTree_Destroy(rbtree);
+
+   value = rand() % 100;
+   RedBlackTree_Insert(red_black_tree, &value);
+   node = RedBlackTree_Search(red_black_tree, &value);
+   if (!node) {
+      fprintf(stderr, "RedBlackTree_Search() failed\n");
+      RedBlackTree_Destroy(red_black_tree);
+      return 1;
+   }
+   printf("RedBlackTree_Search() passed\n");
+   RedBlackTree_Destroy(red_black_tree);
    printf("RedBlackTree_Destroy() passed\n");
    printf("All red-black-tree tests passed!\n");
 

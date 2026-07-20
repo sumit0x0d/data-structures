@@ -9,7 +9,7 @@ static void _UnaryPrint(void *data, void *user_data);
 
 int main(void)
 {
-   AvlTree *obj;
+   AvlTree *avl_tree;
    int i, value;
    AvlTreeCompareCallback compare_callback;
    AvlTreeUnaryCallback unary_callback;
@@ -20,8 +20,8 @@ int main(void)
    unary_callback.function = _UnaryPrint;
    unary_callback.user_data = NULL;
 
-   obj = AvlTree_Create(sizeof(int), compare_callback);
-   if (!obj) {
+   avl_tree = AvlTree_Create(sizeof(int), compare_callback);
+   if (!avl_tree) {
       fprintf(stderr, "AvlTree_Create() failed\n");
       return 1;
    }
@@ -29,12 +29,13 @@ int main(void)
 
    for (i = 0; i < 10; i++) {
       value = rand() % 100;
-      AvlTree_Insert(tree, &value);
+      AvlTree_Insert(avl_tree, &value);
    }
+
    printf("AvlTree_Insert() passed\n");
-   AvlTree_Traverse(tree, unary_callback);
-   printf("\nAvlTree_Traverse() passed\n");
-   AvlTree_Destroy(tree);
+   AvlTree_TraverseInorder(avl_tree, unary_callback);
+   printf("\nAvlTree_TraverseInorder() passed\n");
+   AvlTree_Destroy(avl_tree);
    printf("AvlTree_Destroy() passed\n");
    printf("All avl-tree tests passed!\n");
 

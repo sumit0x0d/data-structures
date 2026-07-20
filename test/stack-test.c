@@ -7,13 +7,13 @@
 
 int main(void)
 {
-   Stack *obj;
+   Stack *stack;
    int i, value;
 
    srand((int)time(NULL));
 
-   obj = Stack_Create(sizeof(int), 100);
-   if (!obj) {
+   stack = Stack_Create(sizeof(int), 100);
+   if (!stack) {
       fprintf(stderr, "Stack_Create() failed\n");
       return 1;
    }
@@ -23,7 +23,7 @@ int main(void)
       value = rand() % 100;
       Stack_Push(stack, &value);
    }
-   printf("Stack_Insert() passed\n");
+   printf("Stack_Push() passed\n");
    Stack_Destroy(stack);
    printf("Stack_Destroy() passed\n");
    printf("All stack tests passed!\n");

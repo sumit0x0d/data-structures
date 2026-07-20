@@ -8,7 +8,7 @@ static void _UnaryPrint(void *data, void *user_data);
 
 int main(void)
 {
-   SinglyLinkedList *obj;
+   SinglyLinkedList *singly_linked_list;
    int i, value;
    SinglyLinkedListUnaryCallback unary_callback;
 
@@ -16,8 +16,8 @@ int main(void)
    unary_callback.function = _UnaryPrint;
    unary_callback.user_data = NULL;
 
-   obj = SinglyLinkedList_Create(sizeof(int));
-   if (!obj) {
+   singly_linked_list = SinglyLinkedList_Create(sizeof(int));
+   if (!singly_linked_list) {
       fprintf(stderr, "SinglyLinkedList_Create() failed\n");
       return 1;
    }
@@ -25,12 +25,12 @@ int main(void)
 
    for (i = 0; i < 10; i++) {
       value = rand() % 100;
-      SinglyLinkedList_PushFront(list, &value);
+      SinglyLinkedList_PushFront(singly_linked_list, &value);
    }
    printf("SinglyLinkedList_Insert() passed\n");
-   SinglyLinkedList_Traverse(list, unary_callback);
+   SinglyLinkedList_Traverse(singly_linked_list, unary_callback);
    printf("\nSinglyLinkedList_Traverse() passed\n");
-   SinglyLinkedList_Destroy(list);
+   SinglyLinkedList_Destroy(singly_linked_list);
    printf("SinglyLinkedList_Destroy() passed\n");
    printf("All singly-linked-list tests passed!\n");
 
